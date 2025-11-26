@@ -1,0 +1,61 @@
+name: PR Preview Cleanup
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup:
+    runs-on: githubme
+    steps:
+      - name: Get repository and branch name
+        id: repo-branch
+        run: |
+          # Extract repo name from GITHUB_REPOSITORY
+          echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_OUTPUT
+
+          # Get branch name using GitHub's built-in context
+          if [[ $GITHUB_EVENT_NAME == 'pull_request' ]]; then
+            # For pull requests, use pr-NUMBER format
+            PR_NUMBER=$(echo $GITHUB_REF | cut -d '/' -f 3)
+            echo "BRANCH_NAME=pr-$PR_NUMBER" >> $GITHUB_OUTPUT
+          else
+            # For pushes, use the actual branch name
+            echo "BRANCH_NAME=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          fi
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_OUTPUT
+
+          # Create the checkout directory path
+          echo "CHECKOUT_DIR=./${GITHUB_REPOSITORY#*/}_${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Determine port and subdomain
+        id: vars
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          SHORT_SHA=${{ github.event.pull_request.head.sha }}
+          SHORT_SHA=${SHORT_SHA:0:7}
+          PORT=$((8300 + PR_NUMBER))
+          echo "PORT=$PORT" >> $GITHUB_OUTPUT
+          echo "SUBDOMAIN=pr-${PR_NUMBER}.github.me.uk" >> $GITHUB_OUTPUT
+          echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_OUTPUT
+
+      - name: Stop and remove container
+        run: |
+          docker stop holly-pr-${{ steps.vars.outputs.PR_NUMBER }} || true
+          docker rm holly-pr-${{ steps.vars.outputs.PR_NUMBER }} || true
+          docker image rm holly-pr-preview:${{ steps.vars.outputs.PR_NUMBER }} || true
+
+      - name: Unregister subdomain
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: python3 scripts/register_caddy.py --remove
+        env:
+          SUBDOMAIN: ${{ steps.vars.outputs.SUBDOMAIN }}
+          CADDY_HOST: localhost:42019

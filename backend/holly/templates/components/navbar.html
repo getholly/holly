@@ -1,0 +1,91 @@
+{% load static %}
+<nav class="bg-theme-light-bg dark:bg-gray-800 dark:shadow-lg ">
+  <div class="mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo/Brand -->
+      <div class="flex-shrink-0">
+        <a href="{% url "home:home" %}" class="text-black dark:text-white font-bold text-xl">
+          <img class="w-32 dark:block hidden" src="{% static 'img/horizontal-logo.png' %}" alt="githubme Logo Dark Mode"/>
+          <img class="w-32 dark:hidden block" src="{% static 'img/horizontal-logo-dark.png' %}" alt="githubme Logo Light Mode"/>
+        </a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <section class="flex gap-2">
+        <div class="">
+          <div class="hidden md:flex items-center space-x-4">
+            <a href="{% url 'home:home' %}"
+               class="text-white-300 hover:bg-white-700  hover:text-black dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+              Home
+            </a>
+             <div class="hidden">
+            <a href="{% url 'payments:subscriptions' %}"
+               class="text-white-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">Upgrade</a>
+            </div>
+            {% if not request.user.is_authenticated %}
+              <a href="{% url "account_login" %}"
+                 class="dark:text-white hover:bg-white-700 hover:text-grey-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                Login
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+
+
+          <!-- Mobile menu button -->
+          <div class="md:hidden flex items-center" x-data="{ isOpen: false }">
+            <button
+              @click="isOpen = !isOpen"
+              type="button"
+              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+            >
+              <span class="sr-only">Open main menu</span>
+              <!-- Menu icon -->
+              <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+
+            <!-- Mobile menu -->
+            <div
+              x-show="isOpen"
+              @click.away="isOpen = false"
+              class="absolute top-16 left-0 w-full dark:bg-gray-800 bg-[#CDCFFB] text-gray-700 md:hidden z-10"
+              x-transition:enter="transition ease-out duration-100"
+              x-transition:enter-start="transform opacity-0 scale-95"
+              x-transition:enter-end="transform opacity-100 scale-100"
+              x-transition:leave="transition ease-in duration-75"
+              x-transition:leave-start="transform opacity-100 scale-100"
+              x-transition:leave-end="transform opacity-0 scale-95"
+            >
+              <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 dark:border-b border-theme-primary ">
+                <a href="{% url 'home:home' %}"
+                   class="hover:bg-theme-primary hover:bg-opacity-20 dark:hover:text-white block px-3 py-2 rounded-md dark:text-gray-200 font-medium">Home</a>
+                <a href="{% url 'payments:subscriptions' %}"
+                   class="hover:bg-theme-primary hover:bg-opacity-20 dark:hover:text-white block px-3 py-2 rounded-md dark:text-gray-200 font-medium">Upgrade</a>
+                {% if request.user.is_authenticated %}
+                  <a href="{% url 'user_settings' %}"
+                     class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Settings</a>
+                  <a href="{% url "account_logout" %}"
+                     class="hover:bg-theme-primary hover:bg-opacity-20 dark:hover:text-white hover:text-white block px-3 py-2 rounded-md dark:text-gray-200 font-medium">Logout</a>
+                {% else %}
+                  <a href="{% url "account_login" %}"
+                     class=" hover:bg-theme-primary hover:bg-opacity-20 dark:hover:text-white block px-3 py-2 rounded-md dark:text-gray-200 font-medium">Login</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            {% include 'partials/theme_toggle.html' %}
+            <!-- User Menu (only for authenticated users) -->
+            {% if request.user.is_authenticated %}
+              {% include 'components/avatar_dropdown.html' %}
+            {% endif %}</div>
+        </div>
+      </section>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,3 @@
+[submodule "hilly/aiagents"]
+	path = hilly/aiagents
+	url = https://github.com/lingster/aiagent.git

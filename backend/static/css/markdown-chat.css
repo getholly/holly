@@ -1,0 +1,165 @@
+/* Styling for markdown chat container */
+#markdown-chat-container {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #374151; /* bg-gray-700 */
+  color: #f3f4f6; /* text-gray-100 */
+  margin-bottom: 1rem; /* Ensure space above the buttons */
+}
+
+/* Message styling */
+#markdown-chat-container .message {
+  max-width: 90%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+#markdown-chat-container .user-message {
+  align-self: flex-end;
+  background-color: #7c3aed; /* bg-purple-600 */
+  color: white;
+}
+
+#markdown-chat-container .ai-message {
+  align-self: flex-start;
+  background-color: #4b5563; /* bg-gray-600 */
+  color: white;
+}
+
+/* Message content styling */
+#markdown-chat-container .message-content {
+  overflow-x: auto;
+}
+
+/* Code blocks */
+#markdown-chat-container pre {
+  background-color: #1f2937; /* bg-gray-800 */
+  border-radius: 0.375rem;
+  overflow-x: auto;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+#markdown-chat-container code {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  font-size: 0.875rem;
+}
+
+/* Mermaid diagrams */
+#markdown-chat-container .mermaid-diagram {
+  background-color: #1f2937; /* bg-gray-800 */
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Light theme for mermaid inside dark UI */
+#markdown-chat-container .mermaid-diagram svg {
+  background-color: white;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
+
+/* Error message styling */
+#markdown-chat-container .error {
+  color: #ef4444; /* text-red-500 */
+  padding: 0.5rem;
+  border: 1px solid #ef4444;
+  border-radius: 0.25rem;
+}
+
+/* Adjustments to match standard tab layout */
+#mermaid-tab-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make sure the chat container takes up available space */
+#mermaid-tab-content #markdown-chat-container {
+  flex: 1;
+}
+
+/* Better code styling */
+#markdown-chat-container code {
+  color: #f8f8f2;
+  background-color: #282a36;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+#markdown-chat-container pre code {
+  padding: 0;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+/* Better mermaid styles */
+#markdown-chat-container .mermaid-diagram {
+  background-color: #27293d;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  overflow: auto;
+  max-width: 100%;
+}
+
+/* Message bubbles for better chat appearance */
+#markdown-chat-container .message {
+  position: relative;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#markdown-chat-container .user-message {
+  margin-left: auto;
+  background-color: #7c3aed;
+  color: white;
+  border-bottom-right-radius: 0;
+}
+
+#markdown-chat-container .ai-message {
+  margin-right: auto;
+  background-color: #4b5563;
+  color: white;
+  border-bottom-left-radius: 0;
+}
+
+/* Align buttons at the bottom */
+#mermaid-tab-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#mermaid-tab-content #markdown-chat-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+#chat-container .mermaid {
+  background-color: #1f2937; /* bg-gray-800 */
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Light theme for mermaid inside dark UI */
+#chat-container .mermaid svg {
+  background-color: white;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}

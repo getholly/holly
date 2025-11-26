@@ -1,0 +1,149 @@
+{% load static %}
+{% load compress %}
+{% block pre_alpinejs %}
+{% compress js %}
+  <script src="{% static "js/voice-transcription.js" %}"></script>
+{% endcompress %}
+{% endblock pre_alpinejs %}
+
+
+
+<!-- templates/partials/chat_input.html -->
+<div class="p-4 bg-theme-light-bg dark:bg-gray-700 sticky bottom-0 translate-45"
+     x-data="{
+       message: '',
+       fileTree: [],
+       getFileTree() {
+         return JSON.parse(localStorage.getItem('fileTree') || '[]');
+       }
+     }"
+     x-init="fileTree = getFileTree()"
+>
+<section class="lg:w-[800px] mx-auto">
+  <div class="flex space-x-2 mb-2">
+    <button
+      type="button"
+      class="px-3 py-1 text-xs bg-[#e4edfa] hover:bg-theme-primary-light dark:bg-gray-600 rounded dark:hover:bg-gray-900 duration-700"
+      @click="message = $el.textContent.trim(); $refs.messageInput.focus()">
+      What does this repository do?
+    </button>
+    <button
+      type="button"
+            class="px-3 py-1 text-xs bg-[#e4edfa] hover:bg-theme-primary-light dark:bg-gray-600 rounded dark:hover:bg-gray-900 duration-700"
+      @click="message = $el.textContent.trim(); $refs.messageInput.focus()">
+      Can you summarize the folder structure?
+    </button>
+    <button
+      type="button"
+      class="px-3 py-1 text-xs bg-[#e4edfa] hover:bg-theme-primary-light dark:bg-gray-600 rounded dark:hover:bg-gray-900 duration-700"
+      @click="message = $el.textContent.trim(); $refs.messageInput.focus()">
+      What programming languages are used in this project?
+    </button>
+  </div>
+
+  <form
+    id="chat-form"
+    class="flex items-center rounded-lg"
+    hx-post="{% url 'home:chat_message' username repo %}"
+    hx-target="#chat-container"
+    hx-swap="beforeend"
+    hx-indicator="#loading-indicator"
+    hx-trigger="submit"
+    @htmx:after-request="$el.reset(); hljs.highlightAll();mermaid.run({nodes: document.querySelectorAll(`.mermaid`)})"
+    @submit.prevent="
+      // First, get the selected files
+      selectedFiles = getSelectedFiles();
+
+      // Then submit with htmx
+      htmx.trigger('#chat-form', 'htmx:trigger');
+    "
+    x-init="
+      $el.addEventListener('htmx:configRequest', (event) => {
+        // Get the LATEST file tree data directly from localStorage
+        const selectedFiles = getSelectedFiles();
+        console.log('Sending file tree data to server:', selectedFiles);
+        event.detail.parameters.fileTreeData = JSON.stringify(selectedFiles);
+      });
+
+      // Also listen for localStorage updates
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'fileTree') {
+          const selectedFiles = getSelectedFiles();
+        }
+      });
+
+      // Listen for our custom event
+      document.body.addEventListener('htmx:afterOnLoad', function(evt) {
+        const eventDetail = evt.detail.xhr.getResponseHeader('HX-Trigger');
+        if (eventDetail) {
+          try {
+            const events = JSON.parse(eventDetail);
+            if (events.updateFileTree) {
+              selectedFiles = getSelectedFiles();
+            }
+          } catch (e) {
+            console.error('Error parsing HX-Trigger:', e);
+          }
+        }
+      });
+    "
+  >
+<!--    TAKING THIS FILTER OUT FOR NOW AS IT CONFLICTS WITH LINGS FILTER-->
+    <button
+      type="button"
+      class="hidden p-2 dark:text-gray-200 text-gray-600 "
+      @click="showFilterModal = true"
+    >
+      <svg class="h-5 w-5 {% if filters %}text-blue-500{% endif %}" fill="none" stroke="currentColor"
+           viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+      </svg>
+      <!-- Badge for active filters -->
+      {% if filters %}
+        <span
+          class="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"></span>
+      {% endif %}
+    </button>
+    <input
+      type="text"
+      name="message"
+      class="flex-1 p-2 outline-none dark:bg-gray-800 text-xs dark:text-gray-200 rounded-lg focus:ring-gray-500 border-gray-300"
+      placeholder="Send me prompt and request ai chat..."
+      x-model="message"
+      x-ref="messageInput"
+    >
+    <button type="button" class="p-2 text-gray-400" id="voice-record">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+      </svg>
+    </button>
+    <button
+      type="submit"
+      class="p-2 text-purple-400"
+      :disabled="!message.trim()"
+      id="send-prompt"
+    >
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+      </svg>
+    </button>
+    <!-- Loading indicator -->
+    <div id="loading-indicator" class="htmx-indicator p-2">
+      <svg aria-hidden="true" class="inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+           viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+          fill="currentColor"/>
+        <path
+          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+          fill="currentFill"/>
+      </svg>
+    </div>
+  </form>
+</section>
+</div>
+
+{% include "partials/voice_transcription_modal.html" %}

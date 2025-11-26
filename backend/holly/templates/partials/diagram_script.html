@@ -1,0 +1,281 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Setup event listener for the Diagram tab
+    const diagramTab = document.getElementById('diagram-tab');
+
+
+    // Function to show or hide the regenerate button based on diagram state
+    function checkDiagramStatus(diagramContent) {
+      const errorContainer = document.getElementById('diagram-error-container');
+      if (!errorContainer) return;
+
+      // Check if diagram is empty or has syntax errors
+      if (!diagramContent || !diagramContent.innerHTML.trim()) {
+        console.log('Empty diagram detected, showing regenerate button');
+        errorContainer.classList.remove('hidden');
+        return true;
+      }
+
+      // Try to find syntax error messages rendered by mermaid
+      const syntaxErrors = document.querySelectorAll('.error-icon, .error-text, .mermaid .error');
+      if (syntaxErrors && syntaxErrors.length > 0) {
+        console.log('Diagram syntax errors detected, showing regenerate button');
+        errorContainer.classList.remove('hidden');
+        return true;
+      }
+
+      // If we got here, everything seems fine
+      errorContainer.classList.add('hidden');
+      return false;
+    }
+
+    // Function to render the diagram after data is loaded
+    async function renderDiagram(data) {
+      const diagramContent = document.getElementById('diagram-content');
+      const explanationContent = document.getElementById('explanation-content');
+      const diagramLoading = document.getElementById('diagram-loading');
+
+      if (!diagramContent || !explanationContent) return;
+
+      // Update the content
+      diagramContent.innerHTML = data.diagram; // Changed from textContent to innerHTML to correctly parse mermaid
+      diagramContent.classList.remove('hidden');
+      explanationContent.textContent = data.explanation || 'No explanation available.';
+
+      if (diagramLoading) {
+        diagramLoading.classList.add('hidden');
+      }
+
+      // Get mermaid instance and render
+      const mermaid = await getMermaid();
+      console.log('Mermaid instance:', mermaid);
+
+      if (mermaid) {
+        try {
+          mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            securityLevel: 'loose'
+          });
+
+          // Re-render mermaid diagram
+          if (typeof mermaid.run === 'function') {
+            await mermaid.run({
+              nodes: [document.querySelector('.mermaid')]
+            });
+            console.log('Mermaid diagram rendered using run()');
+          } else if (typeof mermaid.init === 'function') {
+            await mermaid.init(undefined, document.querySelector('.mermaid'));
+            console.log('Mermaid diagram rendered using init()');
+          } else {
+            console.error('No known rendering method found on mermaid instance');
+          }
+
+          // Check if we need to show the regenerate button
+          checkDiagramStatus(diagramContent);
+
+          // Initialize pan-zoom functionality after rendering
+          if (window.MermaidPanZoom) {
+            // Initialize our pan-zoom functionality with custom options
+            new MermaidPanZoom('#diagram-content', {
+              minZoom: 0.2,
+              maxZoom: 5,
+              zoomFactor: 0.1
+            });
+            console.log('Pan and zoom functionality initialized');
+          } else {
+            console.warn('MermaidPanZoom is not available');
+          }
+
+          // After rendering the diagram, reinitialize token counter
+          if (typeof window.initTokenCounter === 'function') {
+            setTimeout(function() {
+              window.initTokenCounter();
+            }, 300);
+          }
+        } catch (error) {
+          console.error('Error rendering mermaid diagram:', error);
+          // Show regenerate button on error
+          document.getElementById('diagram-error-container').classList.remove('hidden');
+        }
+      } else {
+        console.error('Failed to initialize mermaid for diagram rendering');
+        // Show regenerate button on error
+        document.getElementById('diagram-error-container').classList.remove('hidden');
+      }
+    }
+
+    // Setup event handler for regenerate button
+    document.addEventListener('click', function(event) {
+      if (event.target.closest('#regenerate-diagram-btn')) {
+        console.log('Regenerating diagram...');
+        const diagramLoading = document.getElementById('diagram-loading');
+        const diagramContent = document.getElementById('diagram-content');
+        const errorContainer = document.getElementById('diagram-error-container');
+
+        // Show loading spinner
+        if (diagramLoading) {
+          diagramLoading.classList.remove('hidden');
+        }
+
+        // Hide the diagram content and error container while loading
+        if (diagramContent) {
+          diagramContent.classList.add('hidden');
+        }
+        if (errorContainer) {
+          errorContainer.classList.add('hidden');
+        }
+      }
+    });
+
+    // Handle HTMX response
+    document.body.addEventListener('htmx:afterRequest', function(event) {
+      // Check if this is our diagram request
+      if (event.detail.elt && event.detail.elt.id === 'regenerate-diagram-btn') {
+        if (event.detail.successful) {
+          console.log('Diagram regeneration successful');
+          try {
+            const data = JSON.parse(event.detail.xhr.responseText);
+            renderDiagram(data);
+          } catch (error) {
+            console.error('Error parsing response:', error);
+            document.getElementById('diagram-error-container').classList.remove('hidden');
+            const diagramLoading = document.getElementById('diagram-loading');
+            if (diagramLoading) {
+              diagramLoading.classList.add('hidden');
+            }
+          }
+        } else {
+          console.error('Diagram regeneration failed');
+          document.getElementById('diagram-error-container').classList.remove('hidden');
+          const diagramLoading = document.getElementById('diagram-loading');
+          if (diagramLoading) {
+            diagramLoading.classList.add('hidden');
+          }
+          const explanationContent = document.getElementById('explanation-content');
+          if (explanationContent) {
+            explanationContent.textContent = 'Failed to regenerate diagram. Please try again later.';
+          }
+        }
+      }
+    });
+
+    if (diagramTab) {
+      diagramTab.addEventListener('click', async function() {
+        const username = '{{ username }}';
+        const repo = '{{ repo }}';
+        const diagramLoading = document.getElementById('diagram-loading');
+        const diagramContent = document.getElementById('diagram-content');
+        const explanationContent = document.getElementById('explanation-content');
+
+        if (diagramLoading && diagramContent && !diagramContent.innerHTML.trim()) {
+          // Only fetch if the content hasn't been loaded yet
+          try {
+            console.log(`Fetching diagram for ${username}/${repo}`);
+
+            // Build the diagram URL
+            const diagramUrl = '{{ diagram_url|default:"" }}';
+
+            // If the diagram_url is not provided by context processor, build it manually (fallback)
+            const fallbackUrl = `/_diagram/${username}/${repo}/`;
+            const urlToUse = diagramUrl || fallbackUrl;
+
+            // Use fetch with XMLHttpRequest header to get JSON response
+            const response = await fetch(urlToUse, {
+              headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+              }
+            });
+
+            if (!response.ok) {
+              throw new Error(`Network response was not ok: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('Received diagram data:', data);
+
+            // Render the diagram
+            await renderDiagram(data);
+          } catch (error) {
+            console.error('Error fetching or rendering diagram:', error);
+            diagramLoading.classList.add('hidden');
+            explanationContent.textContent = `Failed to load diagram: ${error.message}`;
+            // Show regenerate button on error
+            document.getElementById('diagram-error-container').classList.remove('hidden');
+          }
+        } else {
+          // Content already loaded, just make sure token counter is initialized
+          if (typeof window.initTokenCounter === 'function') {
+            setTimeout(function() {
+              window.initTokenCounter();
+            }, 300);
+          }
+
+          // Check if we need to show the regenerate button
+          setTimeout(function() {
+            checkDiagramStatus(diagramContent);
+          }, 500);
+        }
+      });
+    }
+
+    // Check for ac=diagram parameter in URL and trigger rendering if present
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('ac') === 'diagram') {
+      console.log('Diagram parameter detected in URL, initializing diagram rendering...');
+      setTimeout(async function() {
+        // If the diagram content is already populated but not rendered, manually trigger the rendering
+        const diagramContent = document.getElementById('diagram-content');
+        if (diagramContent && diagramContent.textContent.trim()) {
+          console.log('Direct diagram content found, rendering...');
+          const mermaid = await getMermaid();
+          if (mermaid) {
+            try {
+              mermaid.initialize({
+                startOnLoad: false,
+                theme: 'dark',
+                securityLevel: 'loose'
+              });
+
+              // Remove hidden class if needed
+              diagramContent.classList.remove('hidden');
+
+              // Create a temporary div with the mermaid class
+              const tempDiv = document.createElement('div');
+              tempDiv.className = 'mermaid';
+              tempDiv.innerHTML = diagramContent.textContent.trim();
+              diagramContent.innerHTML = ''; // Clear existing content
+              diagramContent.appendChild(tempDiv);
+
+              // Render the diagram
+              if (typeof mermaid.run === 'function') {
+                await mermaid.run({
+                  nodes: [tempDiv]
+                });
+                console.log('URL parameter: Mermaid diagram rendered using run()');
+              } else if (typeof mermaid.init === 'function') {
+                await mermaid.init(undefined, tempDiv);
+                console.log('URL parameter: Mermaid diagram rendered using init()');
+              }
+
+              // Hide loading indicator if it exists
+              const diagramLoading = document.getElementById('diagram-loading');
+              if (diagramLoading) {
+                diagramLoading.classList.add('hidden');
+              }
+
+              // Check if we need to show the regenerate button
+              setTimeout(function() {
+                checkDiagramStatus(diagramContent);
+              }, 500);
+            } catch (error) {
+              console.error('Error rendering mermaid from URL parameter:', error);
+              // Show regenerate button on error
+              document.getElementById('diagram-error-container').classList.remove('hidden');
+            }
+          }
+        }
+      }, 1000);
+    }
+  });
+</script>

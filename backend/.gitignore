@@ -1,0 +1,6 @@
+**/db.sqlite3
+tmp
+**/tmp
+**/node_modules
+static/holly
+*.pem

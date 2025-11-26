@@ -1,0 +1,106 @@
+{% extends "socialaccount/base_manage.html" %}
+
+{% load static tailwind_tags %}
+
+{% block css %}
+  {% tailwind_css %}
+{% endblock css %}
+
+{% load i18n %}
+{% load allauth %}
+
+{% block head_title %}
+  {% trans "Logged into via Github" %}
+{% endblock head_title %}
+
+{% block content %}
+  <section class="dark:bg-gray-800 h-full dark:text-gray-200 flex justify-center items-start">
+    <div
+      class="dark:bg-gray-900 bg-gray-200 rounded-2xl md:min-w-64 min-h-64 flex flex-col justify-center items-center box-shadow mt-24 p-4 mx-2 pt-8">
+      <div class="mx-auto flex flex-col md:max-w-5xl text-center">
+
+        {% element h1 %}
+          {% trans "Github Account Connected!" %}
+        {% endelement %}
+        {% if form.accounts %}
+          {% element p %}
+            {% blocktrans %}
+              <div>
+                Welcome to GithubMe! You can examine any github repo by amending the url as follows:
+              </div>
+              <p class="m-4">
+                https://github.me.uk/&lt;username&gt;/&lt;repo_name&gt;
+              </p>
+              <p>
+                Or you can click on this link below, to take a quick look:
+              </p>
+              <div class="text-center m-4">
+                <a href="/Techarge/flappy-bird" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                  Techarge/flappy-bird
+                </a>
+              </div>
+
+            {% endblocktrans %}
+          {% endelement %}
+          {#          {% url 'socialaccount_connections' as action_url %}#}
+          {#          {% element form form=form method="post" action=action_url %}#}
+          {#            {% slot body %}#}
+          {#              <div class="mt-6">#}
+          {#                {% csrf_token %}#}
+          {#                {% for acc in form.fields.account.choices %}#}
+          {#                  {% with account=acc.0.instance.get_provider_account %}#}
+          {#                    {% setvar radio_id %}#}
+          {#                      id_account_{{ account.account.pk }}#}
+          {#                    {% endsetvar %}#}
+          {#                    {% setvar tags %}#}
+          {#                      socialaccount,{{ account.account.provider }}#}
+          {#                    {% endsetvar %}#}
+          {#                    {% element field id=radio_id type="radio" name="account" value=account.account.pk %}#}
+          {#                      {% slot label %}#}
+          {#                        {{ account }}#}
+          {#                        {% element badge tags=tags %}#}
+          {#                          {{ account.get_brand.name }}#}
+          {#                        {% endelement %}#}
+          {#                      {% endslot %}#}
+          {#                    {% endelement %}#}
+          {#                  {% endwith %}#}
+          {#                {% endfor %}#}
+          {#              </div>#}
+          {#            {% endslot %}#}
+          {#            {% slot actions %}#}
+          {#              <button type="submit"#}
+          {#                      class="border border-purple-200 px-4 py-2 rounded-lg hover:bg-purple-200 hover:text-gray-600 transition delay-100 duration-300 mt-4">#}
+          {#                Remove#}
+          {#              </button>#}
+          {#            {% endslot %}#}
+          {#          {% endelement %}#}
+        {% else %}
+          {% element p %}
+            {% trans 'You currently have no third-party accounts connected to this account.' %}
+            <div class="border-2 rounded-xl">
+              Test
+            </div>
+
+            <div class="mt-4">
+              {% element h2 %}
+                {% trans 'Add a Third-Party Account' %}
+              {% endelement %}
+              <div class="font-semibold flex flex-col gap-4 mb-12 mt-4">
+                {% include "socialaccount/snippets/provider_list.html" with process="connect" %}
+                {% include "socialaccount/snippets/login_extra.html" %} </div>
+            </div>
+
+          {% endelement %}
+        {% endif %}
+        <section class="flex items-center justify-center p-4">
+          <a class=text-2xl href="/accounts/logout/">
+            <Button type="button"
+                    class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+              Sign Out
+            </Button>
+          </a>
+        </section>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

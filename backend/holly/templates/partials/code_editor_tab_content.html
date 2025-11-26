@@ -1,0 +1,450 @@
+<div class="h-full flex flex-col bg-gray-50 dark:bg-gray-800">
+  <!-- Code Editor Header -->
+  <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+      Interactive Code Editor
+    </h3>
+    <div class="flex space-x-2">
+      <button
+        id="start-session-btn"
+        class="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        hx-post="{% url 'code_editor:start_session' username repo %}"
+        hx-swap="none"
+        hx-trigger="click"
+        hx-indicator="#session-indicator"
+        _="on htmx:afterRequest if event.detail.successful
+           add .hidden to me
+           remove .hidden from #session-active-indicator
+           remove .hidden from #open-editor-btn
+           remove .hidden from #prompt-input-container
+           trigger getContainerUrls"
+      >
+        Start Code Editor
+      </button>
+      <div id="session-active-indicator" class="{% if not session.container_id %}hidden{% endif %} px-3 py-2 bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 rounded flex items-center space-x-2">
+        <span class="h-2 w-2 bg-green-500 rounded-full animate-pulse"></span>
+        <span>Editor Active</span>
+      </div>
+      <button
+        id="open-editor-btn"
+        class="{% if not session.container_id %}hidden{% endif %} px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+        _="on click
+           if #vnc-iframe.src is empty
+             trigger getContainerUrls
+           end
+           add .hidden to #chat-container
+           remove .hidden from #vnc-container
+           add .hidden to me
+           remove .hidden from #open-chat-btn"
+      >
+        Show Claude Editor
+      </button>
+      <button
+        id="open-chat-btn"
+        class="hidden px-3 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+        _="on click
+           add .hidden to #vnc-container
+           remove .hidden from #chat-container
+           add .hidden to me
+           remove .hidden from #open-editor-btn"
+      >
+        Show Chat
+      </button>
+      <!-- Toggle Split View Button -->
+      <button
+        id="toggle-split-view-btn"
+        class="px-3 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition"
+        onclick="toggleSplitView()"
+      >
+        Horizontal Split
+      </button>
+      <button
+        id="end-session-btn"
+        class="{% if not session.container_id %}hidden{% endif %} px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+        hx-post="{% url 'code_editor:end_session' session_id %}"
+        hx-swap="none"
+        hx-trigger="click"
+        hx-indicator="#session-indicator"
+        _="on htmx:afterRequest if event.detail.successful
+           add .hidden to me
+           add .hidden to #session-active-indicator
+           add .hidden to #open-editor-btn
+           add .hidden to #prompt-input-container
+           remove .hidden from #start-session-btn"
+      >
+        End Session
+      </button>
+      <div id="session-indicator" class="htmx-indicator">
+        <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Container for both Chat and VNC -->
+  <div
+    id="container-wrapper"
+    class="flex-grow flex flex-col"
+    style="min-height: 0;"
+  >
+    <!-- Chat Messages Container -->
+    <div
+      id="chat-container"
+      class="flex-grow overflow-hidden"
+      style="height: 50%; min-height: 0;"
+    >
+      <div
+        id="messages-container"
+        class="h-full overflow-y-auto p-4 space-y-4"
+        hx-get="{% url 'code_editor:get_messages' session_id %}"
+        hx-trigger="every 5s, messageAdded from:body"
+        hx-swap="innerHTML"
+      >
+        {% include "partials/code_editor_messages.html" with messages=messages %}
+      </div>
+    </div>
+
+    <!-- Resizer Handle -->
+    <div
+      id="resizer"
+      class="hidden h-2 w-full cursor-row-resize bg-gray-300 hover:bg-blue-500 dark:bg-gray-700 dark:hover:bg-blue-700"
+      onmousedown="startResizing(event)"
+    ></div>
+
+    <!-- VNC Viewer Container -->
+    <div
+      id="vnc-container"
+      class="hidden overflow-hidden flex flex-col"
+      style="height: 50%; min-height: 0; flex: 1 1 auto;"
+    >
+      <!-- noVNC Authentication Form -->
+      <div id="vnc-auth-form" class="bg-gray-800 p-4 text-white">
+        <div class="flex flex-col space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">noVNC Connection Settings</span>
+            <button id="toggle-auth-form" class="text-gray-400 hover:text-white"
+              onclick="document.getElementById('auth-form-fields').classList.toggle('hidden')">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+          <div id="auth-form-fields" class="space-y-2">
+            <div class="flex space-x-2 items-center">
+              <label for="vnc-host" class="w-20">Host:</label>
+              <input type="text" id="vnc-host" value="localhost" class="flex-grow px-2 py-1 bg-gray-700 rounded text-white" />
+            </div>
+            <div class="flex space-x-2 items-center">
+              <label for="vnc-port" class="w-20">Port:</label>
+              <input type="text" id="vnc-port" value="6901" class="flex-grow px-2 py-1 bg-gray-700 rounded text-white" />
+            </div>
+            <div class="flex space-x-2 items-center">
+              <label for="vnc-username" class="w-20">Username:</label>
+              <input type="text" id="vnc-username" value="kasm_user" class="flex-grow px-2 py-1 bg-gray-700 rounded text-white" />
+            </div>
+            <div class="flex space-x-2 items-center">
+              <label for="vnc-password" class="w-20">Password:</label>
+              <input type="password" id="vnc-password" value="vncpassword" class="flex-grow px-2 py-1 bg-gray-700 rounded text-white" />
+            </div>
+            <div class="flex space-x-2">
+              <button id="connect-vnc" class="px-3 py-1 bg-blue-600 rounded hover:bg-blue-700"
+                onclick="connectToVNC()">
+                Connect
+              </button>
+              <button id="disconnect-vnc" class="px-3 py-1 bg-red-600 rounded hover:bg-red-700"
+                onclick="disconnectVNC()">
+                Disconnect
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VNC Iframe Container -->
+      <div id="vnc-iframe-container" class="w-full hidden h-[50vh]">
+        <iframe
+          title="VNC Viewer"
+          id="vnc-iframe"
+          class="w-full h-full border-none"
+          src=""
+          allow="fullscreen"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prompt Input -->
+  <div id="prompt-input-container" class="{% if not session.container_id %}hidden{% endif %} border-t border-gray-200 dark:border-gray-700 p-4">
+    <form
+      id="prompt-form"
+      class="flex space-x-2"
+      hx-post="{% url 'code_editor:submit_prompt' session_id %}"
+      hx-swap="none"
+      hx-trigger="submit"
+      hx-indicator="#prompt-indicator"
+      _="on htmx:afterRequest if event.detail.successful
+         set #prompt-input.value to ''
+         trigger messageAdded from body"
+    >
+      <div class="flex-grow relative">
+        <textarea
+          id="prompt-input"
+          name="prompt"
+          placeholder="Enter a natural language prompt to modify code..."
+          class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-3 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="2"
+        ></textarea>
+        <div id="prompt-indicator" class="htmx-indicator absolute right-3 bottom-3">
+          <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex-shrink-0"
+      >
+        Submit
+      </button>
+    </form>
+    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+      Type a natural language prompt to analyze or modify code in the repository.
+    </p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Load saved connection settings
+    loadSavedConnectionSettings();
+
+    // Set up event listeners
+    document.addEventListener('messageAdded', () => {
+      const messagesContainer = document.getElementById('messages-container');
+      if (messagesContainer) {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+    });
+
+    document.addEventListener('getContainerUrls', fetchContainerUrls);
+
+    // If container is already active, get the URLs
+    if (document.getElementById('session-active-indicator') &&
+        !document.getElementById('session-active-indicator').classList.contains('hidden')) {
+      fetchContainerUrls();
+    }
+
+    // Set up mouse move and touch events for resizer
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('mouseup', () => { isResizing = false; });
+    document.addEventListener('touchend', () => { isResizing = false; });
+  });
+
+  // Global variable to track resizing state
+  let isResizing = false;
+
+  // Toggle between split view and normal view
+  function toggleSplitView() {
+    const containerWrapper = document.getElementById('container-wrapper');
+    const chatContainer = document.getElementById('chat-container');
+    const vncContainer = document.getElementById('vnc-container');
+    const resizer = document.getElementById('resizer');
+    const toggleButton = document.getElementById('toggle-split-view-btn');
+    const openEditorBtn = document.getElementById('open-editor-btn');
+    const openChatBtn = document.getElementById('open-chat-btn');
+
+    // Check if we need to get container URLs
+    if (document.getElementById('session-active-indicator') &&
+        !document.getElementById('session-active-indicator').classList.contains('hidden') &&
+        document.getElementById('vnc-iframe').src === '') {
+      const event = new Event('getContainerUrls');
+      document.dispatchEvent(event);
+    }
+
+    // Toggle between row and column layout
+    if (containerWrapper.classList.contains('flex-row')) {
+      // Switch to column layout
+      containerWrapper.classList.remove('flex-row');
+      containerWrapper.classList.add('flex-col');
+      toggleButton.textContent = 'Horizontal Split';
+
+      // Reset styles for vertical layout
+      chatContainer.style.width = '';
+      vncContainer.style.width = '';
+      chatContainer.style.height = '50%';
+      vncContainer.style.height = '50%';
+      vncContainer.style.flex = '1 1 auto'; // This helps the VNC container expand
+    } else {
+      // Switch to row layout
+      containerWrapper.classList.remove('flex-col');
+      containerWrapper.classList.add('flex-row');
+      toggleButton.textContent = 'Vertical Split';
+
+      // Reset styles for horizontal layout
+      chatContainer.style.height = '';
+      vncContainer.style.height = '';
+      chatContainer.style.width = '50%';
+      vncContainer.style.width = '50%';
+      vncContainer.style.flex = '';
+    }
+
+    // Show both containers and resizer, hide individual view buttons
+    vncContainer.classList.remove('hidden');
+    chatContainer.classList.remove('hidden');
+    resizer.classList.remove('hidden');
+
+    if (openEditorBtn) openEditorBtn.classList.add('hidden');
+    if (openChatBtn) openChatBtn.classList.add('hidden');
+
+    // Adjust iframe container to fill available space
+    const iframeContainer = document.getElementById('vnc-iframe-container');
+    if (iframeContainer) {
+      iframeContainer.style.height = '100%';
+    }
+
+    console.log('Split view toggled');
+  }
+
+  // Start resizing
+  function startResizing(e) {
+    isResizing = true;
+    e.preventDefault();
+  }
+
+  // Handle mouse movement during resize
+  function handleMouseMove(e) {
+    if (!isResizing) return;
+
+    const containerWrapper = document.getElementById('container-wrapper');
+    const chatContainer = document.getElementById('chat-container');
+    const vncContainer = document.getElementById('vnc-container');
+
+    if (containerWrapper.classList.contains('flex-row')) {
+      // Horizontal split - adjust width
+      const containerWidth = containerWrapper.offsetWidth;
+      const percentage = (e.clientX / containerWidth) * 100;
+      chatContainer.style.width = `${percentage}%`;
+      vncContainer.style.width = `${100 - percentage}%`;
+    } else {
+      // Vertical split - adjust height
+      const containerHeight = containerWrapper.offsetHeight;
+      const percentage = (e.clientY / containerHeight) * 100;
+      chatContainer.style.height = `${percentage}%`;
+      vncContainer.style.height = `${100 - percentage}%`;
+
+      // Ensure the iframe container expands to fill the VNC container
+      const iframeContainer = document.getElementById('vnc-iframe-container');
+      if (iframeContainer && !iframeContainer.classList.contains('hidden')) {
+        iframeContainer.style.height = '100%';
+      }
+    }
+  }
+
+  // Handle touch movement during resize
+  function handleTouchMove(e) {
+    if (!isResizing) return;
+
+    const containerWrapper = document.getElementById('container-wrapper');
+    const chatContainer = document.getElementById('chat-container');
+    const vncContainer = document.getElementById('vnc-container');
+
+    if (containerWrapper.classList.contains('flex-row')) {
+      // Horizontal split - adjust width
+      const containerWidth = containerWrapper.offsetWidth;
+      const percentage = (e.touches[0].clientX / containerWidth) * 100;
+      chatContainer.style.width = `${percentage}%`;
+      vncContainer.style.width = `${100 - percentage}%`;
+    } else {
+      // Vertical split - adjust height
+      const containerHeight = containerWrapper.offsetHeight;
+      const percentage = (e.touches[0].clientY / containerHeight) * 100;
+      chatContainer.style.height = `${percentage}%`;
+      vncContainer.style.height = `${100 - percentage}%`;
+
+      // Ensure the iframe container expands to fill the VNC container
+      const iframeContainer = document.getElementById('vnc-iframe-container');
+      if (iframeContainer && !iframeContainer.classList.contains('hidden')) {
+        iframeContainer.style.height = '100%';
+      }
+    }
+  }
+
+  // Connect to noVNC
+  function connectToVNC() {
+    const host = document.getElementById('vnc-host').value;
+    const port = document.getElementById('vnc-port').value;
+    const username = document.getElementById('vnc-username').value;
+    const password = document.getElementById('vnc-password').value;
+
+    // Construct the noVNC URL with authentication parameters
+    const vncUrl = `https://${host}:${port}/vnc.html?autoconnect=true&reconnect=true&resize=scale&password=${encodeURIComponent(password)}`;
+
+    // Set the iframe src
+    document.getElementById('vnc-iframe').src = vncUrl;
+
+    // Hide the auth form and show the iframe
+    document.getElementById('vnc-auth-form').classList.add('hidden');
+    const iframeContainer = document.getElementById('vnc-iframe-container');
+    iframeContainer.classList.remove('hidden');
+    iframeContainer.style.height = '100%'; // Ensure it takes full height
+
+    // Store the credentials for future use
+    localStorage.setItem('vnc-host', host);
+    localStorage.setItem('vnc-port', port);
+    localStorage.setItem('vnc-username', username);
+    // Don't store password for security reasons
+
+    console.log(`Connecting to noVNC at ${host}:${port} with username ${username}`);
+  }
+
+  // Disconnect from noVNC
+  function disconnectVNC() {
+    document.getElementById('vnc-iframe').src = '';
+    document.getElementById('vnc-auth-form').classList.remove('hidden');
+    document.getElementById('vnc-iframe-container').classList.add('hidden');
+  }
+
+  // Load saved connection settings
+  function loadSavedConnectionSettings() {
+    const savedHost = localStorage.getItem('vnc-host');
+    const savedPort = localStorage.getItem('vnc-port');
+    const savedUsername = localStorage.getItem('vnc-username');
+
+    if (savedHost) document.getElementById('vnc-host').value = savedHost;
+    if (savedPort) document.getElementById('vnc-port').value = savedPort;
+    if (savedUsername) document.getElementById('vnc-username').value = savedUsername;
+  }
+
+  // Fetch container URLs
+  function fetchContainerUrls() {
+    fetch(`{% url 'code_editor:get_urls' session_id %}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Auto-fill the form with the container URL if available
+          if (data.urls.novnc) {
+            try {
+              const url = new URL(data.urls.novnc);
+              document.getElementById('vnc-host').value = url.hostname;
+              document.getElementById('vnc-port').value = url.port;
+            } catch (e) {
+              console.error('Error parsing noVNC URL:', e);
+            }
+          }
+
+          // Set the default auth credentials if available
+          if (data.urls.novnc_auth) {
+            document.getElementById('vnc-username').value = data.urls.novnc_auth.username;
+            document.getElementById('vnc-password').value = data.urls.novnc_auth.password;
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching container URLs:', error);
+      });
+  }
+</script>

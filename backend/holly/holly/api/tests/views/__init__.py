@@ -1,0 +1,3 @@
+"""
+Tests for the Holly API views.
+"""

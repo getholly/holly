@@ -1,0 +1,40 @@
+[project]
+name = "treesitter"
+version = "0.1.0"
+description = "Tools for working with Tree-sitter for Python code analysis"
+readme = "README.md"
+requires-python = "==3.11.*"
+dependencies = [
+    "mypy>=1.15.0",
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "tree-sitter>=0.21.3",
+    "typer>=0.15.1",
+    "rich>=13.9.4",
+    "tree-sitter-python>=0.23.6",
+    "loguru>=0.7.3",
+    "tree-sitter-languages>=1.10.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.3.0",
+    "flake8>=7.0.0",
+    "isort>=5.13.2",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+strict_optional = true
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks tests as integration tests that require full tree-sitter setup"
+]

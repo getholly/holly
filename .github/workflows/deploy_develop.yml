@@ -1,0 +1,164 @@
+name: Docker Compose Deployment(develop branch only)
+on:
+  push:
+    branches: [develop]
+jobs:
+  deploy:
+    runs-on: holly
+    environment: develop
+    steps:
+      - name: Get repository and branch name
+        id: repo-branch
+        run: |
+          # Extract repo name from GITHUB_REPOSITORY
+          echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_OUTPUT
+
+          # Get branch name using GitHub's built-in context
+          if [[ $GITHUB_EVENT_NAME == 'pull_request' ]]; then
+            # For pull requests, use pr-NUMBER format
+            PR_NUMBER=$(echo $GITHUB_REF | cut -d '/' -f 3)
+            echo "BRANCH_NAME=pr-$PR_NUMBER" >> $GITHUB_OUTPUT
+          else
+            # For pushes, use the actual branch name
+            echo "BRANCH_NAME=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          fi
+
+          # Create the checkout directory path
+          echo "CHECKOUT_DIR=./${GITHUB_REPOSITORY#*/}_${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Checkout code to custom location
+        uses: actions/checkout@v4
+        with:
+          #ssh-key: ~/.ssh/id_ed25519
+          #persist-credentials: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+          lfs: true
+          submodules: false
+
+      - name: Pull Git LFS files
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: git lfs pull
+
+      - name: Configure Git for submodules
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: |
+          # Configure Git to use HTTPS with PAT instead of SSH for GitHub
+          git config --global url."https://x-access-token:${{ secrets.SUBMODULE_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          # Initialize and update submodules with the new configuration
+          git submodule sync --recursive
+          git submodule update --init --recursive
+
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true
+
+      #- name: Read Node version
+        #id: node-version
+        #working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        #run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+
+      #- uses: actions/setup-node@v4
+        #with:
+          #node-version: 23
+
+      #- name: Create .env file for frontend
+        #working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}/frontend
+        #run: |
+          ## Create .env file from GitHub secrets
+          #touch .env
+          #echo "VITE_DJANGO_API=https://develop.github.me.uk" >> .env
+          #echo "VITE_ASSETS_BASE_URL=https://develop-static.github.me.uk/static" >> .env
+          #echo "VITE_ASSETS_BASE_URL_PROD=https://develop.github.me.uk/static" >> .env
+          #echo "VITE_ASSETS_BASE_URL_DEV=https://develop.github.me.uk//static" >> .env
+          #echo "VITE_BASE_PATH=/_holly/editor" >> .env
+          #echo "NODE_ENV=development" >> .env
+          #echo "VITE_SERVER=develop.github.me.uk" >> .env
+          #echo "VITE_PORT=" >> .env
+          #echo "VITE_SCHEMA=https" >> .env
+          #echo "VITE_THEME=default" >> .env
+
+      #- name: build frontend
+        #working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}/frontend
+        #run: |
+          #rm package-lock.json
+          #npm i
+          #npm run build
+
+      #- name: Install Node via nvm
+        #run: |
+          #export NVM_DIR="$HOME/.nvm"
+          #mkdir -p "$NVM_DIR"
+          #curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+          #. "$NVM_DIR/nvm.sh"
+          #nvm install ${{ steps.node-version.outputs.NODE_VERSION }}
+          #nvm alias default ${{ steps.node-version.outputs.NODE_VERSION }}
+          #export NVM_DIR="$HOME/.nvm"
+          #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+          #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && echo loaded  # This loads nvm bash_completion
+          #cd ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}/frontend
+          #npm i
+          #npm run build
+
+
+
+      - name: Copy github app secret key pem file
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: |
+          if [ -f "/home/holly/holly-newprod.2025-08-12.private-key.pem" ]; then
+            cp /home/holly/holly-newprod.2025-08-12.private-key.pem ./
+            echo "File copied successfully"
+          else
+            echo "File not found in /home/holly/holly-newprod.2025-08-12.private-key.pem"
+            exit 1
+          fi
+
+      - name: Create .env.develop file from secrets
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: |
+          # Create .env file from GitHub secrets
+          touch .env.develop
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.DEVELOP_AWS_ACCESS_KEY_ID }}" >> .env.develop
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.DEVELOP_AWS_SECRET_ACCESS_KEY }}" >> .env.develop
+          echo "GITHUB_CLIENT_ID=${{ secrets.DEVELOP_GH_CLIENT_ID }}" >> .env.develop
+          echo "GITHUB_CLIENT_SECRET=${{ secrets.DEVELOP_GH_CLIENT_SECRET }}" >> .env.develop
+          echo "GITHUB_APP_NAME=${{ secrets.DEVELOP_GH_APP_NAME }}" >> .env.develop
+          echo "GITHUB_APP_PRIVATE_KEY_PATH=${{ secrets.DEVELOP_GH_APP_PRIVATE_KEY_PATH }}" >> .env.develop
+          echo "DJANGO_SECRET_KEY=${{ secrets.DEVELOP_DJANGO_SECRET_KEY }}" >> .env.develop
+          echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env.develop
+          echo "STRIPE_SECRET_KEY=${{ secrets.DEVELOP_STRIPE_SECRET_KEY }}" >> .env.develop
+          echo "STRIPE_PUBLIC_KEY=${{ secrets.DEVELOP_STRIPE_PUBLIC_KEY }}" >> .env.develop
+          echo "STRIPE_WEBHOOK_SECRET=${{ secrets.DEVELOP_STRIPE_WEBHOOK_SECRET }}" >> .env.develop
+          echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> .env.develop
+          echo "POSTMARK_SERVER_TOKEN=${{ secrets.POSTMARK_SERVER_TOKEN }}" >> .env.develop
+          # Add any other secrets you need
+
+
+          # Optional: Print confirmation without revealing values
+          echo "Created .env.develop file with required environment variables"
+
+      - name: Build and start containers
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: |
+          docker compose -f docker-compose.develop.yml up -d --build --force-recreate
+
+        env:
+          # You can also pass secrets directly to the command if needed
+          COMPOSE_DOCKER_CLI_BUILD: 1
+          DOCKER_BUILDKIT: 1
+          AWS_ACCESS_KEY_ID: ${{ secrets.DEVELOP_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DEVELOP_AWS_SECRET_ACCESS_KEY }}
+          GITHUB_CLIENT_ID: ${{ secrets.DEVELOP_GITHUB_CLIENT_ID }}
+          GITHUB_CLIENT_SECRET: ${{ secrets.DEVELOP_GITHUB_CLIENT_SECRET }}
+          GITHUB_APP_PRIVATE_KEY_NAME: ${{ secrets.DEVELOP_GITHUB_APP_PRIVATE_KEY_NAME }}
+          GITHUB_APP_NAME: ${{ secrets.DEVELOP_GITHUB_APP_NAME }}
+          DJANGO_SECRET_KEY: ${{ secrets.DEVELOP_DJANGO_SECRET_KEY }}
+          DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+          STRIPE_SECRET_KEY: ${{ secrets.DEVELOP_STRIPE_SECRET_KEY }}
+          STRIPE_PUBLIC_KEY: ${{ secrets.DEVELOP_STRIPE_PUBLIC_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.DEVELOP_STRIPE_WEBHOOK_SECRET }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          POSTMARK_SERVER_TOKEN: ${{ secrets.POSTMARK_SERVER_TOKEN }}
+          # Add other secrets here if needed

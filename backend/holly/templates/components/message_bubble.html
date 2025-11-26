@@ -1,0 +1,9 @@
+{% load static %}
+<div class="text-gray-600 bg-transparent p-3 dark:text-gray-200 md:w-[1000px]">
+  <div class="flex items-center">
+    <div class="rounded-full p-2 mr-3">
+      <img src="{% static 'img/holly-icon.png' %}" class="w-8 h-8 justify-center my-auto">
+    </div>
+    <div class="text-sm">{{ message_text|default:"How can I help you with your project today?" }}</div>
+  </div>
+</div>

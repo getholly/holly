@@ -1,0 +1,5128 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Holly API",
+    "version": "1.0.0",
+    "description": "API for Holly"
+  },
+  "paths": {
+    "/_api/holly/tools/": {
+      "get": {
+        "operationId": "holly_holly_api_views_tools_list_tools",
+        "summary": "List Tools",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/ToolSchema" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "List all Tools.",
+        "tags": ["Tools"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/tools/{tool_id}": {
+      "get": {
+        "operationId": "holly_holly_api_views_tools_get_tool",
+        "summary": "Get Tool",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tool_id",
+            "schema": { "title": "Tool Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ToolSchema" }
+              }
+            }
+          }
+        },
+        "description": "Get a specific Tool by ID.",
+        "tags": ["Tools"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/llms/": {
+      "get": {
+        "operationId": "holly_holly_api_views_llm_list_llms",
+        "summary": "List Llms",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/LLMSchema" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "List all system LLMs and the current user's custom LLMs.",
+        "tags": ["LLMs"],
+        "security": [{ "JWTAuth": [] }]
+      },
+      "post": {
+        "operationId": "holly_holly_api_views_llm_create_llm",
+        "summary": "Create Llm",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LLMSchema" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "description": "Create a new user-specific LLM.",
+        "tags": ["LLMs"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LLMCreate" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/llms/{llm_id}": {
+      "get": {
+        "operationId": "holly_holly_api_views_llm_get_llm",
+        "summary": "Get Llm",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "llm_id",
+            "schema": { "title": "Llm Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LLMSchema" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "description": "Get a specific LLM by ID.",
+        "tags": ["LLMs"],
+        "security": [{ "JWTAuth": [] }]
+      },
+      "put": {
+        "operationId": "holly_holly_api_views_llm_update_llm",
+        "summary": "Update Llm",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "llm_id",
+            "schema": { "title": "Llm Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LLMSchema" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "description": "Update an existing user-specific LLM.",
+        "tags": ["LLMs"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LLMUpdate" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "delete": {
+        "operationId": "holly_holly_api_views_llm_delete_llm",
+        "summary": "Delete Llm",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "llm_id",
+            "schema": { "title": "Llm Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "description": "Delete a user-specific LLM.",
+        "tags": ["LLMs"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/conversations/": {
+      "get": {
+        "operationId": "holly_holly_api_views_conversations_list_conversations",
+        "summary": "List Conversations",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ConversationSummary"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "List all conversations for the authenticated user.\n\nArgs:\n    request: The HttpRequest\n\nReturns:\n    list[ConversationSummary]: List of conversation summaries",
+        "tags": ["Conversations"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/conversations/{conversation_id}": {
+      "get": {
+        "operationId": "holly_holly_api_views_conversations_get_conversation",
+        "summary": "Get Conversation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "schema": { "title": "Conversation Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Conversation" }
+              }
+            }
+          }
+        },
+        "description": "Get a conversation by ID for the authenticated user.\n\nArgs:\n    request: The HttpRequest\n    conversation_id: The ID of the conversation\n\nReturns:\n    Conversation: The conversation details",
+        "tags": ["Conversations"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/conversations/{conversation_id}/messages": {
+      "post": {
+        "operationId": "holly_holly_api_views_conversations_send_message",
+        "summary": "Send Message",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "schema": { "title": "Conversation Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "title": "Response", "type": "object" }
+              }
+            }
+          }
+        },
+        "description": "Send a message to an existing conversation.\n\nArgs:\n    request: The HttpRequest\n    conversation_id: The ID of the conversation\n    message_create: The message to send\n\nReturns:\n    dict: Status of the message sending",
+        "tags": ["Conversations"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MessageCreate" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/conversations/sse/start_conversation/{conversation_id}": {
+      "get": {
+        "operationId": "holly_holly_api_views_conversations_start_conversation_sse",
+        "summary": "Start Conversation Sse",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "schema": { "title": "Conversation Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "description": "Start an SSE stream for an existing conversation.\n\nArgs:\n    request: The HttpRequest\n    conversation_id: The ID of the conversation\n\nReturns:\n    HttpResponse: SSE streaming response",
+        "tags": ["Conversations"],
+        "security": [{ "AsyncJWTAuth": [] }]
+      }
+    },
+    "/_api/holly/conversations/sse/send_message/{conversation_id}": {
+      "post": {
+        "operationId": "holly_holly_api_views_conversations_send_message_sse",
+        "summary": "Send Message Sse",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "schema": { "title": "Conversation Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "description": "Send a message to an existing conversation with SSE for streaming responses.\n\nArgs:\n    request: The HttpRequest\n    conversation_id: The ID of the conversation\n    message_create: The message to send\n\nReturns:\n    StreamingHttpResponse: SSE streaming response",
+        "tags": ["Conversations"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MessageCreate" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "AsyncJWTAuth": [] }]
+      }
+    },
+    "/_api/holly/knowledge/": {
+      "get": {
+        "operationId": "holly_holly_api_views_knowledge_list_knowledge",
+        "summary": "List Knowledge",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/KnowledgeSchema" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "List all Knowledge items.",
+        "tags": ["Knowledge"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/knowledge/{knowledge_id}": {
+      "get": {
+        "operationId": "holly_holly_api_views_knowledge_get_knowledge",
+        "summary": "Get Knowledge",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "knowledge_id",
+            "schema": { "title": "Knowledge Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/KnowledgeSchema" }
+              }
+            }
+          }
+        },
+        "description": "Get a specific Knowledge item by ID.",
+        "tags": ["Knowledge"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/git/clone": {
+      "post": {
+        "operationId": "holly_holly_api_views_git_clone_repository",
+        "summary": "Clone Repository",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GitRepositoryResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Clone a GitHub repository in the mission container.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    repo_data: Repository details including owner, name, and optional branch\n\nReturns:\n    GitRepositoryResponse: Result of the clone operation",
+        "tags": ["Git"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/git/worktree": {
+      "post": {
+        "operationId": "holly_holly_api_views_git_create_worktree",
+        "summary": "Create Worktree",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GitRepositoryResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a git worktree for a specific branch in the mission container.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    repo_data: Worktree details including repository and branch information\n\nReturns:\n    GitRepositoryResponse: Result of the worktree creation operation",
+        "tags": ["Git"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WorktreeRequest" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/git/commit": {
+      "post": {
+        "operationId": "holly_holly_api_views_git_commit_changes",
+        "summary": "Commit Changes",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GitRepositoryResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Commit changes to a repository in the mission container.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    repo_data: Commit details including repository, branch, and message\n\nReturns:\n    GitRepositoryResponse: Result of the commit operation",
+        "tags": ["Git"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CommitRequest" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/git/pull": {
+      "post": {
+        "operationId": "holly_holly_api_views_git_pull_changes",
+        "summary": "Pull Changes",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GitRepositoryResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Pull latest changes from remote repository in the mission container.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    repo_data: Pull details including repository and branch information\n\nReturns:\n    GitRepositoryResponse: Result of the pull operation",
+        "tags": ["Git"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PullRequest" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/git/push": {
+      "post": {
+        "operationId": "holly_holly_api_views_git_push_changes",
+        "summary": "Push Changes",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GitRepositoryResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Push local changes to remote repository from the mission container.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    repo_data: Push details including repository, branch, and force option\n\nReturns:\n    GitRepositoryResponse: Result of the push operation",
+        "tags": ["Git"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PushRequest" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/git/branches": {
+      "post": {
+        "operationId": "holly_holly_api_views_git_list_branches",
+        "summary": "List Branches",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BranchesResponse" }
+              }
+            }
+          }
+        },
+        "description": "Get a list of branches for a cloned repository in the mission container.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    repo_data: Repository details\n\nReturns:\n    BranchesResponse: The list of branches and other details",
+        "tags": ["Git"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepositoryBranchesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/git/branch": {
+      "post": {
+        "operationId": "holly_holly_api_views_git_get_branches",
+        "summary": "Get Branches",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BranchesResponse" }
+              }
+            }
+          }
+        },
+        "description": "Get a list of branches for a repository using GitHub REST API with caching.\n\nArgs:\n    request: The HTTP request\n    repo_data: Repository details including owner and name\n\nReturns:\n    BranchesResponse: The list of branches and other details",
+        "tags": ["Git"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepositoryBranchesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/caddy/map": {
+      "post": {
+        "operationId": "holly_holly_api_views_caddy_map_container",
+        "summary": "Map Container",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CaddyMapResponse" }
+              }
+            }
+          }
+        },
+        "description": "Map a container port via Caddy.",
+        "tags": ["Caddy"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CaddyMapRequest" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/": {
+      "get": {
+        "operationId": "holly_holly_api_views_mission_list_missions",
+        "summary": "List Missions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/MissionSummary" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get a list of all missions accessible by the current user.\n\nReturns:\n    list[MissionSummary]: A list of mission summaries",
+        "tags": ["Missions"],
+        "security": [{ "JWTAuth": [] }]
+      },
+      "post": {
+        "operationId": "holly_holly_api_views_mission_create_mission",
+        "summary": "Create Mission",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MissionDetail" }
+              }
+            }
+          }
+        },
+        "description": "Create a new mission.\n\nArgs:\n    request: The HTTP request\n    mission_data: The data for the new mission\n\nReturns:\n    MissionDetail: The created mission details",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MissionCreate" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}": {
+      "get": {
+        "operationId": "holly_holly_api_views_mission_get_mission",
+        "summary": "Get Mission",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MissionDetail" }
+              }
+            }
+          }
+        },
+        "description": "Get detailed information about a mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission to retrieve\n\nReturns:\n    MissionDetail: The mission details",
+        "tags": ["Missions"],
+        "security": [{ "JWTAuth": [] }]
+      },
+      "put": {
+        "operationId": "holly_holly_api_views_mission_update_mission",
+        "summary": "Update Mission",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MissionDetail" }
+              }
+            }
+          }
+        },
+        "description": "Update an existing mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission to update\n    mission_data: The updated mission data\n\nReturns:\n    MissionDetail: The updated mission details",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MissionUpdate" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "delete": {
+        "operationId": "holly_holly_api_views_mission_delete_mission",
+        "summary": "Delete Mission",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Delete a mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission to delete\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/collaborators": {
+      "post": {
+        "operationId": "holly_holly_api_views_mission_add_collaborators",
+        "summary": "Add Collaborators",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Add collaborators to a mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The collaborator data containing user IDs to add\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MissionCollaboratorSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "delete": {
+        "operationId": "holly_holly_api_views_mission_remove_collaborators",
+        "summary": "Remove Collaborators",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Remove collaborators from a mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The collaborator data containing user IDs to remove\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MissionCollaboratorSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/repositories": {
+      "post": {
+        "operationId": "holly_holly_api_views_mission_add_repositories",
+        "summary": "Add Repositories",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Add repositories to a mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The repository data containing repository IDs to add\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MissionRepositoryAddSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "delete": {
+        "operationId": "holly_holly_api_views_mission_remove_repositories",
+        "summary": "Remove Repositories",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Remove repositories from a mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The repository data containing RepositoryDetail IDs to remove (not Github id)\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MissionRepositoryRemoveSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "put": {
+        "operationId": "holly_holly_api_views_mission_set_repositories",
+        "summary": "Set Repositories",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Set repositories for a mission (replaces all existing repositories).\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The repository data containing complete list of repositories to set\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MissionRepositorySetSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/knowledge": {
+      "post": {
+        "operationId": "holly_holly_api_views_mission_add_knowledge_items",
+        "summary": "Add Knowledge Items",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Add knowledge items to a mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The knowledge data containing knowledge item IDs to add\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MissionKnowledgeSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "delete": {
+        "operationId": "holly_holly_api_views_mission_remove_knowledge_items",
+        "summary": "Remove Knowledge Items",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Remove knowledge items from a mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The knowledge data containing knowledge item IDs to remove\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MissionKnowledgeSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "put": {
+        "operationId": "holly_holly_api_views_mission_set_knowledge_items",
+        "summary": "Set Knowledge Items",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Set knowledge items for a mission (replaces all existing knowledge items).\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The knowledge data containing complete list of knowledge item IDs to set\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MissionKnowledgeSetSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/tools": {
+      "post": {
+        "operationId": "holly_holly_api_views_mission_add_tools",
+        "summary": "Add Tools",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Add tools to a mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The tool data containing tool IDs to add\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MissionToolSchema" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "delete": {
+        "operationId": "holly_holly_api_views_mission_remove_tools",
+        "summary": "Remove Tools",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Remove tools from a mission.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The tool data containing tool IDs to remove\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MissionToolSchema" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "put": {
+        "operationId": "holly_holly_api_views_mission_set_tools",
+        "summary": "Set Tools",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Set tools for a mission (replaces all existing tools).\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The tool data containing complete list of tool IDs to set\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MissionToolSetSchema" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/start": {
+      "post": {
+        "operationId": "holly_holly_api_views_mission_start_mission",
+        "summary": "Start Mission",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerStartResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Start a mission by creating a container.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission to start\n\nReturns:\n    ContainerStartResponse: Response with container information",
+        "tags": ["Missions"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/sse/start/{mission_id}": {
+      "get": {
+        "operationId": "holly_holly_api_views_mission_start_mission_sse",
+        "summary": "Start Mission Sse",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": { "title": "Mission Id", "type": "string" },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "token",
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "title": "Token"
+            },
+            "required": false
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "description": "Stream mission start progress via SSE.\n\nAccepts authentication via query parameter 'token' since EventSource cannot send custom headers.",
+        "tags": ["Missions"]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/end": {
+      "post": {
+        "operationId": "holly_holly_api_views_mission_end_mission",
+        "summary": "End Mission",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "End a mission (mark as completed or aborted).\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission to end\n    data: The state update data\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MissionStateUpdate" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/conversation": {
+      "post": {
+        "operationId": "holly_holly_api_views_mission_create_conversation",
+        "summary": "Create Conversation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationStartResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a new conversation for a mission (async/event-driven).\n\nThis endpoint immediately returns a job_id and starts the conversation\nprocessing in the background. The container will send webhooks with updates.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    data: The conversation data\n\nReturns:\n    ConversationStartResponse: Response with job_id for tracking",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MissionConversationCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "AsyncJWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/conversation/{conversation_id}/summary": {
+      "put": {
+        "operationId": "holly_holly_api_views_mission_update_conversation_summary",
+        "summary": "Update Conversation Summary",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "schema": { "title": "Conversation Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GenericResponse" }
+              }
+            }
+          }
+        },
+        "description": "Update a mission conversation with a summary.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    conversation_id: The ID of the conversation\n    data: The updated conversation data\n\nReturns:\n    GenericResponse: Response indicating success or failure",
+        "tags": ["Missions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MissionConversationUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/jobs/{job_id}": {
+      "get": {
+        "operationId": "holly_holly_api_views_mission_get_mission_job_status",
+        "summary": "Get Mission Job Status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "job_id",
+            "schema": { "title": "Job Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "title": "Response", "type": "object" }
+              }
+            }
+          }
+        },
+        "description": "Get job status for a mission.\n\nThis endpoint polls the container for job status.\n\nArgs:\n    request: HTTP request\n    mission_id: Mission ID\n    job_id: Job ID to query\n\nReturns:\n    Job status dictionary",
+        "tags": ["Missions"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/clone-status/stream": {
+      "get": {
+        "operationId": "holly_holly_api_views_mission_stream_clone_status",
+        "summary": "Stream Clone Status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": { "title": "Mission Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "description": "Server-Sent Events endpoint for streaming clone status updates.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n\nReturns:\n    StreamingHttpResponse: SSE stream of clone status updates",
+        "tags": ["Missions"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/missions/{mission_id}/jobs/{job_id}/stream": {
+      "get": {
+        "operationId": "holly_holly_api_views_mission_stream_job_status",
+        "summary": "Stream Job Status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Mission Id",
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "job_id",
+            "schema": { "title": "Job Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "description": "SSE stream for real-time job updates.\n\nClient connects to this endpoint and receives real-time updates\nas the container processes the job.\n\nArgs:\n    request: The HTTP request\n    mission_id: The UUID of the mission\n    job_id: The job ID to track\n\nReturns:\n    StreamingHttpResponse: SSE stream of job status updates",
+        "tags": ["Missions"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/llmkeys": {
+      "get": {
+        "operationId": "holly_holly_api_views_user_llm_api_key_views_list_api_keys",
+        "summary": "List Api Keys",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": { "default": 1, "title": "Page", "type": "integer" },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 10,
+              "title": "Page Size",
+              "type": "integer"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/UserLLMApiKeySchema"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "List all API keys for the current user with pagination.",
+        "tags": ["LLM Keys"],
+        "security": [{ "JWTAuth": [] }]
+      },
+      "post": {
+        "operationId": "holly_holly_api_views_user_llm_api_key_views_create_api_key",
+        "summary": "Create Api Key",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserLLMApiKeySchema" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "description": "Create a new API key for an LLM.",
+        "tags": ["LLM Keys"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLLMApiKeyCreateSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/llmkeys/{api_key_id}": {
+      "put": {
+        "operationId": "holly_holly_api_views_user_llm_api_key_views_update_api_key",
+        "summary": "Update Api Key",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "api_key_id",
+            "schema": { "title": "Api Key Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserLLMApiKeySchema" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "description": "Update an existing API key.",
+        "tags": ["LLM Keys"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLLMApiKeyUpdateSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "delete": {
+        "operationId": "holly_holly_api_views_user_llm_api_key_views_delete_api_key",
+        "summary": "Delete Api Key",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "api_key_id",
+            "schema": { "title": "Api Key Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "description": "Delete an API key.",
+        "tags": ["LLM Keys"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/notifications/": {
+      "get": {
+        "operationId": "holly_holly_api_views_notifications_list_notifications",
+        "summary": "List Notifications",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": { "default": 50, "title": "Limit", "type": "integer" },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": { "default": 0, "title": "Offset", "type": "integer" },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "unread_only",
+            "schema": {
+              "default": false,
+              "title": "Unread Only",
+              "type": "boolean"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationListResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "List notifications for the authenticated user.\n\nArgs:\n    request: HTTP request\n    limit: Maximum number of notifications to return\n    offset: Number of notifications to skip\n    unread_only: If True, only return unread notifications\n\nReturns:\n    NotificationListResponse with notifications and counts",
+        "tags": ["Notifications"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/notifications/unread_count": {
+      "get": {
+        "operationId": "holly_holly_api_views_notifications_get_unread_count",
+        "summary": "Get Unread Count",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UnreadCountResponse" }
+              }
+            }
+          }
+        },
+        "description": "Get the count of unread notifications for the authenticated user.\n\nArgs:\n    request: HTTP request\n\nReturns:\n    UnreadCountResponse with unread count",
+        "tags": ["Notifications"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/notifications/{notification_id}/read": {
+      "post": {
+        "operationId": "holly_holly_api_views_notifications_mark_notification_read",
+        "summary": "Mark Notification Read",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "notification_id",
+            "schema": { "title": "Notification Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MarkReadResponse" }
+              }
+            }
+          }
+        },
+        "description": "Mark a notification as read.\n\nArgs:\n    request: HTTP request\n    notification_id: UUID of the notification\n\nReturns:\n    MarkReadResponse with success status",
+        "tags": ["Notifications"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/notifications/read_all": {
+      "post": {
+        "operationId": "holly_holly_api_views_notifications_mark_all_read",
+        "summary": "Mark All Read",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MarkReadResponse" }
+              }
+            }
+          }
+        },
+        "description": "Mark all notifications as read for the authenticated user.\n\nArgs:\n    request: HTTP request\n\nReturns:\n    MarkReadResponse with success status",
+        "tags": ["Notifications"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/notifications/{notification_id}": {
+      "delete": {
+        "operationId": "holly_holly_api_views_notifications_delete_notification",
+        "summary": "Delete Notification",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "notification_id",
+            "schema": { "title": "Notification Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MarkReadResponse" }
+              }
+            }
+          }
+        },
+        "description": "Delete a notification.\n\nArgs:\n    request: HTTP request\n    notification_id: UUID of the notification\n\nReturns:\n    MarkReadResponse with success status",
+        "tags": ["Notifications"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/holly/webhooks/container-webhook": {
+      "post": {
+        "operationId": "holly_holly_api_views_webhooks_receive_container_webhook",
+        "summary": "Receive Container Webhook",
+        "parameters": [],
+        "responses": { "200": { "description": "OK" } },
+        "description": "Receive webhook from container about job status.\n\nThis endpoint is called by the container when a job completes, fails,\nor has a significant status change.\n\nArgs:\n    request: HTTP request\n    payload: Webhook payload with job info\n\nReturns:\n    Success response",
+        "tags": ["Webhooks"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WebhookPayload" }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/_api/github/repositories": {
+      "get": {
+        "operationId": "holly_github_ext_api_router_list_repositories",
+        "summary": "List GitHub repositories",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "private_only",
+            "schema": {
+              "default": false,
+              "description": "Filter to only private repositories",
+              "title": "Private Only",
+              "type": "boolean"
+            },
+            "required": false,
+            "description": "Filter to only private repositories"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/RepositorySchema" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "List GitHub repositories that the authenticated user has access to.\n\nReturns a list of repositories from GitHub App installations.\n\nParameters:\n    - private_only: Filter to only return private repositories if set to true",
+        "tags": ["GitHub"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/github/repository/{github_id}": {
+      "get": {
+        "operationId": "holly_github_ext_api_router_get_repository",
+        "summary": "Get a Github repo",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "github_id",
+            "schema": { "title": "Github Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GitHubRepository" }
+              }
+            }
+          }
+        },
+        "tags": ["GitHub"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/github/installations": {
+      "get": {
+        "operationId": "holly_github_ext_api_router_list_installations",
+        "summary": "List GitHub App installations",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstallationsResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "List all GitHub App installations for the authenticated user.\n\nReturns information about the user's GitHub connection status and App installations.\nNow supports multiple GitHub accounts per user.",
+        "tags": ["GitHub"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/github/pull-request/{mission_conversation_id}": {
+      "post": {
+        "operationId": "holly_github_ext_api_router_create_pull_request",
+        "summary": "Create pull request",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mission_conversation_id",
+            "schema": { "title": "Mission Conversation Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PullRequestResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a pull request for a mission conversation.",
+        "tags": ["GitHub"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/github/install-url": {
+      "get": {
+        "operationId": "holly_github_ext_api_router_get_installation_url",
+        "summary": "Get GitHub App installation URL",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstallationUrlResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Generate a GitHub App installation URL with CSRF protection.\n\nReturns the installation URL and state parameter for the authenticated user.",
+        "tags": ["GitHub"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/github/handle-callback": {
+      "post": {
+        "operationId": "holly_github_ext_api_router_handle_installation_callback",
+        "summary": "Handle GitHub App installation callback",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstallationCallbackResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Handle the GitHub App installation callback.\n\nProcesses the installation callback and saves the installation to the database.",
+        "tags": ["GitHub"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InstallationCallbackRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/github/installation-status/{installation_id}": {
+      "get": {
+        "operationId": "holly_github_ext_api_router_get_installation_status",
+        "summary": "Get GitHub App installation status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "installation_id",
+            "schema": { "title": "Installation Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstallationStatusResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get the status of a specific GitHub App installation.\n\nReturns detailed information about the installation if it exists and is accessible to the user.",
+        "tags": ["GitHub"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/auth/register/": {
+      "post": {
+        "operationId": "holly_holly_api_custom_auth_views_register",
+        "summary": "Register",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserResponseSchema" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageSchema" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageSchema" }
+              }
+            }
+          }
+        },
+        "description": "Register a new user.",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UserSignupSchema" }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/_api/auth/logout/": {
+      "post": {
+        "operationId": "holly_holly_api_custom_auth_views_logout",
+        "summary": "Logout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageSchema" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageSchema" }
+              }
+            }
+          }
+        },
+        "description": "Blacklist a refresh token to log the user out.\nThe client should delete its local tokens after calling this.",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RefreshTokenSchema" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/auth/password-reset/request/": {
+      "post": {
+        "operationId": "holly_holly_api_custom_auth_views_password_reset_request",
+        "summary": "Password Reset Request",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageSchema" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageSchema" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageSchema" }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordResetRequestSchema"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/_api/auth/password-reset/confirm/": {
+      "post": {
+        "operationId": "holly_holly_api_custom_auth_views_password_reset_confirm",
+        "summary": "Password Reset Confirm",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PasswordResetSuccessSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageSchema" }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordResetConfirmSchema"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/_api/auth/me/": {
+      "get": {
+        "operationId": "holly_holly_api_custom_auth_views_get_user_details",
+        "summary": "Get User Details",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDetailSchema" }
+              }
+            }
+          }
+        },
+        "description": "Retrieve details for the authenticated user.",
+        "tags": ["Authentication"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/users/github/oauth/initiate": {
+      "post": {
+        "operationId": "holly_users_api_router_initiate_github_oauth",
+        "summary": "Initiate Github Oauth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GitHubOAuthInitiateResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Initiate GitHub OAuth flow for the authenticated user.\n\nThis endpoint generates a GitHub OAuth URL that the frontend can redirect to.\nThe user will be redirected back to the frontend callback page after authorization.",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GitHubOAuthInitiateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/users/github/oauth/callback": {
+      "post": {
+        "operationId": "holly_users_api_router_handle_github_oauth_callback",
+        "summary": "Handle Github Oauth Callback",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GitHubOAuthCallbackResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Handle GitHub OAuth callback.\n\nThis endpoint processes the OAuth callback from GitHub and creates/updates\nthe user's GitHub account connection.",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GitHubOAuthCallbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/users/github/accounts": {
+      "get": {
+        "operationId": "holly_users_api_router_list_github_accounts",
+        "summary": "List Github Accounts",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GitHubAccountListResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "List all GitHub accounts connected to the authenticated user.",
+        "tags": ["Users"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/users/github/connection-status": {
+      "get": {
+        "operationId": "holly_users_api_router_get_github_connection_status",
+        "summary": "Get Github Connection Status",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get the current GitHub connection status for the authenticated user.",
+        "tags": ["Users"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/users/github/disconnect": {
+      "post": {
+        "operationId": "holly_users_api_router_disconnect_github_account",
+        "summary": "Disconnect Github Account",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GitHubAccountActionResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Disconnect a specific GitHub account from the authenticated user.",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GitHubAccountActionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/users/github/set-primary": {
+      "post": {
+        "operationId": "holly_users_api_router_set_primary_github_account",
+        "summary": "Set Primary Github Account",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GitHubAccountActionResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Set a specific GitHub account as the primary account for the authenticated user.",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GitHubAccountActionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/token/pair": {
+      "post": {
+        "operationId": "token_obtain_pair",
+        "summary": "Obtain Token",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenObtainPairOutputSchema"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenObtainPairInputSchema"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/_api/token/refresh": {
+      "post": {
+        "operationId": "token_refresh",
+        "summary": "Refresh Token",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenRefreshOutputSchema"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenRefreshInputSchema"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/_api/themes/": {
+      "get": {
+        "operationId": "ee_theme_api_list_themes",
+        "summary": "List Themes",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/ThemeListSchema" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "List all active themes available for selection.",
+        "tags": ["Themes"],
+        "security": [{ "JWTAuth": [] }]
+      },
+      "post": {
+        "operationId": "ee_theme_api_create_theme",
+        "summary": "Create Theme",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ThemeSchema" }
+              }
+            }
+          }
+        },
+        "description": "Create a new theme (admin only).",
+        "tags": ["Themes"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ThemeCreateSchema" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/themes/{theme_id}": {
+      "get": {
+        "operationId": "ee_theme_api_get_theme",
+        "summary": "Get Theme",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "theme_id",
+            "schema": { "title": "Theme Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ThemeSchema" }
+              }
+            }
+          }
+        },
+        "description": "Get a specific theme by ID.",
+        "tags": ["Themes"],
+        "security": [{ "JWTAuth": [] }]
+      },
+      "put": {
+        "operationId": "ee_theme_api_update_theme",
+        "summary": "Update Theme",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "theme_id",
+            "schema": { "title": "Theme Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ThemeSchema" }
+              }
+            }
+          }
+        },
+        "description": "Update an existing theme (admin only).",
+        "tags": ["Themes"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ThemeUpdateSchema" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "delete": {
+        "operationId": "ee_theme_api_delete_theme",
+        "summary": "Delete Theme",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "theme_id",
+            "schema": { "title": "Theme Id", "type": "integer" },
+            "required": true
+          }
+        ],
+        "responses": { "204": { "description": "No Content" } },
+        "description": "Delete a theme (admin only).",
+        "tags": ["Themes"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/themes/user/current": {
+      "get": {
+        "operationId": "ee_theme_api_get_user_theme",
+        "summary": "Get User Theme",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserThemeResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get the current user's theme preference.",
+        "tags": ["Themes"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/themes/user/select": {
+      "put": {
+        "operationId": "ee_theme_api_select_user_theme",
+        "summary": "Select User Theme",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserThemeResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Select a pre-built theme for the current user.",
+        "tags": ["Themes"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UserThemeSelectSchema" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      }
+    },
+    "/_api/themes/user/custom": {
+      "put": {
+        "operationId": "ee_theme_api_set_custom_theme",
+        "summary": "Set Custom Theme",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserThemeResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Set a custom theme for the current user.",
+        "tags": ["Themes"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UserThemeCustomSchema" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JWTAuth": [] }]
+      },
+      "delete": {
+        "operationId": "ee_theme_api_clear_custom_theme",
+        "summary": "Clear Custom Theme",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserThemeResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Clear custom theme and revert to selected or default theme.",
+        "tags": ["Themes"],
+        "security": [{ "JWTAuth": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ToolSchema": {
+        "description": "Base schema for Tools",
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "id": { "title": "Id", "type": "integer" }
+        },
+        "required": ["name", "id"],
+        "title": "ToolSchema",
+        "type": "object"
+      },
+      "LLMSchema": {
+        "description": "Schema for LLM responses.",
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "name": { "title": "Name", "type": "string" },
+          "full_name": { "title": "Full Name", "type": "string" },
+          "base_url": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Base Url"
+          },
+          "system_prompt": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "System Prompt"
+          },
+          "top_p": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Top P"
+          },
+          "top_k": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Top K"
+          },
+          "min_p": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Min P"
+          },
+          "temperature": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Temperature"
+          },
+          "max_tokens": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Max Tokens"
+          },
+          "is_system": {
+            "default": false,
+            "title": "Is System",
+            "type": "boolean"
+          },
+          "user_id": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "User Id"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": ["id", "name", "full_name", "created_at", "updated_at"],
+        "title": "LLMSchema",
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "description": "Schema for general API error responses.",
+        "properties": { "error": { "title": "Error", "type": "string" } },
+        "required": ["error"],
+        "title": "ErrorResponse",
+        "type": "object"
+      },
+      "LLMCreate": {
+        "description": "Schema for creating a new LLM.",
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "full_name": { "title": "Full Name", "type": "string" },
+          "base_url": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Base Url"
+          },
+          "system_prompt": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "System Prompt"
+          },
+          "top_p": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Top P"
+          },
+          "top_k": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Top K"
+          },
+          "min_p": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Min P"
+          },
+          "temperature": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "default": 0.0,
+            "title": "Temperature"
+          },
+          "max_tokens": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "default": 4096,
+            "title": "Max Tokens"
+          }
+        },
+        "required": ["name", "full_name"],
+        "title": "LLMCreate",
+        "type": "object"
+      },
+      "LLMUpdate": {
+        "description": "Schema for updating an existing LLM.",
+        "properties": {
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "full_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Full Name"
+          },
+          "base_url": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Base Url"
+          },
+          "system_prompt": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "System Prompt"
+          },
+          "top_p": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Top P"
+          },
+          "top_k": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Top K"
+          },
+          "min_p": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Min P"
+          },
+          "temperature": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Temperature"
+          },
+          "max_tokens": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Max Tokens"
+          }
+        },
+        "title": "LLMUpdate",
+        "type": "object"
+      },
+      "ConversationSummary": {
+        "description": "Schema for conversation summary responses.",
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "title": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Title"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": ["id", "created_at", "updated_at"],
+        "title": "ConversationSummary",
+        "type": "object"
+      },
+      "Conversation": {
+        "description": "Schema for conversation responses.",
+        "properties": {
+          "id": {
+            "anyOf": [
+              { "type": "string" },
+              { "format": "uuid", "type": "string" }
+            ],
+            "title": "Id"
+          },
+          "title": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Title"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "messages": {
+            "default": [],
+            "items": { "$ref": "#/components/schemas/Message" },
+            "title": "Messages",
+            "type": "array"
+          }
+        },
+        "required": ["id", "created_at", "updated_at"],
+        "title": "Conversation",
+        "type": "object"
+      },
+      "Message": {
+        "description": "Schema for message responses.",
+        "properties": {
+          "id": {
+            "anyOf": [
+              { "type": "string" },
+              { "format": "uuid", "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Id"
+          },
+          "conversation_id": { "title": "Conversation Id", "type": "string" },
+          "role": { "title": "Role", "type": "string" },
+          "content": { "title": "Content", "type": "string" },
+          "created_at": {
+            "anyOf": [
+              { "format": "date-time", "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Created At"
+          }
+        },
+        "required": ["conversation_id", "role", "content"],
+        "title": "Message",
+        "type": "object"
+      },
+      "MessageCreate": {
+        "description": "Schema for creating a message.",
+        "properties": {
+          "content": { "title": "Content", "type": "string" },
+          "llm_id": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Llm Id"
+          }
+        },
+        "required": ["content"],
+        "title": "MessageCreate",
+        "type": "object"
+      },
+      "KnowledgeSchema": {
+        "description": "Schema for Knowledge responses",
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "summary": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Summary"
+          },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "id": { "title": "Id", "type": "integer" }
+        },
+        "required": ["name", "id"],
+        "title": "KnowledgeSchema",
+        "type": "object"
+      },
+      "GitRepositoryResponse": {
+        "description": "Schema for Git repository operation responses.",
+        "properties": {
+          "success": { "title": "Success", "type": "boolean" },
+          "message": { "title": "Message", "type": "string" },
+          "path": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Path"
+          },
+          "branch": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Branch"
+          }
+        },
+        "required": ["success", "message"],
+        "title": "GitRepositoryResponse",
+        "type": "object"
+      },
+      "WorktreeRequest": {
+        "description": "Request model for creating a worktree",
+        "properties": {
+          "repo_owner": { "title": "Repo Owner", "type": "string" },
+          "repo_name": { "title": "Repo Name", "type": "string" },
+          "auth_token": { "title": "Auth Token", "type": "string" },
+          "branch": { "title": "Branch", "type": "string" },
+          "create_branch": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Create Branch"
+          },
+          "base_branch": {
+            "default": "main",
+            "title": "Base Branch",
+            "type": "string"
+          }
+        },
+        "required": ["repo_owner", "repo_name", "auth_token", "branch"],
+        "title": "WorktreeRequest",
+        "type": "object"
+      },
+      "CommitRequest": {
+        "description": "Request model for committing changes",
+        "properties": {
+          "repo_owner": { "title": "Repo Owner", "type": "string" },
+          "repo_name": { "title": "Repo Name", "type": "string" },
+          "auth_token": { "title": "Auth Token", "type": "string" },
+          "branch": { "title": "Branch", "type": "string" },
+          "create_branch": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Create Branch"
+          },
+          "commit_message": { "title": "Commit Message", "type": "string" },
+          "files": {
+            "anyOf": [
+              { "items": { "type": "string" }, "type": "array" },
+              { "type": "null" }
+            ],
+            "title": "Files"
+          }
+        },
+        "required": [
+          "repo_owner",
+          "repo_name",
+          "auth_token",
+          "branch",
+          "commit_message"
+        ],
+        "title": "CommitRequest",
+        "type": "object"
+      },
+      "PullRequest": {
+        "description": "Request model for pulling changes",
+        "properties": {
+          "repo_owner": { "title": "Repo Owner", "type": "string" },
+          "repo_name": { "title": "Repo Name", "type": "string" },
+          "auth_token": { "title": "Auth Token", "type": "string" },
+          "branch": { "title": "Branch", "type": "string" },
+          "create_branch": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Create Branch"
+          }
+        },
+        "required": ["repo_owner", "repo_name", "auth_token", "branch"],
+        "title": "PullRequest",
+        "type": "object"
+      },
+      "PushRequest": {
+        "description": "Request model for pushing changes",
+        "properties": {
+          "repo_owner": { "title": "Repo Owner", "type": "string" },
+          "repo_name": { "title": "Repo Name", "type": "string" },
+          "auth_token": { "title": "Auth Token", "type": "string" },
+          "branch": { "title": "Branch", "type": "string" },
+          "create_branch": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Create Branch"
+          },
+          "force": { "default": false, "title": "Force", "type": "boolean" }
+        },
+        "required": ["repo_owner", "repo_name", "auth_token", "branch"],
+        "title": "PushRequest",
+        "type": "object"
+      },
+      "BranchesResponse": {
+        "description": "Response model for repository branches",
+        "properties": {
+          "success": { "title": "Success", "type": "boolean" },
+          "message": { "title": "Message", "type": "string" },
+          "path": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Path"
+          },
+          "branch": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Branch"
+          },
+          "branches": {
+            "items": { "type": "string" },
+            "title": "Branches",
+            "type": "array"
+          },
+          "current_branch": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Current Branch"
+          }
+        },
+        "required": ["success", "message", "branches"],
+        "title": "BranchesResponse",
+        "type": "object"
+      },
+      "RepositoryBranchesRequest": {
+        "description": "Request model for getting repository branches",
+        "properties": {
+          "repo_owner": { "title": "Repo Owner", "type": "string" },
+          "repo_name": { "title": "Repo Name", "type": "string" }
+        },
+        "required": ["repo_owner", "repo_name"],
+        "title": "RepositoryBranchesRequest",
+        "type": "object"
+      },
+      "CaddyMapResponse": {
+        "description": "Response schema for Caddy mapping operations.",
+        "properties": {
+          "success": { "title": "Success", "type": "boolean" },
+          "domain": { "title": "Domain", "type": "string" },
+          "message": { "title": "Message", "type": "string" }
+        },
+        "required": ["success", "domain", "message"],
+        "title": "CaddyMapResponse",
+        "type": "object"
+      },
+      "CaddyMapRequest": {
+        "description": "Request schema for mapping a container through Caddy.",
+        "properties": {
+          "subdomain": { "title": "Subdomain", "type": "string" },
+          "ip": { "title": "Ip", "type": "string" },
+          "port": { "title": "Port", "type": "integer" }
+        },
+        "required": ["subdomain", "ip", "port"],
+        "title": "CaddyMapRequest",
+        "type": "object"
+      },
+      "LLMSummary": {
+        "description": "Summary schema for LLM responses",
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "name": { "title": "Name", "type": "string" }
+        },
+        "required": ["id", "name"],
+        "title": "LLMSummary",
+        "type": "object"
+      },
+      "MissionSummary": {
+        "description": "Summary schema for mission list responses",
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "state": { "title": "State", "type": "string" },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "owner": { "title": "Owner", "type": "string" },
+          "branch_name": { "title": "Branch Name", "type": "string" },
+          "repository_count": {
+            "title": "Repository Count",
+            "type": "integer"
+          },
+          "llm": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/LLMSummary" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "state",
+          "created_at",
+          "updated_at",
+          "owner",
+          "branch_name",
+          "repository_count"
+        ],
+        "title": "MissionSummary",
+        "type": "object"
+      },
+      "MissionConversationSchema": {
+        "description": "Schema for conversations in mission responses",
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "conversation_id": { "title": "Conversation Id", "type": "string" },
+          "title": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Title"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "is_summarized": { "title": "Is Summarized", "type": "boolean" },
+          "summary": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Summary"
+          },
+          "remaining_tasks": {
+            "anyOf": [
+              { "items": { "type": "string" }, "type": "array" },
+              { "type": "null" }
+            ],
+            "title": "Remaining Tasks"
+          }
+        },
+        "required": [
+          "id",
+          "conversation_id",
+          "created_at",
+          "updated_at",
+          "is_summarized"
+        ],
+        "title": "MissionConversationSchema",
+        "type": "object"
+      },
+      "MissionDetail": {
+        "description": "Detailed schema for mission responses",
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "default": "",
+            "title": "Description"
+          },
+          "state": { "title": "State", "type": "string" },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "branch_name": { "title": "Branch Name", "type": "string" },
+          "container_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Container Id"
+          },
+          "container_ip_address": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Container Ip Address"
+          },
+          "owner": { "$ref": "#/components/schemas/MissionUserSchema" },
+          "collaborators": {
+            "items": { "$ref": "#/components/schemas/MissionUserSchema" },
+            "title": "Collaborators",
+            "type": "array"
+          },
+          "repositories": {
+            "items": {
+              "$ref": "#/components/schemas/MissionRepositoryResponseSchema"
+            },
+            "title": "Repositories",
+            "type": "array"
+          },
+          "knowledge_items": {
+            "items": {
+              "$ref": "#/components/schemas/MissionKnowledgeItemSchema"
+            },
+            "title": "Knowledge Items",
+            "type": "array"
+          },
+          "tools": {
+            "items": { "$ref": "#/components/schemas/MissionToolItemSchema" },
+            "title": "Tools",
+            "type": "array"
+          },
+          "conversations": {
+            "items": {
+              "$ref": "#/components/schemas/MissionConversationSchema"
+            },
+            "title": "Conversations",
+            "type": "array"
+          },
+          "requirements": { "title": "Requirements", "type": "object" },
+          "llm": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/LLMSummary" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "state",
+          "created_at",
+          "updated_at",
+          "branch_name",
+          "owner",
+          "collaborators",
+          "repositories",
+          "knowledge_items",
+          "tools",
+          "conversations",
+          "requirements"
+        ],
+        "title": "MissionDetail",
+        "type": "object"
+      },
+      "MissionKnowledgeItemSchema": {
+        "description": "Schema for knowledge items in mission responses",
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "name": { "title": "Name", "type": "string" }
+        },
+        "required": ["id", "name"],
+        "title": "MissionKnowledgeItemSchema",
+        "type": "object"
+      },
+      "MissionRepositoryResponseSchema": {
+        "description": "Schema for repository information in mission responses",
+        "properties": { "id": { "title": "Id", "type": "integer" } },
+        "required": ["id"],
+        "title": "MissionRepositoryResponseSchema",
+        "type": "object"
+      },
+      "MissionToolItemSchema": {
+        "description": "Schema for tools in mission responses",
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "name": { "title": "Name", "type": "string" }
+        },
+        "required": ["id", "name"],
+        "title": "MissionToolItemSchema",
+        "type": "object"
+      },
+      "MissionUserSchema": {
+        "description": "Schema for user information in mission responses",
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "email": { "title": "Email", "type": "string" }
+        },
+        "required": ["id", "email"],
+        "title": "MissionUserSchema",
+        "type": "object"
+      },
+      "MissionCreate": {
+        "description": "Schema for creating a new mission",
+        "properties": {
+          "title": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "default": "Mission description",
+            "title": "Description"
+          },
+          "branch_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Branch Name"
+          },
+          "repositories": {
+            "anyOf": [
+              {
+                "items": { "$ref": "#/components/schemas/MissionRepoAdd" },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Repositories"
+          },
+          "knowledge_item_ids": {
+            "anyOf": [
+              { "items": { "type": "integer" }, "type": "array" },
+              { "type": "null" }
+            ],
+            "title": "Knowledge Item Ids"
+          },
+          "tool_ids": {
+            "anyOf": [
+              { "items": { "type": "integer" }, "type": "array" },
+              { "type": "null" }
+            ],
+            "title": "Tool Ids"
+          },
+          "requirements": {
+            "anyOf": [{ "type": "object" }, { "type": "null" }],
+            "title": "Requirements"
+          },
+          "llm_id": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Llm Id"
+          }
+        },
+        "title": "MissionCreate",
+        "type": "object"
+      },
+      "MissionRepoAdd": {
+        "properties": {
+          "github_id": {
+            "description": "GitHub id",
+            "title": "Github Id",
+            "type": "integer"
+          },
+          "branch_name": {
+            "description": "Branch from which to fork from",
+            "title": "Branch Name",
+            "type": "string"
+          }
+        },
+        "required": ["github_id", "branch_name"],
+        "title": "MissionRepoAdd",
+        "type": "object"
+      },
+      "MissionUpdate": {
+        "description": "Schema for updating an existing mission",
+        "properties": {
+          "title": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "branch_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Branch Name"
+          },
+          "state": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/State" },
+              { "type": "null" }
+            ]
+          },
+          "requirements": {
+            "anyOf": [{ "type": "object" }, { "type": "null" }],
+            "title": "Requirements"
+          }
+        },
+        "title": "MissionUpdate",
+        "type": "object"
+      },
+      "State": {
+        "enum": [
+          "draft",
+          "provisioning",
+          "ready",
+          "in_progress",
+          "completed",
+          "aborted",
+          "error"
+        ],
+        "title": "State",
+        "type": "string"
+      },
+      "GenericResponse": {
+        "description": "Generic response schema",
+        "properties": {
+          "success": { "title": "Success", "type": "boolean" },
+          "message": { "title": "Message", "type": "string" }
+        },
+        "required": ["success", "message"],
+        "title": "GenericResponse",
+        "type": "object"
+      },
+      "MissionCollaboratorSchema": {
+        "description": "Schema for adding or removing collaborators",
+        "properties": {
+          "user_ids": {
+            "items": { "type": "integer" },
+            "title": "User Ids",
+            "type": "array"
+          }
+        },
+        "required": ["user_ids"],
+        "title": "MissionCollaboratorSchema",
+        "type": "object"
+      },
+      "MissionRepositoryAddSchema": {
+        "description": "Schema for adding github repositories",
+        "properties": {
+          "repos": {
+            "description": "List of repos to add",
+            "items": { "$ref": "#/components/schemas/MissionRepoAdd" },
+            "title": "Repos",
+            "type": "array"
+          }
+        },
+        "required": ["repos"],
+        "title": "MissionRepositoryAddSchema",
+        "type": "object"
+      },
+      "MissionRepositoryRemoveSchema": {
+        "description": "Schema for removing repositories",
+        "properties": {
+          "repository_ids": {
+            "description": "list of RepositoryDetail ids",
+            "items": { "type": "integer" },
+            "title": "Repository Ids",
+            "type": "array"
+          }
+        },
+        "required": ["repository_ids"],
+        "title": "MissionRepositoryRemoveSchema",
+        "type": "object"
+      },
+      "MissionRepositorySetSchema": {
+        "description": "Schema for setting/replacing all repositories in a mission",
+        "properties": {
+          "repos": {
+            "description": "Complete list of repos to set (replaces all existing)",
+            "items": { "$ref": "#/components/schemas/MissionRepoAdd" },
+            "title": "Repos",
+            "type": "array"
+          }
+        },
+        "required": ["repos"],
+        "title": "MissionRepositorySetSchema",
+        "type": "object"
+      },
+      "MissionKnowledgeSchema": {
+        "description": "Schema for adding or removing knowledge items",
+        "properties": {
+          "knowledge_item_ids": {
+            "items": { "type": "integer" },
+            "title": "Knowledge Item Ids",
+            "type": "array"
+          }
+        },
+        "required": ["knowledge_item_ids"],
+        "title": "MissionKnowledgeSchema",
+        "type": "object"
+      },
+      "MissionKnowledgeSetSchema": {
+        "description": "Schema for setting/replacing all knowledge items in a mission",
+        "properties": {
+          "knowledge_item_ids": {
+            "description": "Complete list of knowledge item IDs to set (replaces all existing)",
+            "items": { "type": "integer" },
+            "title": "Knowledge Item Ids",
+            "type": "array"
+          }
+        },
+        "required": ["knowledge_item_ids"],
+        "title": "MissionKnowledgeSetSchema",
+        "type": "object"
+      },
+      "MissionToolSchema": {
+        "description": "Schema for adding or removing tools",
+        "properties": {
+          "tool_ids": {
+            "items": { "type": "integer" },
+            "title": "Tool Ids",
+            "type": "array"
+          }
+        },
+        "required": ["tool_ids"],
+        "title": "MissionToolSchema",
+        "type": "object"
+      },
+      "MissionToolSetSchema": {
+        "description": "Schema for setting/replacing all tools in a mission",
+        "properties": {
+          "tool_ids": {
+            "description": "Complete list of tool IDs to set (replaces all existing)",
+            "items": { "type": "integer" },
+            "title": "Tool Ids",
+            "type": "array"
+          }
+        },
+        "required": ["tool_ids"],
+        "title": "MissionToolSetSchema",
+        "type": "object"
+      },
+      "ContainerStartResponse": {
+        "description": "Response schema for starting a container",
+        "properties": {
+          "mission_id": {
+            "format": "uuid",
+            "title": "Mission Id",
+            "type": "string"
+          },
+          "container_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Container Id"
+          },
+          "success": { "title": "Success", "type": "boolean" },
+          "message": { "title": "Message", "type": "string" }
+        },
+        "required": ["mission_id", "success", "message"],
+        "title": "ContainerStartResponse",
+        "type": "object"
+      },
+      "MissionStateUpdate": {
+        "description": "Schema for updating mission state",
+        "properties": { "state": { "title": "State", "type": "string" } },
+        "required": ["state"],
+        "title": "MissionStateUpdate",
+        "type": "object"
+      },
+      "ConversationStartResponse": {
+        "properties": {
+          "success": { "title": "Success", "type": "boolean" },
+          "message": { "title": "Message", "type": "string" },
+          "conversation_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conversation Id"
+          },
+          "job_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "description": "Job ID for tracking async conversation creation",
+            "title": "Job Id"
+          },
+          "reply": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "description": "Deprecated - will be empty for async conversations",
+            "title": "Reply"
+          }
+        },
+        "required": ["success", "message"],
+        "title": "ConversationStartResponse",
+        "type": "object"
+      },
+      "MissionConversationCreate": {
+        "description": "Schema for creating a new conversation in a mission",
+        "properties": {
+          "title": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Title"
+          },
+          "initial_message": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Initial Message"
+          },
+          "llm_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Llm Id"
+          }
+        },
+        "title": "MissionConversationCreate",
+        "type": "object"
+      },
+      "MissionConversationUpdate": {
+        "description": "Schema for updating a conversation in a mission",
+        "properties": {
+          "title": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Title"
+          },
+          "is_summarized": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Is Summarized"
+          },
+          "summary": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Summary"
+          },
+          "remaining_tasks": {
+            "anyOf": [
+              { "items": { "type": "string" }, "type": "array" },
+              { "type": "null" }
+            ],
+            "title": "Remaining Tasks"
+          }
+        },
+        "title": "MissionConversationUpdate",
+        "type": "object"
+      },
+      "UserLLMApiKeySchema": {
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "llm_id": { "title": "Llm Id", "type": "integer" },
+          "llm_name": { "title": "Llm Name", "type": "string" },
+          "api_key": { "title": "Api Key", "type": "string" },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "llm_id",
+          "llm_name",
+          "api_key",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UserLLMApiKeySchema",
+        "type": "object"
+      },
+      "UserLLMApiKeyCreateSchema": {
+        "properties": {
+          "llm_id": { "title": "Llm Id", "type": "integer" },
+          "api_key": { "title": "Api Key", "type": "string" }
+        },
+        "required": ["llm_id", "api_key"],
+        "title": "UserLLMApiKeyCreateSchema",
+        "type": "object"
+      },
+      "UserLLMApiKeyUpdateSchema": {
+        "properties": { "api_key": { "title": "Api Key", "type": "string" } },
+        "required": ["api_key"],
+        "title": "UserLLMApiKeyUpdateSchema",
+        "type": "object"
+      },
+      "NotificationListResponse": {
+        "description": "Schema for list notifications response.",
+        "properties": {
+          "notifications": {
+            "items": { "$ref": "#/components/schemas/NotificationSchema" },
+            "title": "Notifications",
+            "type": "array"
+          },
+          "total": { "title": "Total", "type": "integer" },
+          "unread_count": { "title": "Unread Count", "type": "integer" }
+        },
+        "required": ["notifications", "total", "unread_count"],
+        "title": "NotificationListResponse",
+        "type": "object"
+      },
+      "NotificationSchema": {
+        "description": "Schema for notification response.",
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "type": { "title": "Type", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "message": { "title": "Message", "type": "string" },
+          "priority": { "title": "Priority", "type": "string" },
+          "mission_id": {
+            "anyOf": [
+              { "format": "uuid", "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Mission Id"
+          },
+          "conversation_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conversation Id"
+          },
+          "data": { "default": {}, "title": "Data", "type": "object" },
+          "read": { "title": "Read", "type": "boolean" },
+          "read_at": {
+            "anyOf": [
+              { "format": "date-time", "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Read At"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "title",
+          "message",
+          "priority",
+          "read",
+          "created_at"
+        ],
+        "title": "NotificationSchema",
+        "type": "object"
+      },
+      "UnreadCountResponse": {
+        "description": "Schema for unread count response.",
+        "properties": { "count": { "title": "Count", "type": "integer" } },
+        "required": ["count"],
+        "title": "UnreadCountResponse",
+        "type": "object"
+      },
+      "MarkReadResponse": {
+        "description": "Schema for mark read response.",
+        "properties": {
+          "success": { "title": "Success", "type": "boolean" },
+          "message": { "title": "Message", "type": "string" }
+        },
+        "required": ["success", "message"],
+        "title": "MarkReadResponse",
+        "type": "object"
+      },
+      "WebhookPayload": {
+        "description": "Webhook payload from container.",
+        "properties": {
+          "mission_id": { "title": "Mission Id", "type": "string" },
+          "job_id": { "title": "Job Id", "type": "string" },
+          "status": { "title": "Status", "type": "string" },
+          "data": { "title": "Data", "type": "object" },
+          "timestamp": { "title": "Timestamp", "type": "string" }
+        },
+        "required": ["mission_id", "job_id", "status", "data", "timestamp"],
+        "title": "WebhookPayload",
+        "type": "object"
+      },
+      "RepositoryFilters": {
+        "description": "Filters for GitHub repositories.",
+        "properties": {
+          "private_only": {
+            "default": false,
+            "description": "Filter to only private repositories",
+            "title": "Private Only",
+            "type": "boolean"
+          }
+        },
+        "title": "RepositoryFilters",
+        "type": "object"
+      },
+      "RepositorySchema": {
+        "description": "Schema for GitHub repository data.",
+        "properties": {
+          "id": {
+            "description": "GitHub ID",
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "description": "Repository name",
+            "title": "Name",
+            "type": "string"
+          },
+          "full_name": {
+            "description": "Full name of repository (owner/name)",
+            "title": "Full Name",
+            "type": "string"
+          },
+          "owner": {
+            "description": "Repository owner details",
+            "title": "Owner",
+            "type": "object"
+          },
+          "html_url": {
+            "description": "Repository URL",
+            "title": "Html Url",
+            "type": "string"
+          },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "description": "Repository description",
+            "title": "Description"
+          },
+          "private": {
+            "description": "Whether the repository is private",
+            "title": "Private",
+            "type": "boolean"
+          },
+          "fork": {
+            "description": "Whether the repository is a fork",
+            "title": "Fork",
+            "type": "boolean"
+          },
+          "stargazers_count": {
+            "default": 0,
+            "description": "Number of stars",
+            "title": "Stargazers Count",
+            "type": "integer"
+          },
+          "watchers_count": {
+            "default": 0,
+            "description": "Number of watchers",
+            "title": "Watchers Count",
+            "type": "integer"
+          },
+          "forks_count": {
+            "default": 0,
+            "description": "Number of forks",
+            "title": "Forks Count",
+            "type": "integer"
+          },
+          "open_issues_count": {
+            "default": 0,
+            "description": "Number of open issues",
+            "title": "Open Issues Count",
+            "type": "integer"
+          },
+          "default_branch": {
+            "description": "Default branch name",
+            "title": "Default Branch",
+            "type": "string"
+          },
+          "created_at": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "description": "Repository creation date",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "description": "Repository last update date",
+            "title": "Updated At"
+          },
+          "pushed_at": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "description": "Repository last push date",
+            "title": "Pushed At"
+          },
+          "topics": {
+            "anyOf": [
+              { "items": { "type": "string" }, "type": "array" },
+              { "type": "null" }
+            ],
+            "description": "Repository topics",
+            "title": "Topics"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "full_name",
+          "owner",
+          "html_url",
+          "private",
+          "fork",
+          "default_branch"
+        ],
+        "title": "RepositorySchema",
+        "type": "object"
+      },
+      "GitHubRepository": {
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "node_id": { "title": "Node Id", "type": "string" },
+          "name": { "title": "Name", "type": "string" },
+          "full_name": { "title": "Full Name", "type": "string" },
+          "private": { "title": "Private", "type": "boolean" },
+          "owner": { "$ref": "#/components/schemas/Owner" },
+          "html_url": {
+            "format": "uri",
+            "minLength": 1,
+            "title": "Html Url",
+            "type": "string"
+          },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "fork": { "title": "Fork", "type": "boolean" },
+          "url": {
+            "format": "uri",
+            "minLength": 1,
+            "title": "Url",
+            "type": "string"
+          },
+          "created_at": { "title": "Created At", "type": "string" },
+          "updated_at": { "title": "Updated At", "type": "string" },
+          "pushed_at": { "title": "Pushed At", "type": "string" },
+          "homepage": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Homepage"
+          },
+          "size": { "title": "Size", "type": "integer" },
+          "stargazers_count": {
+            "title": "Stargazers Count",
+            "type": "integer"
+          },
+          "watchers_count": { "title": "Watchers Count", "type": "integer" },
+          "language": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Language"
+          },
+          "forks_count": { "title": "Forks Count", "type": "integer" },
+          "open_issues_count": {
+            "title": "Open Issues Count",
+            "type": "integer"
+          },
+          "license": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/License" },
+              { "type": "null" }
+            ]
+          },
+          "default_branch": { "title": "Default Branch", "type": "string" },
+          "visibility": {
+            "default": "public",
+            "title": "Visibility",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "node_id",
+          "name",
+          "full_name",
+          "private",
+          "owner",
+          "html_url",
+          "description",
+          "fork",
+          "url",
+          "created_at",
+          "updated_at",
+          "pushed_at",
+          "homepage",
+          "size",
+          "stargazers_count",
+          "watchers_count",
+          "language",
+          "forks_count",
+          "open_issues_count",
+          "license",
+          "default_branch"
+        ],
+        "title": "GitHubRepository",
+        "type": "object"
+      },
+      "License": {
+        "properties": {
+          "key": { "title": "Key", "type": "string" },
+          "name": { "title": "Name", "type": "string" },
+          "spdx_id": { "title": "Spdx Id", "type": "string" },
+          "url": {
+            "anyOf": [
+              { "format": "uri", "minLength": 1, "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Url"
+          },
+          "node_id": { "title": "Node Id", "type": "string" }
+        },
+        "required": ["key", "name", "spdx_id", "url", "node_id"],
+        "title": "License",
+        "type": "object"
+      },
+      "Owner": {
+        "properties": {
+          "login": { "title": "Login", "type": "string" },
+          "id": { "title": "Id", "type": "integer" },
+          "node_id": { "title": "Node Id", "type": "string" },
+          "avatar_url": {
+            "anyOf": [
+              { "format": "uri", "minLength": 1, "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Avatar Url"
+          },
+          "url": {
+            "format": "uri",
+            "minLength": 1,
+            "title": "Url",
+            "type": "string"
+          },
+          "html_url": {
+            "format": "uri",
+            "minLength": 1,
+            "title": "Html Url",
+            "type": "string"
+          },
+          "type": { "title": "Type", "type": "string" },
+          "site_admin": { "title": "Site Admin", "type": "boolean" }
+        },
+        "required": [
+          "login",
+          "id",
+          "node_id",
+          "avatar_url",
+          "url",
+          "html_url",
+          "type",
+          "site_admin"
+        ],
+        "title": "Owner",
+        "type": "object"
+      },
+      "InstallationSchema": {
+        "description": "Schema for GitHub App installation data.",
+        "properties": {
+          "installation_id": {
+            "description": "GitHub App installation ID",
+            "title": "Installation Id",
+            "type": "string"
+          },
+          "account_name": {
+            "description": "Account name (user or organization)",
+            "title": "Account Name",
+            "type": "string"
+          },
+          "account_type": {
+            "description": "Account type (user or organization)",
+            "title": "Account Type",
+            "type": "string"
+          },
+          "installed_at": {
+            "description": "Installation date",
+            "title": "Installed At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "installation_id",
+          "account_name",
+          "account_type",
+          "installed_at"
+        ],
+        "title": "InstallationSchema",
+        "type": "object"
+      },
+      "InstallationsResponseSchema": {
+        "description": "Schema for response to installations endpoint.",
+        "properties": {
+          "is_connected": {
+            "description": "Whether user is connected to GitHub",
+            "title": "Is Connected",
+            "type": "boolean"
+          },
+          "social_account": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/SocialAccountInfoSchema" },
+              { "type": "null" }
+            ],
+            "description": "GitHub social account info if connected"
+          },
+          "installations": {
+            "default": [],
+            "description": "List of GitHub App installations",
+            "items": { "$ref": "#/components/schemas/InstallationSchema" },
+            "title": "Installations",
+            "type": "array"
+          }
+        },
+        "required": ["is_connected"],
+        "title": "InstallationsResponseSchema",
+        "type": "object"
+      },
+      "SocialAccountInfoSchema": {
+        "description": "Schema for user's social account info.",
+        "properties": {
+          "login": {
+            "description": "GitHub username",
+            "title": "Login",
+            "type": "string"
+          },
+          "avatar_url": {
+            "description": "GitHub avatar URL",
+            "title": "Avatar Url",
+            "type": "string"
+          }
+        },
+        "required": ["login", "avatar_url"],
+        "title": "SocialAccountInfoSchema",
+        "type": "object"
+      },
+      "PullRequestResponseSchema": {
+        "description": "Schema for pull request creation response.",
+        "properties": {
+          "url": {
+            "description": "Pull request URL",
+            "format": "uri",
+            "minLength": 1,
+            "title": "Url",
+            "type": "string"
+          },
+          "number": {
+            "description": "Pull request number",
+            "title": "Number",
+            "type": "integer"
+          }
+        },
+        "required": ["url", "number"],
+        "title": "PullRequestResponseSchema",
+        "type": "object"
+      },
+      "InstallationUrlResponseSchema": {
+        "description": "Schema for GitHub App installation URL response.",
+        "properties": {
+          "install_url": {
+            "description": "GitHub App installation URL",
+            "title": "Install Url",
+            "type": "string"
+          },
+          "state": {
+            "description": "State parameter for CSRF protection",
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": ["install_url", "state"],
+        "title": "InstallationUrlResponseSchema",
+        "type": "object"
+      },
+      "InstallationCallbackResponseSchema": {
+        "description": "Schema for GitHub App installation callback response.",
+        "properties": {
+          "success": {
+            "description": "Whether the installation was successful",
+            "title": "Success",
+            "type": "boolean"
+          },
+          "message": {
+            "description": "Success or error message",
+            "title": "Message",
+            "type": "string"
+          },
+          "installation_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "description": "Installation ID if successful",
+            "title": "Installation Id"
+          }
+        },
+        "required": ["success", "message"],
+        "title": "InstallationCallbackResponseSchema",
+        "type": "object"
+      },
+      "InstallationCallbackRequestSchema": {
+        "description": "Schema for GitHub App installation callback request.",
+        "properties": {
+          "installation_id": {
+            "description": "GitHub App installation ID",
+            "title": "Installation Id",
+            "type": "string"
+          },
+          "state": {
+            "description": "State parameter for CSRF protection",
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": ["installation_id", "state"],
+        "title": "InstallationCallbackRequestSchema",
+        "type": "object"
+      },
+      "InstallationStatusResponseSchema": {
+        "description": "Schema for GitHub App installation status response.",
+        "properties": {
+          "found": {
+            "description": "Whether the installation was found",
+            "title": "Found",
+            "type": "boolean"
+          },
+          "installation": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/InstallationStatusSchema" },
+              { "type": "null" }
+            ],
+            "description": "Installation details if found"
+          }
+        },
+        "required": ["found"],
+        "title": "InstallationStatusResponseSchema",
+        "type": "object"
+      },
+      "InstallationStatusSchema": {
+        "description": "Schema for GitHub App installation status.",
+        "properties": {
+          "installation_id": {
+            "description": "GitHub App installation ID",
+            "title": "Installation Id",
+            "type": "string"
+          },
+          "status": {
+            "description": "Installation status (active, suspended, deleted)",
+            "title": "Status",
+            "type": "string"
+          },
+          "account_name": {
+            "description": "Account name (user or organization)",
+            "title": "Account Name",
+            "type": "string"
+          },
+          "account_type": {
+            "description": "Account type (user or organization)",
+            "title": "Account Type",
+            "type": "string"
+          },
+          "installed_at": {
+            "description": "Installation date",
+            "title": "Installed At",
+            "type": "string"
+          },
+          "permissions": {
+            "additionalProperties": { "type": "string" },
+            "description": "Installation permissions",
+            "title": "Permissions",
+            "type": "object"
+          },
+          "repository_selection": {
+            "description": "Repository selection (all or selected)",
+            "title": "Repository Selection",
+            "type": "string"
+          }
+        },
+        "required": [
+          "installation_id",
+          "status",
+          "account_name",
+          "account_type",
+          "installed_at",
+          "repository_selection"
+        ],
+        "title": "InstallationStatusSchema",
+        "type": "object"
+      },
+      "UserResponseSchema": {
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "email": { "title": "Email", "type": "string" },
+          "is_active": { "title": "Is Active", "type": "boolean" }
+        },
+        "required": ["id", "email", "is_active"],
+        "title": "UserResponseSchema",
+        "type": "object"
+      },
+      "MessageSchema": {
+        "properties": { "message": { "title": "Message", "type": "string" } },
+        "required": ["message"],
+        "title": "MessageSchema",
+        "type": "object"
+      },
+      "UserSignupSchema": {
+        "properties": {
+          "email": { "title": "Email", "type": "string" },
+          "password": { "title": "Password", "type": "string" }
+        },
+        "required": ["email", "password"],
+        "title": "UserSignupSchema",
+        "type": "object"
+      },
+      "RefreshTokenSchema": {
+        "properties": {
+          "refresh_token": { "title": "Refresh Token", "type": "string" }
+        },
+        "required": ["refresh_token"],
+        "title": "RefreshTokenSchema",
+        "type": "object"
+      },
+      "PasswordResetRequestSchema": {
+        "properties": { "email": { "title": "Email", "type": "string" } },
+        "required": ["email"],
+        "title": "PasswordResetRequestSchema",
+        "type": "object"
+      },
+      "PasswordResetSuccessSchema": {
+        "properties": {
+          "message": { "title": "Message", "type": "string" },
+          "email": { "title": "Email", "type": "string" }
+        },
+        "required": ["message", "email"],
+        "title": "PasswordResetSuccessSchema",
+        "type": "object"
+      },
+      "PasswordResetConfirmSchema": {
+        "properties": {
+          "uidb64": { "title": "Uidb64", "type": "string" },
+          "token": { "title": "Token", "type": "string" },
+          "new_password": { "title": "New Password", "type": "string" }
+        },
+        "required": ["uidb64", "token", "new_password"],
+        "title": "PasswordResetConfirmSchema",
+        "type": "object"
+      },
+      "UserDetailSchema": {
+        "properties": {
+          "email": { "title": "Email", "type": "string" },
+          "avatar_url": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Avatar Url"
+          }
+        },
+        "required": ["email"],
+        "title": "UserDetailSchema",
+        "type": "object"
+      },
+      "GitHubOAuthInitiateResponse": {
+        "description": "Response schema for GitHub OAuth initiation.",
+        "properties": {
+          "oauth_url": {
+            "description": "GitHub OAuth URL to redirect user to",
+            "title": "Oauth Url",
+            "type": "string"
+          },
+          "state": {
+            "description": "OAuth state parameter for security",
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": ["oauth_url", "state"],
+        "title": "GitHubOAuthInitiateResponse",
+        "type": "object"
+      },
+      "GitHubOAuthInitiateRequest": {
+        "description": "Request schema for initiating GitHub OAuth flow.",
+        "properties": {
+          "redirect_url": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "description": "URL to redirect to after successful OAuth (defaults to frontend connect page)",
+            "title": "Redirect Url"
+          },
+          "scopes": {
+            "anyOf": [
+              { "items": { "type": "string" }, "type": "array" },
+              { "type": "null" }
+            ],
+            "description": "Additional GitHub scopes to request (defaults to configured scopes)",
+            "title": "Scopes"
+          }
+        },
+        "title": "GitHubOAuthInitiateRequest",
+        "type": "object"
+      },
+      "GitHubAccountInfo": {
+        "description": "Schema for GitHub account information.",
+        "properties": {
+          "github_login": {
+            "description": "GitHub username",
+            "title": "Github Login",
+            "type": "string"
+          },
+          "github_id": {
+            "description": "GitHub user ID",
+            "title": "Github Id",
+            "type": "string"
+          },
+          "avatar_url": {
+            "description": "GitHub avatar URL",
+            "title": "Avatar Url",
+            "type": "string"
+          },
+          "is_primary": {
+            "description": "Whether this is the primary account",
+            "title": "Is Primary",
+            "type": "boolean"
+          },
+          "is_active": {
+            "description": "Whether this account is active",
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "created_at": {
+            "description": "When the account was connected (ISO format)",
+            "title": "Created At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "github_login",
+          "github_id",
+          "avatar_url",
+          "is_primary",
+          "is_active",
+          "created_at"
+        ],
+        "title": "GitHubAccountInfo",
+        "type": "object"
+      },
+      "GitHubOAuthCallbackResponse": {
+        "description": "Response schema for OAuth callback.",
+        "properties": {
+          "success": {
+            "description": "Whether OAuth was successful",
+            "title": "Success",
+            "type": "boolean"
+          },
+          "message": {
+            "description": "Response message",
+            "title": "Message",
+            "type": "string"
+          },
+          "account_info": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/GitHubAccountInfo" },
+              { "type": "null" }
+            ],
+            "description": "Information about the connected account"
+          },
+          "redirect_url": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "description": "URL to redirect to after successful connection",
+            "title": "Redirect Url"
+          }
+        },
+        "required": ["success", "message"],
+        "title": "GitHubOAuthCallbackResponse",
+        "type": "object"
+      },
+      "GitHubOAuthCallbackRequest": {
+        "description": "Request schema for OAuth callback handling.",
+        "properties": {
+          "code": {
+            "description": "OAuth authorization code from GitHub",
+            "title": "Code",
+            "type": "string"
+          },
+          "state": {
+            "description": "OAuth state parameter for verification",
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": ["code", "state"],
+        "title": "GitHubOAuthCallbackRequest",
+        "type": "object"
+      },
+      "GitHubAccountListResponse": {
+        "description": "Response schema for listing user's GitHub accounts.",
+        "properties": {
+          "accounts": {
+            "description": "List of connected GitHub accounts",
+            "items": { "$ref": "#/components/schemas/GitHubAccountInfo" },
+            "title": "Accounts",
+            "type": "array"
+          },
+          "total_count": {
+            "description": "Total number of connected accounts",
+            "title": "Total Count",
+            "type": "integer"
+          }
+        },
+        "required": ["accounts", "total_count"],
+        "title": "GitHubAccountListResponse",
+        "type": "object"
+      },
+      "ConnectionStatusResponse": {
+        "description": "Response schema for GitHub connection status.",
+        "properties": {
+          "is_connected": {
+            "description": "Whether user has any GitHub accounts",
+            "title": "Is Connected",
+            "type": "boolean"
+          },
+          "primary_account": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/GitHubAccountInfo" },
+              { "type": "null" }
+            ],
+            "description": "Primary GitHub account information"
+          },
+          "total_accounts": {
+            "description": "Total number of connected accounts",
+            "title": "Total Accounts",
+            "type": "integer"
+          }
+        },
+        "required": ["is_connected", "total_accounts"],
+        "title": "ConnectionStatusResponse",
+        "type": "object"
+      },
+      "GitHubAccountActionResponse": {
+        "description": "Response schema for GitHub account actions.",
+        "properties": {
+          "success": {
+            "description": "Whether the action was successful",
+            "title": "Success",
+            "type": "boolean"
+          },
+          "message": {
+            "description": "Response message",
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": ["success", "message"],
+        "title": "GitHubAccountActionResponse",
+        "type": "object"
+      },
+      "GitHubAccountActionRequest": {
+        "description": "Request schema for GitHub account actions.",
+        "properties": {
+          "github_login": {
+            "description": "GitHub username to perform action on",
+            "title": "Github Login",
+            "type": "string"
+          }
+        },
+        "required": ["github_login"],
+        "title": "GitHubAccountActionRequest",
+        "type": "object"
+      },
+      "TokenObtainPairOutputSchema": {
+        "properties": {
+          "email": {
+            "maxLength": 254,
+            "title": "Email Address",
+            "type": "string"
+          },
+          "refresh": { "title": "Refresh", "type": "string" },
+          "access": { "title": "Access", "type": "string" }
+        },
+        "required": ["email", "refresh", "access"],
+        "title": "TokenObtainPairOutputSchema",
+        "type": "object"
+      },
+      "TokenObtainPairInputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "password": {
+            "maxLength": 128,
+            "title": "Password",
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 254,
+            "title": "Email Address",
+            "type": "string"
+          }
+        },
+        "required": ["password", "email"],
+        "title": "TokenObtainPairInputSchema",
+        "type": "object"
+      },
+      "TokenRefreshOutputSchema": {
+        "properties": {
+          "refresh": { "title": "Refresh", "type": "string" },
+          "access": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Access"
+          }
+        },
+        "required": ["refresh", "access"],
+        "title": "TokenRefreshOutputSchema",
+        "type": "object"
+      },
+      "TokenRefreshInputSchema": {
+        "properties": { "refresh": { "title": "Refresh", "type": "string" } },
+        "required": ["refresh"],
+        "title": "TokenRefreshInputSchema",
+        "type": "object"
+      },
+      "ThemeListSchema": {
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "name": { "title": "Name", "type": "string" },
+          "description": { "title": "Description", "type": "string" },
+          "is_default": { "title": "Is Default", "type": "boolean" }
+        },
+        "required": ["id", "name", "description", "is_default"],
+        "title": "ThemeListSchema",
+        "type": "object"
+      },
+      "ThemeAssetSchema": {
+        "properties": {
+          "src": { "title": "Src", "type": "string" },
+          "alt": { "title": "Alt", "type": "string" },
+          "class_": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Class"
+          },
+          "link": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Link"
+          }
+        },
+        "required": ["src", "alt"],
+        "title": "ThemeAssetSchema",
+        "type": "object"
+      },
+      "ThemeMetaSchema": {
+        "properties": {
+          "title": { "title": "Title", "type": "string" },
+          "description": { "title": "Description", "type": "string" },
+          "image": { "title": "Image", "type": "string" }
+        },
+        "required": ["title", "description", "image"],
+        "title": "ThemeMetaSchema",
+        "type": "object"
+      },
+      "ThemeSchema": {
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "name": { "title": "Name", "type": "string" },
+          "primaryColor": { "title": "Primarycolor", "type": "string" },
+          "secondaryColor": { "title": "Secondarycolor", "type": "string" },
+          "hedgeColor": { "title": "Hedgecolor", "type": "string" },
+          "darkbgColor": { "title": "Darkbgcolor", "type": "string" },
+          "lightbgColor": { "title": "Lightbgcolor", "type": "string" },
+          "disabledRoutes": {
+            "items": { "type": "string" },
+            "title": "Disabledroutes",
+            "type": "array"
+          },
+          "companyName": { "title": "Companyname", "type": "string" },
+          "openRoutes": {
+            "items": { "type": "string" },
+            "title": "Openroutes",
+            "type": "array"
+          },
+          "avatar": { "$ref": "#/components/schemas/ThemeAssetSchema" },
+          "logo": { "$ref": "#/components/schemas/ThemeAssetSchema" },
+          "logoDark": { "$ref": "#/components/schemas/ThemeAssetSchema" },
+          "icon": { "$ref": "#/components/schemas/ThemeAssetSchema" },
+          "authBackgroundClass": {
+            "title": "Authbackgroundclass",
+            "type": "string"
+          },
+          "background": { "title": "Background", "type": "string" },
+          "favicon": { "title": "Favicon", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "defaultColour": { "title": "Defaultcolour", "type": "string" },
+          "contactEmail": { "title": "Contactemail", "type": "string" },
+          "mainRoute": { "title": "Mainroute", "type": "string" },
+          "poweredByLogo": { "$ref": "#/components/schemas/ThemeAssetSchema" },
+          "meta": { "$ref": "#/components/schemas/ThemeMetaSchema" }
+        },
+        "required": [
+          "id",
+          "name",
+          "primaryColor",
+          "secondaryColor",
+          "hedgeColor",
+          "darkbgColor",
+          "lightbgColor",
+          "disabledRoutes",
+          "companyName",
+          "openRoutes",
+          "avatar",
+          "logo",
+          "logoDark",
+          "icon",
+          "authBackgroundClass",
+          "background",
+          "favicon",
+          "title",
+          "defaultColour",
+          "contactEmail",
+          "mainRoute",
+          "poweredByLogo",
+          "meta"
+        ],
+        "title": "ThemeSchema",
+        "type": "object"
+      },
+      "ThemeCreateSchema": {
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "is_default": {
+            "default": false,
+            "title": "Is Default",
+            "type": "boolean"
+          },
+          "primary_color": {
+            "default": "#174c83",
+            "title": "Primary Color",
+            "type": "string"
+          },
+          "secondary_color": {
+            "default": "#3e3aa7",
+            "title": "Secondary Color",
+            "type": "string"
+          },
+          "hedge_color": {
+            "default": "#5787b8",
+            "title": "Hedge Color",
+            "type": "string"
+          },
+          "dark_bg_color": {
+            "default": "#1E2939",
+            "title": "Dark Bg Color",
+            "type": "string"
+          },
+          "light_bg_color": {
+            "default": "#FFFFFF",
+            "title": "Light Bg Color",
+            "type": "string"
+          },
+          "company_name": {
+            "default": "Imperial AI Limited",
+            "title": "Company Name",
+            "type": "string"
+          },
+          "contact_email": {
+            "default": "ling@githubme.com",
+            "title": "Contact Email",
+            "type": "string"
+          },
+          "disabled_routes": {
+            "default": [],
+            "items": { "type": "string" },
+            "title": "Disabled Routes",
+            "type": "array"
+          },
+          "open_routes": {
+            "default": ["/login", "/register", "/verify-email"],
+            "items": { "type": "string" },
+            "title": "Open Routes",
+            "type": "array"
+          },
+          "main_route": {
+            "default": "/sse-chat",
+            "title": "Main Route",
+            "type": "string"
+          },
+          "avatar_src": {
+            "default": "/gaia/ling.webp",
+            "title": "Avatar Src",
+            "type": "string"
+          },
+          "avatar_alt": {
+            "default": "Avatar",
+            "title": "Avatar Alt",
+            "type": "string"
+          },
+          "logo_src": {
+            "default": "/img/holly-logo-dark.png",
+            "title": "Logo Src",
+            "type": "string"
+          },
+          "logo_alt": {
+            "default": "holly logo",
+            "title": "Logo Alt",
+            "type": "string"
+          },
+          "logo_dark_src": {
+            "default": "/img/holly-logo.png",
+            "title": "Logo Dark Src",
+            "type": "string"
+          },
+          "logo_dark_alt": {
+            "default": "holly logo dark",
+            "title": "Logo Dark Alt",
+            "type": "string"
+          },
+          "icon_src": {
+            "default": "/img/holly-icon.png",
+            "title": "Icon Src",
+            "type": "string"
+          },
+          "icon_alt": {
+            "default": "holly icon",
+            "title": "Icon Alt",
+            "type": "string"
+          },
+          "powered_by_logo_src": {
+            "default": "/img/techarge-logo-white.png",
+            "title": "Powered By Logo Src",
+            "type": "string"
+          },
+          "powered_by_logo_alt": {
+            "default": "Imperial AI Logo",
+            "title": "Powered By Logo Alt",
+            "type": "string"
+          },
+          "powered_by_logo_class": {
+            "default": "w-24",
+            "title": "Powered By Logo Class",
+            "type": "string"
+          },
+          "powered_by_logo_link": {
+            "default": "https://www.techarge.co.uk",
+            "title": "Powered By Logo Link",
+            "type": "string"
+          },
+          "auth_background_class": {
+            "default": "",
+            "title": "Auth Background Class",
+            "type": "string"
+          },
+          "background": {
+            "default": "githubme/background.jpg",
+            "title": "Background",
+            "type": "string"
+          },
+          "favicon": {
+            "default": "/img/holly-icon-small.png",
+            "title": "Favicon",
+            "type": "string"
+          },
+          "default_colour": {
+            "default": "blue",
+            "title": "Default Colour",
+            "type": "string"
+          },
+          "title": {
+            "default": "githubme.com",
+            "title": "Title",
+            "type": "string"
+          },
+          "meta_title": {
+            "default": "githubme",
+            "title": "Meta Title",
+            "type": "string"
+          },
+          "meta_description": {
+            "default": "githubme",
+            "title": "Meta Description",
+            "type": "string"
+          },
+          "meta_image": {
+            "default": "/githubme/Logo.png",
+            "title": "Meta Image",
+            "type": "string"
+          }
+        },
+        "required": ["name"],
+        "title": "ThemeCreateSchema",
+        "type": "object"
+      },
+      "ThemeUpdateSchema": {
+        "properties": {
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "is_default": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Is Default"
+          },
+          "is_active": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Is Active"
+          },
+          "primary_color": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Primary Color"
+          },
+          "secondary_color": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Secondary Color"
+          },
+          "hedge_color": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Hedge Color"
+          },
+          "dark_bg_color": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Dark Bg Color"
+          },
+          "light_bg_color": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Light Bg Color"
+          },
+          "company_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Company Name"
+          },
+          "contact_email": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Contact Email"
+          },
+          "disabled_routes": {
+            "anyOf": [
+              { "items": { "type": "string" }, "type": "array" },
+              { "type": "null" }
+            ],
+            "title": "Disabled Routes"
+          },
+          "open_routes": {
+            "anyOf": [
+              { "items": { "type": "string" }, "type": "array" },
+              { "type": "null" }
+            ],
+            "title": "Open Routes"
+          },
+          "main_route": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Main Route"
+          },
+          "avatar_src": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Avatar Src"
+          },
+          "avatar_alt": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Avatar Alt"
+          },
+          "logo_src": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Logo Src"
+          },
+          "logo_alt": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Logo Alt"
+          },
+          "logo_dark_src": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Logo Dark Src"
+          },
+          "logo_dark_alt": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Logo Dark Alt"
+          },
+          "icon_src": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Icon Src"
+          },
+          "icon_alt": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Icon Alt"
+          },
+          "powered_by_logo_src": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Powered By Logo Src"
+          },
+          "powered_by_logo_alt": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Powered By Logo Alt"
+          },
+          "powered_by_logo_class": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Powered By Logo Class"
+          },
+          "powered_by_logo_link": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Powered By Logo Link"
+          },
+          "auth_background_class": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Auth Background Class"
+          },
+          "background": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Background"
+          },
+          "favicon": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Favicon"
+          },
+          "default_colour": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Default Colour"
+          },
+          "title": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Title"
+          },
+          "meta_title": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Meta Title"
+          },
+          "meta_description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Meta Description"
+          },
+          "meta_image": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Meta Image"
+          }
+        },
+        "title": "ThemeUpdateSchema",
+        "type": "object"
+      },
+      "UserThemeResponseSchema": {
+        "properties": {
+          "use_custom": { "title": "Use Custom", "type": "boolean" },
+          "selected_theme_id": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Selected Theme Id"
+          },
+          "theme": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/ThemeSchema" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "required": ["use_custom", "selected_theme_id", "theme"],
+        "title": "UserThemeResponseSchema",
+        "type": "object"
+      },
+      "UserThemeSelectSchema": {
+        "properties": {
+          "theme_id": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Theme Id"
+          }
+        },
+        "title": "UserThemeSelectSchema",
+        "type": "object"
+      },
+      "UserThemeCustomSchema": {
+        "properties": {
+          "custom_theme": { "title": "Custom Theme", "type": "object" }
+        },
+        "required": ["custom_theme"],
+        "title": "UserThemeCustomSchema",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "JWTAuth": { "type": "http", "scheme": "bearer" },
+      "AsyncJWTAuth": { "type": "http", "scheme": "bearer" }
+    }
+  },
+  "servers": []
+}

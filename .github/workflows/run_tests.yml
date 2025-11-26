@@ -1,0 +1,69 @@
+name: Run Django Tests
+
+# Triggers for workflow
+'on':
+  push:
+    branches: ['*']
+  pull_request:
+    branches: ['*']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: githubme_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Set up uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          uv sync
+
+      - name: Load Env vars
+        uses: c-py/action-dotenv-to-setenv@v5
+        with:
+          env-file: .env.test
+
+      - name: Run tests
+        run: |
+          # Run tests with continue-on-errors to see all failures
+          uv run python -m pytest githubme -v --continue-on-collection-errors --tb=native
+
+      - name: Collect test coverage
+        run: |
+          uv run python -m coverage run -m pytest githubme -v
+          uv run python -m coverage report -m
+          uv run python -m coverage xml
+        continue-on-error: true
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          fail_ci_if_error: false

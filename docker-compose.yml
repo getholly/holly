@@ -1,0 +1,106 @@
+services:
+  frontend:
+    image: holly-frontend:latest
+    labels:
+      - 'BUILD_ID=${BUILD_ID}'
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '3000:80'
+    depends_on:
+      - web
+    environment:
+      - NODE_ENV=production
+
+  web:
+    image: holly:latest
+    labels:
+      - 'BUILD_ID=${BUILD_ID}'
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    volumes:
+      - type: bind
+        source: /home/holly/workarea/holly/db.sqlite3
+        target: /app/holly/db.sqlite3
+      - /home/holly/workarea/holly/staticfiles:/app/holly/staticfiles
+      - /home/holly/workarea/holly/logdir:/app/holly/logdir
+      - /data/holly:/holly
+    ports:
+      - '8181:8181'
+    env_file:
+      - .env.production
+    environment:
+      - DJANGO_DEBUG=False
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+      - REPO_BASE_PATH=/holly
+
+  redis:
+    image: redis:7-alpine
+    #volumes:
+      #- redis_data:/data
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    #volumes:
+    #  - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=holly
+      - RABBITMQ_DEFAULT_PASS=holly
+    restart: always
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  celery:
+    image: holly:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    #volumes:
+      #- type: bind
+        #source: /home/wandery/workarea/wandery/db.sqlite3
+        #target: /app/db.sqlite3
+      #- /home/wandery/workarea/wandery/logdir:/app/logdir
+      #- /home/wandery/workarea/wandery/import_data:/app/import
+      #- /home/wandery/workarea/wandery/media:/app/media
+    command: /app/.venv/bin/celery -A config worker --loglevel=info
+    environment:
+      - DJANGO_DEBUG=False
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+    depends_on:
+      - redis
+      - rabbitmq
+    env_file:
+      - .env.production
+
+  celery-beat:
+    image: holly:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    #volumes:
+    command: /app/.venv/bin/celery -A config beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info
+    environment:
+      - DJANGO_DEBUG=False
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+    depends_on:
+      - redis
+      - rabbitmq
+      - celery
+    env_file:
+      - .env.production
+

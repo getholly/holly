@@ -1,0 +1,38 @@
+{% load static %}
+
+<ul class="list-none text-xs pl-1">
+    {% for item in file_tree %}
+        <li class="mb-2">
+            {% if item.is_dir %}
+                <details class="group" {% if dir_expanded %}open{% endif %}>
+                    <summary class="flex items-center cursor-pointer text-gray-700 dark:text-gray-200 font-semibold hover:underline">
+                        <input type="checkbox"
+                               class="mr-1 folder-checkbox fb-checkbox"
+                               data-path="{{ item.path }}"
+                               data-is-dir="true"
+                               data-token-count="{{ item.token_count|default:0 }}"
+                               {% if item.selected %}checked{% endif %}>
+                        📁 {{ item.name }}
+                        <span class="ml-2 dark:text-gray-400">({{ item.token_count|default:0 }} tokens)</span>
+                    </summary>
+                    <div class="pl-4 border-l border-gray-300 mt-2">
+                        {% include "partials/file_tree_recursive.html" with file_tree=item.children %}
+                    </div>
+                </details>
+            {% else %}
+                <details class="group ">
+                    <summary class="flex items-center cursor-pointer text-gray-700 dark:text-gray-200 font-semibold hover:underline">
+                        <input type="checkbox"
+                            class="mr-1 file-checkbox fb-checkbox"
+                            data-path="{{ item.path }}"
+                            data-is-dir="false"
+                            data-token-count="{{ item.token_count|default:0 }}"
+                            {% if item.selected %}checked{% endif %}>
+                        📄 <span class="ml-2">{{ item.name }}</span>
+                        <span class="ml-2 dark:text-gray-400">({{ item.token_count|default:0 }} tokens)</span>
+                    </summary>
+                </details>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

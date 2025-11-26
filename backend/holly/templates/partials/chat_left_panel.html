@@ -1,0 +1,35 @@
+<aside class="w-full text-gray-800 dark:text-white overflow-hidden flex flex-col "
+     x-data="{ activeTab: 'structure' }">
+    <!-- Tabs -->
+    <ul class="flex text-sm font-medium text-center m-4 hidden">
+        <li class="w-1/2 rounded-xl ">
+            <button
+                @click="activeTab = 'history'"
+                :class="activeTab === 'history' ? 'text-white dark:bg-gray-900 bg-theme-primary' : ''"
+                class="inline-block w-full p-3 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-[#CDCFFB] focus:outline-none !rounded-l-xl">
+                History
+            </button>
+        </li>
+        <li class="w-1/2">
+            <button
+                @click="activeTab = 'structure'"
+                :class="activeTab === 'structure' ? 'text-white dark:bg-gray-900 bg-theme-primary' : ''"
+                class="inline-block w-full p-3 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-[#CDCFFB] focus:outline-none !rounded-r-xl">
+                Structure
+            </button>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="flex-1 overflow-y-auto light-scroll-bar">
+        <!-- History Tab -->
+        <div x-show="activeTab === 'history'">
+            {% include "partials/chat_file_history.html" %}
+        </div>
+
+        <!-- Structure Tab -->
+        <div x-show="activeTab === 'structure'">
+            {% include "partials/chat_file_tree.html" %}
+        </div>
+    </div>
+</aside>

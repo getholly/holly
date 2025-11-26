@@ -1,0 +1,38 @@
+/* Write your global styles here, in PostCSS syntax */
+/* Import our custom overrides for input focus rings */
+@import './lib/css/input-overrides.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.qp-cell {
+  @apply dark:border-gray-700 px-1;
+}
+
+pre,
+code {
+  /* Use the imported font name first in the stack */
+  font-family: 'Roboto Mono', 'SF Mono', 'Consolas', monospace;
+  @apply text-green-500 border-gray-500;
+}
+
+pre code.language-bash {
+  @apply text-green-400 font-mono bg-gray-700;
+}
+
+pre code.language-json {
+  @apply text-blue-700 text-white font-mono;
+}
+
+pre code.language-tool_request {
+  @apply text-yellow-400 font-mono;
+}
+
+pre code.language-tool_response {
+  @apply text-green-500 font-mono;
+}
+
+.wrap-anywhere {
+  overflow-wrap: anywhere;
+}

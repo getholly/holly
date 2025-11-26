@@ -1,0 +1,1084 @@
+{
+  "components": {
+    "Footer": {
+      "poweredby": "Powered By"
+    },
+    "accounting": {
+      "AccountingPage": {
+        "advancedaccountingmodule": "Advanced Accounting Module",
+        "newfeature": "New Feature",
+        "streamlineyourfinancial": "Streamline your financial operations with our cutting-edge Accounting Module. Designed to integrate seamlessly with your existing systems and boost efficiency across your accounting processes.",
+        "systemautomatically": "System automatically logs and categorizes incoming invoices.",
+        "ai-poweredsystemsuggests": "AI-powered system suggests optimal payment timing.",
+        "streamlinedapproval": "Streamlined approval workflow with multi-level authentication.",
+        "secure,automatedpayment": "Secure, automated payment processing with real-time confirmation.",
+        "automaticmatchingof": "Automatic matching of payments with invoices and account updating.",
+        "scheduleademo": "Schedule a Demo"
+      }
+    },
+    "chat": {
+      "AskModal": {
+        "close": "Close"
+      },
+      "ChatModal": {
+        "close": "Close"
+      },
+      "Chat": {
+        "previousconversations": "Previous Conversations",
+        "newchat": "New Chat",
+        "send": "Send",
+        "pleaseselectachat": "Please select a chat conversation or click to start a new one",
+        "areyousureyouwant": "Are you sure you want to delete this conversation? (",
+        "yes,i'msure": "Yes, I'm sure",
+        "no,cancel": "No, cancel"
+      },
+      "ChatWidget": {
+        "send": "Send"
+      },
+      "MsgLog": {
+        "ai:": "AI:"
+      },
+      "TextToSpeech": {
+        "text-to-speechconverter": "Text-to-Speech Converter",
+        "stop": "Stop"
+      }
+    },
+    "blending": {
+      "BlendingPage": {
+        "revolutionarymetalblending": "Revolutionary Metal Blending Optimization System",
+        "empoweryourmetaltrading": "Empower your metal trading operations with our cutting-edge blending system. Optimize your concentrate blends with precision and ease.",
+        "keyfeatures:": "Key Features:",
+        "specifyinputconcentrates": "Specify input concentrates and mixing rules",
+        "createoptimizedblends": "Create optimized blends based on your criteria",
+        "factorinblendingcosts": "Factor in blending costs and concentrate locations",
+        "setmin/maxcontentfor": "Set min/max content for metals (copper, gold, silver, etc.)",
+        "ensurecompliancewith": "Ensure compliance with regulatory limits (e.g., CIQ in China)",
+        "controldangerouschemical": "Control dangerous chemical content (fluorine, arsenic, etc.)",
+        "benefits:": "Benefits:",
+        "maximizeprofitability": "Maximize profitability by optimizing blend compositions",
+        "ensureregulatorycompliance": "Ensure regulatory compliance across different markets",
+        "reducerisksassociated": "Reduce risks associated with dangerous chemical content",
+        "streamlineyourblending": "Streamline your blending process with automated calculations",
+        "makeinformeddecisions": "Make informed decisions with comprehensive blend analysis",
+        "takecontrolofyour": "Take control of your metal trading operations and stay ahead of the competition with our advanced blending system.",
+        "requestademo": "Request a Demo",
+        "blendingsystemuimockup": "Blending System UI Mockup",
+        "inputconcentrates": "Input Concentrates",
+        "concentratea": "Concentrate A",
+        "concentrateb": "Concentrate B",
+        "concentratec": "Concentrate C",
+        "addconcentrate": "Add Concentrate",
+        "mixingrules": "Mixing Rules",
+        "maxblendingcost:$1000": "Max blending cost: $1000",
+        "mincoppercontent:25%": "Min copper content: 25%",
+        "maxarsenic:0.5%": "Max arsenic: 0.5%",
+        "editrules": "Edit Rules",
+        "optimizedblendresults": "Optimized Blend Results",
+        "blendcompositionvisualization": "Blend composition visualization",
+        "generatenewblend": "Generate New Blend",
+        "emailaddress": "Email address",
+        "subject": "Subject",
+        "message": "Message",
+        "cancel": "Cancel",
+        "sendrequest": "Send Request"
+      }
+    },
+    "camera": {
+      "Camera": {
+        "usecamera": "Use Camera",
+        "capturephoto": "Capture Photo",
+        "stopcamera": "Stop Camera"
+      }
+    },
+    "dashboard": {
+      "ContractVerificationCount": {
+        "verifiedcontracts:": "Verified Contracts:",
+        "view": "View",
+        "unverifiedcontracts:": "Unverified Contracts:",
+        "loadingcontractcounts...": "Loading contract counts..."
+      },
+      "QuickLinks": {
+        "quicklinks": "Quick Links",
+        "contracts": "Contracts",
+        "view": "View",
+        "parcels": "Parcels",
+        "assays": "Assays",
+        "hedges": "Hedges",
+        "invoices": "Invoices"
+      }
+    },
+    "contract": {
+      "ContractPage": {
+        "contracts": "Contracts"
+      },
+      "ContractDocumentUploader": {
+        "aiisreadingandprocessing": "AI is Reading and Processing",
+        "(processingtime:": "(Processing time:",
+        "s)": "s)",
+        "upload": "Upload",
+        "clicktoupload": "Click to upload",
+        "ordraganddrop": "or drag and drop",
+        "pdf": "PDF",
+        "chooseadocumenttype": "Choose a Document Type to upload",
+        "docname:": "Doc Name:",
+        "adddocumentname": "Add Document Name",
+        "documentname": "Document Name",
+        "addname": "Add Name"
+      },
+      "ContractTable": {
+        "id": "ID",
+        "name": "Name",
+        "createdat": "Created at",
+        "updatedat": "Updated at",
+        "operator": "Operator",
+        "trader": "Trader",
+        "chatwithlegalcontract": "Chat with Legal Contract",
+        "chatwithtrade": "Chat with Trade",
+        "view": "View",
+        "verify": "Verify",
+        "shipment": "Shipment"
+      }
+    },
+    "documents": {
+      "ShipmentsDocumentsTable": {
+        "uploadedassays": "Uploaded Assays",
+        "id": "ID",
+        "type": "Type",
+        "name": "Name",
+        "updatedby": "Updated by",
+        "updatedat": "Updated at",
+        "pdf": "PDF",
+        "view": "View",
+        "verify": "Verify",
+        "updateshipment": "Update Shipment",
+        "verifyrequired": "Verify Required",
+        "assaysunavailable": "Assays unavailable"
+      },
+      "ShipmentsGeneratedDocsTable": {
+        "generated": "Generated",
+        "provisional": "Provisional",
+        "final": "Final"
+      }
+    },
+    "exportables": {
+      "ExportGoogleSheets": {
+        "configuregooglesheets": "Configure Google Sheets Export",
+        "sheetname": "Sheet Name",
+        "worksheetname": "Worksheet Name",
+        "exportmode": "Export Mode",
+        "appendtoexistingdata": "Append to existing data",
+        "overwriteexistingdata": "Overwrite existing data",
+        "includeheadersinexport": "Include headers in export",
+        "googlesheetsconnected": "Google Sheets connected successfully!",
+        "connectgoogleaccount": "Connect Google Account",
+        "exportnow": "Export Now"
+      },
+      "ExportWebhook": {
+        "configurewebhookexport": "Configure Webhook Export",
+        "webhookurl": "Webhook URL",
+        "httpmethod": "HTTP Method",
+        "post": "POST",
+        "get": "GET",
+        "put": "PUT",
+        "delete": "DELETE",
+        "authenticationtoken": "Authentication Token (Optional)",
+        "payloadformat": "Payload Format",
+        "json": "JSON",
+        "xml": "XML",
+        "form-encoded": "Form-encoded",
+        "customheaders(optional)": "Custom Headers (Optional)",
+        "sendatestwebhook": "Send a test webhook",
+        "retryonfailure": "Retry on failure",
+        "exportnow": "Export Now"
+      },
+      "ExportZapier": {
+        "configurezapierexport": "Configure Zapier Export",
+        "chooseapptoexport": "Choose App to Export To ",
+        "googlesheets": "Google Sheets",
+        "slack": "Slack",
+        "salesforce": "Salesforce",
+        "mailchimp": "Mailchimp",
+        "triggerevent": "Trigger Event",
+        "newdataavailable": "New data available",
+        "updateddata": "Updated data",
+        "scheduledexport": "Scheduled export",
+        "fieldmapping(optional)": "Field Mapping (Optional)",
+        "exportfrequency": "Export Frequency",
+        "immediately": "Immediately",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "filterdatabeforeexport": "Filter data before export",
+        "notifyonexportcompletion": "Notify on export completion",
+        "connectzapieraccount": "Connect Zapier Account",
+        "exportnow": "Export Now"
+      }
+    },
+    "flowbite-svelte": {
+      "Dropzone": {
+        "clicktoupload": "Click to upload",
+        "ordraganddrop": "or drag and drop",
+        "svg,png,jpgorgif": "SVG, PNG, JPG or GIF (MAX. 800x400px)"
+      }
+    },
+    "gaiaComponents": {
+      "GaiaBreadcrumbs": {
+        "home": "Home"
+      },
+      "GaiaListChooser": {
+        "uniqueitemsinlist": "Unique Items in List 1",
+        "itemsinlist2": "Items in List 2",
+        "ok": "OK"
+      }
+    },
+    "hedges": {
+      "ExposureTable": {
+        "payableelements": "Payable Elements",
+        "units": "Units",
+        "settlement": "Settlement"
+      },
+      "QPModalForm": {
+        "selectyourqpoptions": "Select your QP options",
+        "single": "Single",
+        "average": "Average",
+        "cancel": "Cancel",
+        "sendrequest": "Send Request"
+      },
+      "HedgeReportComponent": {
+        "hedgereport-": "Hedge Report -",
+        "hedge": "Hedge",
+        "intakeassays": "Intake Assays",
+        "provisional()": "Provisional ()",
+        "provisional|final(todo:": "Provisional|Final (TODO: link to assay)"
+      },
+      "ParcelHedges": {
+        "todo:totalhedgesfor": "TODO: Total Hedges for Parcel:"
+      },
+      "QPTable": {
+        "calctype:": "Calc Type:",
+        "qps:": "QPs:",
+        "edityourqpoptions": "Edit your QP options",
+        "single": "Single",
+        "average": "Average",
+        "partaverage": "Part Average",
+        "cancel": "Cancel",
+        "ok": "OK"
+      }
+    },
+    "invoices": {
+      "InvoicePage": {
+        "comingsoon:listof": "Coming soon: list of generated invoices"
+      }
+    },
+    "navs": {
+      "Navbar": {
+        "search": "Search",
+        "dashboard": "Dashboard",
+        "settings": "Settings",
+        "signout": "Sign out"
+      }
+    },
+    "modals": {
+      "ModalErrorMessage": {
+        "(checkwithbackendsupport)": "(check with Backend support)",
+        "ok": "OK"
+      },
+      "ModalListChooser": {
+        "ok": "OK"
+      },
+      "ModalListObjectChooser": {
+        "ok": "OK"
+      },
+      "ModalLoggedOut": {
+        "yourloginhasexpired,": "Your login has expired, please click to log in again.",
+        "login": "Login"
+      }
+    },
+    "parcel": {
+      "ParcelStatus": {
+        "inprogress": "In Progress",
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "unknown": "Unknown"
+      },
+      "ParcelPage": {
+        "yourparcels": "Your Parcels",
+        "createnewparcel": "Create New Parcel",
+        "parcelname": "Parcel Name",
+        "createparcel": "Create Parcel"
+      },
+      "ParcelTable": {
+        "id": "ID",
+        "name": "Name",
+        "updatedby": "Updated by",
+        "updatedat": "Updated at",
+        "status": "Status",
+        "delete": "Delete"
+      }
+    },
+    "sheets": {
+      "ExcelJS": {
+        "exceljs": "ExcelJS",
+        "worksheets:": "Worksheets:"
+      },
+      "Univer": {
+        "univerdemo": "Univer demo"
+      }
+    },
+    "pnl": {
+      "CostCategorySelector": {
+        "selectcategory": "Select Category",
+        "selectacategory": "Select a category",
+        "entervaluefor": "Enter value for",
+        "add": "Add",
+        "costorgainscategory": "Cost or Gains Category",
+        "value": "Value",
+        "netp/l($/dmt)": "Net P/L ($/dmt)"
+      }
+    },
+    "shipment": {
+      "ShipmentDeductions": {
+        "deductionsoverride": "Deductions Override",
+        "chemical:": "Chemical:",
+        "amount(": "Amount (",
+        "pleaseenteranumber": "Please enter a number greater than or equal to 0",
+        "updatedeductions": "Update Deductions",
+        "nodeductions": "No Deductions"
+      },
+      "ShipmentDetails": {
+        "details": "Details",
+        "shipmentdetails": "Shipment Details",
+        "updatesuccessful": "Update Successful",
+        "updateshipmentdetails": "Update shipment details",
+        "overrides": "Overrides"
+      },
+      "ShipmentPage": {
+        "shipment": "Shipment",
+        "schedule": "Schedule",
+        "viewhedgereport": "View Hedge Report",
+        "updatehedgereport": "Update Hedge Report",
+        "generateprovisional": "Generate Provisional",
+        "generatefinal": "Generate Final",
+        "shipmentdetailsupdate": "Shipment Details Update Required",
+        "assayuploaded": "Assay Uploaded",
+        "doyouwantto": "Do you want to",
+        "verify": "Verify",
+        "detailsforthelatest": "details for the latest assay?",
+        "yes": "Yes",
+        "later": "Later"
+      },
+      "ShipmentStatus": {
+        "pending": "Pending",
+        "intransit": "In Transit",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled"
+      },
+      "ShipmentTable": {
+        "id": "ID",
+        "lcno": "LC No",
+        "name": "Name",
+        "date": "Date",
+        "status": "Status"
+      },
+      "ShipmentPayables": {
+        "payablesoverride": "Payables Override",
+        "fieldsbelowcanbeupdated": "Fields below can be updated via the",
+        "'updateshipment'": "'Update Shipment'",
+        "nexttotheirrespective": "next to their respective assay on the assay table below",
+        "metals": "Metals",
+        "amount(": "Amount (",
+        "price": "Price",
+        "pleaseenteranumber": "Please enter a number greater than or equal to 0",
+        "pleaseenterapercentage": "Please enter a percentage greater than or equal to 0",
+        "pleasecheckthiscalculated": "Please check this calculated dry weight based off wet and moisture content",
+        "updatepayables": "Update Payables"
+      },
+      "ShipmentTablePage": {
+        "shipments": "Shipments",
+        "createshipments": "Create Shipments"
+      },
+      "sheets": {
+        "+page": {
+          "todo:showalistof": "TODO: show a list of all xls sheets for this shipment"
+        },
+        "[sheetId]": {
+          "+page": {
+            "sheetviewer": "Sheet Viewer"
+          }
+        }
+      }
+    },
+    "storage": {
+      "StoragePage": {
+        "metalstorepro": "MetalStore Pro",
+        "newmodule": "New Module",
+        "advancedstoragemanagement": "Advanced Storage Management for Metals Traders",
+        "revolutionizeyourmetals": "Revolutionize your metals trading operations with MetalStore Pro. Gain unparalleled visibility into your global concentrate inventory, optimize blending processes, and make data-driven logistics decisions - all from a single, powerful platform.",
+        "requestademo": "Request a Demo",
+        "keyfeatures": "Key Features",
+        "howitworks": "How It Works",
+        "easilyinputorimport": " Easily input or import your concentrate inventory data, including quantities, locations, and specifications. ",
+        "viewyourinventoryon": "View your inventory on an interactive world map, with detailed information available at a click.",
+        "receiveai-poweredsuggestions": "Receive AI-powered suggestions for optimal blending based on your inventory and target specifications.",
+        "calculateshippingcosts": "Calculate shipping costs and transit times to different ports, optimizing your logistics decisions.",
+        "generatecomprehensive": "Generate comprehensive reports on inventory status, blending efficiency, and logistics costs.",
+        "benefitsforyourbusiness": "Benefits for Your Business",
+        "advancedcapabilities": "Advanced Capabilities",
+        "predictiveanalytics": "Predictive Analytics",
+        "leveragemachinelearning": "Leverage machine learning algorithms to forecast inventory needs, predict market demands, and optimize your trading strategies. Our system analyzes historical data, market trends, and your unique trading patterns to provide actionable insights.",
+        "integrationecosystem": "Integration Ecosystem",
+        "seamlesslyconnectmetalstore": "Seamlessly connect MetalStore Pro with your existing systems, including ERP software, financial platforms, and logistics management tools. Our open API allows for custom integrations, ensuring a smooth flow of data across your entire operation.",
+        "compliancemanagement": "Compliance Management",
+        "stayaheadofregulatory": "Stay ahead of regulatory requirements with our built-in compliance tools. Track and manage certificates, ensure adherence to storage regulations, and generate compliance reports with ease. Our system stays updated with the latest industry standards and regulations.",
+        "whychoosemetalstore": "Why Choose MetalStore Pro?",
+        "developedbyindustry": "Developed by industry experts with decades of experience in metals trading and logistics.",
+        "bank-gradeencryption": "Bank-grade encryption and robust access controls to keep your sensitive inventory data safe.",
+        "24/7customersupport": "24/7 customer support and regular system updates to ensure smooth operations.",
+        "flexiblearchitecture": "Flexible architecture that grows with your business, from small trading operations to global enterprises.",
+        "readytooptimizeyour": "Ready to Optimize Your Metals Trading Operations?",
+        "jointheranksofleading": "Join the ranks of leading metals traders who have revolutionized their inventory management with MetalStore Pro.",
+        "startfreetrial": "Start Free Trial",
+        "scheduledemo": "Schedule Demo"
+      }
+    },
+    "tabs": {
+      "VerifyViewConcentrate": {
+        "verify": "Verify"
+      },
+      "VerifyViewTabDeductionsAccordion": {
+        "deductionsverified": "Deductions Verified",
+        "verifyalldeductions": "Verify all deductions",
+        "closealldeductions": "Close all deductions",
+        "openalldeductions": "Open all deductions",
+        "update": "Update",
+        "verify": "Verify"
+      },
+      "VerifyViewTabGrid": {
+        "allverified": "All Verified",
+        "verifyall": "Verify All",
+        "delete/copy": "Delete/Copy",
+        "action": "Action",
+        "update": "Update",
+        "verify": "Verify"
+      },
+      "VerifyViewQP": {
+        "allverified": "All Verified",
+        "verifyall": "Verify All",
+        "verifiedon:": "Verified on:",
+        "by": "by"
+      },
+      "VerifyViewTabShipments": {
+        "verifyall": "Verify All",
+        "un-verifyall": "UN-Verify All",
+        "actions": "Actions",
+        "shipmentno": "Shipment No",
+        "date": "Date",
+        "concentratetype": "Concentrate Type",
+        "metal": "Metal",
+        "weight": "Weight",
+        "pctamount": "Pct Amount",
+        "paymentrule": "Payment Rule",
+        "verified": "Verified",
+        "missingmetalsinshipment": "missing metals in shipment",
+        "update": "Update",
+        "verify": "Verify",
+        "deductionshere..": "Deductions here.."
+      },
+      "VerifyViewTabConcentrateAccordion": {
+        "addpayables": "Add Payables",
+        "verifyall": "Verify All",
+        "updateall": "Update All",
+        "openallpayables": "Open all payables",
+        "closeallpayables": "Close all payables",
+        "weight": "Weight",
+        "tolerance": "Tolerance",
+        "addmetal": "Add Metal",
+        "actions": "Actions",
+        "metalname": "Metal Name",
+        "unitamount": "Unit Amount",
+        "unit": "Unit",
+        "xlformula": "XL Formula",
+        "paymentrule": "Payment Rule",
+        "missingmetalsinshipment": "missing metals in shipment",
+        "editmode": "Edit Mode",
+        "edit": "Edit"
+      },
+      "VerifyViewTabShipmentsAccordian": {
+        "allverified": "All Verified",
+        "verifyall": "Verify All",
+        "openallshipments": "Open all shipments",
+        "closeallshipments": "Close all shipments",
+        "shipment:": "Shipment:",
+        "date": "Date",
+        "tolerance:(±": "Tolerance: (±",
+        "weight": "Weight",
+        "metalname": "Metal Name",
+        "unitamount": "Unit Amount",
+        "unit": "Unit",
+        "xlformula": "XL Formula",
+        "paymentrule": "Payment Rule",
+        "update": "Update",
+        "verify": "Verify",
+        "missingmetalsinshipment": "missing metals in shipment",
+        "deductions": "Deductions",
+        "nodeductionshere": "No Deductions Here",
+        "deductionchemicals": "Deduction Chemicals",
+        "nodeductionschemicals": "No Deductions Chemicals Here"
+      },
+      "VerifyViewTab": {
+        "verified": "Verified",
+        "by": "by",
+        "notverified": "Not Verified",
+        "loadingdata...": "Loading Data ..."
+      },
+      "assay": {
+        "VerifyViewAssayTabOneDepthDropdown": {
+          "selectcategory": "Select Category",
+          "verified": "Verified",
+          "by": "by",
+          "notverified": "Not Verified",
+          "loadingdata...": "Loading Data ..."
+        },
+        "VerifyViewAssayTabOneDepth": {
+          "verified": "Verified",
+          "by": "by",
+          "notverified": "Not Verified",
+          "loadingdata...": "Loading Data ..."
+        },
+        "VerifyViewAssayTabSheet": {
+          "verified": "Verified",
+          "update": "Update",
+          "verify": "Verify"
+        },
+        "VerifyViewAssayTabOneDepthReadOnly": {
+          "readonly": "Read Only",
+          "loadingdata...": "Loading Data ..."
+        },
+        "VerifyViewAssayTabTable": {
+          "verified": "Verified",
+          "update": "Update",
+          "verify": "Verify",
+          "lotnumber": "Lot Number",
+          "weight": "Weight",
+          "average": "Average"
+        },
+        "VerifyWSMDAccordion": {
+          "verified": "Verified",
+          "verify": "Verify",
+          "update": "Update"
+        }
+      }
+    },
+    "themis": {
+      "JSONEditor": {
+        "jsonschemaeditor": "JSON Schema Editor",
+        "usetheeditorbelow": "Use the editor below to create custom schema for extracting document data",
+        "searchtodo:treeview": "Search TODO: Tree view with list",
+        "extractionprompt": "Extraction Prompt",
+        "schemaeditor": "Schema Editor",
+        "save": "Save"
+      },
+      "SchemaEditor": {
+        "//jsonschemaeditor.svelte": "// JsonSchemaEditor.svelte",
+        "jsonschemaeditor": "JSON Schema Editor",
+        "addfield": "Add Field",
+        "object": "Object",
+        "array": "Array",
+        "remove": "Remove",
+        "addnestedfield": "Add Nested Field",
+        "generatedjsonschema:": "Generated JSON Schema:"
+      },
+      "SchemaCard": {
+        "2": "2",
+        "10": "10",
+        "20": "20",
+        "50": "50",
+        "name": "Name",
+        "id": "ID",
+        "schemaversionid": "Schema Version ID",
+        "createdat": "Created At",
+        "updatedat": "Updated At",
+        "isvalid": "Is Valid",
+        "itemsperpage:": "Items per page:",
+        "id:": "ID:",
+        "schemaversionid:": "Schema Version ID:",
+        "createdat:": "Created at:",
+        "updated at:": " Updated at: ",
+        "isvalid:": "Is Valid:"
+      },
+      "SchemaField": {
+        "string": "String",
+        "integer": "Integer",
+        "boolean": "Boolean",
+        "datetime": "Datetime",
+        "object": "Object",
+        "array": "Array",
+        "remove": "Remove",
+        "addfield": "Add Field"
+      },
+      "SchemaJsonEditor2": {
+        "jsoneditor": "JSON Editor",
+        "formatjson": "Format JSON"
+      },
+      "SchemaPage": {
+        "documentrepository": "Document Repository",
+        "downloadall": "Download All"
+      },
+      "SchemaTable": {
+        "ask": "Ask",
+        "id": "ID",
+        "name": "Name",
+        "schemaversionid": "Schema Version Id",
+        "createdat": "Created at",
+        "updatedat": "Updated at",
+        "isvalid": "Is Valid",
+        "allcolumns": "All Columns",
+        "exportcsv": "Export CSV",
+        "customizecolumns": "Customize Columns",
+        "actions": "Actions",
+        "itemsperpage:": "Items per page:"
+      },
+      "ThemisDocumentViewPage": {
+        "viewingdoc": "Viewing doc"
+      },
+      "SchemaTable2": {
+        "10": "10",
+        "25": "25",
+        "50": "50",
+        "100": "100",
+        "allcolumns": "All Columns",
+        "exportcsv": "Export CSV",
+        "customizecolumns": "Customize Columns",
+        "actions": "Actions",
+        "itemsperpage:": "Items per page:"
+      },
+      "SchemaPicker": {
+        "documenttype:": "Document Type:",
+        "chooseadocumenttype": "Choose a Document Type to filter on"
+      },
+      "SortableSchemaView": {
+        "sortby:": "Sort by:",
+        "id": "ID",
+        "name": "Name",
+        "schemaversionid": "Schema Version ID",
+        "createdat": "Created At",
+        "updatedat": "Updated At",
+        "isvalid": "Is Valid"
+      },
+      "ThemisPage": {
+        "documentrepository": "Document Repository",
+        "downloadall": "Download All"
+      }
+    },
+    "uploaders": {
+      "DocumentUploaderPnL": {
+        "aiisreadingandprocessing": "AI is Reading and Processing",
+        "(processingtime:": "(Processing time:",
+        "s)": "s)",
+        "upload": "Upload",
+        "clicktoupload": "Click to upload",
+        "ordraganddrop": "or drag and drop",
+        "pdf": "PDF",
+        "documenttype:": "Document Type:",
+        "docname:": "Doc Name:",
+        "adddocumentname": "Add Document Name",
+        "documentname": "Document Name",
+        "addname": "Add Name"
+      },
+      "CameraUploader": {
+        "aiisreadingandprocessing": "AI is Reading and Processing",
+        "(processingtime:": "(Processing time:",
+        "s)": "s)",
+        "imageupload": "Image Upload",
+        "clicktoupload": "Click to upload",
+        "ordraganddrop": "or drag and drop",
+        "pdf": "PDF",
+        "docname:": "Doc Name:",
+        "upload": "Upload",
+        "adddocumentname": "Add Document Name",
+        "documentname": "Document Name",
+        "addname": "Add Name"
+      },
+      "DocumentUploader": {
+        "upload": "Upload",
+        "clicktoupload": "Click to upload",
+        "ordraganddrop": "or drag and drop",
+        "pdf": "PDF",
+        "chooseadocumenttype": "Choose a Document Type to filter on",
+        "uploadingdoctype:": "Uploading Doc Type:",
+        "uploading...pleasewait": "Uploading...please wait",
+        "filename:": "File Name:",
+        "documentname:": "Document Name:",
+        "category:": "Category:",
+        "uploadstatus": "Upload status",
+        "s": "s",
+        "filename": "File Name",
+        "status": "Status",
+        "remove": "Remove",
+        "preview": "Preview",
+        "docname": "Doc Name",
+        "category": "Category"
+      }
+    },
+    "viewers": {
+      "AssayViewer": {
+        "verificationcomplete": "Verification Complete"
+      },
+      "ContractViewer": {
+        "allverified": "All Verified",
+        "verifyall": "Verify All",
+        "openall": "Open All",
+        "verificationcomplete": "Verification Complete"
+      },
+      "PnLVerifyViewer": {
+        "verificationcomplete": "Verification Complete"
+      }
+    }
+  },
+  "routes": {
+    "500": {
+      "500internalerror": "500 Internal Error",
+      "whoops!thatpagedoesn’t": "Whoops! That page doesn’t exist.",
+      "herearesomehelpful": "Here are some helpful links:",
+      "support": "Support",
+      "home": "Home"
+    },
+    "+error": {
+      "404notfound": "404 Not Found",
+      "whoops!thatpagedoesn’t": "Whoops! That page doesn’t exist.",
+      "herearesomehelpful": "Here are some helpful links instead:",
+      "home": "Home",
+      "search": "Search",
+      "help": "Help",
+      "contact": "Contact"
+    },
+    "+page": {
+      "v0.1": "v0.1"
+    },
+    "contact": {
+      "+page": {
+        "contactusfortheenterprise": "Contact Us for the Enterprise Plan",
+        "forcustomsolutions": "For custom solutions and pricing, please contact us directly using any methods below and we will get back to you shortly.",
+        "contactus": "Contact us",
+        "login": "Login"
+      }
+    },
+    "counter-party": {
+      "+page": {
+        "email": "Email",
+        "id:": "ID:"
+      }
+    },
+    "pricing": {
+      "+page": {
+        "pricingplan": "Pricing Plan",
+        "plan": "Plan",
+        "/month": "/month",
+        "choose": "Choose"
+      }
+    },
+    "settings": {
+      "+page": {
+        "accountsettings": "Account Settings",
+        "username:": "Username:",
+        "email:": "Email:",
+        "currentplan:": "Current Plan:",
+        "managesubscription": "Manage Subscription"
+      }
+    },
+    "(auth)": {
+      "register": {
+        "+page": {
+          "createanaccount": "Create an account",
+          "email": "Email",
+          "password": "Password",
+          "confirmpassword": "Confirm Password",
+          "registrationfailed!": "Registration failed! Please try again.",
+          "passwordsdonotmatch!": "Passwords do not match! Please try again.",
+          "createaccount": "Create account"
+        }
+      },
+      "forgot-password": {
+        "+page": {
+          "emailsent": "Email Sent",
+          "wehavesentanemail": "We have sent an email to the address you provided with a link to reset your password.",
+          "forgotyourpassword": "Forgot your password",
+          "pleaseentertheemail": "Please enter the email address below and we will send you an email to reset your password",
+          "email": "Email",
+          "resetpassword": "Reset Password",
+          "backtologin": "Back to login"
+        }
+      },
+      "login": {
+        "+page": {
+          "signintoyouraccount": "Sign in to ",
+          "youremail": "Your email",
+          "yourpassword": "Your password",
+          "rememberme": "Remember me",
+          "forgottenpassword?": "Forgotten Password?",
+          "invalidcredentials!": "Invalid credentials! Please try again.",
+          "logintoyouraccount": "Log in to your account",
+          "createaaccount": "Create an Account",
+          "poweredby": "Powered By"
+        }
+      },
+      "reset-password": {
+        "+page": {
+          "passwordupdated!": "Password Updated!",
+          "youcannowuseyour": "You can now use your updated password.",
+          "login": "Login",
+          "resetpassword": "Reset Password",
+          "pleaseenteryournew": "Please enter your new password below and confirm it.",
+          "newpassword": "New password",
+          "confirmnewpassword": "Confirm New password",
+          "backtologin": "Back to login"
+        }
+      },
+      "verify-email": {
+        "+page": {
+          "emailverifiedsuccessfully!": "Email Verified Successfully!",
+          "youremailhasbeenverified.": "Your email has been verified. You can now log in with your account.",
+          "gotologin": "Go to Login",
+          "emailverificationfailed": "Email Verification Failed",
+          "somethingwentwrong": "Something went wrong during the verification process. Please try again later or resend the verification email.",
+          "verifyyouremailaddress": "Verify your email address",
+          "wehavesentaverification": "We have sent a verification email to your email address. Please check your inbox and click the link to verify your account.",
+          "verificationemailresent": "Verification email resent successfully!",
+          "errorresendingverification": "Error resending verification email. Please try again later.",
+          "resendverificationemail": "Resend verification email"
+        }
+      }
+    },
+    "main": {
+      "concord": {
+        "+page": {
+          "concordpoc-upload": "Concord PoC - Upload and extract your CTRM data"
+        }
+      },
+      "expenses": {
+        "+page": {
+          "expensetracking-upload": "Expense Tracking - Upload and log your expenses here"
+        }
+      },
+      "contracts": {
+        "contract": {
+          "+page": {
+            "redirectingbacktocontracts": "Redirecting back to contracts"
+          },
+          "[contractId]": {
+            "+page": {
+              "redirectingtocontracts": "Redirecting to contracts"
+            },
+            "verify": {
+              "+page": {
+                "loading...": "Loading..."
+              }
+            },
+            "shipments": {
+              "[shipmentId]": {
+                "assay": {
+                  "+page": {
+                    "donotusethispage": "DO NOT USE THIS PAGE FOR ANYTHING\n        Redirect back to shipment/:id where all the assays live"
+                  }
+                },
+                "final": {
+                  "+page": {
+                    "shipmentid:": "Shipment ID:",
+                    "todo:showalistof": "TODO: show a list of all Final Invoices for this shipment"
+                  },
+                  "[provisionalId]": {
+                    "+page": {
+                      "finalinvoicegenerated": "Final Invoice Generated by Assay",
+                      "unsupporteddoctype:": "unsupported doc type:",
+                      "sorrynofinalinvoice": "Sorry no Final invoice found, please generate one from shipment/assay screen."
+                    }
+                  }
+                },
+                "provisional": {
+                  "+page": {
+                    "shipmentid:": "Shipment ID:",
+                    "todo:showalistof": "TODO: show a list of all Provisional Invoices for this shipment"
+                  },
+                  "[provisionalId]": {
+                    "+page": {
+                      "provisionalinvoicegenerated": "Provisional Invoice Generated by Assay",
+                      "unsupporteddoctype:": "unsupported doc type:",
+                      "sorrynoprovisional": "Sorry no provisional invoice found, please generate one from shipment/assay screen."
+                    }
+                  }
+                },
+                "pdf": {
+                  "+page": {
+                    "shipmentid:": "Shipment ID:",
+                    "pdfviewer-todo:show": "PDF Viewer - TODO: show a list of all PDF files for this shipment"
+                  },
+                  "[pdfId]": {
+                    "+page": {
+                      "pdfviewer": "PDF Viewer"
+                    }
+                  }
+                },
+                "hedge": {
+                  "+page": {
+                    "hedgereport": "Hedge Report",
+                    "loadinghedgedetails...": "Loading hedge details..."
+                  }
+                },
+                "invoice": {
+                  "[invoiceId]": {
+                    "+page": {
+                      "generatedinvoice": "Generated Invoice"
+                    },
+                    "InvoiceHTML": {
+                      "finalinvoice": "Final Invoice",
+                      "ourreferenceno.": "Our Reference No.",
+                      "contractno.": "Contract No.",
+                      "l/cno.": "L/C No.",
+                      "allocationno": "Allocation No",
+                      "nameofvessel": "Name of Vessel",
+                      "dateofshipment": "Date of Shipment",
+                      "billofladingno.": "Bill of Lading No.",
+                      "packing": "Packing",
+                      "portofloading": "Port of Loading",
+                      "portofdischarge": "Port of Discharge",
+                      "tradeterms": "Trade Terms",
+                      "origin": "Origin",
+                      "commodity": "Commodity",
+                      "quotationalperiod": "Quotational Period",
+                      "finalshippednetwet": "Final Shipped net wet weight",
+                      "finalmoisturecontent": "Final moisture content",
+                      "finalshippeddryweight": "Final shipped dry weight",
+                      "thisinvoiceisbased": "This invoice is based on final weights, assays and prices.",
+                      "payableelement": "Payable Element",
+                      "content": "Content",
+                      "paymentrule": "Payment Rule",
+                      "netpayable": "Net payable",
+                      "unitprice": "Unit Price",
+                      "totalinusd/dmt": "Total in USD/dmt",
+                      "totalpayables": "Total Payables",
+                      "deductions": "Deductions",
+                      "totaldeductiblesper": "Total Deductibles per dmt",
+                      "finalcargovalueper": "Final cargo value per dry metric ton",
+                      "finalcifcycargovalue": "Final CIF CY cargo value basis",
+                      "lesstheprovisional": "Less the provisional payment",
+                      "balanceduetoopenmineral": "Balance due to Open Mineral AG",
+                      "payment": "Payment",
+                      "byirrevocableletter": "by irrevocable letter of credit, payable at sight",
+                      "l/cnum": "l/c num",
+                      "00il0004731": "00IL0004731",
+                      "openedby:": "Opened by:",
+                      "eibccnbjzjpexport-import": "EIBCCNBJZJP Export-Import Bank of China (Zhejiang Branch), The Hangzhou, CN",
+                      "openmineralag": "Open Mineral AG",
+                      "(beneficiary)": "(Beneficiary)"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "themis": {
+        "view": {
+          "+page": {
+            "redirectingtodocuments": "Redirecting to documents"
+          }
+        }
+      },
+      "parcel": {
+        "[parcelId]": {
+          "hedges": {
+            "+page": {
+              "hedgesummarybreakdown": "Hedge Summary Breakdown",
+              "hedgesummarybymonth": "Hedge Summary By Month",
+              "hedgesummarybyelement": "Hedge Summary By Element"
+            }
+          }
+        }
+      }
+    },
+    "+layout": {
+      "loading...pleasewait": "Loading ... please wait"
+    }
+  },
+  "stories": {
+    "ExampleStoryButton": {
+      "examplestorybutton": "Example Story Button",
+      "red": "Red",
+      "default": "Default"
+    }
+  },
+  "pages": {
+    "main": {
+      "DefaultDashboardPage": {
+        "test": "test"
+      },
+      "ExpenseDashboard": {
+        "receiptsuploaded": "Receipts Uploaded",
+        "viewall": "View All",
+        "totaluploaded:amount": "Total Uploaded : AMOUNT",
+        "expensessummary": "Expenses Summary",
+        "expenseschart": "Expenses Chart",
+        "nochartdisplayedyet.": "No chart displayed yet."
+      }
+    },
+    "pnl": {
+      "CashflowPage": {
+        "cashflow": "Cashflow",
+        "theoreticalpnl": "Theoretical PNL",
+        "theorycategory": "Theory category",
+        "secondarycost": "Secondary Cost",
+        "serviceprovider": "Service Provider",
+        "theoretical": "Theoretical",
+        "actual": "Actual",
+        "difference": "Difference",
+        "actions": "Actions"
+      },
+      "TheoreticalPage": {
+        "cashflowpnl": "Cash Flow PNL",
+        "bishazincconcentrate": "Bisha Zinc Concentrate to Jiangtong",
+        "element": "Element",
+        "unit": "Unit",
+        "assays": "Assays",
+        "prices": "Prices",
+        "quantity": "Quantity",
+        "dmt": "DMT",
+        "payablemetals": "Payable Metals",
+        "bishapurchase": "Bisha Purchase",
+        "jiangtongsale": "Jiangtong Sale",
+        "payable": "pay able ",
+        "tc": "TC",
+        "total": "Total",
+        "grossp/l($/dmt):": "Gross P/L ($/dmt):"
+      },
+      "PnlPage": {
+        "advancedprofit&loss": "Advanced Profit & Loss Module",
+        "empoweryourtrading": "Empower your trading decisions with our state-of-the-art Profit & Loss (PnL) Module. Get real-time insights, comprehensive analytics, and powerful tools to optimize your trading strategy.",
+        "advancedanalyticsfeatures": "Advanced Analytics Features",
+        "predictivepnlforecasting": "Predictive PnL forecasting using machine learning algorithms",
+        "correlationanalysis": "Correlation analysis between different assets and markets",
+        "scenariomodelingfor": "Scenario modeling for stress-testing your trading strategies",
+        "customreportgeneration": "Custom report generation for regulatory compliance and internal audits",
+        "integrationcapabilities": "Integration Capabilities",
+        "seamlessconnectionwith": "Seamless connection with major trading platforms and exchanges",
+        "apiaccessforcustom": "API access for custom integrations with your existing systems",
+        "mobileappforon-the-go": "Mobile app for on-the-go PnL monitoring and alerts",
+        "exportdatainvarious": "Export data in various formats (CSV, JSON, XML) for further analysis",
+        "securityandcompliance": "Security and Compliance",
+        "bank-gradeencryption": "Bank-grade encryption for all data transmissions and storage",
+        "multi-factorauthentication": "Multi-factor authentication and role-based access control",
+        "automatedaudittrails": "Automated audit trails for all user actions and system changes",
+        "compliancewithmajor": "Compliance with major financial regulations (GDPR, MiFID II, etc.)",
+        "performancemetrics": "Performance Metrics",
+        "contactsales": "Contact Sales"
+      }
+    },
+    "shipment": {
+      "ShipmentParcelPage": {
+        "shipmentsforparcel": "Shipments for Parcel:",
+        "shipment": "Shipment",
+        "viewhedgereport": "View Hedge Report",
+        "pnl": "PnL"
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+"""
+Wrapper script for the find_string_literals.py script to
+maintain compatibility with the repomap CLI interface.
+"""
+
+import argparse
+import os
+import subprocess
+import sys
+
+
+def main():
+    """Parse arguments and call the find_string_literals.py script."""
+    parser = argparse.ArgumentParser(description="Find string literals in a repository")
+    parser.add_argument("repo_path", help="Path to the repository to search")
+    parser.add_argument("search_string", help="String literal to search for")
+    parser.add_argument("--cache-dir", "-c", help="Path to the cache directory (ignored)")
+    parser.add_argument("--exclude", "-e", nargs="+", help="Patterns to exclude from analysis")
+    parser.add_argument("--no-color", action="store_true", help="Disable colored output (ignored)")
+    parser.add_argument("--mock", "-m", action="store_true", help="Use mock data instead of real search")
+
+    args, unknown_args = parser.parse_known_args()
+
+    # Construct the command to call the find_string_literals.py script
+    script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "find_string_literals.py")
+
+    if args.mock:
+        # Use the mock implementation from the original script
+        print(f"Using mock data for string literal search: '{args.search_string}'")
+        print("Found 2 occurrences of string literals:")
+        print("1. examples/python/greet/say.py:2 - In function 'greet'")
+        print('   print(f"hello {name}")')
+        print("2. tests/test_greet.py:10 - In function 'test_greet'")
+        print('   assert mock_stdout.getvalue() == "hello World\\n"')
+        return 0
+
+    # Construct arguments for the find_string_literals.py script
+    cmd = [script_path, args.repo_path, args.search_string, "--ignore-case"]
+
+    if args.exclude:
+        cmd.extend(["--exclude"] + args.exclude)
+
+    # Execute the script
+    return subprocess.call(cmd)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

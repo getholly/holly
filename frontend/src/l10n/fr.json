@@ -1,0 +1,1096 @@
+{
+  "components": {
+    "Footer": {
+      "poweredby": "Propulsé par"
+    },
+    "accounting": {
+      "AccountingPage": {
+        "advancedaccountingmodule": "Module de comptabilité avancée",
+        "newfeature": "Nouvelle fonctionnalité",
+        "streamlineyourfinancial": "Rationalisez vos opérations financières avec notre module de comptabilité de pointe. Conçu pour s'intégrer parfaitement à vos systèmes existants et améliorer l'efficacité de vos processus comptables.",
+        "systemautomatically": "Le système enregistre et catégorise automatiquement les factures entrantes.",
+        "ai-poweredsystemsuggests": "Le système basé sur l'IA suggère le moment optimal pour effectuer les paiements.",
+        "streamlinedapproval": "Flux de travail d'approbation simplifié avec authentification à plusieurs niveaux.",
+        "secure,automatedpayment": "Traitement des paiements sécurisé et automatisé avec confirmation en temps réel.",
+        "automaticmatchingof": "Correspondance automatique des paiements avec les factures et mise à jour des comptes.",
+        "scheduleademo": "Planifier une démo"
+      }
+    },
+    "chat": {
+      "AskModal": {
+        "close": "Fermer"
+      },
+      "ChatModal": {
+        "close": "Fermer"
+      },
+      "Chat": {
+        "previousconversations": "Conversations précédentes",
+        "newchat": "Nouvelle discussion",
+        "send": "Envoyer",
+        "pleaseselectachat": "Veuillez sélectionner une conversation ou cliquer pour en commencer une nouvelle",
+        "areyousureyouwant": "Êtes-vous sûr de vouloir supprimer cette conversation? (",
+        "yes,i'msure": "Oui, je suis sûr",
+        "no,cancel": "Non, annuler"
+      },
+      "ChatWidget": {
+        "send": "Envoyer"
+      },
+      "MsgLog": {
+        "ai:": "IA:"
+      },
+      "TextToSpeech": {
+        "text-to-speechconverter": "Convertisseur Texte en Parole",
+        "stop": "Arrêter"
+      }
+    },
+    "blending": {
+      "BlendingPage": {
+        "revolutionarymetalblending": "Système révolutionnaire d'optimisation du mélange de métaux",
+        "empoweryourmetaltrading": "Optimisez vos opérations de négoce de métaux avec notre système de mélange de pointe. Mélangez vos concentrés avec précision et facilité.",
+        "keyfeatures:": "Caractéristiques clés :",
+        "specifyinputconcentrates": "Spécifiez les concentrés d'entrée et les règles de mélange",
+        "createoptimizedblends": "Créez des mélanges optimisés selon vos critères",
+        "factorinblendingcosts": "Prenez en compte les coûts de mélange et les emplacements des concentrés",
+        "setmin/maxcontentfor": "Définissez le contenu min/max pour les métaux (cuivre, or, argent, etc.)",
+        "ensurecompliancewith": "Assurez la conformité avec les limites réglementaires (par ex., CIQ en Chine)",
+        "controldangerouschemical": "Contrôlez la teneur en produits chimiques dangereux (fluor, arsenic, etc.)",
+        "benefits:": "Avantages :",
+        "maximizeprofitability": "Maximisez la rentabilité en optimisant la composition des mélanges",
+        "ensureregulatorycompliance": "Assurez la conformité réglementaire sur différents marchés",
+        "reducerisksassociated": "Réduisez les risques liés à la teneur en produits chimiques dangereux",
+        "streamlineyourblending": "Rationalisez votre processus de mélange avec des calculs automatisés",
+        "makeinformeddecisions": "Prenez des décisions éclairées grâce à une analyse complète des mélanges",
+        "takecontrolofyour": "Prenez le contrôle de vos opérations de négoce de métaux et restez en avance sur la concurrence avec notre système avancé de mélange.",
+        "requestademo": "Demander une démo",
+        "blendingsystemuimockup": "Maquette du système de mélange",
+        "inputconcentrates": "Concentrés d'entrée",
+        "concentratea": "Concentré A",
+        "concentrateb": "Concentré B",
+        "concentratec": "Concentré C",
+        "addconcentrate": "Ajouter un concentré",
+        "mixingrules": "Règles de mélange",
+        "maxblendingcost:$1000": "Coût de mélange max : 1000 $",
+        "mincoppercontent:25%": "Teneur en cuivre min : 25 %",
+        "maxarsenic:0.5%": "Arsenic max : 0,5 %",
+        "editrules": "Modifier les règles",
+        "optimizedblendresults": "Résultats de mélange optimisé",
+        "blendcompositionvisualization": "Visualisation de la composition du mélange",
+        "generatenewblend": "Générer un nouveau mélange",
+        "emailaddress": "Adresse e-mail",
+        "subject": "Sujet",
+        "message": "Message",
+        "cancel": "Annuler",
+        "sendrequest": "Envoyer la demande"
+      }
+    },
+    "camera": {
+      "Camera": {
+        "usecamera": "Utiliser la caméra",
+        "capturephoto": "Prendre une photo",
+        "stopcamera": "Arrêter la caméra"
+      }
+    },
+    "dashboard": {
+      "ContractVerificationCount": {
+        "verifiedcontracts:": "Contrats vérifiés :",
+        "view": "Voir",
+        "unverifiedcontracts:": "Contrats non vérifiés :",
+        "loadingcontractcounts...": "Chargement des contrats..."
+      },
+      "QuickLinks": {
+        "quicklinks": "Liens rapides",
+        "contracts": "Contrats",
+        "view": "Voir",
+        "parcels": "Colis",
+        "assays": "Essais",
+        "hedges": "Couvertures",
+        "invoices": "Factures"
+      },
+      "InformationBanner": {
+        "title": "À venir",
+        "body": "Notre nouvelle optimisation du mélange alimentée par l'IA",
+        "infoButton": "Pour en savoir plus",
+        "ctaText": "Démarrer"
+      }
+    },
+    "contract": {
+      "ContractPage": {
+        "contracts": "Contrats"
+      },
+      "ContractDocumentUploader": {
+        "aiisreadingandprocessing": "L'IA est en train de lire et traiter",
+        "(processingtime:": "(Temps de traitement :",
+        "s)": "s)",
+        "upload": "Téléverser",
+        "clicktoupload": "Cliquez pour téléverser",
+        "ordraganddrop": "ou glissez-déposez",
+        "pdf": "PDF",
+        "chooseadocumenttype": "Choisissez un type de document à téléverser",
+        "docname:": "Nom du document :",
+        "adddocumentname": "Ajouter un nom de document",
+        "documentname": "Nom du document",
+        "addname": "Ajouter un nom"
+      },
+      "ContractTable": {
+        "id": "ID",
+        "name": "Nom",
+        "createdat": "Créé le",
+        "updatedat": "Mis à jour le",
+        "operator": "Opérateur",
+        "trader": "Négociant",
+        "chatwithlegalcontract": "Discuter avec le contrat légal",
+        "chatwithtrade": "Discuter avec le commerce",
+        "view": "Voir",
+        "verify": "Vérifier",
+        "shipment": "Expédition"
+      }
+    },
+    "documents": {
+      "ShipmentsDocumentsTable": {
+        "uploadedassays": "Essais téléversés",
+        "id": "ID",
+        "type": "Type",
+        "name": "Nom",
+        "updatedby": "Mis à jour par",
+        "updatedat": "Mis à jour le",
+        "pdf": "Pdf",
+        "view": "Voir",
+        "verify": "Vérifier",
+        "updateshipment": "Mettre à jour l'expédition",
+        "verifyrequired": "Vérification requise",
+        "assaysunavailable": "Essais indisponibles"
+      },
+      "ShipmentsGeneratedDocsTable": {
+        "generated": "Généré",
+        "provisional": "Provisoire",
+        "final": "Final"
+      }
+    },
+    "exportables": {
+      "ExportGoogleSheets": {
+        "configuregooglesheets": "Configurer l'exportation Google Sheets",
+        "sheetname": "Nom de la feuille",
+        "worksheetname": "Nom de la feuille de calcul",
+        "exportmode": "Mode d'exportation",
+        "appendtoexistingdata": "Ajouter aux données existantes",
+        "overwriteexistingdata": "Écraser les données existantes",
+        "includeheadersinexport": "Inclure les en-têtes dans l'exportation",
+        "googlesheetsconnected": "Google Sheets connecté avec succès !",
+        "connectgoogleaccount": "Connecter le compte Google",
+        "exportnow": "Exporter maintenant"
+      },
+      "ExportWebhook": {
+        "configurewebhookexport": "Configurer l'exportation Webhook",
+        "webhookurl": "URL Webhook",
+        "httpmethod": "Méthode HTTP",
+        "post": "POST",
+        "get": "GET",
+        "put": "PUT",
+        "delete": "SUPPRIMER",
+        "authenticationtoken": "Jeton d'authentification (optionnel)",
+        "payloadformat": "Format de la charge utile",
+        "json": "JSON",
+        "xml": "XML",
+        "form-encoded": "Formulaire encodé",
+        "customheaders(optional)": "En-têtes personnalisés (optionnel)",
+        "sendatestwebhook": "Envoyer un webhook de test",
+        "retryonfailure": "Réessayer en cas d'échec",
+        "exportnow": "Exporter maintenant"
+      },
+      "ExportZapier": {
+        "configurezapierexport": "Configurer l'exportation Zapier",
+        "chooseapptoexport": "Choisissez l'application à exporter",
+        "googlesheets": "Google Sheets",
+        "slack": "Slack",
+        "salesforce": "Salesforce",
+        "mailchimp": "Mailchimp",
+        "triggerevent": "Événement déclencheur",
+        "newdataavailable": "Nouvelles données disponibles",
+        "updateddata": "Données mises à jour",
+        "scheduledexport": "Exportation planifiée",
+        "fieldmapping(optional)": "Mappage des champs (optionnel)",
+        "exportfrequency": "Fréquence d'exportation",
+        "immediately": "Immédiatement",
+        "daily": "Quotidien",
+        "weekly": "Hebdomadaire",
+        "filterdatabeforeexport": "Filtrer les données avant l'exportation",
+        "notifyonexportcompletion": "Notifier à la fin de l'exportation",
+        "connectzapieraccount": "Connecter le compte Zapier",
+        "exportnow": "Exporter maintenant"
+      }
+    },
+    "flowbite-svelte": {
+      "Dropzone": {
+        "clicktoupload": "Cliquez pour téléverser",
+        "ordraganddrop": "ou glissez-déposez",
+        "svg,png,jpgorgif": "SVG, PNG, JPG ou GIF (MAX. 800x400px)"
+      }
+    },
+    "gaiaComponents": {
+      "GaiaBreadcrumbs": {
+        "home": "Accueil"
+      },
+      "GaiaListChooser": {
+        "uniqueitemsinlist": "Articles uniques dans la liste 1",
+        "itemsinlist2": "Articles dans la liste 2",
+        "ok": "OK"
+      }
+    },
+    "hedges": {
+      "ExposureTable": {
+        "payableelements": "Éléments payables",
+        "units": "Unités",
+        "settlement": "Règlement"
+      },
+      "QPModalForm": {
+        "selectyourqpoptions": "Sélectionnez vos options QP",
+        "single": "Simple",
+        "average": "Moyenne",
+        "cancel": "Annuler",
+        "sendrequest": "Envoyer la demande"
+      },
+      "HedgeReportComponent": {
+        "hedgereport-": "Rapport de couverture -",
+        "hedge": "Couverture",
+        "intakeassays": "Essais de réception",
+        "provisional()": "Provisoire ()",
+        "provisional|final(todo:": "Provisoire|Final (TODO : lien vers l'essai)"
+      },
+      "ParcelHedges": {
+        "todo:totalhedgesfor": "TODO : Total des couvertures pour le colis :"
+      },
+      "QPTable": {
+        "calctype:": "Type de calcul :",
+        "qps:": "QP :",
+        "edityourqpoptions": "Modifier vos options QP",
+        "single": "Simple",
+        "average": "Moyenne",
+        "partaverage": "Moyenne partielle",
+        "cancel": "Annuler",
+        "ok": "OK"
+      }
+    },
+    "invoices": {
+      "InvoicePage": {
+        "comingsoon:listof": "À venir : liste des factures générées"
+      }
+    },
+    "navs": {
+      "Navbar": {
+        "search": "Rechercher",
+        "dashboard": "Tableau de bord",
+        "settings": "Paramètres",
+        "signout": "Se déconnecter"
+      }
+    },
+    "modals": {
+      "ModalErrorMessage": {
+        "(checkwithbackendsupport)": "(vérifier avec le support backend)",
+        "ok": "OK"
+      },
+      "ModalListChooser": {
+        "ok": "OK"
+      },
+      "ModalListObjectChooser": {
+        "ok": "OK"
+      },
+      "ModalLoggedOut": {
+        "yourloginhasexpired,": "Votre session a expiré, veuillez cliquer pour vous reconnecter.",
+        "login": "Connexion"
+      }
+    },
+    "parcel": {
+      "ParcelStatus": {
+        "inprogress": "En cours",
+        "completed": "Terminé",
+        "cancelled": "Annulé",
+        "unknown": "Inconnu"
+      },
+      "ParcelPage": {
+        "yourparcels": "Vos colis",
+        "createnewparcel": "Créer un nouveau colis",
+        "parcelname": "Nom du colis",
+        "createparcel": "Créer un colis"
+      },
+      "ParcelTable": {
+        "id": "ID",
+        "name": "Nom",
+        "updatedby": "Mis à jour par",
+        "updatedat": "Mis à jour le",
+        "status": "Statut",
+        "delete": "Supprimer"
+      }
+    },
+    "sheets": {
+      "ExcelJS": {
+        "exceljs": "ExcelJS",
+        "worksheets:": "Feuilles de travail :"
+      },
+      "Univer": {
+        "univerdemo": "Démo Univer"
+      }
+    },
+    "pnl": {
+      "CostCategorySelector": {
+        "selectcategory": "Sélectionner une catégorie",
+        "selectacategory": "Sélectionner une catégorie",
+        "entervaluefor": "Entrer la valeur pour",
+        "add": "Ajouter",
+        "costorgainscategory": "Catégorie de coûts ou gains",
+        "value": "Valeur",
+        "netp/l($/dmt)": "Résultat net ($/dmt)"
+      }
+    },
+    "shipment": {
+      "ShipmentDeductions": {
+        "deductionsoverride": "Substitutions de déductions",
+        "chemical:": "Produit chimique :",
+        "amount(": "Montant (",
+        "pleaseenteranumber": "Veuillez entrer un nombre supérieur ou égal à 0",
+        "updatedeductions": "Mettre à jour les déductions",
+        "nodeductions": "Aucune déduction"
+      },
+      "ShipmentDetails": {
+        "details": "Détails",
+        "shipmentdetails": "Détails de l'expédition",
+        "updatesuccessful": "Mise à jour réussie",
+        "updateshipmentdetails": "Mettre à jour les détails de l'expédition",
+        "overrides": "Substitutions"
+      },
+      "ShipmentPage": {
+        "shipment": "Expédition",
+        "schedule": "Planifier",
+        "viewhedgereport": "Voir le rapport de couverture",
+        "updatehedgereport": "Mettre à jour le rapport de couverture",
+        "generateprovisional": "Générer un provisoire",
+        "generatefinal": "Générer un final",
+        "shipmentdetailsupdate": "Mise à jour des détails de l'expédition requise",
+        "assayuploaded": "Essai téléversé",
+        "doyouwantto": "Voulez-vous",
+        "verify": "Vérifier",
+        "detailsforthelatest": "les détails du dernier essai?",
+        "yes": "Oui",
+        "later": "Plus tard"
+      },
+      "ShipmentStatus": {
+        "pending": "En attente",
+        "intransit": "En transit",
+        "delivered": "Livré",
+        "cancelled": "Annulé"
+      },
+      "ShipmentTable": {
+        "id": "ID",
+        "lcno": "LC No",
+        "name": "Nom",
+        "date": "Date",
+        "status": "Statut"
+      },
+      "ShipmentPayables": {
+        "payablesoverride": "Substitutions des éléments payables",
+        "fieldsbelowcanbeupdated": "Les champs ci-dessous peuvent être mis à jour via le",
+        "'updateshipment'": "'Mettre à jour l'expédition'",
+        "nexttotheirrespective": "à côté de leur essai respectif dans le tableau des essais ci-dessous",
+        "metals": "Métaux",
+        "amount(": "Montant (",
+        "price": "Prix",
+        "pleaseenteranumber": "Veuillez entrer un nombre supérieur ou égal à 0",
+        "pleaseenterapercentage": "Veuillez entrer un pourcentage supérieur ou égal à 0",
+        "pleasecheckthiscalculated": "Veuillez vérifier ce poids sec calculé en fonction du contenu humide et de l'humidité",
+        "updatepayables": "Mettre à jour les payables"
+      },
+      "ShipmentTablePage": {
+        "shipments": "Expéditions",
+        "createshipments": "Créer des expéditions"
+      },
+      "sheets": {
+        "+page": {
+          "todo:showalistof": "TODO : afficher une liste de toutes les feuilles xls pour cette expédition"
+        },
+        "[sheetId]": {
+          "+page": {
+            "sheetviewer": "Visionneuse de feuille"
+          }
+        }
+      }
+    },
+    "storage": {
+      "StoragePage": {
+        "metalstorepro": "MetalStore Pro",
+        "newmodule": "Nouveau module",
+        "advancedstoragemanagement": "Gestion avancée des stocks pour les négociants en métaux",
+        "revolutionizeyourmetals": "Révolutionnez vos opérations de négoce de métaux avec MetalStore Pro. Obtenez une visibilité inégalée sur votre inventaire mondial de concentrés, optimisez les processus de mélange et prenez des décisions logistiques basées sur les données - tout cela depuis une plateforme unique et puissante.",
+        "requestademo": "Demander une démo",
+        "keyfeatures": "Caractéristiques principales",
+        "howitworks": "Comment ça marche",
+        "easilyinputorimport": "Saisissez ou importez facilement les données de votre inventaire de concentrés, y compris les quantités, les emplacements et les spécifications.",
+        "viewyourinventoryon": "Visualisez votre inventaire sur une carte interactive du monde, avec des informations détaillées disponibles en un clic.",
+        "receiveai-poweredsuggestions": "Recevez des suggestions alimentées par l'IA pour un mélange optimal en fonction de votre inventaire et des spécifications cibles.",
+        "calculateshippingcosts": "Calculez les coûts de transport et les temps de transit vers différents ports, optimisant ainsi vos décisions logistiques.",
+        "generatecomprehensive": "Générez des rapports complets sur l'état des stocks, l'efficacité des mélanges et les coûts logistiques.",
+        "benefitsforyourbusiness": "Avantages pour votre entreprise",
+        "advancedcapabilities": "Capacités avancées",
+        "predictiveanalytics": "Analytique prédictive",
+        "leveragemachinelearning": "Exploitez les algorithmes d'apprentissage automatique pour prévoir les besoins en inventaire, prédire les demandes du marché et optimiser vos stratégies de négociation. Notre système analyse les données historiques, les tendances du marché et vos modèles de négociation uniques pour fournir des informations exploitables.",
+        "integrationecosystem": "Écosystème d'intégration",
+        "seamlesslyconnectmetalstore": "Connectez MetalStore Pro à vos systèmes existants sans effort, y compris les logiciels ERP, les plateformes financières et les outils de gestion logistique. Notre API ouverte permet des intégrations personnalisées, garantissant un flux de données fluide dans l'ensemble de votre opération.",
+        "compliancemanagement": "Gestion de la conformité",
+        "stayaheadofregulatory": "Restez en avance sur les exigences réglementaires avec nos outils intégrés de conformité. Suivez et gérez les certificats, assurez le respect des réglementations de stockage et générez facilement des rapports de conformité. Notre système est toujours à jour avec les dernières normes et réglementations de l'industrie.",
+        "whychoosemetalstore": "Pourquoi choisir MetalStore Pro ?",
+        "developedbyindustry": "Développé par des experts de l'industrie avec des décennies d'expérience dans le négoce et la logistique des métaux.",
+        "bank-gradeencryption": "Chiffrement de niveau bancaire et contrôles d'accès robustes pour protéger vos données d'inventaire sensibles.",
+        "24/7customersupport": "Support client 24/7 et mises à jour régulières du système pour garantir des opérations fluides.",
+        "flexiblearchitecture": "Architecture flexible qui évolue avec votre entreprise, des petites opérations de négoce aux entreprises mondiales.",
+        "readytooptimizeyour": "Prêt à optimiser vos opérations de négoce de métaux ?",
+        "jointheranksofleading": "Rejoignez les rangs des principaux négociants en métaux qui ont révolutionné leur gestion des stocks avec MetalStore Pro.",
+        "startfreetrial": "Commencer un essai gratuit",
+        "scheduledemo": "Planifier une démo"
+      }
+    },
+    "tabs": {
+      "VerifyViewConcentrate": {
+        "verify": "Vérifier"
+      },
+      "VerifyViewTabDeductionsAccordion": {
+        "deductionsverified": "Déductions vérifiées",
+        "verifyalldeductions": "Vérifier toutes les déductions",
+        "closealldeductions": "Fermer toutes les déductions",
+        "openalldeductions": "Ouvrir toutes les déductions",
+        "update": "Mettre à jour",
+        "verify": "Vérifier"
+      },
+      "VerifyViewTabGrid": {
+        "allverified": "Tout vérifié",
+        "verifyall": "Tout vérifier",
+        "delete/copy": "Supprimer/Copier",
+        "action": "Action",
+        "update": "Mettre à jour",
+        "verify": "Vérifier"
+      },
+      "VerifyViewQP": {
+        "allverified": "Tout vérifié",
+        "verifyall": "Tout vérifier",
+        "verifiedon:": "Vérifié le :",
+        "by": "par"
+      },
+      "VerifyViewTabShipments": {
+        "verifyall": "Tout vérifier",
+        "un-verifyall": "Tout annuler",
+        "actions": "Actions",
+        "shipmentno": "Numéro d'expédition",
+        "date": "Date",
+        "concentratetype": "Type de concentré",
+        "metal": "Métal",
+        "weight": "Poids",
+        "pctamount": "Montant en %",
+        "paymentrule": "Règle de paiement",
+        "verified": "Vérifié",
+        "missingmetalsinshipment": "Métaux manquants dans l'expédition",
+        "update": "Mettre à jour",
+        "verify": "Vérifier",
+        "deductionshere..": "Déductions ici.."
+      },
+      "VerifyViewTabConcentrateAccordion": {
+        "addpayables": "Ajouter des payables",
+        "verifyall": "Tout vérifier",
+        "updateall": "Tout mettre à jour",
+        "openallpayables": "Ouvrir tous les payables",
+        "closeallpayables": "Fermer tous les payables",
+        "weight": "Poids",
+        "tolerance": "Tolérance",
+        "addmetal": "Ajouter un métal",
+        "actions": "Actions",
+        "metalname": "Nom du métal",
+        "unitamount": "Montant unitaire",
+        "unit": "Unité",
+        "xlformula": "Formule Excel",
+        "paymentrule": "Règle de paiement",
+        "missingmetalsinshipment": "Métaux manquants dans l'expédition",
+        "editmode": "Mode édition",
+        "edit": "Modifier"
+      },
+      "VerifyViewTabShipmentsAccordian": {
+        "allverified": "Tout vérifié",
+        "verifyall": "Tout vérifier",
+        "openallshipments": "Ouvrir toutes les expéditions",
+        "closeallshipments": "Fermer toutes les expéditions",
+        "shipment:": "Expédition :",
+        "date": "Date",
+        "tolerance:(±": "Tolérance : (±",
+        "weight": "Poids",
+        "metalname": "Nom du métal",
+        "unitamount": "Montant unitaire",
+        "unit": "Unité",
+        "xlformula": "Formule Excel",
+        "paymentrule": "Règle de paiement",
+        "update": "Mettre à jour",
+        "verify": "Vérifier",
+        "missingmetalsinshipment": "Métaux manquants dans l'expédition",
+        "deductions": "Déductions",
+        "nodeductionshere": "Aucune déduction ici",
+        "deductionchemicals": "Produits chimiques à déduire",
+        "nodeductionschemicals": "Aucune déduction pour les produits chimiques ici"
+      },
+      "VerifyViewTab": {
+        "verified": "Vérifié",
+        "by": "par",
+        "notverified": "Non vérifié",
+        "loadingdata...": "Chargement des données..."
+      },
+      "assay": {
+        "VerifyViewAssayTabOneDepthDropdown": {
+          "selectcategory": "Sélectionner une catégorie",
+          "verified": "Vérifié",
+          "by": "par",
+          "notverified": "Non vérifié",
+          "loadingdata...": "Chargement des données..."
+        },
+        "VerifyViewAssayTabOneDepth": {
+          "verified": "Vérifié",
+          "by": "par",
+          "notverified": "Non vérifié",
+          "loadingdata...": "Chargement des données..."
+        },
+        "VerifyViewAssayTabSheet": {
+          "verified": "Vérifié",
+          "update": "Mettre à jour",
+          "verify": "Vérifier"
+        },
+        "VerifyViewAssayTabOneDepthReadOnly": {
+          "readonly": "Lecture seule",
+          "loadingdata...": "Chargement des données..."
+        },
+        "VerifyViewAssayTabTable": {
+          "verified": "Vérifié",
+          "update": "Mettre à jour",
+          "verify": "Vérifier",
+          "lotnumber": "Numéro de lot",
+          "weight": "Poids",
+          "average": "Moyenne"
+        },
+        "VerifyWSMDAccordion": {
+          "verified": "Vérifié",
+          "verify": "Vérifier",
+          "update": "Mettre à jour"
+        }
+      }
+    },
+    "themis": {
+      "JSONEditor": {
+        "jsonschemaeditor": "Éditeur de schéma JSON",
+        "usetheeditorbelow": "Utilisez l'éditeur ci-dessous pour créer un schéma personnalisé pour extraire les données du document",
+        "searchtodo:treeview": "Recherche TODO : Vue en arbre avec liste",
+        "extractionprompt": "Invite d'extraction",
+        "schemaeditor": "Éditeur de schéma",
+        "save": "Sauvegarder"
+      },
+      "SchemaEditor": {
+        "//jsonschemaeditor.svelte": "// JsonSchemaEditor.svelte",
+        "jsonschemaeditor": "Éditeur de schéma JSON",
+        "addfield": "Ajouter un champ",
+        "object": "Objet",
+        "array": "Tableau",
+        "remove": "Supprimer",
+        "addnestedfield": "Ajouter un champ imbriqué",
+        "generatedjsonschema:": "Schéma JSON généré :"
+      },
+      "SchemaCard": {
+        "2": "2",
+        "10": "10",
+        "20": "20",
+        "50": "50",
+        "name": "Nom",
+        "id": "ID",
+        "schemaversionid": "ID de version du schéma",
+        "createdat": "Créé le",
+        "updatedat": "Mis à jour le",
+        "isvalid": "Est valide",
+        "itemsperpage:": "Articles par page :",
+        "id:": "ID :",
+        "schemaversionid:": "ID de version du schéma :",
+        "createdat:": "Créé le :",
+        "updatedat:": "Mis à jour le :",
+        "isvalid:": "Est valide :"
+      },
+      "SchemaField": {
+        "string": "Chaîne",
+        "integer": "Entier",
+        "boolean": "Booléen",
+        "datetime": "Date et heure",
+        "object": "Objet",
+        "array": "Tableau",
+        "remove": "Supprimer",
+        "addfield": "Ajouter un champ"
+      },
+      "SchemaJsonEditor2": {
+        "jsoneditor": "Éditeur JSON",
+        "formatjson": "Formater JSON"
+      },
+      "SchemaPage": {
+        "documentrepository": "Répertoire des documents",
+        "downloadall": "Télécharger tout"
+      },
+      "SchemaTable": {
+        "ask": "Demander",
+        "id": "ID",
+        "name": "Nom",
+        "schemaversionid": "ID de version du schéma",
+        "createdat": "Créé le",
+        "updatedat": "Mis à jour le",
+        "isvalid": "Est valide",
+        "allcolumns": "Toutes les colonnes",
+        "exportcsv": "Exporter CSV",
+        "customizecolumns": "Personnaliser les colonnes",
+        "actions": "Actions",
+        "itemsperpage:": "Éléments par page :"
+      },
+      "ThemisDocumentViewPage": {
+        "viewingdoc": "Visualisation du document"
+      },
+      "SchemaTable2": {
+        "10": "10",
+        "25": "25",
+        "50": "50",
+        "100": "100",
+        "allcolumns": "Toutes les colonnes",
+        "exportcsv": "Exporter en CSV",
+        "customizecolumns": "Personnaliser les colonnes",
+        "actions": "Actions",
+        "itemsperpage:": "Articles par page :"
+      },
+      "SchemaPicker": {
+        "documenttype:": "Type de document :",
+        "chooseadocumenttype": "Choisissez un type de document pour filtrer"
+      },
+      "SortableSchemaView": {
+        "sortby:": "Trier par :",
+        "id": "ID",
+        "name": "Nom",
+        "schemaversionid": "ID de version du schéma",
+        "createdat": "Créé le",
+        "updatedat": "Mis à jour le",
+        "isvalid": "Est valide"
+      },
+      "ThemisPage": {
+        "documentrepository": "Répertoire des documents",
+        "downloadall": "Télécharger tout"
+      }
+    },
+    "uploaders": {
+      "DocumentUploaderPnL": {
+        "aiisreadingandprocessing": "L'IA est en train de lire et traiter",
+        "(processingtime:": "(Temps de traitement :",
+        "s)": "s)",
+        "upload": "Téléverser",
+        "clicktoupload": "Cliquez pour téléverser",
+        "ordraganddrop": "ou glissez-déposez",
+        "pdf": "PDF",
+        "documenttype:": "Type de document :",
+        "docname:": "Nom du document :",
+        "adddocumentname": "Ajouter un nom de document",
+        "documentname": "Nom du document",
+        "addname": "Ajouter un nom"
+      },
+      "CameraUploader": {
+        "aiisreadingandprocessing": "L'IA est en train de lire et traiter",
+        "(processingtime:": "(Temps de traitement :",
+        "s)": "s)",
+        "imageupload": "Téléversement d'image",
+        "clicktoupload": "Cliquez pour téléverser",
+        "ordraganddrop": "ou glissez-déposez",
+        "pdf": "PDF",
+        "docname:": "Nom du document :",
+        "upload": "Téléverser",
+        "adddocumentname": "Ajouter un nom de document",
+        "documentname": "Nom du document",
+        "addname": "Ajouter un nom"
+      },
+      "DocumentUploader": {
+        "upload": "Téléverser",
+        "clicktoupload": "Cliquez pour téléverser",
+        "ordraganddrop": "ou glissez-déposez",
+        "pdf": "PDF",
+        "chooseadocumenttype": "Choisissez un type de document pour filtrer",
+        "uploadingdoctype:": "Téléversement du type de document :",
+        "uploading...pleasewait": "Téléversement... veuillez patienter",
+        "filename:": "Nom du fichier :",
+        "documentname:": "Nom du document :",
+        "category:": "Catégorie :",
+        "uploadstatus": "Statut du téléversement",
+        "s": "s",
+        "filename": "Nom du fichier",
+        "status": "Statut",
+        "remove": "Supprimer",
+        "preview": "Aperçu",
+        "docname": "Nom du document",
+        "category": "Catégorie"
+      }
+    },
+    "viewers": {
+      "AssayViewer": {
+        "verificationcomplete": "Vérification complète"
+      },
+      "ContractViewer": {
+        "allverified": "Tout vérifié",
+        "verifyall": "Tout vérifier",
+        "openall": "Tout ouvrir",
+        "verificationcomplete": "Vérification complète"
+      },
+      "PnLVerifyViewer": {
+        "verificationcomplete": "Vérification complète"
+      }
+    }
+  },
+  "routes": {
+    "500": {
+      "500internalerror": "500 Erreur interne",
+      "whoops!thatpagedoesn’t": "Oups ! Cette page n'existe pas.",
+      "herearesomehelpful": "Voici quelques liens utiles :",
+      "support": "Support",
+      "home": "Accueil"
+    },
+    "+error": {
+      "404notfound": "404 Non trouvé",
+      "whoops!thatpagedoesn’t": "Oups ! Cette page n'existe pas.",
+      "herearesomehelpful": "Voici quelques liens utiles à la place :",
+      "home": "Accueil",
+      "search": "Rechercher",
+      "help": "Aide",
+      "contact": "Contact"
+    },
+    "+page": {
+      "v0.1": "v0.1"
+    },
+    "contact": {
+      "+page": {
+        "contactusfortheenterprise": "Contactez-nous pour le plan entreprise",
+        "forcustomsolutions": "Pour des solutions et des tarifs personnalisés, veuillez nous contacter directement en utilisant l'une des méthodes ci-dessous, et nous vous répondrons rapidement.",
+        "contactus": "Contactez-nous",
+        "login": "Connexion"
+      }
+    },
+    "counter-party": {
+      "+page": {
+        "email": "E-mail",
+        "id:": "ID :"
+      }
+    },
+    "pricing": {
+      "+page": {
+        "pricingplan": "Plan tarifaire",
+        "plan": "Plan",
+        "/month": "/mois",
+        "choose": "Choisir"
+      }
+    },
+    "settings": {
+      "+page": {
+        "accountsettings": "Paramètres du compte",
+        "username:": "Nom d'utilisateur :",
+        "email:": "E-mail :",
+        "currentplan:": "Plan actuel :",
+        "managesubscription": "Gérer l'abonnement"
+      }
+    },
+    "(auth)": {
+      "register": {
+        "+page": {
+          "createanaccount": "Créer un compte",
+          "email": "E-mail",
+          "password": "Mot de passe",
+          "confirmpassword": "Confirmez le mot de passe",
+          "registrationfailed!": "Échec de l'enregistrement ! Veuillez réessayer.",
+          "passwordsdonotmatch!": "Les mots de passe ne correspondent pas ! Veuillez réessayer.",
+          "createaccount": "Créer un compte"
+        }
+      },
+      "forgot-password": {
+        "+page": {
+          "emailsent": "E-mail envoyé",
+          "wehavesentanemail": "Nous avons envoyé un e-mail à l'adresse que vous avez fournie avec un lien pour réinitialiser votre mot de passe.",
+          "forgotyourpassword": "Mot de passe oublié",
+          "pleaseentertheemail": "Veuillez entrer l'adresse e-mail ci-dessous, et nous vous enverrons un e-mail pour réinitialiser votre mot de passe.",
+          "email": "E-mail",
+          "resetpassword": "Réinitialiser le mot de passe",
+          "backtologin": "Retour à la connexion"
+        }
+      },
+      "login": {
+        "+page": {
+          "signintoyouraccount": "Connectez-vous à ",
+          "youremail": "Votre e-mail",
+          "yourpassword": "Votre mot de passe",
+          "rememberme": "Se souvenir de moi",
+          "forgottenpassword?": "Mot de passe oublié ?",
+          "invalidcredentials!": "Identifiants invalides ! Veuillez réessayer.",
+          "logintoyouraccount": "Connectez-vous à votre compte",
+          "createaaccount": "Créer un compte",
+          "poweredby": "Propulsé par"
+        }
+      },
+      "reset-password": {
+        "+page": {
+          "passwordupdated!": "Mot de passe mis à jour !",
+          "youcannowuseyour": "Vous pouvez maintenant utiliser votre mot de passe mis à jour.",
+          "login": "Connexion",
+          "resetpassword": "Réinitialiser le mot de passe",
+          "pleaseenteryournew": "Veuillez entrer votre nouveau mot de passe ci-dessous et le confirmer.",
+          "newpassword": "Nouveau mot de passe",
+          "confirmnewpassword": "Confirmer le nouveau mot de passe",
+          "backtologin": "Retour à la connexion"
+        }
+      },
+      "verify-email": {
+        "+page": {
+          "emailverifiedsuccessfully!": "E-mail vérifié avec succès !",
+          "youremailhasbeenverified.": "Votre e-mail a été vérifié. Vous pouvez maintenant vous connecter avec votre compte.",
+          "gotologin": "Aller à la connexion",
+          "emailverificationfailed": "Échec de la vérification de l'e-mail",
+          "somethingwentwrong": "Un problème est survenu lors du processus de vérification. Veuillez réessayer plus tard ou renvoyer l'e-mail de vérification.",
+          "verifyyouremailaddress": "Vérifiez votre adresse e-mail",
+          "wehavesentaverification": "Nous avons envoyé un e-mail de vérification à votre adresse e-mail. Veuillez consulter votre boîte de réception et cliquer sur le lien pour vérifier votre compte.",
+          "verificationemailresent": "E-mail de vérification renvoyé avec succès !",
+          "errorresendingverification": "Erreur lors du renvoi de l'e-mail de vérification. Veuillez réessayer plus tard.",
+          "resendverificationemail": "Renvoyer l'e-mail de vérification"
+        }
+      }
+    },
+    "main": {
+      "concord": {
+        "+page": {
+          "concordpoc-upload": "Concord PoC - Téléverser et extraire vos données CTRM"
+        }
+      },
+      "expenses": {
+        "+page": {
+          "expensetracking-upload": "Suivi des dépenses - Téléverser et enregistrer vos dépenses ici"
+        }
+      },
+      "contracts": {
+        "contract": {
+          "+page": {
+            "redirectingbacktocontracts": "Redirection vers les contrats"
+          },
+          "[contractId]": {
+            "+page": {
+              "redirectingtocontracts": "Redirection vers les contrats"
+            },
+            "verify": {
+              "+page": {
+                "loading...": "Chargement..."
+              }
+            },
+            "shipments": {
+              "[shipmentId]": {
+                "assay": {
+                  "+page": {
+                    "donotusethispage": "N'UTILISEZ PAS CETTE PAGE POUR QUOI QUE CE SOIT\n        Redirection vers shipment/:id où tous les essais se trouvent"
+                  }
+                },
+                "final": {
+                  "+page": {
+                    "shipmentid:": "ID de l'expédition :",
+                    "todo:showalistof": "TODO : afficher une liste de toutes les factures finales pour cette expédition"
+                  },
+                  "[provisionalId]": {
+                    "+page": {
+                      "finalinvoicegenerated": "Facture finale générée par essai",
+                      "unsupporteddoctype:": "type de document non pris en charge :",
+                      "sorrynofinalinvoice": "Désolé, aucune facture finale trouvée, veuillez en générer une depuis l'écran shipment/assay."
+                    }
+                  }
+                },
+                "provisional": {
+                  "+page": {
+                    "shipmentid:": "ID de l'expédition :",
+                    "todo:showalistof": "TODO : afficher une liste de toutes les factures provisoires pour cette expédition"
+                  },
+                  "[provisionalId]": {
+                    "+page": {
+                      "provisionalinvoicegenerated": "Facture provisoire générée par essai",
+                      "unsupporteddoctype:": "type de document non pris en charge :",
+                      "sorrynoprovisional": "Désolé, aucune facture provisoire trouvée, veuillez en générer une depuis l'écran shipment/assay."
+                    }
+                  }
+                },
+                "pdf": {
+                  "+page": {
+                    "shipmentid:": "ID de l'expédition :",
+                    "pdfviewer-todo:show": "Visionneuse PDF - TODO : afficher une liste de tous les fichiers PDF pour cette expédition"
+                  },
+                  "[pdfId]": {
+                    "+page": {
+                      "pdfviewer": "Visionneuse PDF"
+                    }
+                  }
+                },
+                "hedge": {
+                  "+page": {
+                    "hedgereport": "Rapport de couverture",
+                    "loadinghedgedetails...": "chargement des détails de la couverture..."
+                  }
+                },
+                "invoice": {
+                  "[invoiceId]": {
+                    "+page": {
+                      "generatedinvoice": "Facture générée"
+                    },
+                    "InvoiceHTML": {
+                      "finalinvoice": "Facture finale",
+                      "ourreferenceno.": "Notre numéro de référence",
+                      "contractno.": "Numéro de contrat",
+                      "l/cno.": "Numéro LC",
+                      "allocationno": "Numéro d'allocation",
+                      "nameofvessel": "Nom du navire",
+                      "dateofshipment": "Date de l'expédition",
+                      "billofladingno.": "Numéro du connaissement",
+                      "packing": "Emballage",
+                      "portofloading": "Port de chargement",
+                      "portofdischarge": "Port de déchargement",
+                      "tradeterms": "Conditions commerciales",
+                      "origin": "Origine",
+                      "commodity": "Marchandise",
+                      "quotationalperiod": "Période de cotation",
+                      "finalshippednetwet": "Poids net humide final expédié",
+                      "finalmoisturecontent": "Teneur en humidité finale",
+                      "finalshippeddryweight": "Poids sec final expédié",
+                      "thisinvoiceisbased": "Cette facture est basée sur les poids, essais et prix finaux.",
+                      "payableelement": "Élément payable",
+                      "content": "Contenu",
+                      "paymentrule": "Règle de paiement",
+                      "netpayable": "Payable net",
+                      "unitprice": "Prix unitaire",
+                      "totalinusd/dmt": "Total en USD/dmt",
+                      "totalpayables": "Total des éléments payables",
+                      "deductions": "Déductions",
+                      "totaldeductiblesper": "Total des déductions par dmt",
+                      "finalcargovalueper": "Valeur finale de la cargaison par tonne métrique sèche",
+                      "finalcifcycargovalue": "Valeur finale de la cargaison CIF CY",
+                      "lesstheprovisional": "Moins le paiement provisoire",
+                      "balanceduetoopenmineral": "Solde dû à Open Mineral AG",
+                      "payment": "Paiement",
+                      "byirrevocableletter": "par lettre de crédit irrévocable, payable à vue",
+                      "l/cnum": "numéro LC",
+                      "00il0004731": "00IL0004731",
+                      "openedby:": "Ouvert par :",
+                      "eibccnbjzjpexport-import": "EIBCCNBJZJP Export-Import Bank of China (Zhejiang Branch), The Hangzhou,\n\t\t\tCN",
+                      "openmineralag": "Open Mineral AG",
+                      "(beneficiary)": "(Bénéficiaire)"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "themis": {
+        "view": {
+          "+page": {
+            "redirectingtodocuments": "Redirection vers les documents"
+          }
+        }
+      },
+      "parcel": {
+        "[parcelId]": {
+          "hedges": {
+            "+page": {
+              "hedgesummarybreakdown": "Répartition du résumé des couvertures",
+              "hedgesummarybymonth": "Résumé des couvertures par mois",
+              "hedgesummarybyelement": "Résumé des couvertures par élément"
+            }
+          }
+        }
+      }
+    },
+    "+layout": {
+      "loading...pleasewait": "Chargement... veuillez patienter"
+    }
+  },
+  "stories": {
+    "ExampleStoryButton": {
+      "examplestorybutton": "Bouton d'exemple d'histoire",
+      "red": "Rouge",
+      "default": "Par défaut"
+    }
+  },
+  "pages": {
+    "main": {
+      "DefaultDashboardPage": {
+        "viewall": "Voir tout",
+        "shipments": "Expéditions",
+        "contracts": "Contrats",
+        "parcels": "Colis",
+        "uploadNewContract": "Téléverser un nouveau contrat",
+        "uploadNewParcel": "Téléverser un nouveau colis",
+        "view": "Voir"
+      },
+      "ExpenseDashboard": {
+        "receiptsuploaded": "Reçus téléversés",
+        "viewall": "Voir tout",
+        "totaluploaded:amount": "Total téléversé : MONTANT",
+        "expensessummary": "Résumé des dépenses",
+        "expenseschart": "Graphique des dépenses",
+        "nochartdisplayedyet.": "Aucun graphique affiché pour le moment."
+      }
+    },
+    "pnl": {
+      "CashflowPage": {
+        "cashflow": "Flux de trésorerie",
+        "theoreticalpnl": "Résultat net théorique",
+        "theorycategory": "Catégorie théorique",
+        "secondarycost": "Coût secondaire",
+        "serviceprovider": "Fournisseur de services",
+        "theoretical": "Théorique",
+        "actual": "Réel",
+        "difference": "Différence",
+        "actions": "Actions"
+      },
+      "TheoreticalPage": {
+        "cashflowpnl": "Résultat net des flux de trésorerie",
+        "bishazincconcentrate": "Concentré de zinc Bisha à Jiangtong",
+        "element": "Élément",
+        "unit": "Unité",
+        "assays": "Essais",
+        "prices": "Prix",
+        "quantity": "Quantité",
+        "dmt": "DMT",
+        "payablemetals": "Métaux payables",
+        "bishapurchase": "Achat Bisha",
+        "jiangtongsale": "Vente Jiangtong",
+        "payable": "payable",
+        "tc": "TC",
+        "total": "Total",
+        "grossp/l($/dmt):": "Résultat brut ($/dmt) :"
+      },
+      "PnlPage": {
+        "advancedprofit&loss": "Module avancé de profit et perte",
+        "empoweryourtrading": "Renforcez vos décisions commerciales avec notre module de profit et perte (PnL) à la pointe de la technologie. Obtenez des informations en temps réel, des analyses complètes et des outils puissants pour optimiser votre stratégie commerciale.",
+        "advancedanalyticsfeatures": "Fonctionnalités avancées d'analyse",
+        "predictivepnlforecasting": "Prévision des résultats nets utilisant des algorithmes d'apprentissage automatique",
+        "correlationanalysis": "Analyse de corrélation entre différents actifs et marchés",
+        "scenariomodelingfor": "Modélisation de scénarios pour tester vos stratégies commerciales",
+        "customreportgeneration": "Génération de rapports personnalisés pour la conformité réglementaire et les audits internes",
+        "integrationcapabilities": "Capacités d'intégration",
+        "seamlessconnectionwith": "Connexion transparente avec les principales plateformes de négociation et bourses",
+        "apiaccessforcustom": "Accès API pour des intégrations personnalisées avec vos systèmes existants",
+        "mobileappforon-the-go": "Application mobile pour surveiller le résultat net en déplacement et recevoir des alertes",
+        "exportdatainvarious": "Exporter des données dans différents formats (CSV, JSON, XML) pour une analyse approfondie",
+        "securityandcompliance": "Sécurité et conformité",
+        "bank-gradeencryption": "Chiffrement de niveau bancaire pour toutes les transmissions et stockages de données",
+        "multi-factorauthentication": "Authentification multi-facteurs et contrôle d'accès basé sur les rôles",
+        "automatedaudittrails": "Pistes d'audit automatisées pour toutes les actions des utilisateurs et les modifications du système",
+        "compliancewithmajor": "Conformité avec les principales réglementations financières (RGPD, MiFID II, etc.)",
+        "performancemetrics": "Indicateurs de performance",
+        "contactsales": "Contacter les ventes"
+      }
+    },
+    "shipment": {
+      "ShipmentParcelPage": {
+        "shipmentsforparcel:": "Expéditions pour le colis :",
+        "shipment": "Expédition",
+        "viewhedgereport": "Voir le rapport de couverture",
+        "pnl": "Résultat net"
+      }
+    }
+  }
+}

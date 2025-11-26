@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "brave-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "",
+        "PATH": "/usr/local/bin:/usr/bin:/bin",
+        "NODE_PATH": ""
+      }
+    },
+    "shelltools": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/home/kasm-user/workarea/techarge-projects/aiagents/",
+        "run",
+        "mcp_server.py"
+      ]
+    },
+    "playwright-server": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/home/kasm-user/workarea/techarge-projects/playwright-plus-python-mcp",
+        "run",
+        "playwright-server"
+      ]
+    }
+  }
+}

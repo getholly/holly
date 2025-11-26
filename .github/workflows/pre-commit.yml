@@ -1,0 +1,27 @@
+name: Pre-commit
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths-ignore:
+      - README.md
+
+env:
+  GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
+
+jobs:
+  pre-commit:
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version:
+          - 3.11.3
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.11.3'
+      - uses: pre-commit/action@v3.0.1

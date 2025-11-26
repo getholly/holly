@@ -1,0 +1,48 @@
+services:
+  holly:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #container_name: hilly
+    ports:
+      - "6901:6901"  # VNC server port
+      - "4901:4901"  # VNC server port
+      - "5901:5901"  # VNC server port
+      - "6080:6080"  # noVNC web interface port
+      - "8090:8090"  # REST MCP API
+      - "8181:8181"  # AI Agent API
+    environment:
+      - BASE_DIR=/data
+      - GIT_EMAIL=holly@getholly.ai
+      - GIT_USER=Holly AI Agent
+      # AI Agent runtime configuration (loaded from .env file)
+      - SHELLTOOLS_DIR=${SHELLTOOLS_DIR}
+      - BASE_URL=${BASE_URL}
+      - API_KEY=${API_KEY}
+      - MODEL=${MODEL}
+      # Mission variables (set by Django when creating containers):
+      # - MISSION_ID=
+      # - MISSION_REPOS=
+      # - MISSION_BRANCH=
+      # - AUTH_TOKEN=
+      # - AUTH_TYPE=oauth
+      # - DJANGO_WEBHOOK_URL=
+      # Redis (for future async ARQ worker support):
+      # - REDIS_HOST=redis
+      # - REDIS_PORT=6379
+#    volumes:
+      #- ./data:/data  # Mount ./data from host to /data in container
+      #- /var/log/supervisor:/var/log/supervisor  # Mount supervisor logs for easier debugging
+    restart: unless-stopped
+    privileged: true  # Add privileged mode to ensure VNC server has necessary permissions
+    # Uncomment when Redis is needed for ARQ worker:
+    # depends_on:
+    #   - redis
+
+  # Uncomment when async job processing is needed:
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped
+

@@ -1,0 +1,1098 @@
+{
+  "components": {
+    "Footer": {
+      "poweredby": "「動力來自」"
+    },
+    "accounting": {
+      "AccountingPage": {
+        "advancedaccountingmodule": "高级会计学模块",
+        "ai-poweredsystemsuggests": "人工智能系统建议最佳支付时机。",
+        "automaticmatchingof": "自动将付款与发票匹配，并更新账户。",
+        "newfeature": "新功能",
+        "scheduleademo": "預約演示",
+        "secure,automatedpayment": "安全的自动化支付处理，并提供实时确认。",
+        "streamlinedapproval": "简化审批流程，多级验证。",
+        "streamlineyourfinancial": "利用我们最新的会计模块简化您的财务运营。该模块设计上与您现有的系统完美集成，并提高您的会计流程的效率。",
+        "systemautomatically": "系统自动记录并分类传入的发票。"
+      }
+    },
+    "blending": {
+      "BlendingPage": {
+        "addconcentrate": "添加浓缩液",
+        "benefits:": "好处：",
+        "blendcompositionvisualization": "混合組成可視化",
+        "blendingsystemuimockup": "系统UI融合草图",
+        "cancel": "取消",
+        "concentratea": "浓缩液A",
+        "concentrateb": "专注B",
+        "concentratec": "专注C",
+        "controldangerouschemical": "控制危险化学物质含量（氟、砷等）",
+        "createoptimizedblends": "基于您的标准，创建优化的混合体。",
+        "editrules": "「编辑规则」",
+        "emailaddress": "电子邮件地址",
+        "empoweryourmetaltrading": "利用我們的尖端混合系統提升您的金屬交易營運。以精確且輕鬆的方式優化您的精礦混合物。",
+        "ensurecompliancewith": "确保符合法规限制（例如中国的CIQ）",
+        "ensureregulatorycompliance": "确保不同市场上的监管合规性",
+        "factorinblendingcosts": "考虑混合成本和浓缩物的位置",
+        "generatenewblend": "生成新混合体",
+        "inputconcentrates": "**输入浓缩物**",
+        "keyfeatures:": "主要特性：",
+        "makeinformeddecisions": "基于全面的混合分析，做出明智的决定。",
+        "maxarsenic:0.5%": "最大砷含量：0.5%",
+        "maxblendingcost:$1000": "最大混合成本：$1000",
+        "maximizeprofitability": "通过优化混合配方提高利润率",
+        "message": "『訊息』",
+        "mincoppercontent:25%": "最小铜含量：25%",
+        "mixingrules": "混合规则",
+        "optimizedblendresults": "优化混合结果",
+        "reducerisksassociated": "减少与危险化学品含量相关的风险",
+        "requestademo": "请求演示",
+        "revolutionarymetalblending": "革命性金属混合优化系统",
+        "sendrequest": "发送请求",
+        "setmin/maxcontentfor": "设置金属（铜、金、银等）的最小/最大含量",
+        "specifyinputconcentrates": "指定输入浓缩物和混合规则",
+        "streamlineyourblending": "简化您的混合过程，使用自动化计算",
+        "subject": "主题",
+        "takecontrolofyour": "掌握您的金属交易业务，并用我们先进的混合系统超越竞争对手。"
+      }
+    },
+    "camera": {
+      "Camera": {
+        "capturephoto": "拍摄照片",
+        "stopcamera": "停止摄像",
+        "usecamera": "使用相机"
+      }
+    },
+    "chat": {
+      "AskModal": {
+        "close": "关闭"
+      },
+      "Chat": {
+        "areyousureyouwant": "您确定要删除此对话吗？ ```)",
+        "newchat": "新聊天",
+        "no,cancel": "不，取消",
+        "pleaseselectachat": "请选择一个聊天对话或点击开始一个新的。",
+        "previousconversations": "以前的对话",
+        "send": "发送",
+        "yes,i'msure": "是的，我确定。"
+      },
+      "ChatModal": {
+        "close": "关闭"
+      },
+      "ChatWidget": {
+        "send": "发送"
+      },
+      "MsgLog": {
+        "ai:": "人工智能：```（注：\"AI\"的中文翻译是\"人工智能\"，但在此上下文中，直接保留\"AI\"为佳）"
+      },
+      "TextToSpeech": {
+        "stop": "停止",
+        "text-to-speechconverter": "文本到语音转换器"
+      }
+    },
+    "contract": {
+      "ContractDocumentUploader": {
+        "(processingtime:": "处理时间：",
+        "adddocumentname": "添加文档名称",
+        "addname": "添加姓名",
+        "aiisreadingandprocessing": "人工智能正在阅读和处理中...",
+        "chooseadocumenttype": "选择一个文档类型进行上传",
+        "clicktoupload": "点击上传",
+        "docname:": "文档名称:",
+        "documentname": "文档名称",
+        "ordraganddrop": "或者拖放",
+        "pdf": "“便携式文档格式”（可扩展）",
+        "s)": "秒",
+        "upload": "上传"
+      },
+      "ContractPage": {
+        "contracts": "合同"
+      },
+      "ContractTable": {
+        "chatwithlegalcontract": "与法律合同交谈",
+        "chatwithtrade": "与贸易交谈",
+        "createdat": "创建于",
+        "id": "身份证号",
+        "name": "名称",
+        "operator": "操作员",
+        "shipment": "装运",
+        "trader": "商贩",
+        "updatedat": "更新于",
+        "verify": "核实",
+        "view": "查看"
+      }
+    },
+    "dashboard": {
+      "ContractVerificationCount": {
+        "loadingcontractcounts...": "加载合约数量中...",
+        "unverifiedcontracts:": "未經驗證的合約：",
+        "verifiedcontracts:": "已验证合约：",
+        "view": "查看"
+      },
+      "QuickLinks": {
+        "assays": "测定",
+        "contracts": "合同",
+        "hedges": "防风林带",
+        "invoices": "发票",
+        "parcels": "包裹",
+        "quicklinks": "快速链接",
+        "view": "查看"
+      }
+    },
+    "documents": {
+      "ShipmentsDocumentsTable": {
+        "assaysunavailable": "检测不可用",
+        "id": "身份證號碼",
+        "name": "名字",
+        "pdf": "“Pdf”在中文中是“便携式文档格式”（Portable Document Format）的缩写。这种文件格式由Adobe公司开发，旨在呈现文档的原始排版和布局，无论在哪种设备或操作系统上查看，都能保持一致的外观。Pdf文件通常用于分享和存储包含文本、图片、图形和其他元素的文档。",
+        "type": "类型",
+        "updatedat": "更新于",
+        "updatedby": "更新于",
+        "updateshipment": "更新运输信息",
+        "uploadedassays": "已上传的检测项目",
+        "verify": "验证",
+        "verifyrequired": "验证必填项",
+        "view": "查看"
+      },
+      "ShipmentsGeneratedDocsTable": {
+        "final": "决赛",
+        "generated": "生成",
+        "provisional": "临时性"
+      }
+    },
+    "exportables": {
+      "ExportGoogleSheets": {
+        "appendtoexistingdata": "将数据添加到现有数据中",
+        "configuregooglesheets": "配置谷歌表格导出",
+        "connectgoogleaccount": "连接谷歌账户",
+        "exportmode": "导出模式",
+        "exportnow": "立即导出",
+        "googlesheetsconnected": "谷歌表格已成功连接！",
+        "includeheadersinexport": "在导出时包含标题",
+        "overwriteexistingdata": "覆盖现有数据",
+        "sheetname": "\"表格名稱\"",
+        "worksheetname": "工作表名称"
+      },
+      "ExportWebhook": {
+        "authenticationtoken": "身份验证令牌（可选）",
+        "configurewebhookexport": "配置 Webhook 导出",
+        "customheaders(optional)": "自定义头部（可选）",
+        "delete": "删除",
+        "exportnow": "立即导出",
+        "form-encoded": "表单编码",
+        "get": "获取",
+        "httpmethod": "HTTP 方法",
+        "json": "JSON",
+        "payloadformat": "載荷格式",
+        "post": "POST` 方法用于向指定资源提交数据，以创建或更新该资源。它通常用于发送表单数据或上传文件。",
+        "put": "PUT",
+        "retryonfailure": "失败重试",
+        "sendatestwebhook": "发送测试 Webhook",
+        "webhookurl": "Webhook 网址",
+        "xml": "XML```\n<!-- 这是XML注释 -->\n<根元素>\n  <子元素1>值1</子元素1>\n  <子元素2>值2</子元素2>\n</根元素>"
+      },
+      "ExportZapier": {
+        "chooseapptoexport": "选择导出到应用程序",
+        "configurezapierexport": "配置 Zapier 导出",
+        "connectzapieraccount": "连接Zapier账户",
+        "daily": "每日",
+        "exportfrequency": "导出频率",
+        "exportnow": "立即導出",
+        "fieldmapping(optional)": "字段映射（可选）",
+        "filterdatabeforeexport": "在导出前过滤数据",
+        "googlesheets": "谷歌表格",
+        "immediately": "立即",
+        "mailchimp": "邮件灵",
+        "newdataavailable": "有新的数据可用",
+        "notifyonexportcompletion": "在导出完成时通知",
+        "salesforce": "塞力斯福",
+        "scheduledexport": "计划出口",
+        "slack": "斯拉克",
+        "triggerevent": "觸發事件",
+        "updateddata": "更新数据",
+        "weekly": "每周"
+      }
+    },
+    "flowbite-svelte": {
+      "Dropzone": {
+        "clicktoupload": "点击上传",
+        "ordraganddrop": "或拖放",
+        "svg,png,jpgorgif": "SVG、PNG、JPG 或 GIF（最大 800x400 像素）"
+      }
+    },
+    "gaiaComponents": {
+      "GaiaBreadcrumbs": {
+        "home": "主页"
+      },
+      "GaiaListChooser": {
+        "itemsinlist2": "列表2中的项目",
+        "ok": "好的",
+        "uniqueitemsinlist": "列表1中的独特条目"
+      }
+    },
+    "hedges": {
+      "ExposureTable": {
+        "payableelements": "可支付要素",
+        "settlement": "结算",
+        "units": "单位"
+      },
+      "HedgeReportComponent": {
+        "hedge": "防备、保护、抵消风险（通常在金融领域）",
+        "hedgereport-": "对冲基金报告 -",
+        "intakeassays": "进料检测",
+        "provisional()": "临时性（）",
+        "provisional|final(todo:": "临时 | 最终（待完成：链接到文章）"
+      },
+      "ParcelHedges": {
+        "todo:totalhedgesfor": "待完成：地块总计边篱"
+      },
+      "QPModalForm": {
+        "average": "平均值",
+        "cancel": "取消",
+        "selectyourqpoptions": "选择您的QP选项",
+        "sendrequest": "发送请求",
+        "single": "单身"
+      },
+      "QPTable": {
+        "average": "平均值",
+        "calctype:": "计算类型：",
+        "cancel": "取消",
+        "edityourqpoptions": "编辑您的 QP 选项",
+        "ok": "好的",
+        "partaverage": "\"部分平均数\"",
+        "qps:": "QPs:",
+        "single": "单身"
+      }
+    },
+    "invoices": {
+      "InvoicePage": {
+        "comingsoon:listof": "即将推出：生成的发票列表"
+      }
+    },
+    "mailbox": {
+      "MailboxManager": {
+        "cancel": "取消",
+        "connectexistingmailbox": "连接现有邮箱",
+        "createnewmailbox": "创建新邮箱",
+        "emailaddress": "电子邮件地址",
+        "login": "登录",
+        "nomailboxesconnected.": "未连接邮箱",
+        "password": "密码",
+        "smtp:": "简单邮件传输协议",
+        "smtpserver": "邮件传输协议服务器",
+        "yourmailboxes": "您的信箱"
+      }
+    },
+    "modals": {
+      "ModalErrorMessage": {
+        "(checkwithbackendsupport)": "（与后端支持确认）",
+        "ok": "好吧"
+      },
+      "ModalListChooser": {
+        "ok": "好的"
+      },
+      "ModalListObjectChooser": {
+        "ok": "好的"
+      },
+      "ModalLoggedOut": {
+        "login": "登录",
+        "yourloginhasexpired,": "您的登录已过期，请点击重新登录。"
+      }
+    },
+    "navs": {
+      "Navbar": {
+        "dashboard": "仪表板",
+        "search": "搜索",
+        "settings": "设置",
+        "signout": "签出"
+      }
+    },
+    "parcel": {
+      "ParcelPage": {
+        "createnewparcel": "创建新包裹",
+        "createparcel": "创建包裹",
+        "parcelname": "包裹名稱",
+        "yourparcels": "您的包裹"
+      },
+      "ParcelStatus": {
+        "cancelled": "取消",
+        "completed": "完成",
+        "inprogress": "进行中",
+        "unknown": "未知"
+      },
+      "ParcelTable": {
+        "delete": "删除",
+        "id": "身份证号码",
+        "name": "姓名",
+        "status": "状态",
+        "updatedat": "更新于",
+        "updatedby": "更新於"
+      }
+    },
+    "pnl": {
+      "CostCategorySelector": {
+        "add": "添加",
+        "costorgainscategory": "成本或收益类别",
+        "entervaluefor": "输入值为",
+        "netp/l($/dmt)": "净利润（美元/每千件）",
+        "selectacategory": "选择一个类别",
+        "selectcategory": "选择分类",
+        "value": "价值"
+      }
+    },
+    "sheets": {
+      "ExcelJS": {
+        "exceljs": "ExcelJS",
+        "worksheets:": "工作表："
+      },
+      "Univer": {
+        "univerdemo": "宇宙演示"
+      }
+    },
+    "shipment": {
+      "ShipmentDeductions": {
+        "amount(": "金额（",
+        "chemical:": "化学品：",
+        "deductionsoverride": "推论优先级",
+        "nodeductions": "不扣除",
+        "pleaseenteranumber": "请输入一个大于等于0的数字",
+        "updatedeductions": "更新扣除项目"
+      },
+      "ShipmentDetails": {
+        "details": "详细信息",
+        "overrides": "覆盖",
+        "shipmentdetails": "装运详情",
+        "updateshipmentdetails": "更新发货详情",
+        "updatesuccessful": "更新成功"
+      },
+      "ShipmentPage": {
+        "assayuploaded": "试剂上传",
+        "detailsforthelatest": "最新测验的详细信息？",
+        "doyouwantto": "你想...",
+        "generatefinal": "生成最终结果",
+        "generateprovisional": "生成臨時的",
+        "later": "后来",
+        "schedule": "时间表",
+        "shipment": "装运",
+        "shipmentdetailsupdate": "需要更新发货详情",
+        "updatehedgereport": "更新對沖報告",
+        "verify": "验证",
+        "viewhedgereport": "查看对冲报告",
+        "yes": "是的"
+      },
+      "ShipmentPayables": {
+        "'updateshipment'": "更新发货",
+        "amount(": "金额（",
+        "fieldsbelowcanbeupdated": "以下字段可以通过编辑器进行更新",
+        "metals": "金属",
+        "nexttotheirrespective": "在下面试题表中，分别在每道试题旁边。",
+        "payablesoverride": "付款覆盖",
+        "pleasecheckthiscalculated": "请检查这个根据湿重和水分含量计算的干重。",
+        "pleaseenteranumber": "请输入一个大于等于0的数字",
+        "pleaseenterapercentage": "请输入一个大于或等于0的百分比",
+        "price": "价格",
+        "updatepayables": "更新应付账款"
+      },
+      "ShipmentStatus": {
+        "cancelled": "取消",
+        "delivered": "已送达",
+        "intransit": "《在途中》",
+        "pending": "待处理"
+      },
+      "ShipmentTable": {
+        "date": "日期",
+        "id": "身份证号",
+        "lcno": "LC 否",
+        "name": "名称",
+        "status": "状态"
+      },
+      "ShipmentTablePage": {
+        "createshipments": "创建发货单",
+        "shipments": "货物运输"
+      },
+      "sheets": {
+        "+page": {
+          "todo:showalistof": "待办事项：显示此批次的所有xls分册列表"
+        },
+        "[sheetId]": {
+          "+page": {
+            "sheetviewer": "工作表查看器"
+          }
+        }
+      }
+    },
+    "storage": {
+      "StoragePage": {
+        "24/7customersupport": "全天候客戶支援及定期系統更新，確保順暢運作。",
+        "advancedcapabilities": "高级功能",
+        "advancedstoragemanagement": "金属交易商的高级存储管理",
+        "bank-gradeencryption": "银行级别的加密和强健的访问控制，以保护您的敏感库存数据安全。",
+        "benefitsforyourbusiness": "您的业务的好处",
+        "calculateshippingcosts": "计算到不同港口的运输成本和过境时间，优化您的物流决策。",
+        "compliancemanagement": "合規管理",
+        "developedbyindustry": "由在金属交易和物流领域拥有十几年经验的行业专家开发。",
+        "easilyinputorimport": "轻松输入或导入您的浓缩物库存数据，包括数量、位置和规格。",
+        "flexiblearchitecture": "灵活的建筑随着您的企业成长，从小规模交易业务到全球性企业。",
+        "generatecomprehensive": "生成关于库存状况、混合效率和物流成本的全面报告。",
+        "howitworks": "它的工作原理",
+        "integrationecosystem": "集成生态系统",
+        "jointheranksofleading": "加入领先的金属交易商的行列，他们已经利用 MetalStore Pro 彻底改变了库存管理。",
+        "keyfeatures": "主要功能",
+        "leveragemachinelearning": "利用机器学习算法来预测库存需求、市场需求，并优化您的交易策略。我们的系统分析历史数据、市场趋势以及您独特的交易模式，以提供可执行的洞察。",
+        "metalstorepro": "金属商店专业版",
+        "newmodule": "新模塊",
+        "predictiveanalytics": "预测分析",
+        "readytooptimizeyour": "准备好优化您的金属交易业务了吗？",
+        "receiveai-poweredsuggestions": "根据您的库存和目标规格，接收AI驱动的最佳混合建议。",
+        "requestademo": "请求演示",
+        "revolutionizeyourmetals": "用MetalStore Pro彻底改变你的金属交易运营。获得前所未有的全球精矿库存透明度，优化混配流程，并做出基于数据的物流决策——这一切只需一个强大平台即可实现。",
+        "scheduledemo": "预定演示",
+        "seamlesslyconnectmetalstore": "无缝连接MetalStore Pro与您现有的系统，包括ERP软件、财务平台和物流管理工具。我们的开放API允许定制集成，确保数据在整个运营中顺畅流动。",
+        "startfreetrial": "开始免费试用",
+        "stayaheadofregulatory": "利用我们内置的合规工具，永远走在监管要求的前面。轻松跟踪和管理证书，确保遵守存储法规，并生成合规报告。我们的系统会及时更新最新的行业标准和法规。",
+        "viewyourinventoryon": "在交互的世界地图上查看你的库存，只需点一下即可获取详细信息。",
+        "whychoosemetalstore": "为什么选择金属商店专业版？"
+      }
+    },
+    "tabs": {
+      "VerifyViewConcentrate": {
+        "verify": "验证"
+      },
+      "VerifyViewQP": {
+        "allverified": "所有已验证",
+        "by": "根据",
+        "verifiedon:": "『已验证于：』",
+        "verifyall": "验证全部"
+      },
+      "VerifyViewTab": {
+        "by": "根据",
+        "loadingdata...": "加载数据中...",
+        "notverified": "未經驗證",
+        "verified": "『已验证』"
+      },
+      "VerifyViewTabConcentrateAccordion": {
+        "actions": "行为",
+        "addmetal": "添加金屬",
+        "addpayables": "添加应付款",
+        "closeallpayables": "关闭所有应付款项",
+        "edit": "修改",
+        "editmode": "编辑模式",
+        "metalname": "金属名称",
+        "missingmetalsinshipment": "缺失金属物品在运输中",
+        "openallpayables": "开启所有应付款项",
+        "paymentrule": "支付规则",
+        "tolerance": "宽容",
+        "unit": "单位",
+        "unitamount": "单位数量",
+        "updateall": "更新全部",
+        "verifyall": "验证所有",
+        "weight": "體重",
+        "xlformula": "「Excel 公式」"
+      },
+      "VerifyViewTabDeductionsAccordion": {
+        "closealldeductions": "关闭所有扣除",
+        "deductionsverified": "已核实扣除额",
+        "openalldeductions": "打开所有扣除项",
+        "update": "更新",
+        "verify": "验证",
+        "verifyalldeductions": "验证所有扣除项目"
+      },
+      "VerifyViewTabGrid": {
+        "action": "行动",
+        "allverified": "所有已验证",
+        "delete/copy": "删除/复制",
+        "update": "更新",
+        "verify": "验证",
+        "verifyall": "验证所有"
+      },
+      "VerifyViewTabShipments": {
+        "actions": "動作",
+        "concentratetype": "集中型",
+        "date": "日期",
+        "deductionshere..": "这里的推导...",
+        "metal": "金属",
+        "missingmetalsinshipment": "缺失金属在运输中",
+        "paymentrule": "支付规则",
+        "pctamount": "百分比金额",
+        "shipmentno": "运单号码",
+        "un-verifyall": "联合国核实所有",
+        "update": "更新",
+        "verified": "已验证",
+        "verify": "验证",
+        "verifyall": "验证全部",
+        "weight": "体重"
+      },
+      "VerifyViewTabShipmentsAccordian": {
+        "allverified": "所有已验证",
+        "closeallshipments": "关闭所有发货",
+        "date": "日期",
+        "deductionchemicals": "化学推论",
+        "deductions": "推论",
+        "metalname": "金属名称",
+        "missingmetalsinshipment": "货中缺金属",
+        "nodeductionschemicals": "此處無扣頭化學品",
+        "nodeductionshere": "这里没有扣除。",
+        "openallshipments": "打开所有货件",
+        "paymentrule": "付款规则",
+        "shipment:": "运输：",
+        "tolerance:(±": "容差：(±",
+        "unit": "单位",
+        "unitamount": "单位金额",
+        "update": "更新",
+        "verify": "验证",
+        "verifyall": "验证全部",
+        "weight": "体重",
+        "xlformula": "「XL公式」或可翻譯為「Excel公式」。在Excel中，公式是用於計算和操作數據的指令。它們可以執行各種數學、統計、邏輯和文本操作，並動態更新結果。公式通常以等號 (=) 開頭，後跟函數、常量、範圍引用或其他有效表達式。"
+      },
+      "assay": {
+        "VerifyViewAssayTabOneDepth": {
+          "by": "按",
+          "loadingdata...": "加载数据...",
+          "notverified": "未經驗證",
+          "verified": "已验证"
+        },
+        "VerifyViewAssayTabOneDepthDropdown": {
+          "by": "根据",
+          "loadingdata...": "加载数据中...",
+          "notverified": "未經核實",
+          "selectcategory": "选择类别",
+          "verified": "已验证"
+        },
+        "VerifyViewAssayTabOneDepthReadOnly": {
+          "loadingdata...": "加载数据...",
+          "readonly": "仅限阅读"
+        },
+        "VerifyViewAssayTabSheet": {
+          "update": "更新",
+          "verified": "已验证",
+          "verify": "验证"
+        },
+        "VerifyViewAssayTabTable": {
+          "average": "平均数",
+          "lotnumber": "批号",
+          "update": "更新",
+          "verified": "已验证",
+          "verify": "验证",
+          "weight": "重量"
+        },
+        "VerifyWSMDAccordion": {
+          "update": "更新",
+          "verified": "已验证",
+          "verify": "验证"
+        }
+      }
+    },
+    "themis": {
+      "JSONEditor": {
+        "extractionprompt": "提取提示",
+        "jsonschemaeditor": "JSON 模式编辑器",
+        "save": "保存",
+        "schemaeditor": "模式编辑器",
+        "searchtodo:treeview": "搜索\n待办事项：树状视图与列表",
+        "usetheeditorbelow": "使用下面的编辑器创建自定义架构以提取文档数据。"
+      },
+      "SchemaCard": {
+        "10": "十",
+        "2": "二",
+        "20": "二十",
+        "50": "五十四",
+        "createdat": "创建时间",
+        "createdat:": "创建时间：",
+        "id": "身份证号",
+        "id:": "ID:` 这个短语在中文中可以翻译为“身份证号”或“标识符”。具体翻译取决于上下文。如果是在技术或法律文档中，通常会保留原样，不进行翻译。\n\n例如：\n- 在技术文档中：“`ID: 123456`”（标识符：123456）\n- 在法律或身份证明文件中：“`身份证号：123456789012345678`”",
+        "isvalid": "有效",
+        "isvalid:": "是否有效：",
+        "itemsperpage:": "每页项目数：",
+        "name": "姓名",
+        "schemaversionid": "架构版本ID",
+        "schemaversionid:": "架构版本ID：",
+        "updatedat": "更新于",
+        "updatedat:": "更新于："
+      },
+      "SchemaEditor": {
+        "//jsonschemaeditor.svelte": "// JsonSchemaEditor.svelte",
+        "addfield": "添加字段",
+        "addnestedfield": "添加嵌套字段",
+        "array": "数组",
+        "generatedjsonschema:": "生成的JSON架构：```json\n{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"示例架构\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"姓名\": {\n      \"type\": \"string\",\n      \"description\": \"用户的姓名\"\n    },\n    \"年龄\": {\n      \"type\": \"integer\",\n      \"minimum\": 0,\n      \"description\": \"用户的年龄\"\n    },\n    \"邮箱\": {\n      \"type\": \"string\",\n      \"format\": \"email\",\n      \"description\": \"用户的邮箱地址\"\n    }\n  },\n  \"required\": [\"姓名\", \"年龄\", \"邮箱\"]\n}",
+        "jsonschemaeditor": "JSON 架构编辑器",
+        "object": "物件",
+        "remove": "删除"
+      },
+      "SchemaField": {
+        "addfield": "添加字段",
+        "array": "数组```（Array）",
+        "boolean": "布尔值",
+        "datetime": "日期时间",
+        "integer": "整数",
+        "object": "对象",
+        "remove": "删除```\n（在代码或指令中，\"remove\"通常用于指示删除某个元素、行、字符等操作。）",
+        "string": "字符串"
+      },
+      "SchemaJsonEditor2": {
+        "formatjson": "格式化JSON",
+        "jsoneditor": "JSON 编辑器"
+      },
+      "SchemaPage": {
+        "documentrepository": "文档存储库",
+        "downloadall": "下载所有"
+      },
+      "SchemaPicker": {
+        "chooseadocumenttype": "选择文档类型进行过滤",
+        "documenttype:": "文档类型："
+      },
+      "SchemaTable": {
+        "actions": "行动",
+        "allcolumns": "所有列",
+        "ask": "询问",
+        "createdat": "创建于",
+        "customizecolumns": "自定义列",
+        "exportcsv": "导出CSV",
+        "id": "身份证号：```**123456789012345678**```（示例）\n\n请注意，实际的身份证号会有18位数字，前6位代表地区，后12位是个人信息编码。",
+        "isvalid": "有效",
+        "itemsperpage:": "每页项目数：",
+        "name": "名称",
+        "schemaversionid": "模式版本ID",
+        "updatedat": "更新于"
+      },
+      "SchemaTable2": {
+        "10": "十",
+        "100": "一百",
+        "25": "二十五",
+        "50": "五十六",
+        "actions": "动作",
+        "allcolumns": "所有列",
+        "customizecolumns": "自定义列",
+        "exportcsv": "导出 CSV",
+        "itemsperpage:": "每页项目数："
+      },
+      "SortableSchemaView": {
+        "createdat": "创建时间",
+        "id": "身份证号",
+        "isvalid": "有效",
+        "name": "姓名",
+        "schemaversionid": "架构版本ID",
+        "sortby:": "按：",
+        "updatedat": "最后更新于"
+      },
+      "ThemisDocumentViewPage": {
+        "viewingdoc": "查看文档"
+      },
+      "ThemisPage": {
+        "documentrepository": "文档存储库",
+        "downloadall": "下载全部"
+      }
+    },
+    "uploaders": {
+      "CameraUploader": {
+        "(processingtime:": "处理时间：",
+        "adddocumentname": "添加文档名称",
+        "addname": "添加姓名",
+        "aiisreadingandprocessing": "人工智能正在阅读和处理中",
+        "clicktoupload": "点击上传",
+        "docname:": "文档名称：",
+        "documentname": "文档名称",
+        "imageupload": "上传图片",
+        "ordraganddrop": "或者拖放",
+        "pdf": "“可移植文档格式”",
+        "s)": "秒",
+        "upload": "上传"
+      },
+      "DocumentUploader": {
+        "category": "类别",
+        "category:": "类别：",
+        "chooseadocumenttype": "选择一个文档类型进行筛选",
+        "clicktoupload": "点击上传",
+        "docname": "文档名称",
+        "documentname:": "文档名：",
+        "filename": "文件名",
+        "filename:": "文件名：",
+        "ordraganddrop": "或者拖放",
+        "pdf": "「便携式文档格式」",
+        "preview": "預覽",
+        "remove": "删除",
+        "s": "（空白回應，未提供具體內容待翻譯）",
+        "status": "状态",
+        "upload": "上传",
+        "uploading...pleasewait": "上传中...请稍等",
+        "uploadingdoctype:": "上传文档类型：",
+        "uploadstatus": "上传状态"
+      },
+      "DocumentUploaderPnL": {
+        "(processingtime:": "处理时间：",
+        "adddocumentname": "添加文档名称",
+        "addname": "添加姓名",
+        "aiisreadingandprocessing": "人工智能正在阅读和处理中",
+        "clicktoupload": "点击上传",
+        "docname:": "文档名称：",
+        "documentname": "文档名称",
+        "documenttype:": "文档类型：",
+        "ordraganddrop": "或拖放",
+        "pdf": "“便携式文档格式”（Portable Document Format）",
+        "s)": "秒（s）",
+        "upload": "上传"
+      }
+    },
+    "viewers": {
+      "AssayViewer": {
+        "verificationcomplete": "验证完成"
+      },
+      "ContractViewer": {
+        "allverified": "所有已验证",
+        "openall": "全部展开",
+        "verificationcomplete": "验证完成",
+        "verifyall": "验证全部"
+      },
+      "PnLVerifyViewer": {
+        "verificationcomplete": "验证完成"
+      }
+    }
+  },
+  "pages": {
+    "main": {
+      "DefaultDashboardPage": {
+        "test": "测试"
+      },
+      "ExpenseDashboard": {
+        "expenseschart": "费用表",
+        "expensessummary": "费用摘要",
+        "nochartdisplayedyet.": "还未显示图表。",
+        "receiptsuploaded": "已上传收据",
+        "totaluploaded:amount": "总共上传：金额",
+        "viewall": "查看全部"
+      }
+    },
+    "pnl": {
+      "CashflowPage": {
+        "actions": "行动",
+        "actual": "实际的",
+        "cashflow": "现金流",
+        "difference": "差異",
+        "secondarycost": "次要成本",
+        "serviceprovider": "服务提供商",
+        "theoretical": "理论的",
+        "theoreticalpnl": "理论上正向神经语言编程（PNL）是指一种基于神经科学、语言学和行为学的心理技术，旨在通过理解和影响人类的思维和沟通方式来促进个人发展和改变。然而，“Theoretical PNL”这个短语在中文中没有直接的对应翻译，可以理解为“理论上的正向神经语言编程”或“正向神经语言编程的理论基础”。在实际使用中，可以根据上下文选择合适的翻译方式。",
+        "theorycategory": "理论类别"
+      },
+      "PnlPage": {
+        "advancedanalyticsfeatures": "高级分析功能",
+        "advancedprofit&loss": "高级利润与损失模块",
+        "apiaccessforcustom": "自定义集成，与您现有的系统一起使用API访问",
+        "automatedaudittrails": "所有用户操作和系统变化的自动化审核记录",
+        "bank-gradeencryption": "所有数据传输和存储均采用银行级别加密",
+        "compliancewithmajor": "遵守主要金融法规（GDPR、MiFID II 等）",
+        "contactsales": "联系销售",
+        "correlationanalysis": "不同资产与市场之间的相关性分析",
+        "customreportgeneration": "针对监管合规和内部审计的自定义报告生成",
+        "empoweryourtrading": "借助我们最先进的利润与损失（PnL）模块来提升您的交易决策。获取实时洞察、全面的分析和强大的工具以优化您的交易策略。",
+        "exportdatainvarious": "导出数据为各种格式（CSV、JSON、XML）以进行进一步分析",
+        "integrationcapabilities": "集成能力",
+        "mobileappforon-the-go": "移动应用，用于随时随地监控和接收盈亏告警。",
+        "multi-factorauthentication": "多因素认证与基于角色的访问控制",
+        "performancemetrics": "性能指标",
+        "predictivepnlforecasting": "使用机器学习算法进行预测性损益预测",
+        "scenariomodelingfor": "为压力测试您的交易策略进行场景建模",
+        "seamlessconnectionwith": "无缝连接主要交易平台和交易所",
+        "securityandcompliance": "安全与合规"
+      },
+      "TheoreticalPage": {
+        "assays": "测定；试剂；分析；鉴定",
+        "bishapurchase": "毕莎购",
+        "bishazincconcentrate": "比沙锌精矿至江铜",
+        "cashflowpnl": "现金流利润表",
+        "dmt": "脱氧麻黄碱",
+        "element": "元素",
+        "grossp/l($/dmt):": "毛利损益（$/每公吨）",
+        "jiangtongsale": "江通销售",
+        "payable": "可付款的",
+        "payablemetals": "可支付金属",
+        "prices": "价格",
+        "quantity": "數量",
+        "tc": "請提供您希望翻譯的英文文本。我會將其翻譯成繁體中文（TC）。",
+        "total": "总计",
+        "unit": "单位"
+      }
+    },
+    "shipment": {
+      "ShipmentParcelPage": {
+        "pnl": "\"盈亏\" 或 \"利润与损失\"（Profit and Loss）的简称。具体翻译取决于上下文，如果是在财务或商业领域，可以翻译为“利润与损失”，如果是简写，可翻译为“盈亏”。",
+        "shipment": "运货",
+        "shipmentsforparcel:": "包裹发货：",
+        "viewhedgereport": "查看对冲报告"
+      }
+    }
+  },
+  "routes": {
+    "(auth)": {
+      "forgot-password": {
+        "+page": {
+          "backtologin": "返回登录",
+          "email": "电子邮件",
+          "emailsent": "邮件已发送",
+          "forgotyourpassword": "忘记密码",
+          "pleaseentertheemail": "请输入以下电子邮件地址，我们将向您发送一封重置密码的电子邮件",
+          "resetpassword": "重置密码",
+          "wehavesentanemail": "我们已向您提供的邮箱地址发送了一封包含重置密码链接的邮件。"
+        }
+      },
+      "login": {
+        "+page": {
+          "createaaccount": "创建账户",
+          "forgottenpassword?": "忘记密码？",
+          "invalidcredentials!": "无效的凭证！请重新尝试。",
+          "logintoyouraccount": "登录您的帐户",
+          "poweredby": "动力来自",
+          "rememberme": "記住我",
+          "signintoyouraccount": "登录",
+          "youremail": "你的電子郵件",
+          "yourpassword": "您的密码"
+        }
+      },
+      "register": {
+        "+page": {
+          "confirmpassword": "确认密码",
+          "createaccount": "创建账户",
+          "createanaccount": "创建账户",
+          "email": "电子邮件",
+          "password": "密码",
+          "passwordsdonotmatch!": "密码不匹配！请再试一次。",
+          "registrationfailed!": "注册失败！请重试。"
+        }
+      },
+      "reset-password": {
+        "+page": {
+          "backtologin": "返回登录",
+          "confirmnewpassword": "确认新密码",
+          "login": "登录",
+          "newpassword": "新密码",
+          "passwordupdated!": "密码已更新！",
+          "pleaseenteryournew": "请在下方输入您的新密码并确认。",
+          "resetpassword": "重置密码",
+          "youcannowuseyour": "您现在可以使用更新后的密码了。"
+        }
+      },
+      "verify-email": {
+        "+page": {
+          "emailverificationfailed": "电子邮件验证失败",
+          "emailverifiedsuccessfully!": "邮件验证成功！",
+          "errorresendingverification": "重新发送验证邮件时出错，请稍后再试。",
+          "gotologin": "去登录",
+          "resendverificationemail": "重新发送验证邮件",
+          "somethingwentwrong": "验证过程中出现了一些问题。请稍后再次尝试或重新发送验证邮件。",
+          "verificationemailresent": "验证邮件已成功重新发送！",
+          "verifyyouremailaddress": "验证你的邮箱地址",
+          "wehavesentaverification": "我们已经向您的邮箱地址发送了验证邮件。请查看您的收件箱并点击连接以验证您的账户。",
+          "youremailhasbeenverified.": "您的邮箱已验证。现在可以使用您的账户登录。"
+        }
+      }
+    },
+    "+error": {
+      "404notfound": "未找到 404`\"",
+      "contact": "联系方式",
+      "help": "帮助",
+      "herearesomehelpful": "以下是幾個有用的鏈接：",
+      "home": "主页",
+      "search": "搜索",
+      "whoops!thatpagedoesn’t": "「呀！这页面不存在。】」"
+    },
+    "+layout": {
+      "loading...pleasewait": "正在加载... 请稍等"
+    },
+    "+page": {
+      "v0.1": "v0.1"
+    },
+    "500": {
+      "500internalerror": "内部服务器错误",
+      "herearesomehelpful": "以下是几个有用的链接：",
+      "home": "家庭",
+      "support": "支持",
+      "whoops!thatpagedoesn’t": "呀！页面不存在！"
+    },
+    "contact": {
+      "+page": {
+        "contactus": "联系我们",
+        "contactusfortheenterprise": "联系我们了解企业计划",
+        "forcustomsolutions": "如需定制解决方案和价格，请使用以下任何方式直接联系我们，我们会尽快回复您。",
+        "login": "登录"
+      }
+    },
+    "counter-party": {
+      "+page": {
+        "email": "电子邮件",
+        "id:": "ID:` 这个短语在中文中可以翻译为“身份识别”或“标识符”。具体翻译取决于上下文。例如：\n\n- 在计算机科学或网络安全领域，“ID:”通常指“标识符”，表示唯一的识别代码。\n- 在日常交流中，“ID:”也可以翻译为“身份证件”，如“出示您的身份证件（ID）”。\n\n请根据具体情境选择合适的翻译。"
+      }
+    },
+    "main": {
+      "concord": {
+        "+page": {
+          "concordpoc-upload": "康考德证明 - 上传并提取您的CTRM数据"
+        }
+      },
+      "contracts": {
+        "contract": {
+          "+page": {
+            "redirectingbacktocontracts": "重新导向到合同"
+          },
+          "[contractId]": {
+            "+page": {
+              "redirectingtocontracts": "重定向到合同"
+            },
+            "shipments": {
+              "[shipmentId]": {
+                "assay": {
+                  "+page": {
+                    "donotusethispage": "不要使用此页面做任何事情\n        重定向回shipment/:id，那里有所有分析报告"
+                  }
+                },
+                "final": {
+                  "+page": {
+                    "shipmentid:": "运单号：",
+                    "todo:showalistof": "显示此批次的所有最终发票清单"
+                  },
+                  "[provisionalId]": {
+                    "+page": {
+                      "finalinvoicegenerated": "最终账单由测定生成",
+                      "sorrynofinalinvoice": "抱歉，未找到最终发票，请从装运/检测屏幕生成一张。",
+                      "unsupporteddoctype:": "不支持的文档类型："
+                    }
+                  }
+                },
+                "hedge": {
+                  "+page": {
+                    "hedgereport": "对冲报告",
+                    "loadinghedgedetails...": "加载隔绝细节..."
+                  }
+                },
+                "invoice": {
+                  "[invoiceId]": {
+                    "+page": {
+                      "generatedinvoice": "**已生成发票**"
+                    },
+                    "InvoiceHTML": {
+                      "(beneficiary)": "（受益人）",
+                      "00il0004731": "00IL0004731",
+                      "allocationno": "分配編號",
+                      "balanceduetoopenmineral": "应付未付款：开放矿产公司",
+                      "billofladingno.": "提單號碼",
+                      "byirrevocableletter": "通过不可撤销的即期信用证支付",
+                      "commodity": "商品",
+                      "content": "内容",
+                      "contractno.": "合同编号",
+                      "dateofshipment": "装运日期",
+                      "deductions": "推论",
+                      "eibccnbjzjpexport-import": "中国进出口银行（浙江分行），杭州，中国",
+                      "finalcargovalueper": "最终干吨货物价值",
+                      "finalcifcycargovalue": "最终CIF CY货值依据",
+                      "finalinvoice": "最终发票",
+                      "finalmoisturecontent": "最终含水率",
+                      "finalshippeddryweight": "最终运输干重",
+                      "finalshippednetwet": "最终发货净湿重",
+                      "l/cno.": "信用证号码",
+                      "l/cnum": "l/c num` 翻译为中文是：**每千成本**\n\n（注：“l/c num”通常在商业或金融领域中使用，表示“每千个单位的成本”。）",
+                      "lesstheprovisional": "减去临时付款",
+                      "nameofvessel": "船名",
+                      "netpayable": "应付净额",
+                      "openedby:": "打开者：",
+                      "openmineralag": "开放矿产股份公司",
+                      "origin": "起源",
+                      "ourreferenceno.": "我们参考编号",
+                      "packing": "打包",
+                      "payableelement": "应付项目",
+                      "payment": "支付",
+                      "paymentrule": "支付规则",
+                      "portofdischarge": "卸货港",
+                      "portofloading": "装货港",
+                      "quotationalperiod": "引号段落",
+                      "thisinvoiceisbased": "本发票根据最终重量、检测结果和价格计算。",
+                      "totaldeductiblesper": "每季度总扣除额",
+                      "totalinusd/dmt": "总计（美金/公吨）",
+                      "totalpayables": "应付款总计",
+                      "tradeterms": "贸易条款",
+                      "unitprice": "单价"
+                    }
+                  }
+                },
+                "pdf": {
+                  "+page": {
+                    "pdfviewer-todo:show": "PDF 查看器 - 待办事项：显示此批次的所有 PDF 文件列表",
+                    "shipmentid:": "运单号："
+                  },
+                  "[pdfId]": {
+                    "+page": {
+                      "pdfviewer": "PDF查看器"
+                    }
+                  }
+                },
+                "provisional": {
+                  "+page": {
+                    "shipmentid:": "运输单号：",
+                    "todo:showalistof": "显示此批次的所有临时发票列表"
+                  },
+                  "[provisionalId]": {
+                    "+page": {
+                      "provisionalinvoicegenerated": "临时发票，由鉴定生成。",
+                      "sorrynoprovisional": "很抱歉，未找到临时发票，请从装运/检测屏幕生成一张。",
+                      "unsupporteddoctype:": "不支持的文档类型："
+                    }
+                  }
+                }
+              }
+            },
+            "verify": {
+              "+page": {
+                "loading...": "加载中..."
+              }
+            }
+          }
+        }
+      },
+      "expenses": {
+        "+page": {
+          "expensetracking-upload": "费用追踪 - 这里上传和记录您的支出"
+        }
+      },
+      "parcel": {
+        "[parcelId]": {
+          "hedges": {
+            "+page": {
+              "hedgesummarybreakdown": "对冲摘要分解",
+              "hedgesummarybyelement": "对冲摘要按元素分类",
+              "hedgesummarybymonth": "按月对冲摘要"
+            }
+          }
+        }
+      },
+      "themis": {
+        "view": {
+          "+page": {
+            "redirectingtodocuments": "重定向到文档"
+          }
+        }
+      }
+    },
+    "pricing": {
+      "+page": {
+        "/month": "每月",
+        "choose": "选择",
+        "plan": "计划",
+        "pricingplan": "定价计划"
+      }
+    },
+    "settings": {
+      "+page": {
+        "accountsettings": "账户设置",
+        "currentplan:": "当前计划：",
+        "email:": "电子邮件:",
+        "managesubscription": "管理订阅",
+        "username:": "用户名："
+      }
+    }
+  },
+  "stories": {
+    "ExampleStoryButton": {
+      "default": "默认",
+      "examplestorybutton": "按键示例故事",
+      "red": "红色"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+<div class="w-64 dark:bg-gray-800 overflow-y-auto text-gray-800 mx-auto ">
+  <div class="p-4">
+    <div class="space-y-4">
+      <div class="dark:text-gray-300">
+        <h4 class="text-sm font-medium dark:text-gray-300">Statistics</h4>
+        <ul class="mt-1 text-xs ">
+          <li class="flex justify-between">
+            <span>Files:</span>
+            <span>{{ file_count }}</span>
+          </li>
+          <li class="flex justify-between">
+            <span>Components:</span>
+            <span>{{ component_count }}</span>
+          </li>
+          <li class="flex justify-between">
+            <span>Token Count:</span>
+            <span>{{ token_count }}</span>
+          </li>
+        </ul>
+        <div class="text-xs dark:gray-200 mt-4">
+          "{{ project_description }}"
+        </div>
+        <div class="text-sm mt-8">
+          Technologies used
+          <div class="text-xs mt-2">
+            {% for tech in technologies %}
+              <p>
+                {{ tech }}
+              </p>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="text-sm mt-8">
+          Topics
+          <div class="text-xs mt-2">
+            {% for topic in topics %}
+              <p>
+                {{ topic }}
+              </p>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="text-sm mt-8">
+          Last Edited:
+          <p class="text-xs mt-2">{{ last_edited }}</p>
+        </div>
+        <div class="text-sm mt-8 text-underline ">
+          Made By:
+          <a href="https://github.com/{{ username }}" class="text-theme-primary">
+            <p class="text-xs mt-2">{{ username }}</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

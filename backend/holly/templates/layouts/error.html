@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="flex flex-col items-center justify-start h-full pt-52">
+    <h1 class="text-4xl font-bold text-gray-800 pb-2">Error: {% block error_code %}
+    {% endblock %}</h1>
+    <p class="text-xl text-gray-600">{% block error_message %}{% endblock %}</p>
+  </div>
+{% endblock content %}

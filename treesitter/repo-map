@@ -1,0 +1,8 @@
+#!/bin/bash
+# Wrapper script for the repo_mapper CLI
+
+# Get the directory of this script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Run the CLI script
+uv run python -m src.repo_mapper.cli.repo_map_cli "$@"

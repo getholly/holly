@@ -1,0 +1,12 @@
+Hello {{ username }},
+
+Welcome to GithubMe! We're excited to have you on board.
+
+GithubMe is a platform that helps you manage your GitHub repositories, analyze code, and create diagrams.
+
+To get started, simply login to your account and connect your GitHub repositories.
+
+If you have any questions, please don't hesitate to contact our support team at support@githubme.app.
+
+Best regards,
+The GithubMe Team

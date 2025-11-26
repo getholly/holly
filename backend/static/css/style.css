@@ -1,0 +1,30 @@
+* {
+  scrollbar-color: rgb(31 41 55 / var(--tw-bg-opacity)) transparent;
+}
+
+.light-scroll-bar {
+  scrollbar-color: rgb(55 65 81 / var(--tw-bg-opacity)) transparent;
+}
+
+.htmx-request {
+  display: block;
+}
+
+.hx-indicator {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hx-indicator.htmx-request {
+  visibility: visible;
+  opacity: 1;
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+.codehilite pre {
+  white-space: pre-wrap;
+}

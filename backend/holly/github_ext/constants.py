@@ -1,0 +1,27 @@
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
+IGNORE_FILE_TYPE = {".bin", ".lock"}
+IGNORE_FILE_TYPE_SEARCH = [
+    ".lock",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".gif",
+    ".ico",
+    ".svg",
+    ".woff",
+    ".woff2",
+    ".ttf",
+    ".eot",
+    ".pdf",
+    ".zip",
+    ".tar",
+    ".gz",
+    ".bz2",
+    ".xz",
+    ".7z",
+    ".rar",
+    ".mp3",
+    ".mp4",
+    ".avi",
+    ".bin",
+]

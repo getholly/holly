@@ -1,0 +1,75 @@
+{
+  "repo_path": "/data/treesitter/examples/python",
+  "file_count": 5,
+  "modules": [
+    {
+      "name": "main_module",
+      "file_path": "main_module.py",
+      "type": "module",
+      "classes": [
+        {
+          "name": "MainClass",
+          "file_path": "main_module.py",
+          "start_line": 10,
+          "end_line": 50,
+          "docstring": "Main class for the application.",
+          "base_classes": ["BaseClass"],
+          "methods": [
+            {
+              "name": "process_data",
+              "file_path": "main_module.py",
+              "start_line": 15,
+              "end_line": 25,
+              "docstring": "Process input data.",
+              "parameters": ["self", "data", "options"],
+              "return_type": "Dict[str, Any]"
+            },
+            {
+              "name": "validate",
+              "file_path": "main_module.py",
+              "start_line": 30,
+              "end_line": 40,
+              "docstring": "Validate input data.",
+              "parameters": ["self", "data"],
+              "return_type": "bool"
+            }
+          ]
+        }
+      ],
+      "functions": [
+        {
+          "name": "run_application",
+          "file_path": "main_module.py",
+          "start_line": 55,
+          "end_line": 70,
+          "docstring": "Run the main application.",
+          "parameters": ["config_path", "debug"],
+          "return_type": "int"
+        }
+      ],
+      "imports": [
+        "import os",
+        "import sys",
+        "from typing import Dict, Any, List, Optional"
+      ]
+    },
+    {
+      "name": "utils",
+      "file_path": "utils.py",
+      "type": "module",
+      "classes": [],
+      "functions": [
+        {
+          "name": "format_output",
+          "file_path": "utils.py",
+          "start_line": 10,
+          "end_line": 20,
+          "docstring": "Format output data.",
+          "parameters": ["data", "format_type"],
+          "return_type": "str"
+        }
+      ],
+      "imports": ["import json", "import yaml"]
+    }
+  ]
+}

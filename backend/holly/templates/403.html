@@ -1,0 +1,5 @@
+
+{% extends "layouts/error.html" %}
+{% block title %}Error: 403{% endblock %}
+{% block error_code %}403{% endblock %}
+{% block error_message %}{% if error_information %}{{ error_information }}{% else %}You are not authorized to view this page{% endif %}<br>{% endblock %}

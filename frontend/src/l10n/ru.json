@@ -1,0 +1,1098 @@
+{
+  "components": {
+    "Footer": {
+      "poweredby": "«Работает на»"
+    },
+    "accounting": {
+      "AccountingPage": {
+        "advancedaccountingmodule": "Модуль продвинутого бухучёта",
+        "ai-poweredsystemsuggests": "Система, работающая на основе искусственного интеллекта, предлагает оптимальное время для оплаты.",
+        "automaticmatchingof": "Автоматическое сопоставление платежей с счетами и обновление счетов.",
+        "newfeature": "Новое дополнение",
+        "scheduleademo": "Запланировать демонстрацию",
+        "secure,automatedpayment": "Безопасная автоматическая обработка платежей с мгновенным подтверждением.",
+        "streamlinedapproval": "Рационализированный рабочий процесс получения одобрения с многоуровневой аутентификацией.",
+        "streamlineyourfinancial": "Оптимизируйте свои финансовые операции с помощью нашего инновационного модуля \"Бухгалтерский учет\". Разработанный для безупречной интеграции с вашими существующими системами, он повысит эффективность всех бухгалтерских процессов.",
+        "systemautomatically": "Система автоматически фиксирует и классифицирует входящие счета."
+      }
+    },
+    "blending": {
+      "BlendingPage": {
+        "addconcentrate": "Добавить концентрат",
+        "benefits:": "Преимущества:",
+        "blendcompositionvisualization": "Визуализация композиции смеси",
+        "blendingsystemuimockup": "Макет пользовательского интерфейса системы смешивания",
+        "cancel": "Отмена",
+        "concentratea": "Концентрат А",
+        "concentrateb": "Концентрат Б",
+        "concentratec": "Концентрат С",
+        "controldangerouschemical": "Контролировать содержание опасных химических веществ (фтора, арсеника и т.п.)",
+        "createoptimizedblends": "Создавать оптимизированные смеси на основе ваших критериев",
+        "editrules": "Правила редактирования",
+        "emailaddress": "Адрес электронной почты",
+        "empoweryourmetaltrading": "Усилите свои операции по торговле металлами с помощью нашей инновационной системы смешивания. Оптимизируйте смесь концентратов с точностью и лёгкостью.",
+        "ensurecompliancewith": "Обеспечить соответствие нормативным ограничениям (например, СИТ в Китае).",
+        "ensureregulatorycompliance": "Обеспечить соответствие нормативным требованиям на различных рынках",
+        "factorinblendingcosts": "Учитывайте издержки смешивания и местоположения концентрата",
+        "generatenewblend": "Создать новый сплав",
+        "inputconcentrates": "Концентрат входящий",
+        "keyfeatures:": "Основные характеристики:",
+        "makeinformeddecisions": "Принимайте обоснованные решения с помощью комплексного анализа смеси",
+        "maxarsenic:0.5%": "Макс. содержание мышьяка: 0,5%",
+        "maxblendingcost:$1000": "Максимальная стоимость смешивания: 1000 долларов США",
+        "maximizeprofitability": "Максимизируйте прибыльность за счёт оптимизации состава смесей.",
+        "message": "Сообщение",
+        "mincoppercontent:25%": "Минимальное содержание меди: 25%",
+        "mixingrules": "Правила смешивания",
+        "optimizedblendresults": "Оптимизированные результаты смешивания",
+        "reducerisksassociated": "Снизить риски, связанные с опасным химическим содержанием",
+        "requestademo": "Запросить демонстрацию",
+        "revolutionarymetalblending": "Революционная система оптимизации смешивания металлических порошков",
+        "sendrequest": "Отправить запрос",
+        "setmin/maxcontentfor": "Установите минимальное/максимальное содержание для металлов (медь, золото, серебро и т. д.).",
+        "specifyinputconcentrates": "Указать входные концентраты и правила смешивания",
+        "streamlineyourblending": "Упростите ваш процесс смешивания с помощью автоматических расчетов",
+        "subject": "Тема",
+        "takecontrolofyour": "Возьмите под контроль свои операции по торговле металлами и впереди конкурентов с помощью нашей передовой системы сбалансированной смеси."
+      }
+    },
+    "camera": {
+      "Camera": {
+        "capturephoto": "Сфотографировать",
+        "stopcamera": "Остановить камеру",
+        "usecamera": "Использовать камеру"
+      }
+    },
+    "chat": {
+      "AskModal": {
+        "close": "Закрыть"
+      },
+      "Chat": {
+        "areyousureyouwant": "Вы уверены, что хотите удалить этот диалог?",
+        "newchat": "Новый чат",
+        "no,cancel": "Нет, отмена.",
+        "pleaseselectachat": "Пожалуйста, выберите чат или нажмите, чтобы начать новый.",
+        "previousconversations": "Предыдущие разговоры",
+        "send": "Отправить",
+        "yes,i'msure": "Да, я уверен."
+      },
+      "ChatModal": {
+        "close": "Закрыть"
+      },
+      "ChatWidget": {
+        "send": "Отправить"
+      },
+      "MsgLog": {
+        "ai:": "Искусственный Интеллект:"
+      },
+      "TextToSpeech": {
+        "stop": "Стоп",
+        "text-to-speechconverter": "Преобразователь текста в речь"
+      }
+    },
+    "contract": {
+      "ContractDocumentUploader": {
+        "(processingtime:": "Время обработки:",
+        "adddocumentname": "Добавить название документа",
+        "addname": "Добавить имя",
+        "aiisreadingandprocessing": "Искусственный интеллект читает и обрабатывает.",
+        "chooseadocumenttype": "Выберите тип документа для загрузки",
+        "clicktoupload": "Нажмите для загрузки",
+        "docname:": "Имя документа:",
+        "documentname": "Название документа",
+        "ordraganddrop": "или перетащите и отпустите",
+        "pdf": "PDF",
+        "s)": "(с)",
+        "upload": "Загрузить"
+      },
+      "ContractPage": {
+        "contracts": "Договоры"
+      },
+      "ContractTable": {
+        "chatwithlegalcontract": "«Обсуждение юридического договора»",
+        "chatwithtrade": "«Чат с торговлей»",
+        "createdat": "Создано ```в",
+        "id": "Идентификатор",
+        "name": "Имя",
+        "operator": "Оператор",
+        "shipment": "Отгрузка",
+        "trader": "Трейдер",
+        "updatedat": "«Обновлено в»",
+        "verify": "Проверить",
+        "view": "Представление"
+      }
+    },
+    "dashboard": {
+      "ContractVerificationCount": {
+        "loadingcontractcounts...": "Загрузка количества контрактов...",
+        "unverifiedcontracts:": "Непроверенные контракты:",
+        "verifiedcontracts:": "Проверенные контракты:",
+        "view": "\"Представление\" (или \"Вид\")"
+      },
+      "QuickLinks": {
+        "assays": "Анализы",
+        "contracts": "Договоры",
+        "hedges": "Живые изгороди",
+        "invoices": "Счета-фактуры",
+        "parcels": "Посылки",
+        "quicklinks": "Быстрые ссылки",
+        "view": "Просмотр"
+      }
+    },
+    "documents": {
+      "ShipmentsDocumentsTable": {
+        "assaysunavailable": "Анализы недоступны",
+        "id": "Идентификатор",
+        "name": "Имя",
+        "pdf": "«Пдф»",
+        "type": "\"Тип\"",
+        "updatedat": "Обновлён в",
+        "updatedby": "Обновлено пользователем",
+        "updateshipment": "«Обновление отгрузки»",
+        "uploadedassays": "Загруженные анализы",
+        "verify": "Проверить",
+        "verifyrequired": "Проверить требуемое",
+        "view": "Просмотр"
+      },
+      "ShipmentsGeneratedDocsTable": {
+        "final": "Конец",
+        "generated": "\"Созданный\"",
+        "provisional": "Временный"
+      }
+    },
+    "exportables": {
+      "ExportGoogleSheets": {
+        "appendtoexistingdata": "Добавить к существующим данным",
+        "configuregooglesheets": "Настроить экспорт в Google Таблицы",
+        "connectgoogleaccount": "Подключить аккаунт Google",
+        "exportmode": "Режим экспорта",
+        "exportnow": "Экспортировать сейчас",
+        "googlesheetsconnected": "Google Таблицы успешно подключены!",
+        "includeheadersinexport": "Включить заголовки в экспорт",
+        "overwriteexistingdata": "Переписать существующие данные",
+        "sheetname": "Имя листа",
+        "worksheetname": "Название рабочего листа"
+      },
+      "ExportWebhook": {
+        "authenticationtoken": "Токен аутентификации (необязательно)",
+        "configurewebhookexport": "Настроить вебхук экспорта",
+        "customheaders(optional)": "Пользовательские заголовки (необязательно)",
+        "delete": "УДАЛИТЬ",
+        "exportnow": "Экспортировать сейчас",
+        "form-encoded": "Кодированная форма",
+        "get": "GET",
+        "httpmethod": "Метод HTTP",
+        "json": "json```\n{\n  \"name\": \"John\",\n  \"age\": 30,\n  \"city\": \"New York\"\n}",
+        "payloadformat": "Формат полезной нагрузки",
+        "post": "ПОЛУЧИТЬ",
+        "put": "ПОЛУЧИТЬ",
+        "retryonfailure": "Повторная попытка при отказе",
+        "sendatestwebhook": "Отправить тестовый вебхук",
+        "webhookurl": "URL вебхука",
+        "xml": "xml\n<project>\n  <name>Мой проект</name>\n  <description>Описание моего проекта</description>\n  <tasks>\n    <task>\n      <title>Задача 1: Установить программное обеспечение</title>\n      <completed>true</completed>\n    </task>\n    <task>\n      <title>Задача 2: Настроить окружение разработки</title>\n      <completed>false</completed>\n    </task>\n  </tasks>\n</project>"
+      },
+      "ExportZapier": {
+        "chooseapptoexport": "Выбрать приложение для экспорта",
+        "configurezapierexport": "Настройка экспорта Zapier",
+        "connectzapieraccount": "Подключить аккаунт Zapier",
+        "daily": "Ежедневно",
+        "exportfrequency": "Частота экспорта",
+        "exportnow": "Экспортировать сейчас",
+        "fieldmapping(optional)": "Сопоставление полей (необязательно)",
+        "filterdatabeforeexport": "Фильтруйте данные перед экспортом",
+        "googlesheets": "Google Таблицы",
+        "immediately": "Немедленно",
+        "mailchimp": "MailChimp",
+        "newdataavailable": "Новые данные доступны",
+        "notifyonexportcompletion": "Уведомление об окончании экспорта",
+        "salesforce": "«Сэйлсфорс»",
+        "scheduledexport": "Запланированный экспорт",
+        "slack": "«Слэк»",
+        "triggerevent": "Триггерное событие",
+        "updateddata": "Обновлённые данные",
+        "weekly": "Еженедельно"
+      }
+    },
+    "flowbite-svelte": {
+      "Dropzone": {
+        "clicktoupload": "Нажмите, чтобы загрузить",
+        "ordraganddrop": "или перетащите и отпустите",
+        "svg,png,jpgorgif": "SVG, PNG, JPG или GIF (МАКС. 800x400 пикселей)"
+      }
+    },
+    "gaiaComponents": {
+      "GaiaBreadcrumbs": {
+        "home": "Домой"
+      },
+      "GaiaListChooser": {
+        "itemsinlist2": "Элементы в списке 2",
+        "ok": "Хорошо.",
+        "uniqueitemsinlist": "Уникальные элементы в списке 1"
+      }
+    },
+    "hedges": {
+      "ExposureTable": {
+        "payableelements": "Оплата элементов",
+        "settlement": "Поселение",
+        "units": "Единицы"
+      },
+      "HedgeReportComponent": {
+        "hedge": "\"Защищающий барьер\" или \"живой забор\" (в зависимости от контекста).\n\nВ финансовом контексте \"hedge\" означает стратегию снижения риска инвестиций путем использования различных финансовых инструментов. В этом случае можно перевести как \"хеджирование\".",
+        "hedgereport-": "«Отчёт о хеджировании»",
+        "intakeassays": "\"Приёмные анализы\"",
+        "provisional()": "Временный ()",
+        "provisional|final(todo:": "Временный | Окончательный (TODO: ссылка на эссе)"
+      },
+      "ParcelHedges": {
+        "todo:totalhedgesfor": "всего ограждений для участка:"
+      },
+      "QPModalForm": {
+        "average": "Средний",
+        "cancel": "Отменить",
+        "selectyourqpoptions": "Выберите свои опции QP",
+        "sendrequest": "Отправить запрос",
+        "single": "Одинокий"
+      },
+      "QPTable": {
+        "average": "Среднее значение",
+        "calctype:": "Тип расчёта:",
+        "cancel": "Отменить",
+        "edityourqpoptions": "«Редактировать параметры КП»",
+        "ok": "Хорошо",
+        "partaverage": "Часть средней",
+        "qps:": "QPs:",
+        "single": "Одинокий"
+      }
+    },
+    "invoices": {
+      "InvoicePage": {
+        "comingsoon:listof": "Ближайшим временем: список сгенерированных счетов"
+      }
+    },
+    "mailbox": {
+      "MailboxManager": {
+        "cancel": "Отменить",
+        "connectexistingmailbox": "Подключить существующий ящик для писем",
+        "createnewmailbox": "Создать новый почтовый ящик",
+        "emailaddress": "Адрес электронной почты",
+        "login": "Вход",
+        "nomailboxesconnected.": "\"На данный момент не подключено ни одного почтового ящика.\"",
+        "password": "«Пароль»",
+        "smtp:": "«SMTP»:",
+        "smtpserver": "Сервер SMTP",
+        "yourmailboxes": "Ваши почтовые ящики"
+      }
+    },
+    "modals": {
+      "ModalErrorMessage": {
+        "(checkwithbackendsupport)": "(проверить с поддержкой Back-end)",
+        "ok": "Хорошо."
+      },
+      "ModalListChooser": {
+        "ok": "Хорошо."
+      },
+      "ModalListObjectChooser": {
+        "ok": "Хорошо."
+      },
+      "ModalLoggedOut": {
+        "login": "Имя пользователя",
+        "yourloginhasexpired,": "Ваш вход истёк, пожалуйста, нажмите для входа снова."
+      }
+    },
+    "navs": {
+      "Navbar": {
+        "dashboard": "Панель управления",
+        "search": "Поиск",
+        "settings": "Настройки",
+        "signout": "Выйти"
+      }
+    },
+    "parcel": {
+      "ParcelPage": {
+        "createnewparcel": "Создать новый пакет",
+        "createparcel": "Создать посылку",
+        "parcelname": "Название посылки",
+        "yourparcels": "Ваши посылки"
+      },
+      "ParcelStatus": {
+        "cancelled": "Отменено",
+        "completed": "Завершено",
+        "inprogress": "В процессе...",
+        "unknown": "Неизвестно"
+      },
+      "ParcelTable": {
+        "delete": "Исключить",
+        "id": "Идентификатор",
+        "name": "Имя",
+        "status": "Статус",
+        "updatedat": "Обновлено в",
+        "updatedby": "Обновлён пользователем"
+      }
+    },
+    "pnl": {
+      "CostCategorySelector": {
+        "add": "Добавить",
+        "costorgainscategory": "Категория затрат или прибыли",
+        "entervaluefor": "Введите значение для",
+        "netp/l($/dmt)": "Чистая прибыль (за вычетом затрат) в долларах на демилтонажа.",
+        "selectacategory": "Выберите категорию",
+        "selectcategory": "Выберите категорию",
+        "value": "\"Значение\""
+      }
+    },
+    "sheets": {
+      "ExcelJS": {
+        "exceljs": "ExcelJS",
+        "worksheets:": "Рабочие листы:"
+      },
+      "Univer": {
+        "univerdemo": "Универсальная демонстрация"
+      }
+    },
+    "shipment": {
+      "ShipmentDeductions": {
+        "amount(": "Сумма (",
+        "chemical:": "Химик:",
+        "deductionsoverride": "«Преобразования имеют преимущественную силу»",
+        "nodeductions": "Без вычетов",
+        "pleaseenteranumber": "Пожалуйста, введите число, большее или равное 0",
+        "updatedeductions": "Обновить вычеты"
+      },
+      "ShipmentDetails": {
+        "details": "Детали",
+        "overrides": "«Переопределение»",
+        "shipmentdetails": "«Подробности доставки»",
+        "updateshipmentdetails": "Обновить подробности отправления",
+        "updatesuccessful": "Обновление прошло успешно."
+      },
+      "ShipmentPage": {
+        "assayuploaded": "Анализ загружен",
+        "detailsforthelatest": "«Детали последней пробы?»",
+        "doyouwantto": "Хочешь ли ты",
+        "generatefinal": "Создать итоговый вариант",
+        "generateprovisional": "Создать временный проект",
+        "later": "Позднее",
+        "schedule": "Расписание",
+        "shipment": "Отгрузка",
+        "shipmentdetailsupdate": "Требуется обновление информации о поставке",
+        "updatehedgereport": "Обновить отчёт о хеджировании",
+        "verify": "\"Проверить\"",
+        "viewhedgereport": "Просмотреть отчёт о хеджировании",
+        "yes": "Да"
+      },
+      "ShipmentPayables": {
+        "'updateshipment'": "\"Обновить отправление\"",
+        "amount(": "Сумма (",
+        "fieldsbelowcanbeupdated": "Поля ниже могут быть обновлены через",
+        "metals": "«Металлы»",
+        "nexttotheirrespective": "рядом с соответствующим анализом в таблице ниже",
+        "payablesoverride": "Переопределение счетов к оплате",
+        "pleasecheckthiscalculated": "Пожалуйста, проверьте этот рассчитанный сухой вес на основе влажности и содержимого влаги.",
+        "pleaseenteranumber": "Пожалуйста, введите число, большее или равное 0",
+        "pleaseenterapercentage": "Пожалуйста, введите процентное значение больше или равно 0",
+        "price": "Цена",
+        "updatepayables": "Обновить счета к оплате"
+      },
+      "ShipmentStatus": {
+        "cancelled": "Отменено",
+        "delivered": "Доставлено",
+        "intransit": "В пути",
+        "pending": "Ожидает выполнения"
+      },
+      "ShipmentTable": {
+        "date": "Дата",
+        "id": "Идентификатор",
+        "lcno": "LC Нет",
+        "name": "Имя",
+        "status": "Статус"
+      },
+      "ShipmentTablePage": {
+        "createshipments": "Создать поставку",
+        "shipments": "Отгрузки"
+      },
+      "sheets": {
+        "+page": {
+          "todo:showalistof": "ЗАДАНИЕ: показать список всех таблиц xls для этой поставки"
+        },
+        "[sheetId]": {
+          "+page": {
+            "sheetviewer": "Просмотрщик листов"
+          }
+        }
+      }
+    },
+    "storage": {
+      "StoragePage": {
+        "24/7customersupport": "Круглосуточная поддержка клиентов и регулярные обновления системы для обеспечения бесперебойной работы.",
+        "advancedcapabilities": "Расширенные возможности",
+        "advancedstoragemanagement": "Современное управление хранением для торговцев металлами",
+        "bank-gradeencryption": "Банковское шифрование и строгий контроль доступа для защиты ваших конфиденциальных данных.",
+        "benefitsforyourbusiness": "Преимущества для вашего бизнеса",
+        "calculateshippingcosts": "Рассчитайте стоимость доставки и сроки транспортировки в различные порты, оптимизируя свои логистические решения.",
+        "compliancemanagement": "Управление соответствием требованиям",
+        "developedbyindustry": "Разработано экспертами отрасли с десятилетиями опыта в области торговли металлами и логистики.",
+        "easilyinputorimport": "Просто вводите или импортируйте ваши данные о запасах концентрата, включая объемы, местоположение и спецификации.",
+        "flexiblearchitecture": "Гибкая архитектура, растущая вместе с вашим бизнесом — от небольших торговых операций до глобальных предприятий.",
+        "generatecomprehensive": "Генерируйте подробные отчёты о состоянии запасов, эффективности смешивания и логистических расходах.",
+        "howitworks": "«Как это работает»",
+        "integrationecosystem": "Интеграционная экосистема",
+        "jointheranksofleading": "Присоединяйтесь к лидерам торговли металлами, которые с помощью MetalStore Pro революционизировали управление своими запасами.",
+        "keyfeatures": "Ключевые характеристики",
+        "leveragemachinelearning": "Используйте алгоритмы машинного обучения для прогнозирования потребностей в запасах, предсказания рыночного спроса и оптимизации ваших торговых стратегий. Наша система анализирует исторические данные, рыночные тренды и уникальные схемы вашей торговли, чтобы обеспечить практические выводы.",
+        "metalstorepro": "\"MetalStore Pro\"",
+        "newmodule": "Новый модуль",
+        "predictiveanalytics": "Предсказательная аналитика",
+        "readytooptimizeyour": "Готовы оптимизировать свою торговлю металлами?",
+        "receiveai-poweredsuggestions": "Получите рекомендации по оптимальной обработке на основе вашего инвентаря и целевых характеристик, использующие возможности ИИ.",
+        "requestademo": "Запросить демонстрацию",
+        "revolutionizeyourmetals": "«Революционизируйте свою торговлю металлами с помощью MetalStore Pro. Получите беспрецедентную видимость своего глобального запасного инвентаря, оптимизируйте процессы смешивания и принимайте основанные на данных решения в области логистики - всё это на одной мощной платформе».",
+        "scheduledemo": "\"Показать расписание\"",
+        "seamlesslyconnectmetalstore": "Просто соедините MetalStore Pro с вашими существующими системами, включая программное обеспечение ERP, финансовые платформы и инструменты управления логистикой. Наш открытый API позволяет выполнять пользовательские интеграции, обеспечивая плавный поток данных по всем вашим операциям.",
+        "startfreetrial": "Начать бесплатный пробный период",
+        "stayaheadofregulatory": "Опережайте требования нормативных актов с помощью наших встроенных инструментов соответствия. Отслеживайте и управляйте сертификатами, обеспечьте соблюдение правил хранения и легко генерируйте отчеты о соответствии. Наша система обновляется в соответствии с последними отраслевыми стандартами и нормативными актами.",
+        "viewyourinventoryon": "Представьте запасы на интерактивной карте мира с подробными сведениями при каждом клике.",
+        "whychoosemetalstore": "«Почему стоит выбрать MetalStore Pro?»"
+      }
+    },
+    "tabs": {
+      "VerifyViewConcentrate": {
+        "verify": "Проверить"
+      },
+      "VerifyViewQP": {
+        "allverified": "«Все проверено»",
+        "by": "от]`",
+        "verifiedon:": "Проверено на:",
+        "verifyall": "\"Проверить все\""
+      },
+      "VerifyViewTab": {
+        "by": "по",
+        "loadingdata...": "Загрузка данных...",
+        "notverified": "Не проверено",
+        "verified": "\"Проверено\""
+      },
+      "VerifyViewTabConcentrateAccordion": {
+        "actions": "Действия",
+        "addmetal": "Добавить металл",
+        "addpayables": "Добавить кредиторскую задолженность",
+        "closeallpayables": "Закрыть все счета к оплате",
+        "edit": "Редактировать",
+        "editmode": "Режим редактирования",
+        "metalname": "иметаллическое имя",
+        "missingmetalsinshipment": "недостающие металлы в грузе",
+        "openallpayables": "Открыть все платежи",
+        "paymentrule": "«Правила оплаты»",
+        "tolerance": "Терпимость",
+        "unit": "Единица",
+        "unitamount": "Единичная сумма",
+        "updateall": "Обновить все",
+        "verifyall": "Проверить все",
+        "weight": "Вес",
+        "xlformula": "Формула Хl"
+      },
+      "VerifyViewTabDeductionsAccordion": {
+        "closealldeductions": "Закрыть все вычеты",
+        "deductionsverified": "Проверено на предмет соответствия действительности",
+        "openalldeductions": "Откройте все вычеты",
+        "update": "Обновление",
+        "verify": "Проверить",
+        "verifyalldeductions": "Проверить все вычеты"
+      },
+      "VerifyViewTabGrid": {
+        "action": "Действие",
+        "allverified": "Все проверено",
+        "delete/copy": "Удалить/Копировать",
+        "update": "Обновление",
+        "verify": "Проверить",
+        "verifyall": "Проверить всё"
+      },
+      "VerifyViewTabShipments": {
+        "actions": "Действия",
+        "concentratetype": "Тип концентрата",
+        "date": "Дата",
+        "deductionshere..": "Выводы здесь...",
+        "metal": "Металл",
+        "missingmetalsinshipment": "отсутствующие металлы в отправке",
+        "paymentrule": "Правило оплаты",
+        "pctamount": "Просоток суммы",
+        "shipmentno": "Номер отправления",
+        "un-verifyall": "«ООН — Проверить Все»",
+        "update": "Обновление",
+        "verified": "Проверено",
+        "verify": "\"Проверить\"",
+        "verifyall": "Проверить все.",
+        "weight": "Вес"
+      },
+      "VerifyViewTabShipmentsAccordian": {
+        "allverified": "\"Все проверено\"",
+        "closeallshipments": "Закрыть все отправки",
+        "date": "Дата",
+        "deductionchemicals": "Химикаты для экстракции",
+        "deductions": "Вычеты",
+        "metalname": "Металлоимя",
+        "missingmetalsinshipment": "отсутствие металлов в партии",
+        "nodeductionschemicals": "Здесь без вычетов, химикаты!",
+        "nodeductionshere": "Здесь никаких вычетов.",
+        "openallshipments": "Открыть все грузоперевозки",
+        "paymentrule": "Правило платежа",
+        "shipment:": "«Поставка»",
+        "tolerance:(±": "Точность: (±",
+        "unit": "Единица",
+        "unitamount": "Количество единиц",
+        "update": "Обновление",
+        "verify": "Проверить",
+        "verifyall": "Проверить все",
+        "weight": "Вес",
+        "xlformula": "Формула Xl"
+      },
+      "assay": {
+        "VerifyViewAssayTabOneDepth": {
+          "by": "«от»",
+          "loadingdata...": "Загрузка данных...",
+          "notverified": "Не проверено",
+          "verified": "Подтверждённый"
+        },
+        "VerifyViewAssayTabOneDepthDropdown": {
+          "by": "«от»",
+          "loadingdata...": "Загрузка данных...",
+          "notverified": "Не проверено",
+          "selectcategory": "Выберите категорию",
+          "verified": "Проверено"
+        },
+        "VerifyViewAssayTabOneDepthReadOnly": {
+          "loadingdata...": "Загрузка данных...",
+          "readonly": "Только для чтения"
+        },
+        "VerifyViewAssayTabSheet": {
+          "update": "Обновление",
+          "verified": "Проверено",
+          "verify": "Проверить"
+        },
+        "VerifyViewAssayTabTable": {
+          "average": "Средний",
+          "lotnumber": "Номер партии",
+          "update": "Обновление",
+          "verified": "\"Подтверждённый\"",
+          "verify": "Проверить",
+          "weight": "Вес"
+        },
+        "VerifyWSMDAccordion": {
+          "update": "Обновление",
+          "verified": "Подтверждён",
+          "verify": "Проверить"
+        }
+      }
+    },
+    "themis": {
+      "JSONEditor": {
+        "extractionprompt": "Выдергивающий запрос",
+        "jsonschemaeditor": "Редактор JSON Schema",
+        "save": "Сохранить",
+        "schemaeditor": "Редактор схем",
+        "searchtodo:treeview": "Поиск TODOs: Дерево с листом списка",
+        "usetheeditorbelow": "Используйте редактор ниже для создания пользовательской схемы извлечения данных из документов."
+      },
+      "SchemaCard": {
+        "10": "Десять.",
+        "2": "два",
+        "20": "Двадцать.",
+        "50": "Пятьдесят",
+        "createdat": "Дата создания",
+        "createdat:": "Создано в:",
+        "id": "Идентификатор",
+        "id:": "ID:",
+        "isvalid": "\"Действительно\"",
+        "isvalid:": "«Действительно:»",
+        "itemsperpage:": "Элементов на страницу:",
+        "name": "Имя",
+        "schemaversionid": "Версия идентификатора схемы",
+        "schemaversionid:": "Версия идентификатора схемы:",
+        "updatedat": "«Обновлено в»",
+        "updatedat:": "Обновлено в:"
+      },
+      "SchemaEditor": {
+        "//jsonschemaeditor.svelte": "// РедакторJsonSchema.светлье",
+        "addfield": "Добавить поле",
+        "addnestedfield": "Добавить вложенное поле",
+        "array": "Массив",
+        "generatedjsonschema:": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"Generated JSON Schema\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"title\": {\n      \"type\": \"string\",\n      \"description\": \"Title of the schema\"\n    },\n    \"type\": {\n      \"type\": \"string\",\n      \"description\": \"Type of the data\"\n    },\n    \"properties\": {\n      \"type\": \"object\",\n      \"additionalProperties\": {\n        \"$ref\": \"#/definitions/property\"\n      }\n    }\n  },\n  \"required\": [\"$schema\", \"title\", \"type\", \"properties\"],\n  \"definitions\": {\n    \"property\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"type\": {\n          \"type\": \"string\",\n          \"description\": \"Type of the property\"\n        },\n        \"description\": {\n          \"type\": \"string\",\n          \"description\": \"Description of the property\"\n        }\n      },\n      \"required\": [\"type\"]\n    }\n  }\n}",
+        "jsonschemaeditor": "Редактор JSON Schema",
+        "object": "Объект",
+        "remove": "Удалить"
+      },
+      "SchemaField": {
+        "addfield": "Добавить поле",
+        "array": "Массив",
+        "boolean": "Логический",
+        "datetime": "Дата и время",
+        "integer": "Целое число",
+        "object": "Объект",
+        "remove": "Удалить",
+        "string": "Строка"
+      },
+      "SchemaJsonEditor2": {
+        "formatjson": "json```\n{\n  \"Translation\": \"Форматируй в JSON\",\n  \"OriginalText\": \"Format JSON\"\n}",
+        "jsoneditor": "Редактор JSON"
+      },
+      "SchemaPage": {
+        "documentrepository": "Хранилище документов",
+        "downloadall": "«Скачать всё»"
+      },
+      "SchemaPicker": {
+        "chooseadocumenttype": "Выберите тип документа для фильтрации.",
+        "documenttype:": "Тип документа:"
+      },
+      "SchemaTable": {
+        "actions": "Действия",
+        "allcolumns": "Все столбцы",
+        "ask": "Спроси",
+        "createdat": "«Создано в»",
+        "customizecolumns": "Настроить столбцы",
+        "exportcsv": "Экспорт CSV",
+        "id": "Идентификатор",
+        "isvalid": "\"Действителен\"",
+        "itemsperpage:": "Элементов на страницу:",
+        "name": "Имя",
+        "schemaversionid": "Версия идентификатора схемы",
+        "updatedat": "Обновлено в"
+      },
+      "SchemaTable2": {
+        "10": "Десять.",
+        "100": "сто",
+        "25": "Двадцать пять.",
+        "50": "Пятьдесят",
+        "actions": "Деяния",
+        "allcolumns": "Все столбцы",
+        "customizecolumns": "Настроить столбцы",
+        "exportcsv": "Экспорт в CSV",
+        "itemsperpage:": "Элементов на странице:"
+      },
+      "SortableSchemaView": {
+        "createdat": "\"Создано\"",
+        "id": "Идентификатор",
+        "isvalid": "\"Действительно\"",
+        "name": "Имя",
+        "schemaversionid": "Версия идентификатора схемы",
+        "sortby:": "«Отсортировать по:»",
+        "updatedat": "Обновлено:"
+      },
+      "ThemisDocumentViewPage": {
+        "viewingdoc": "просмотр документа"
+      },
+      "ThemisPage": {
+        "documentrepository": "Хранилище документов",
+        "downloadall": "Скачать всё"
+      }
+    },
+    "uploaders": {
+      "CameraUploader": {
+        "(processingtime:": "Время обработки:",
+        "adddocumentname": "Добавить название документа",
+        "addname": "Добавить имя",
+        "aiisreadingandprocessing": "Искусственный интеллект читает и обрабатывает",
+        "clicktoupload": "Нажмите, чтобы загрузить",
+        "docname:": "Имя документа:",
+        "documentname": "Наименование документа",
+        "imageupload": "Загрузка изображения",
+        "ordraganddrop": "или перетащите и отпустите",
+        "pdf": "PDF",
+        "s)": "(с)",
+        "upload": "Загрузить"
+      },
+      "DocumentUploader": {
+        "category": "Категория",
+        "category:": "Категория:",
+        "chooseadocumenttype": "Выберите тип документа для фильтрации",
+        "clicktoupload": "Нажмите, чтобы загрузить",
+        "docname": "Название документа",
+        "documentname:": "Название документа:",
+        "filename": "Имя файла",
+        "filename:": "Имя файла:",
+        "ordraganddrop": "или перетащите и отпустите",
+        "pdf": "ПДФ",
+        "preview": "Предварительный просмотр",
+        "remove": "Удалить",
+        "s": "Для перевода текста с английского на русский, пожалуйста, предоставьте сам текст, который нужно перевести. В вашем запросе присутствует только символ `s`, и его перевод не имеет смысла без контекста.",
+        "status": "Статус",
+        "upload": "Загрузить",
+        "uploading...pleasewait": "Загрузка... Подождите, пожалуйста.",
+        "uploadingdoctype:": "Загрузка типа документа:",
+        "uploadstatus": "Статус загрузки"
+      },
+      "DocumentUploaderPnL": {
+        "(processingtime:": "Время обработки:",
+        "adddocumentname": "Добавить имя документа",
+        "addname": "Добавить имя",
+        "aiisreadingandprocessing": "Искусственный интеллект читает и обрабатывает информацию.",
+        "clicktoupload": "Нажмите, чтобы загрузить",
+        "docname:": "Имя документа:",
+        "documentname": "Название документа",
+        "documenttype:": "Тип документа:",
+        "ordraganddrop": "или перетащите и отпустите",
+        "pdf": "Файл в формате PDF (портативный документ, от англ. Portable Document Format) — это файл, созданный с помощью программы Adobe Acrobat или аналогичной и содержащий документацию в электронном виде, которая может включать текст, изображения, графику и многое другое. Фильтр PDF позволяет добавлять в таблицу данные из PDF-файлов.",
+        "s)": "(с)",
+        "upload": "Загрузить"
+      }
+    },
+    "viewers": {
+      "AssayViewer": {
+        "verificationcomplete": "Проверка завершена"
+      },
+      "ContractViewer": {
+        "allverified": "\"Всё проверено\"",
+        "openall": "Открыть все",
+        "verificationcomplete": "Проверка завершена",
+        "verifyall": "Проверить всё"
+      },
+      "PnLVerifyViewer": {
+        "verificationcomplete": "Проверка завершена"
+      }
+    }
+  },
+  "pages": {
+    "main": {
+      "DefaultDashboardPage": {
+        "test": "тест"
+      },
+      "ExpenseDashboard": {
+        "expenseschart": "Диаграмма расходов",
+        "expensessummary": "\"Сводка расходов\"",
+        "nochartdisplayedyet.": "Пока что график не отображается.",
+        "receiptsuploaded": "Загруженные квитанции",
+        "totaluploaded:amount": "Всего загружено: КОЛИЧЕСТВО",
+        "viewall": "Показать все"
+      }
+    },
+    "pnl": {
+      "CashflowPage": {
+        "actions": "Действия",
+        "actual": "Фактический",
+        "cashflow": "Денежный поток",
+        "difference": "Разница",
+        "secondarycost": "Вспомогательные затраты",
+        "serviceprovider": "Поставщик услуг",
+        "theoretical": "Теоретический",
+        "theoreticalpnl": "Теоретическая ПНЛ",
+        "theorycategory": "Категория теории"
+      },
+      "PnlPage": {
+        "advancedanalyticsfeatures": "Расширенные аналитические возможности",
+        "advancedprofit&loss": "Продвинутый модуль прибыли и убытков",
+        "apiaccessforcustom": "Доступ API для индивидуальных интеграций с вашими существующими системами",
+        "automatedaudittrails": "Автоматизированный протокол аудита всех действий пользователей и изменений в системе",
+        "bank-gradeencryption": "Шифрование банковского уровня для всех передаваемых и хранимых данных",
+        "compliancewithmajor": "Соответствие основным финансовым правилам (GDPR, MiFID II и т. д.)",
+        "contactsales": "Связаться с отделом продаж",
+        "correlationanalysis": "Анализ корреляции между различными активами и рынками",
+        "customreportgeneration": "Создание индивидуальных отчетов для соответствия нормативным требованиям и внутренних аудитов",
+        "empoweryourtrading": "Укрепите свои торговые решения с помощью нашего передового модуля Прибыль и Убыток (PnL). Получите информацию в реальном времени, всесторонний анализ и мощные инструменты для оптимизации вашей торговой стратегии.",
+        "exportdatainvarious": "Экспорт данных в различных форматах (CSV, JSON, XML) для дальнейшего анализа",
+        "integrationcapabilities": "Возможности интеграции",
+        "mobileappforon-the-go": "Мобильное приложение для мониторинга прибыли и убытков на ходу и уведомлений",
+        "multi-factorauthentication": "Многофакторная аутентификация и контроль доступа на основе ролей",
+        "performancemetrics": "Показатели производительности",
+        "predictivepnlforecasting": "Прогнозирование прибыли и убытков с применением алгоритмов машинного обучения",
+        "scenariomodelingfor": "Моделирование сценариев для стресс-тестирования ваших торговых стратегий",
+        "seamlessconnectionwith": "Бесшовная интеграция с основными торговыми платформами и биржами",
+        "securityandcompliance": "Безопасность и соответствие требованиям"
+      },
+      "TheoreticalPage": {
+        "assays": "Анализы",
+        "bishapurchase": "Покупка Биша",
+        "bishazincconcentrate": "Концентрат цинка Биша в Цзянцзун.",
+        "cashflowpnl": "Отчёт о движении денежных средств (ОДДС)",
+        "dmt": "ДМТ",
+        "element": "Элемент",
+        "grossp/l($/dmt):": "Валовая прибыль (усл. ед./день):",
+        "jiangtongsale": "Продажа Цзянтунга",
+        "payable": "оплачиваемый",
+        "payablemetals": "Металлы к оплате",
+        "prices": "Цены",
+        "quantity": "Количество",
+        "tc": "ТК",
+        "total": "Итого",
+        "unit": "Единица"
+      }
+    },
+    "shipment": {
+      "ShipmentParcelPage": {
+        "pnl": "Прибыль и убытки",
+        "shipment": "Поставка",
+        "shipmentsforparcel:": "Отправления для посылки:",
+        "viewhedgereport": "Просмотреть отчет по хеджированию"
+      }
+    }
+  },
+  "routes": {
+    "(auth)": {
+      "forgot-password": {
+        "+page": {
+          "backtologin": "Возвращение к входу",
+          "email": "Электронная почта",
+          "emailsent": "«Электронное письмо отправлено»",
+          "forgotyourpassword": "Забыли пароль?",
+          "pleaseentertheemail": "Пожалуйста, введите адрес электронной почты ниже, и мы отправим вам письмо о сбросе пароля",
+          "resetpassword": "Сброс пароля",
+          "wehavesentanemail": "Мы отправили письмо на указанный Вами адрес электронной почты с ссылкой для восстановления пароля."
+        }
+      },
+      "login": {
+        "+page": {
+          "createaaccount": "Создать аккаунт",
+          "forgottenpassword?": "Забыли пароль?",
+          "invalidcredentials!": "Неверные учетные данные! Пожалуйста, попробуйте ещё раз.",
+          "logintoyouraccount": "Войдите в свой аккаунт",
+          "poweredby": "\"Сделано на основе\"",
+          "rememberme": "Запомни меня.",
+          "signintoyouraccount": "\"Войти в аккаунт\"",
+          "youremail": "Ваше электронное письмо",
+          "yourpassword": "Ваш пароль"
+        }
+      },
+      "register": {
+        "+page": {
+          "confirmpassword": "Подтвердить пароль",
+          "createaccount": "Создать аккаунт",
+          "createanaccount": "Создать счёт",
+          "email": "Электронное письмо",
+          "password": "\"Пароль\"",
+          "passwordsdonotmatch!": "Пароли не совпадают! Попробуйте ещё раз.",
+          "registrationfailed!": "Регистрация не удалась! Пожалуйста, попробуйте ещё раз."
+        }
+      },
+      "reset-password": {
+        "+page": {
+          "backtologin": "«Назад к входу»",
+          "confirmnewpassword": "Подтвердить новый пароль",
+          "login": "Имя пользователя",
+          "newpassword": "Новый пароль",
+          "passwordupdated!": "Пароль обновлён!",
+          "pleaseenteryournew": "Введите новый пароль ниже и подтвердите его.",
+          "resetpassword": "Сброс пароля",
+          "youcannowuseyour": "Вы можете использовать обновлённый пароль."
+        }
+      },
+      "verify-email": {
+        "+page": {
+          "emailverificationfailed": "\"Проверка электронной почты не удалась\"",
+          "emailverifiedsuccessfully!": "\"Электронная почта успешно подтверждена!\"",
+          "errorresendingverification": "Ошибка при повторной отправке письма с подтверждением. Пожалуйста, попробуйте позже.",
+          "gotologin": "Перейти к входу",
+          "resendverificationemail": "Повторно отправить письмо с подтверждением",
+          "somethingwentwrong": "Во время процесса проверки произошло что-то не так. Пожалуйста, попробуйте позже или отправьте повторно письмо с подтверждением.",
+          "verificationemailresent": "Повторно отправлено письмо с подтверждением!",
+          "verifyyouremailaddress": "Подтвердите свой адрес электронной почты",
+          "wehavesentaverification": "Мы выслали письмо с подтверждением на Ваш адрес электронной почты. Пожалуйста, проверьте папку «Входящие» и перейдите по ссылке для подтверждения аккаунта.",
+          "youremailhasbeenverified.": "Ваш адрес электронной почты подтверждён. Теперь вы можете войти в свой аккаунт."
+        }
+      }
+    },
+    "+error": {
+      "404notfound": "«404 Не найдено»",
+      "contact": "Контакт",
+      "help": "Помогите!",
+      "herearesomehelpful": "Вот несколько полезных ссылок вместо этого:",
+      "home": "Домой",
+      "search": "Поиск",
+      "whoops!thatpagedoesn’t": "Ой! Та страница не существует."
+    },
+    "+layout": {
+      "loading...pleasewait": "Загрузка... пожалуйста, подождите"
+    },
+    "+page": {
+      "v0.1": "«0.1»"
+    },
+    "500": {
+      "500internalerror": "Внутренняя ошибка сервера 500",
+      "herearesomehelpful": "Вот несколько полезных ссылок:",
+      "home": "Домой",
+      "support": "Поддержка",
+      "whoops!thatpagedoesn’t": "Ой! Та страница не существует."
+    },
+    "contact": {
+      "+page": {
+        "contactus": "Свяжитесь с нами",
+        "contactusfortheenterprise": "Свяжитесь с нами для плана «Энтерпрайз»",
+        "forcustomsolutions": "Для индивидуальных решений и ценообразования, пожалуйста, свяжитесь с нами напрямую любым из нижеуказанных способов и мы вскоре ответим Вам.",
+        "login": "Логин"
+      }
+    },
+    "counter-party": {
+      "+page": {
+        "email": "Электронное письмо",
+        "id:": "ID:"
+      }
+    },
+    "main": {
+      "concord": {
+        "+page": {
+          "concordpoc-upload": "Доказательство концепции Concord - Загрузите и извлеките свои данные CTRM"
+        }
+      },
+      "contracts": {
+        "contract": {
+          "+page": {
+            "redirectingbacktocontracts": "Перенаправление обратно к контрактам"
+          },
+          "[contractId]": {
+            "+page": {
+              "redirectingtocontracts": "Перенаправление на раздел «Договоры»"
+            },
+            "shipments": {
+              "[shipmentId]": {
+                "assay": {
+                  "+page": {
+                    "donotusethispage": "НЕ ИСПОЛЬЗУЙТЕ ЭТУ СТРАНИЦУ ДЛЯ ЧЕГО-ЛИБО\nПеренаправление обратно на страницу shipment/:id, где расположены все тесты"
+                  }
+                },
+                "final": {
+                  "+page": {
+                    "shipmentid:": "Идентификатор отправления:",
+                    "todo:showalistof": "Предоставить список всех окончательных счётов-фактур по этой отгрузке"
+                  },
+                  "[provisionalId]": {
+                    "+page": {
+                      "finalinvoicegenerated": "Окончательный счёт, сгенерированный пробой.",
+                      "sorrynofinalinvoice": "Извините, окончательный счёт не найден. Пожалуйста, сгенерируйте его на экране отправки/анализа.",
+                      "unsupporteddoctype:": "тип документа не поддерживается:"
+                    }
+                  }
+                },
+                "hedge": {
+                  "+page": {
+                    "hedgereport": "\"Отчёт по хеджированию\"",
+                    "loadinghedgedetails...": "Загрузка деталей буфера..."
+                  }
+                },
+                "invoice": {
+                  "[invoiceId]": {
+                    "+page": {
+                      "generatedinvoice": "Сформирован счет-фактура"
+                    },
+                    "InvoiceHTML": {
+                      "(beneficiary)": "Получатель",
+                      "00il0004731": "00IL0004731",
+                      "allocationno": "Номер распределения",
+                      "balanceduetoopenmineral": "\"Оставшаяся сумма к уплате в пользу Open Mineral AG\"",
+                      "billofladingno.": "Транспортная накладная №",
+                      "byirrevocableletter": "по безотзывному аккредитиву, оплата по первому требованию",
+                      "commodity": "Товар",
+                      "content": "Содержание",
+                      "contractno.": "Договор №",
+                      "dateofshipment": "Дата отправки",
+                      "deductions": "Вычеты",
+                      "eibccnbjzjpexport-import": "Китайский банк экспортно-импортного финансирования (отделение в Чжэцзяне), Ханчжоу, Китай.",
+                      "finalcargovalueper": "Окончательная стоимость груза на сухую метрическую тонну",
+                      "finalcifcycargovalue": "Окончательная стоимость груза на основе CIF CY",
+                      "finalinvoice": "Конечный счёт",
+                      "finalmoisturecontent": "Конечное содержание влаги",
+                      "finalshippeddryweight": "Окончательная высушенная масса груза при отправке",
+                      "finalshippednetwet": "Окончательный вес отправки (брутто)",
+                      "l/cno.": "Л/С № ``` (здесь вставьте номер)",
+                      "l/cnum": "л/с числ",
+                      "lesstheprovisional": "«Меньше временного платежа»",
+                      "nameofvessel": "Название судна",
+                      "netpayable": "«Нетто-платежи»",
+                      "openedby:": "Открыто пользователем:",
+                      "openmineralag": "«Оपन Минераль АГ»",
+                      "origin": "Происхождение",
+                      "ourreferenceno.": "Наша справка №",
+                      "packing": "Упаковка",
+                      "payableelement": "Оплата элемента",
+                      "payment": "Оплата",
+                      "paymentrule": "Правило оплаты",
+                      "portofdischarge": "Порт разгрузки",
+                      "portofloading": "Порт погрузки",
+                      "quotationalperiod": "Цитатный знак",
+                      "thisinvoiceisbased": "Этот счёт основан на окончательных весах, пробах и ценах.",
+                      "totaldeductiblesper": "Общая сумма вычетов на одну доставку в месяц",
+                      "totalinusd/dmt": "Итого в долларах США/дм³",
+                      "totalpayables": "Общая сумма задолженности",
+                      "tradeterms": "Торговые условия",
+                      "unitprice": "Цена за единицу"
+                    }
+                  }
+                },
+                "pdf": {
+                  "+page": {
+                    "pdfviewer-todo:show": "Просмотрщик PDF — ЗДЕСЬ НУЖНО: показать список всех PDF-файлов для этой отгрузки",
+                    "shipmentid:": "Идентификатор отправления:"
+                  },
+                  "[pdfId]": {
+                    "+page": {
+                      "pdfviewer": "Просмотрщик PDF"
+                    }
+                  }
+                },
+                "provisional": {
+                  "+page": {
+                    "shipmentid:": "Идентификатор отправления:",
+                    "todo:showalistof": "TODO: отобразить список всех предварительных счетов для этой поставки"
+                  },
+                  "[provisionalId]": {
+                    "+page": {
+                      "provisionalinvoicegenerated": "Временный счёт, сгенерированный пробойной лабораторией",
+                      "sorrynoprovisional": "Извините, промежуточный счёт не найден. Пожалуйста, сгенерируйте его из экрана отгрузки/анализа.",
+                      "unsupporteddoctype:": "«Тип документа не поддерживается»"
+                    }
+                  }
+                }
+              }
+            },
+            "verify": {
+              "+page": {
+                "loading...": "Загрузка..."
+              }
+            }
+          }
+        }
+      },
+      "expenses": {
+        "+page": {
+          "expensetracking-upload": "Отслеживание расходов — Загрузите и запишите свои расходы здесь"
+        }
+      },
+      "parcel": {
+        "[parcelId]": {
+          "hedges": {
+            "+page": {
+              "hedgesummarybreakdown": "Разбивка краткого изложения",
+              "hedgesummarybyelement": "«Сводка по элементам»",
+              "hedgesummarybymonth": "\"Краткое содержание по месяцам\""
+            }
+          }
+        }
+      },
+      "themis": {
+        "view": {
+          "+page": {
+            "redirectingtodocuments": "Перенаправление на документы"
+          }
+        }
+      }
+    },
+    "pricing": {
+      "+page": {
+        "/month": "/месяц",
+        "choose": "Выбери",
+        "plan": "План",
+        "pricingplan": "\"План ценообразования\""
+      }
+    },
+    "settings": {
+      "+page": {
+        "accountsettings": "Настройки аккаунта",
+        "currentplan:": "Текущий план:",
+        "email:": "Электронная почта:",
+        "managesubscription": "Управление подпиской",
+        "username:": "Имя пользователя:"
+      }
+    }
+  },
+  "stories": {
+    "ExampleStoryButton": {
+      "default": "По умолчанию",
+      "examplestorybutton": "Кнопка \"Пример истории\"",
+      "red": "Красный"
+    }
+  }
+}

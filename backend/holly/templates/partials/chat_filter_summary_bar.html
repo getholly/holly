@@ -1,0 +1,34 @@
+<!-- templates/partials/chat_filter_summary_bar.html -->
+<div id="filter-summary" hx-swap-oob="true" class="filter-summary" hx-swap-oob="true">
+  {% if filters %}
+  <div class="bg-gray-600 p-2 flex items-center justify-between">
+    <div class="flex items-center space-x-2 text-sm text-gray-600 overflow-x-auto">
+      <span class="font-medium text-purple-200">Active Filters:</span>
+
+      <!-- File Types -->
+      {% if filters.file_types %}
+      <span class="bg-gray-600 text-gray-200 rounded-full px-2 py-1 text-xs border border-blue-200 flex items-center">
+        <span class="mr-1">Files:</span>
+        <span>{{ filters.file_types|join:", " }}</span>
+      </span>
+      {% endif %}
+
+    </div>
+
+    <button
+      hx-get="{% url 'home:clear_filters' username repo %}"
+      hx-target="#filter-summary"
+      hx-swap="outerHTML"
+      class="text-gray-300 hover:text-blue-800 text-xs font-medium flex items-center"
+    >
+      <span>Clear All</span>
+      <svg class="h-3 w-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  {% else %}
+  <!-- Empty div when no filters are active -->
+  <div></div>
+  {% endif %}
+</div>

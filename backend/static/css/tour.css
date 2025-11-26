@@ -1,0 +1,164 @@
+/* Tour Styles for GitHubMe */
+
+/* Tooltip */
+.tour-tooltip {
+  position: absolute;
+  z-index: 10000;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  width: 320px;
+  max-width: 90vw;
+  display: none;
+  color: #333;
+}
+
+.tour-tooltip-content {
+  padding: 16px;
+}
+
+.dark .tour-tooltip {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border: 1px solid #475569;
+}
+
+.tour-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #5c6cd1;
+}
+
+.dark .tour-title {
+  color: #5c6cd1;
+}
+
+.tour-text {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  font-size: 0.9375rem;
+}
+
+.tour-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.tour-prev,
+.tour-next {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tour-prev {
+  background-color: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.tour-prev:hover:not(:disabled) {
+  background-color: #e2e8f0;
+}
+
+.tour-prev:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dark .tour-prev {
+  background-color: #334155;
+  color: #e2e8f0;
+  border: 1px solid #475569;
+}
+
+.dark .tour-prev:hover:not(:disabled) {
+  background-color: #475569;
+}
+
+.tour-next {
+  background-color: #5c6cd1;
+  color: white;
+  border: none;
+}
+
+.tour-next:hover {
+  background-color: #5c6cd1;
+}
+
+.dark .tour-next {
+  background-color: #5c6cd1;
+}
+
+.dark .tour-next:hover {
+  background-color: #5c6cd1;
+}
+
+.tour-progress {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.dark .tour-progress {
+  color: #94a3b8;
+}
+
+/* Highlight */
+.tour-highlight {
+  position: absolute;
+  z-index: 9998;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  pointer-events: none;
+  box-sizing: border-box;
+  display: none;
+  border: 2px solid #5c6cd1;
+}
+
+/* Backdrop */
+.tour-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9997;
+  pointer-events: auto;
+}
+
+/* Tour Button */
+.tour-button {
+  transition: all 0.2s ease;
+}
+
+.tour-button:hover {
+  transform: scale(1.05);
+}
+
+/* Pulse animation for first-time users */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+.tour-button-animate {
+  animation: pulse-ring 2s infinite;
+}

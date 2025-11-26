@@ -1,0 +1,86 @@
+<div id="project-tree" hx-swap-oob="true" class="">
+
+    <div class="relative mb-3">
+      <div class="absolute inset-y-0 end-1 flex items-center ps-3 pointer-events-none">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+             width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+        </svg>
+      </div>
+      <input type="search" id="file-search"
+             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+             placeholder="Search filenames..." aria-label="Search filenames">
+  </div>
+  <div class="mb-3 flex items-center justify-between">
+    <button type="button" id="filter-button"
+            class="dark:text-white dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800
+            font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 transition duration-700 ease-in-out">
+      Filter
+    </button>
+
+
+    <div class="text-xs dark:text-gray-300 dark:bg-gray-700 px-2 py-1 rounded" x-data id="token-counter">
+      <div class="flex items-center gap-1 relative group cursor-help"
+           x-data="{
+         getRemainingTokens() {
+           return Math.max(0, $store.tokenCounter.MAX_TOKENS - $store.tokenCounter.totalTokens);
+         }
+       }">
+        <!-- The entire token count display -->
+        Total: <span x-text="$store.tokenCounter.formatTokens()">0</span> tokens
+
+        <!-- Tooltip showing remaining tokens -->
+        <div
+          class="absolute left-1/2 bottom-full -translate-x-1/2 mb-1 hidden group-hover:block w-auto p-1.5 bg-gray-800 text-white text-xs rounded-md shadow-lg z-10 whitespace-nowrap transition-opacity duration-150">
+          <div x-show="$store.tokenCounter.totalTokens <= $store.tokenCounter.MAX_TOKENS">
+            <span x-text="getRemainingTokens().toLocaleString()"></span> remaining
+          </div>
+          <div x-show="$store.tokenCounter.totalTokens > $store.tokenCounter.MAX_TOKENS" class="text-red-300">
+            <span
+              x-text="Math.abs($store.tokenCounter.totalTokens - $store.tokenCounter.MAX_TOKENS).toLocaleString()"></span>
+            over limit
+          </div>
+        </div>
+      </div>
+
+      <div
+        x-data
+        x-show="$store.tokenCounter.totalTokens > $store.tokenCounter.MAX_TOKENS"
+        class="mt-1 text-xs text-red-500 dark:text-red-300 flex items-center"
+        style="display: none;"
+      >
+        <svg class="w-3 h-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+        </svg>
+        Token limit exceeded
+      </div>
+    </div>
+
+
+  </div>
+  <div class="mb-3 flex items-center text-xs">
+    <label class="pl-1 flex items-center cursor-pointer text-gray-700 dark:text-gray-200 font-semibold">
+      <input type="checkbox" id="select-all-checkbox" class="fb-checkbox mr-2">
+      Select ALL files
+    </label>
+  </div>
+  {% include 'partials/file_tree_recursive.html' %}
+</div>
+
+<!-- Include the file extension filter modal -->
+{% include 'partials/modals/filter_modal.html' %}
+
+<!-- Load scripts -->
+{% load static %}
+{% load compress %}
+{% block inline_javascript %}
+{% compress js %}
+<script src="{% static 'js/filter/tokenCounterState.js' %}"></script>
+<script src="{% static 'js/file_tree.js' %}"></script>
+<script src="{% static 'js/select_all.js' %}"></script>
+<script src="{% static 'js/file_extension_filter.js' %}"></script>
+<script src="{% static 'js/file_search.js' %}"></script>
+{% endcompress %}
+{% endblock inline_javascript %}

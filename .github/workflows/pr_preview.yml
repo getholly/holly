@@ -1,0 +1,224 @@
+name: PR Preview Deployment
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  deploy:
+    runs-on: githubme
+    environment: develop
+    steps:
+      - name: Get repository and branch name
+        id: repo-branch
+        run: |
+          # Extract repo name from GITHUB_REPOSITORY
+          echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_OUTPUT
+
+          # Get branch name using GitHub's built-in context
+          if [[ $GITHUB_EVENT_NAME == 'pull_request' ]]; then
+            # For pull requests, use pr-NUMBER format
+            PR_NUMBER=$(echo $GITHUB_REF | cut -d '/' -f 3)
+            echo "BRANCH_NAME=pr-$PR_NUMBER" >> $GITHUB_OUTPUT
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_OUTPUT
+          else
+            # For pushes, use the actual branch name
+            echo "BRANCH_NAME=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          fi
+
+          # Create the checkout directory path
+          echo "CHECKOUT_DIR=./${GITHUB_REPOSITORY#*/}_${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+          lfs: true
+          submodules: recursive
+
+      - name: Create .env file for frontend
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}/frontend
+        run: |
+          # Create .env file from GitHub secrets
+          touch .env
+          echo "VITE_DJANGO_API=https://develop.github.me.uk" >> .env
+          echo "VITE_ASSETS_BASE_URL=https://develop-static.github.me.uk/static" >> .env
+          echo "VITE_ASSETS_BASE_URL_PROD=https://develop.github.me.uk/static" >> .env
+          echo "VITE_ASSETS_BASE_URL_DEV=https://develop.github.me.uk//static" >> .env
+          echo "VITE_BASE_PATH=/_holly/editor" >> .env
+          echo "NODE_ENV=development" >> .env
+          echo "VITE_SERVER=develop.github.me.uk" >> .env
+          echo "VITE_PORT=" >> .env
+          echo "VITE_SCHEMA=https" >> .env
+          echo "VITE_THEME=default" >> .env
+
+      - name: Read .nvmrc
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}/frontend
+        run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvm
+
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: build frontend
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}/frontend
+        run: |
+          rm package-lock.json
+          npm i
+          npm run api:fetch
+          npm run build
+
+      - name: Copy github app secret key pem file
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: |
+          if [ -f "/home/githubme/develop-github-me.2025-03-18.private-key.pem" ]; then
+            cp /home/githubme/develop-github-me.2025-03-18.private-key.pem ./
+            echo "File copied successfully"
+          else
+            echo "File not found in /home/githubme/develop-github-me.2025-03-18.private-key.pem"
+            exit 1
+          fi
+
+      - name: Create .env.develop file from secrets
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: |
+          # Create .env file from GitHub secrets
+          touch .env.develop
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.DEVELOP_AWS_ACCESS_KEY_ID }}" >> .env.develop
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.DEVELOP_AWS_SECRET_ACCESS_KEY }}" >> .env.develop
+          echo "GITHUB_CLIENT_ID=${{ secrets.DEVELOP_GH_CLIENT_ID }}" >> .env.develop
+          echo "GITHUB_CLIENT_SECRET=${{ secrets.DEVELOP_GH_CLIENT_SECRET }}" >> .env.develop
+          echo "GITHUB_APP_NAME=${{ secrets.DEVELOP_GH_APP_NAME }}" >> .env.develop
+          echo "GITHUB_APP_PRIVATE_KEY_PATH=${{ secrets.DEVELOP_GH_APP_PRIVATE_KEY_PATH }}" >> .env.develop
+          echo "DJANGO_SECRET_KEY=${{ secrets.DEVELOP_DJANGO_SECRET_KEY }}" >> .env.develop
+          echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env.develop
+          echo "STRIPE_SECRET_KEY=${{ secrets.DEVELOP_STRIPE_SECRET_KEY }}" >> .env.develop
+          echo "STRIPE_PUBLIC_KEY=${{ secrets.DEVELOP_STRIPE_PUBLIC_KEY }}" >> .env.develop
+          echo "STRIPE_WEBHOOK_SECRET=${{ secrets.DEVELOP_STRIPE_WEBHOOK_SECRET }}" >> .env.develop
+          echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> .env.develop
+          echo "POSTMARK_SERVER_TOKEN=${{ secrets.POSTMARK_SERVER_TOKEN }}" >> .env.develop
+          # Add any other secrets you need
+
+
+          # Optional: Print confirmation without revealing values
+          echo "Created .env.develop file with required environment variables"
+
+      - name: Find available port
+        id: pickport
+        run: |
+          PORT=$(python3 -c "import socket; s=socket.socket(); s.bind(('', 0)); print(s.getsockname()[1]); s.close()")
+          echo "PORT=$PORT" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Determine port and subdomain
+        id: vars
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          SHORT_SHA=${{ github.event.pull_request.head.sha }}
+          SHORT_SHA=${SHORT_SHA:0:7}
+          PORT=${{ steps.pickport.outputs.PORT }}
+          echo "PORT=$PORT" >> $GITHUB_OUTPUT
+          echo "SUBDOMAIN=pr-${{ steps.repo-branch.outputs.PR_NUMBER }}.github.me.uk" >> $GITHUB_OUTPUT
+          echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_OUTPUT
+
+      - name: Create .env file from secrets
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: |
+          echo "Creating .env file from GitHub secrets...${{ steps.repo-branch.outputs.CHECKOUT_DIR }}"
+          # Create .env file from GitHub secrets, copied from deploy_develop, need to keep in sync
+          touch PR_TEST
+          touch .env.develop
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env.develop
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env.develop
+          echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env.develop
+          echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env.develop
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env.develop
+          echo "STRIPE_PUBLIC_KEY=${{ secrets.STRIPE_PUBLIC_KEY }}" >> .env.develop
+          echo "STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}" >> .env.develop
+          echo "STRIPE_LIVE_SECRET_KEY=${{ secrets.STRIPE_LIVE_SECRET_KEY }}" >> .env.develop
+          echo "STRIPE_TEST_SECRET_KEY=${{ secrets.STRIPE_TEST_SECRET_KEY }}" >> .env.develop
+          echo "STRIPE_LIVE_MODE=${{ vars.STRIPE_LIVE_MODE }}" >> .env.develop
+          echo "DJSTRIPE_FOREIGN_KEY_TO_FIELD=${{ vars.DJSTRIPE_FOREIGN_KEY_TO_FIELD }}" >> .env.develop
+          echo "POSTMARK_SERVER_TOKEN=${{ secrets.POSTMARK_SERVER_TOKEN }}" >> .env.develop
+          echo "MAPPING_WORKS_USERNAME=${{ vars.MAPPING_WORKS_USERNAME }}" >> .env.develop
+          echo "MAPPING_WORKS_PASSWORD=${{ secrets.MAPPING_WORKS_PASSWORD }}" >> .env.develop
+          echo "B2C_WRAPPER_API_URL=${{ vars.B2C_WRAPPER_API_URL }}" >> .env.develop
+          echo "B2C_WRAPPER_API_USERNAME=${{ vars.B2C_WRAPPER_API_USERNAME }}" >> .env.develop
+          echo "B2C_WRAPPER_API_PASSWORD=${{ secrets.B2C_WRAPPER_API_PASSWORD }}" >> .env.develop
+          # customise for the PR preview:
+          echo "DJANGO_ALLOWED_HOSTS=pr-${{ steps.repo-branch.outputs.PR_NUMBER }}.github.me.uk,localhost,localhost:${{ steps.pickport.outputs.PORT }}" >> .env.develop
+          echo "DJANGO_CSRF_TRUSTED_ORIGINS=https://static.github.me.uk,https://pr-${{ steps.repo-branch.outputs.PR_NUMBER }}.github.me.uk,http://localhost,http://localhost:${{ steps.pickport.outputs.PORT }}" >> .env.develop
+          # Optional: Print confirmation without revealing values
+          echo "Created .env.develop file with required environment variables"
+
+      - name: Build image
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR}}
+        run: docker buildx build --load -t holly-pr-preview:${{ steps.repo-branch.outputs.PR_NUMBER }} .
+        env:
+          # Copied from deploy_develop.yml, maybe need to keep this in sync somehow
+          COMPOSE_DOCKER_CLI_BUILD: 1
+          DOCKER_BUILDKIT: 1
+          DJANGO_SETTINGS_MODULE: config.settings.develop
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
+          POSTMARK_SERVER_TOKEN: ${{ secrets.POSTMARK_SERVER_TOKEN }}
+          MAPPING_WORKS_USERNAME: ${{ vars.MAPPING_WORKS_USERNAME }}
+          MAPPING_WORKS_PASSWORD: ${{ secrets.MAPPING_WORKS_PASSWORD }}
+          B2C_WRAPPER_API_URL: ${{ vars.B2C_WRAPPER_API_URL }}
+          B2C_WRAPPER_API_USERNAME: ${{ vars.B2C_WRAPPER_API_USERNAME }}
+          B2C_WRAPPER_API_PASSWORD: ${{ secrets.B2C_WRAPPER_API_PASSWORD }}
+          STRIPE_LIVE_SECRET_KEY: ${{ secrets.STRIPE_LIVE_SECRET_KEY }}
+          STRIPE_TEST_SECRET_KEY: ${{ secrets.STRIPE_TEST_SECRET_KEY }}
+          STRIPE_LIVE_MODE: ${{ vars.STRIPE_LIVE_MODE }}
+          DJSTRIPE_FOREIGN_KEY_TO_FIELD: ${{ vars.DJSTRIPE_FOREIGN_KEY_TO_FIELD }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          #'whsec_3DUIUcRdjFoy8KcsDubl438z5lWU8Idb'
+
+      - name: Check .env.develop
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: |
+          cat .env.develop
+
+      - name: Start preview container
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: |
+          docker stop holly-pr-${{ steps.repo-branch.outputs.PR_NUMBER }} || echo "Container not running"
+          docker rm -f holly-pr-${{ steps.repo-branch.outputs.PR_NUMBER }} || echo "Container does not exist - not deleted"
+          docker run --rm -d \
+            --name holly-pr-${{ steps.repo-branch.outputs.PR_NUMBER }} \
+            --network githubme_backend \
+            -p ${{ steps.pickport.outputs.PORT }}:8000 \
+            --env-file .env.develop \
+            -e DJANGO_DEBUG=True \
+            -e DJANGO_SETTINGS_MODULE=config.settings.develop \
+            -v ${{ github.workspace }}/db.sqlite3:/app/db.sqlite3 \
+            -v ${{ github.workspace }}/staticfiles:/app/staticfiles \
+            -v ${{ github.workspace }}/logdir:/app/logdir \
+            -v ${{ github.workspace }}/import_data:/app/import \
+            pr-preview:${{ steps.repo-branch.outputs.PR_NUMBER }}
+
+      - name: Debug Caddy configuration
+        run: |
+          echo "Checking if Caddy is running..."
+          curl -f http://localhost:42019/config/ || echo "Caddy API not accessible"
+          echo "Current Caddy config:"
+          curl -s http://localhost:42019/config/ | jq . || echo "Failed to get config as JSON"
+
+      - name: Register subdomain
+        working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
+        run: python3 scripts/register_caddy.py
+        env:
+          PORT: 8000
+          SUBDOMAIN: ${{ steps.vars.outputs.SUBDOMAIN }}
+          CADDY_HOST: localhost:42019

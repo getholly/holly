@@ -1,0 +1,45 @@
+{% load widget_tweaks %}
+
+<div
+  {% with classes=field.css_classes %} class="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 {{ classes }}"
+  {% endwith %}
+  id="form-row-{{ field.name }}"
+  {% if do_htmx_validation and field|widget_type != "fileinput" and field|widget_type != "checkboxinput" %}
+    hx-get="."
+    hx-vals='{"_validate_field": "{{ field.name }}" }'
+    hx-trigger="focusout from:#form-row-{{ field.name }}"
+    hx-include="#form-row-{{ field.name }}"
+    hx-target="this"
+    hx-ext="morph"
+    hx-swap="morph:outerHTML"
+  {% endif %}
+>
+  {% if field.label %}
+    <div class="w-full sm:w-auto text-gray-700 font-medium">
+      {{ field.label_tag }}
+    </div>
+  {% endif %}
+  <div class="w-full">
+    {% with error_class=errors|yesno:"border-red-500,,border-gray-300" %}
+      <div>
+        <div class="relative">
+          {% if field|widget_type == "select" %}
+            <div class="relative">
+              {{ field|add_class:"block w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 focus:border-blue-500 " }}
+            </div>
+          {% else %}
+            {{ field|add_class:"block w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 focus:border-blue-500"|add_class:error_class }}
+          {% endif %}
+        </div>
+        {% if field.help_text %}
+          <p class="text-sm text-gray-500 mt-1">{{ field.help_text|safe }}</p>
+        {% endif %}
+        {% if errors %}
+          <p class="text-sm text-red-500 mt-1">
+            {{ errors }}
+          </p>
+        {% endif %}
+      </div>
+    {% endwith %}
+  </div>
+</div>

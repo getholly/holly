@@ -1,0 +1,34 @@
+{% load allauth socialaccount %}
+{% load static %}
+{% get_providers as socialaccount_providers %}
+{% if socialaccount_providers %}   {% element provider_list %}
+  {% for provider in socialaccount_providers %}
+    {% if provider.id == "github" %}
+      <button class="socialaccount-provider github-btn rounded-xl  p-4 text-white  bg-gradient-to-r from-theme-primary to-theme-secondary focus:outline-none
+      font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 hover:scale-110 duration-700"
+
+              title="Login with {{ provider.name }}"
+              onclick="window.location='{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}'">
+
+        <div class="flex flex-row">
+          <div>
+            <img class="h-6 mr-4 invert dark:invert-0" src="{% static 'img/github-mark-white.svg' %}" alt="GitHub Login">
+          </div>
+          <div>
+            Login with GitHub
+          </div>
+        </div>
+      </button>
+    {% elif provider.id == "openid" %}
+      {% for brand in provider.get_brands %}
+        {% provider_login_url provider openid=brand.openid_url process=process as href %}
+        {% element provider name=brand.name provider_id=provider.id href=href %}
+        {% endelement %}
+      {% endfor %}
+    {% endif %}
+    {#    {% provider_login_url provider process=process scope=scope auth_params=auth_params as href %}#}
+    {#    {% element provider name=provider.name provider_id=provider.id href=href %}#}
+    {#    {% endelement %}#}
+  {% endfor %}
+{% endelement %}
+{% endif %}

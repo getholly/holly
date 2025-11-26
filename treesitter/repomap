@@ -1,0 +1,19 @@
+#!/bin/bash
+# RepoMap CLI entry point
+
+# Get the directory of this script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Change to the project root directory
+cd "$SCRIPT_DIR"
+
+# Check for find-strings command
+if [ "$1" = "find-strings" ]; then
+    shift
+    # Use the custom implementation
+    ./repomap_find_strings "$@"
+    exit $?
+fi
+
+# Run the CLI
+uv run python -m src.repo_mapper.typer_cli "$@"

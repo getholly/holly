@@ -1,0 +1,58 @@
+<div
+  class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border
+         {% if plan.is_popular %}border-blue-500 shadow-lg{% else %}border-gray-100 shadow{% endif %}
+         dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+  {% if plan.is_popular %}
+  <div
+    class="px-4 py-1 bg-blue-500 text-white rounded-full text-xs font-semibold uppercase absolute -mt-4 self-center">
+    Popular
+  </div>
+  {% endif %}
+  <h3 class="mb-4 mt-6 text-2xl font-semibold">{{ plan.name }}</h3>
+  <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">{{ plan.description }}</p>
+  <div class="flex justify-center items-baseline my-8">
+    <span class="mr-2 text-5xl font-extrabold">${{ plan.price }}</span>
+    <span class="text-gray-500 dark:text-gray-400">/{{ plan.period }}</span>
+  </div>
+  <!-- List -->
+  <ul role="list" class="mb-8 space-y-4 text-left">
+    {% for feature in plan.features %}
+    <li class="flex items-center space-x-3">
+      {% if feature.included %}
+      <!-- Icon -->
+      <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
+           viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"></path>
+      </svg>
+      {% else %}
+      <!-- X Icon for non-included features -->
+      <svg class="flex-shrink-0 w-5 h-5 text-red-500 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20"
+           xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+      </svg>
+      {% endif %}
+      <span>{{ feature.name }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% if plan.stripe_id %}
+  <!-- Paid plan with Stripe -->
+  <button
+    type="button"
+    data-price-id="{{ plan.stripe_id }}"
+    class="checkout-button text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-blue-900">
+    Subscribe Now
+  </button>
+  {% else %}
+  <!-- Free plan -->
+  <a href="#"
+     class="text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-gray-900">
+    Get Started
+  </a>
+  {% endif %}
+</div>

@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load compress %}
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <link rel="stylesheet" href="{% static 'css/tour.css' %}">
+{% endblock css %}
+
+{% block javascript %}
+{{ block.super }}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script type="module">
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+  });
+</script>
+{% compress js %}
+<script src="{% static 'js/alpine/tab-manager.js' %}"></script>
+<script src="{% static 'js/source-code-tab.js' %}"></script>
+<script src="{% static 'js/mermaid-pan-zoom.js' %}"></script>
+<script src="{% static 'js/background-tasks.js' %}"></script>
+<script src="{% static 'js/repo-analysis.js' %}"></script>
+<script src="{% static 'js/tour.js' %}"></script>
+{% endcompress %}
+{% endblock %}
+
+
+{% block content %}
+<!-- Hidden container for task ID -->
+<div id="bg-task-id" data-task-id="{{ bg_task_id }}" class="hidden"></div>
+
+<div class="flex h-full bg-[#F2F7FF] w-full" x-data="{ showFilterModal: false }">
+
+  <!-- Left: File Tree  -->
+  <aside id="sidebar-container"
+         class="flex dark:bg-gray-700 overflow-y-auto">
+    <!-- File Tree Header -->
+    <div id="sidebar" class="p-4 h-full">
+
+      <!-- File Tree Loading Spinner -->
+      <div id="file-tree-spinner" class="p-4 flex items-center justify-center">
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700 dark:text-white" xmlns="http://www.w3.org/2000/svg"
+             fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span class="text-gray-700 dark:text-white">Loading repository files...</span>
+      </div>
+
+      <!-- File Tree Content (hidden until loaded) -->
+      <div id="file-tree-container" class="hidden">
+        {% include "partials/chat_left_panel.html" %}
+      </div>
+    </div>
+  </aside>
+  <div id="resize-handle"
+       class="w-1 cursor-col-resize bg-gray-300 dark:bg-[#636870] hover:bg-theme-primary dark:hover:bg-theme-primary"></div>
+
+
+  <!-- Middle: Chat  -->
+
+  {% block middle %}
+
+  {% endblock middle %}
+
+  <!-- drawer component -->
+  <div id="drawer-right-example"
+       class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800"
+       tabindex="-1" aria-labelledby="drawer-right-label">
+    <h5 id="drawer-right-label"
+        class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400">
+      <svg class="w-4 h-4 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+           viewBox="0 0 20 20">
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+      </svg>
+      Project Info
+    </h5>
+    <button type="button" data-drawer-hide="drawer-right-example" aria-controls="drawer-right-example"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+      </svg>
+      <span class="sr-only">Close menu</span>
+    </button>
+    <!-- Right: Info Panel  -->
+    <div class="w-80 border-l border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+
+      <!-- Info Panel Loading Spinner -->
+      <div id="info-panel-spinner" class="p-4 flex items-center justify-center">
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700 dark:text-white" xmlns="http://www.w3.org/2000/svg"
+             fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span class="text-gray-700 dark:text-white">Loading repository info...</span>
+      </div>
+
+      <!-- Info Panel Content (hidden until loaded) -->
+      <div id="info-panel" class="hidden">
+        {% include "partials/chat_info_panel.html" %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Modal -->
+  {% include "partials/chat_filter_modal.html" %}
+  <!-- New Chat Modal -->
+  {% include "partials/new_chat_modal.html" %}
+
+  {% endblock content %}
+</div>
+
+{% block inline_javascript %}
+{% include "partials/diagram_script.html" %}
+{% compress js %}
+<script src="{% static 'js/diagram_init.js' %}"></script>
+<script src="{% static 'js/sidebar-resizer.js' %}"></script>
+{% endcompress %}
+
+{% endblock inline_javascript %}

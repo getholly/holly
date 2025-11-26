@@ -1,0 +1,1096 @@
+{
+  "components": {
+    "Footer": {
+      "poweredby": "Gspysst vo"
+    },
+    "accounting": {
+      "AccountingPage": {
+        "advancedaccountingmodule": "Fortschrittlichi Buchhaltigsmodul",
+        "newfeature": "Neui Funktion",
+        "streamlineyourfinancial": "Strukturiert dini Finanzoperatione mit unserem modernste Buchhaltigsmodul. Entwicklet, um sich nahtlos i Dini System zu integriere und Effizienz i allne Buchhaltigsprozässe z fördere.",
+        "systemautomatically": "S System protokolliert und kategorisiert automatisch igangigi Rechnige.",
+        "ai-poweredsystemsuggests": "AI-gsteuerti System schlaht optimali Zahlungszitte vor.",
+        "streamlinedapproval": "Vereinfachts Bewilligungsworkflow mit mehstufige Authentifizierig.",
+        "secure,automatedpayment": "Sicheri, automatisierti Zahlungsabwicklig mit Echtzit-Bestätigung.",
+        "automaticmatchingof": "Automatischi Zuordnung vo Zahlungs und Rechnigsbuchhaltig.",
+        "scheduleademo": "Mach e Demo ab"
+      }
+    },
+    "chat": {
+      "AskModal": {
+        "close": "Schliesse"
+      },
+      "ChatModal": {
+        "close": "Schliesse"
+      },
+      "Chat": {
+        "previousconversations": "Früehere Gespräche",
+        "newchat": "Neus Gespräch",
+        "send": "Schicke",
+        "pleaseselectachat": "Bitte wähl e Gespräch us oder drück zum neuis ahzfaue",
+        "areyousureyouwant": "Bisch sicher, dass Du des Gespräch löschä wotsch? (",
+        "yes,i'msure": "Ja, ich bi sicher",
+        "no,cancel": "Nein, abbreche"
+      },
+      "ChatWidget": {
+        "send": "Schicke"
+      },
+      "MsgLog": {
+        "ai:": "KI:"
+      },
+      "TextToSpeech": {
+        "text-to-speechconverter": "Text-zum-Sproch Konverter",
+        "stop": "Stoppe"
+      }
+    },
+    "blending": {
+      "BlendingPage": {
+        "revolutionarymetalblending": "Revolutionäres Metal-Mischoptimierungssystem",
+        "empoweryourmetaltrading": "Verbessere dini Metalhandelsoperatione mit unserem fortschrittliche Mischsystem. Optimier Dini Konzentratsmischig mit Präzision und Leichtigkiet.",
+        "keyfeatures:": "Hauptmerkmale:",
+        "specifyinputconcentrates": "Gib d Inputkonzentrate und Mischregle a",
+        "createoptimizedblends": "Erstell optimierti Mischige based uf Dine Kriterie",
+        "factorinblendingcosts": "Berücksichtige d Mischkoste und d Standorte vo Konzentrate",
+        "setmin/maxcontentfor": "Setz min/max Inhalt für Metal (Kupfer, Gold, Silber, usw.)",
+        "ensurecompliancewith": "Sorg für d Eihaltig vo regulatorische Limits (z.B. CIQ i China)",
+        "controldangerouschemical": "Kontrolliere gefährlichi chemischi Inhaltsstoffe (Fluor, Arsen, usw.)",
+        "benefits:": "Vorteil:",
+        "maximizeprofitability": "Maximiere Profitabilität dur optimierti Mischungszusammestellig",
+        "ensureregulatorycompliance": "Sichere regulatorischi Eihaltig übere d unterschidlich Märkt",
+        "reducerisksassociated": "Reduziere d Risiko mit gefährlich chemisch Inhaltsstoffe",
+        "streamlineyourblending": "Strukturiert Dini Mischprozäss mit automatischi Berechnige",
+        "makeinformeddecisions": "Triff fundierti Entscheidige mit umfassendi Mischungsanalyse",
+        "takecontrolofyour": "Übernimm d Kontrolle über Dini Metalhandelsoperatione und bi immer e Schrit vor de Konkurrenz mit unserem fortschrittliche Mischsystem.",
+        "requestademo": "Demo ahfroge",
+        "blendingsystemuimockup": "Mischsystem UI Mockup",
+        "inputconcentrates": "Inputkonzentrate",
+        "concentratea": "Konzentrata A",
+        "concentrateb": "Konzentrata B",
+        "concentratec": "Konzentrata C",
+        "addconcentrate": "Konzentrata addiere",
+        "mixingrules": "Mischregle",
+        "maxblendingcost:$1000": "Max Mischkoste: $1000",
+        "mincoppercontent:25%": "Min Kupfergehalt: 25%",
+        "maxarsenic:0.5%": "Max Arsen: 0.5%",
+        "editrules": "Regle bearbeite",
+        "optimizedblendresults": "Optimierti Mischresultat",
+        "blendcompositionvisualization": "Mischzammestellig Visualisierung",
+        "generatenewblend": "Neui Mischung generiere",
+        "emailaddress": "E-Mail Adresse",
+        "subject": "Betreff",
+        "message": "Nachricht",
+        "cancel": "Abbräche",
+        "sendrequest": "Afrag schicke"
+      }
+    },
+    "camera": {
+      "Camera": {
+        "usecamera": "Kamera benutze",
+        "capturephoto": "Föteli mache",
+        "stopcamera": "Kamera stoppe"
+      }
+    },
+    "dashboard": {
+      "ContractVerificationCount": {
+        "verifiedcontracts:": "Verifizierti Verträg:",
+        "view": "Ahluäge",
+        "unverifiedcontracts:": "Nit verifizierti Verträg:",
+        "loadingcontractcounts...": "Vertragszähle werde gelaade..."
+      },
+      "QuickLinks": {
+        "quicklinks": "Schnällzugriff",
+        "contracts": "Verträg",
+        "view": "Ahluäge",
+        "parcels": "Pakete",
+        "assays": "Analysene",
+        "hedges": "Absicherige",
+        "invoices": "Rechnige"
+      },
+      "InformationBanner": {
+        "title": "Chunnt gli",
+        "body": "Öisi nöii AI-gestützti Mischoptimierung",
+        "infoButton": "Mehr dervo erfahre",
+        "ctaText": "Aafange"
+      }
+    },
+    "contract": {
+      "ContractPage": {
+        "contracts": "Verträg"
+      },
+      "ContractDocumentUploader": {
+        "aiisreadingandprocessing": "KI liest und verarbeit",
+        "(processingtime:": "(Verarbeitigszit:",
+        "s)": "s)",
+        "upload": "Hochlade",
+        "clicktoupload": "Drück zum Hochlade",
+        "ordraganddrop": "oder zieke und loslah",
+        "pdf": "PDF",
+        "chooseadocumenttype": "Wähl e Dokumenttyp zum Hochlade",
+        "docname:": "Dokumentname:",
+        "adddocumentname": "Dokumentname hizfüege",
+        "documentname": "Dokumentname",
+        "addname": "Name hizfüege"
+      },
+      "ContractTable": {
+        "id": "ID",
+        "name": "Name",
+        "createdat": "Erstellt am",
+        "updatedat": "Aktualisiert am",
+        "operator": "Operator",
+        "trader": "Händler",
+        "chatwithlegalcontract": "Chat mit Rechtsvertrag",
+        "chatwithtrade": "Chat mit Händler",
+        "view": "Ahluäge",
+        "verify": "Verifizierä",
+        "shipment": "Versand"
+      }
+    },
+    "documents": {
+      "ShipmentsDocumentsTable": {
+        "uploadedassays": "Hochglaade Analysene",
+        "id": "ID",
+        "type": "Typ",
+        "name": "Name",
+        "updatedby": "Aktualisiert vo",
+        "updatedat": "Aktualisiert am",
+        "pdf": "Pdf",
+        "view": "Ahluäge",
+        "verify": "Verifizierä",
+        "updateshipment": "Versand aktualisierä",
+        "verifyrequired": "Verifizierig erforderlig",
+        "assaysunavailable": "Analysene nit verfügbar"
+      },
+      "ShipmentsGeneratedDocsTable": {
+        "generated": "Generiert",
+        "provisional": "Provisorisch",
+        "final": "Final"
+      }
+    },
+    "exportables": {
+      "ExportGoogleSheets": {
+        "configuregooglesheets": "Google Sheets Export konfigurierä",
+        "sheetname": "Blattname",
+        "worksheetname": "Arbeitsblattname",
+        "exportmode": "Exportmodus",
+        "appendtoexistingdata": "Zur bestehende Date hizfüege",
+        "overwriteexistingdata": "Bestehendi Date überschriibe",
+        "includeheadersinexport": "Kopfe im Export integriere",
+        "googlesheetsconnected": "Google Sheets erfolgrich verbunde!",
+        "connectgoogleaccount": "Google Konto verbinde",
+        "exportnow": "Jetzt exportierä"
+      },
+      "ExportWebhook": {
+        "configurewebhookexport": "Webhook Export konfigurierä",
+        "webhookurl": "Webhook URL",
+        "httpmethod": "HTTP Methode",
+        "post": "POST",
+        "get": "GET",
+        "put": "PUT",
+        "delete": "DELETE",
+        "authenticationtoken": "Authentifizierigstoken (Optional)",
+        "payloadformat": "Payload Format",
+        "json": "JSON",
+        "xml": "XML",
+        "form-encoded": "Form-encoded",
+        "customheaders(optional)": "Benutzerdefinierte Kopfe (Optional)",
+        "sendatestwebhook": "Test Webhook schicke",
+        "retryonfailure": "Wiederholig bi Fehlschlag",
+        "exportnow": "Jetzt exportierä"
+      },
+      "ExportZapier": {
+        "configurezapierexport": "Zapier Export konfigurierä",
+        "chooseapptoexport": "Wähl App zum Exportierä",
+        "googlesheets": "Google Sheets",
+        "slack": "Slack",
+        "salesforce": "Salesforce",
+        "mailchimp": "Mailchimp",
+        "triggerevent": "Trigger Ereignis",
+        "newdataavailable": "Neui Date verfügbar",
+        "updateddata": "Aktualisierti Date",
+        "scheduledexport": "Geplante Export",
+        "fieldmapping(optional)": "Feldzuordnig (Optional)",
+        "exportfrequency": "Exportfrequenz",
+        "immediately": "Sofort",
+        "daily": "Täglich",
+        "weekly": "Wöchtentlich",
+        "filterdatabeforeexport": "Date filtere vor Export",
+        "notifyonexportcompletion": "Benachrichtige bi Exportabschlüss",
+        "connectzapieraccount": "Zapier Konto verbinde",
+        "exportnow": "Jetzt exportierä"
+      }
+    },
+    "flowbite-svelte": {
+      "Dropzone": {
+        "clicktoupload": "Drück zum Hochlade",
+        "ordraganddrop": "oder zieke und loslah",
+        "svg,png,jpgorgif": "SVG, PNG, JPG oder GIF (MAX. 800x400px)"
+      }
+    },
+    "gaiaComponents": {
+      "GaiaBreadcrumbs": {
+        "home": "Startseite"
+      },
+      "GaiaListChooser": {
+        "uniqueitemsinlist": "Eindeutigi Artikele in Lischt 1",
+        "itemsinlist2": "Artikele in Lischt 2",
+        "ok": "OK"
+      }
+    },
+    "hedges": {
+      "ExposureTable": {
+        "payableelements": "Zahlbari Elemente",
+        "units": "Einheite",
+        "settlement": "Abrechig"
+      },
+      "QPModalForm": {
+        "selectyourqpoptions": "Wähl Dini QP Optione",
+        "single": "Einzeln",
+        "average": "Durchschnitt",
+        "cancel": "Abbräche",
+        "sendrequest": "Afrag schicke"
+      },
+      "HedgeReportComponent": {
+        "hedgereport-": "Absicherigsbericht -",
+        "hedge": "Absicherig",
+        "intakeassays": "Eintrittsanalysene",
+        "provisional()": "Provisorisch ()",
+        "provisional|final(todo:": "Provisorisch|Final (TODO: Verbindig zu Analyse)"
+      },
+      "ParcelHedges": {
+        "todo:totalhedgesfor": "TODO: Gesamti Absicherige für Packet:"
+      },
+      "QPTable": {
+        "calctype:": "Berechnigstyp:",
+        "qps:": "QPs:",
+        "edityourqpoptions": "Bearbeit Dini QP Optione",
+        "single": "Einzeln",
+        "average": "Durchschnitt",
+        "partaverage": "Teil-Durchschnitt",
+        "cancel": "Abbräche",
+        "ok": "Ok"
+      }
+    },
+    "invoices": {
+      "InvoicePage": {
+        "comingsoon:listof": "Demnächst: Lischt vo generierte Rechnige"
+      }
+    },
+    "navs": {
+      "Navbar": {
+        "search": "Sueche",
+        "dashboard": "Übersicht",
+        "settings": "Istellige",
+        "signout": "Abmelde"
+      }
+    },
+    "modals": {
+      "ModalErrorMessage": {
+        "(checkwithbackendsupport)": "(Frag Backend Support)",
+        "ok": "ok"
+      },
+      "ModalListChooser": {
+        "ok": "ok"
+      },
+      "ModalListObjectChooser": {
+        "ok": "ok"
+      },
+      "ModalLoggedOut": {
+        "yourloginhasexpired,": "Dini Anmeldig isch abgloffe, bitte klick zum wieder aemelde.",
+        "login": "Aemelde"
+      }
+    },
+    "parcel": {
+      "ParcelStatus": {
+        "inprogress": "Im Gange",
+        "completed": "Abgschlosse",
+        "cancelled": "Storniert",
+        "unknown": "Unbekannt"
+      },
+      "ParcelPage": {
+        "yourparcels": "Dini Pakete",
+        "createnewparcel": "Neuis Packet erstelle",
+        "parcelname": "Packetname",
+        "createparcel": "Packet erstelle"
+      },
+      "ParcelTable": {
+        "id": "ID",
+        "name": "Name",
+        "updatedby": "Aktualisiert vo",
+        "updatedat": "Aktualisiert am",
+        "status": "Status",
+        "delete": "Löschä"
+      }
+    },
+    "sheets": {
+      "ExcelJS": {
+        "exceljs": "ExcelJS",
+        "worksheets:": "Arbeitsblätter:"
+      },
+      "Univer": {
+        "univerdemo": "Univer Demo"
+      }
+    },
+    "pnl": {
+      "CostCategorySelector": {
+        "selectcategory": "Wähl e Kategori",
+        "selectacategory": "Wähl e Kategori",
+        "entervaluefor": "Wert iigäh für",
+        "add": "Hizfüege",
+        "costorgainscategory": "Koste- oder Gwinnekategori",
+        "value": "Wert",
+        "netp/l($/dmt)": "Netto P/L ($/dmt)"
+      }
+    },
+    "shipment": {
+      "ShipmentDeductions": {
+        "deductionsoverride": "Abzüg Übersteuerig",
+        "chemical:": "Chemikalie:",
+        "amount(": "Betrag (",
+        "pleaseenteranumber": "Bitte gib e Zahl ih, die größer oder gliich 0 isch",
+        "updatedeductions": "Abzüg aktualisierä",
+        "nodeductions": "Kei Abzüg"
+      },
+      "ShipmentDetails": {
+        "details": "Details",
+        "shipmentdetails": "Versandsdetails",
+        "updatesuccessful": "Aktualisierig erfolgrich",
+        "updateshipmentdetails": "Versandsdetails aktualisierä",
+        "overrides": "Übersteuerige"
+      },
+      "ShipmentPage": {
+        "shipment": "Versand",
+        "schedule": "Plan",
+        "viewhedgereport": "Absicherigsbericht ahluäge",
+        "updatehedgereport": "Absicherigsbericht aktualisierä",
+        "generateprovisional": "Provisorisch generierä",
+        "generatefinal": "Final generierä",
+        "shipmentdetailsupdate": "Aktualisierig vo Versandsdetails erforderlig",
+        "assayuploaded": "Analyse hochglaade",
+        "doyouwantto": "Willsch",
+        "verify": "Verifizierä",
+        "detailsforthelatest": " d Details vo dr neust Analyse ? ",
+        "yes": "Ja",
+        "later": "Spöter"
+      },
+      "ShipmentStatus": {
+        "pending": "Offe",
+        "intransit": "Unterwägs",
+        "delivered": "Zugestellt",
+        "cancelled": "Storniert"
+      },
+      "ShipmentTable": {
+        "id": "ID",
+        "lcno": "LC Nr",
+        "name": "Name",
+        "date": "Datum",
+        "status": "Status"
+      },
+      "ShipmentPayables": {
+        "payablesoverride": "Zahlbari Übersteuerig",
+        "fieldsbelowcanbeupdated": "Di ufgfüehrtne Fälder chöi über d",
+        "'updateshipment'": "'Versand aktualisierä'",
+        "nexttotheirrespective": "neben ihrer jeweilige Analyse uf dr Analysentabelle unten aktualisiert wärde",
+        "metals": "Metal",
+        "amount(": "Betrag (",
+        "price": "Pris",
+        "pleaseenteranumber": "Bitte gib e Zahl ih, die größer oder gliich 0 isch",
+        "pleaseenterapercentage": "Bitte gib e Prozentsaz ih, die größer oder gliich 0 isch",
+        "pleasecheckthiscalculated": "Bitte überprüf des berechnete Trockgewicht basierend uf Nässe und Feuchtigkeitsgehalt",
+        "updatepayables": "Zahlbari aktualisierä"
+      },
+      "ShipmentTablePage": {
+        "shipments": "Versänd",
+        "createshipments": "Versänd erstelle"
+      },
+      "sheets": {
+        "+page": {
+          "todo:showalistof": "TODO: Lischt mit alli xls Blätter für diesen Versand azeige"
+        },
+        "[sheetId]": {
+          "+page": {
+            "sheetviewer": "Blatt Viewer"
+          }
+        }
+      }
+    },
+    "storage": {
+      "StoragePage": {
+        "metalstorepro": "MetalStore Pro",
+        "newmodule": "Neus Modul",
+        "advancedstoragemanagement": "Fortschrittlichi Lagerverwaltig für Metalhändler",
+        "revolutionizeyourmetals": "Revolutionier dini Metalhandelsoperatione mit MetalStore Pro. Gewinn e beispiellosi Sichtbarkeit i dini globali Konzentratlager, optimier Mischprozäss und triff datengsteuerte Logistikentscheide – alles us einere einzige, mächtige Plattform.",
+        "requestademo": "Demo ahfroge",
+        "keyfeatures": "Hauptmerkmale",
+        "howitworks": "So funktioniert's",
+        "easilyinputorimport": "Eifach Dini Konzentratslagersdate iigäh oder importiere, inklusiv Menge, Standort und Spezifikationen.",
+        "viewyourinventoryon": "Betrachte dini Lagervorrät uf ener interaktive Wältkarte, mit detailierte Infos uf Knopfdruck.",
+        "receiveai-poweredsuggestions": "Erhalt AI-gsteuerte Vorschläg für optimali Mischige basierend uf Dinem Inventar und Dini Zielspezifikationen.",
+        "calculateshippingcosts": "Berechn d Versandkoste und Transitzeite zu unterschidlichi Häfene, um dini Logistikentscheidige zu optimierä.",
+        "generatecomprehensive": "Erstell umfassendi Bericht zu Lagerstatus, Mischeffizienz und Logistikkoste.",
+        "benefitsforyourbusiness": "Vorteil für dini Geschäfts",
+        "advancedcapabilities": "Fortschrittlichi Fähigkeitä",
+        "predictiveanalytics": "Vorhärsaganalysene",
+        "leveragemachinelearning": "Nutze Machine Learning Algorithme zur Vorhärsag vo Inventarbedürfniss, Marktbedürfnisse und zur Optimierig vo Dine Handelsstrategie. S System analysiert historschi Date, Markttrends und Dini individuelle Handelsmuster, um umsetzbarige Erkenntniss zu liefere.",
+        "integrationecosystem": "Integrations-Ökosystem",
+        "seamlesslyconnectmetalstore": "Verbind MetalStore Pro nahtlos mit Dine bestehendne System, inklusiv ERP-Software, Finanzplattformen und Logistikverwaltigstool. Uns offenes API erlaube benutzerdefinierbari Integrationen, die en reiibigs Datefluss dür dini ganzi Operation sörgt.",
+        "compliancemanagement": "Konformitätsmanagement",
+        "stayaheadofregulatory": "Bleib e Schrit vor dr regulatorische Vorgabe mit uns eingebautä Konformitäts-Tool. Verfolg und verwalt Zertifikate, sorg für Eihaltig vo Lagerregle und erstelle Konformitätsberichte mit Leichtigkiet. S System wird stetig mit dr neuschte Industrienorm und Regle aktualisiert.",
+        "whychoosemetalstore": "Wiso wähl MetalStore Pro?",
+        "developedbyindustry": "Entwicklet vo Industrieexperte mit jahrzähnti langer Erfahrig im Metalhandel und Logistik.",
+        "bank-gradeencryption": "Bankenstufä Verschlüsselung und robuste Zugriffskontrollä, um dini sensible Lagerdate sicher z halte.",
+        "24/7customersupport": "Rund-um-die-Uhr Kundesupport und regelmässigi Systemupdates, um en reibigs Betrieb z gewährleistä.",
+        "flexiblearchitecture": "Flexible Architektur, die mit dim Geschäfts wachst, vo chlini Handelsoperatione bis zu globale Unternehmen.",
+        "readytooptimizeyour": "Bisch bereit, dini Metalhandelsoperatione zu optimierä?",
+        "jointheranksofleading": "Tritt den führende Metalhändler bi, die ihr Lagermanagement mit MetalStore Pro revolutioniert hend.",
+        "startfreetrial": "Gratis Probestart",
+        "scheduledemo": "Demo buche"
+      }
+    },
+    "tabs": {
+      "VerifyViewConcentrate": {
+        "verify": "Verifizierä"
+      },
+      "VerifyViewTabDeductionsAccordion": {
+        "deductionsverified": "Abzüg verifiziert",
+        "verifyalldeductions": "Alli Abzüg verifizierä",
+        "closealldeductions": "Alli Abzüg schlüsse",
+        "openalldeductions": "Alli Abzüg öffne",
+        "update": "Aktualisierä",
+        "verify": "Verifizierä"
+      },
+      "VerifyViewTabGrid": {
+        "allverified": "Alli verifiziert",
+        "verifyall": "Alli verifizierä",
+        "delete/copy": "Lösche/Kopiere",
+        "action": "Aktion",
+        "update": "Aktualisierä",
+        "verify": "Verifizierä"
+      },
+      "VerifyViewQP": {
+        "allverified": "Alli verifiziert",
+        "verifyall": "Alli verifizierä",
+        "verifiedon:": "Verifiziert am:",
+        "by": "vo"
+      },
+      "VerifyViewTabShipments": {
+        "verifyall": "Alli verifizierä",
+        "un-verifyall": "Alli ent-verifizierä",
+        "actions": "Aktione",
+        "shipmentno": "Versandsnummer",
+        "date": "Datum",
+        "concentratetype": "Konzentrattype",
+        "metal": "Metal",
+        "weight": "Gewicht",
+        "pctamount": "Prozentwert",
+        "paymentrule": "Zahleregel",
+        "verified": "Verifiziert",
+        "missingmetalsinshipment": "Fehlendi Metalle im Versand",
+        "update": "Aktualisierä",
+        "verify": "Verifizierä",
+        "deductionshere..": "Abzüg da.."
+      },
+      "VerifyViewTabConcentrateAccordion": {
+        "addpayables": "Zahlbari hizfüege",
+        "verifyall": "Alli verifizierä",
+        "updateall": "Alli aktualisierä",
+        "openallpayables": "Alli Zahlbari öffne",
+        "closeallpayables": "Alli Zahlbari schlüsse",
+        "weight": "Gewicht",
+        "tolerance": "Toleranz",
+        "addmetal": "Metal hizfüege",
+        "actions": "Aktione",
+        "metalname": "Metalname",
+        "unitamount": "Mengeneinheit",
+        "unit": "Einheit",
+        "xlformula": "XL Formel",
+        "paymentrule": "Zahleregel",
+        "missingmetalsinshipment ": " Fehlendi Metalle im Versand ",
+        "editmode": "Bearbeitigsmodus",
+        "edit": "Bearbeite"
+      },
+      "VerifyViewTabShipmentsAccordian": {
+        "allverified": "Alli verifiziert",
+        "verifyall": "Alli verifizierä",
+        "openallshipments": "Alli Versänd öffne",
+        "closeallshipments": "Alli Versänd schlüsse",
+        "shipment:": "Versand:",
+        "date": "Datum",
+        "tolerance:(±": "Toleranz: (±",
+        "weight": "Gewicht",
+        "metalname": "Metalname",
+        "unitamount": "Mengeneinheit",
+        "unit": "Einheit",
+        "xlformula": "XL Formel",
+        "paymentrule": "Zahleregel",
+        "update": "Aktualisierä",
+        "verify": "Verifizierä",
+        "missingmetalsinshipment": "Fehlendi Metalle im Versand",
+        "deductions": "Abzüg",
+        "nodeductionshere": "Kei Abzüg da",
+        "deductionchemicals": "Abzüg Chemikalien",
+        "nodeductionschemicals": "Kei Abzüg Chemikalien da"
+      },
+      "VerifyViewTab": {
+        "verified": "Verifiziert",
+        "by": "vo",
+        "notverified": "Nit verifiziert",
+        "loadingdata...": "Date werde gelaade ..."
+      },
+      "assay": {
+        "VerifyViewAssayTabOneDepthDropdown": {
+          "selectcategory": "Wähl e Kategori",
+          "verified": "Verifiziert",
+          "by": "vo",
+          "notverified": "Nit verifiziert",
+          "loadingdata...": "Date werde gelaade ..."
+        },
+        "VerifyViewAssayTabOneDepth": {
+          "verified": "Verifiziert",
+          "by": "vo",
+          "notverified": "Nit verifiziert",
+          "loadingdata...": "Date werde gelaade ..."
+        },
+        "VerifyViewAssayTabSheet": {
+          "verified": "Verifiziert",
+          "update": "Aktualisierä",
+          "verify": "Verifizierä"
+        },
+        "VerifyViewAssayTabOneDepthReadOnly": {
+          "readonly": "Nur zum Läse",
+          "loadingdata...": "Date werde gelaade ..."
+        },
+        "VerifyViewAssayTabTable": {
+          "verified": "Verifiziert",
+          "update": "Aktualisierä",
+          "verify": "Verifizierä",
+          "lotnumber": "Losnummer",
+          "weight": "Gewicht",
+          "average": "Durchschnitt"
+        },
+        "VerifyWSMDAccordion": {
+          "verified": "Verifiziert",
+          "verify": "Verifizierä",
+          "update": "Aktualisierä"
+        }
+      }
+    },
+    "themis": {
+      "JSONEditor": {
+        "jsonschemaeditor": "JSON Schema Editor",
+        "usetheeditorbelow": "Benutz d Editor unne, um benutzerdefinierti Schema für Dateextraktig z erstelle",
+        "searchtodo:treeview": "Suech TODO: Baumansicht mit Lischt",
+        "extractionprompt": "Extraktionsprompt",
+        "schemaeditor": "Schema Editor",
+        "save": "Sichere"
+      },
+      "SchemaEditor": {
+        "//jsonschemaeditor.svelte": "// JsonSchemaEditor.svelte",
+        "jsonschemaeditor": "JSON Schema Editor",
+        "addfield": "Feld hizfüege",
+        "object": "Objekt",
+        "array": "Array",
+        "remove": "Entferne",
+        "addnestedfield": "Verschachtelti Felder hizfüege",
+        "generatedjsonschema:": "Generierts JSON Schema:"
+      },
+      "SchemaCard": {
+        "2": "2",
+        "10": "10",
+        "20": "20",
+        "50": "50",
+        "name": "Name",
+        "id": "ID",
+        "schemaversionid": "Schema Version ID",
+        "createdat": "Erstellt am",
+        "updatedat": "Aktualisiert am",
+        "isvalid": "Isch gütig",
+        "itemsperpage:": "Artikele pro Syte:",
+        "id:": "ID:",
+        "schemaversionid:": "Schema Version ID:",
+        "createdat:": "Erstellt am:",
+        "updatedat:": "Aktualisiert am:",
+        "isvalid:": "Isch gütig:"
+      },
+      "SchemaField": {
+        "string": "Zeichestatt",
+        "integer": "Ganzzahl",
+        "boolean": "Boolesch",
+        "datetime": "Datumziit",
+        "object": "Objekt",
+        "array": "Array",
+        "remove": "Entferne",
+        "addfield": "Feld hizfüege"
+      },
+      "SchemaJsonEditor2": {
+        "jsoneditor": "JSON Editor",
+        "formatjson": "JSON formatierä"
+      },
+      "SchemaPage": {
+        "documentrepository": "Dokumentenarchiv",
+        "downloadall": "Alls abelade"
+      },
+      "SchemaTable": {
+        "ask": "Fröch",
+        "id": "ID",
+        "name": "Name",
+        "schemaversionid": "Schema Version Id",
+        "createdat": "Erstellt am",
+        "updatedat": "Aktualisiert am",
+        "isvalid": "Isch gütig",
+        "allcolumns": "Alle Spalten",
+        "exportcsv": "CSV exportiere",
+        "customizecolumns": "Spalten anpassa",
+        "actions": "Aktionen",
+        "itemsperpage:": "Elemente pro Seite:"
+      },
+      "ThemisDocumentViewPage": {
+        "viewingdoc": "Dokument wird agluegt"
+      },
+      "SchemaTable2": {
+        "10": "10",
+        "25": "25",
+        "50": "50",
+        "100": "100",
+        "allcolumns": "Alli Spalte",
+        "exportcsv": "Exportier CSV",
+        "customizecolumns": "Spalte ahpasse",
+        "actions": "Aktione",
+        "itemsperpage:": "Artikele pro Syte:"
+      },
+      "SchemaPicker": {
+        "documenttype:": "Dokumenttyp:",
+        "chooseadocumenttype": "Wähl e Dokumenttyp zum Filtere"
+      },
+      "SortableSchemaView": {
+        "sortby:": "Sortiere no:",
+        "id": "ID",
+        "name": "Name",
+        "schemaversionid": "Schema Version ID",
+        "createdat": "Erstellt am",
+        "updatedat": "Aktualisiert am",
+        "isvalid": "Isch gütig"
+      },
+      "ThemisPage": {
+        "documentrepository": "Dokumentenarchiv",
+        "downloadall": "Alls abelade"
+      }
+    },
+    "uploaders": {
+      "DocumentUploaderPnL": {
+        "aiisreadingandprocessing": "KI liest und verarbeit",
+        "(processingtime:": "(Verarbeitigszit:",
+        "s)": "s)",
+        "upload": "Hochlade",
+        "clicktoupload": "Drück zum Hochlade",
+        "ordraganddrop": "oder zieke und loslah",
+        "pdf": "PDF",
+        "documenttype:": "Dokumenttyp:",
+        "docname:": "Dokumentname:",
+        "adddocumentname": "Dokumentname hizfüege",
+        "documentname": "Dokumentname",
+        "addname": "Name hizfüege"
+      },
+      "CameraUploader": {
+        "aiisreadingandprocessing": "KI liest und verarbeit",
+        "(processingtime:": "(Verarbeitigszit:",
+        "s)": "s)",
+        "imageupload": "Bild Hochlade",
+        "clicktoupload": "Drück zum Hochlade",
+        "ordraganddrop": "oder zieke und loslah",
+        "pdf": "PDF",
+        "docname:": "Dokumentname:",
+        "upload": "Hochlade",
+        "adddocumentname": "Dokumentname hizfüege",
+        "documentname": "Dokumentname",
+        "addname": "Name hizfüege"
+      },
+      "DocumentUploader": {
+        "upload": "Hochlade",
+        "clicktoupload": "Drück zum Hochlade",
+        "ordraganddrop": "oder zieke und loslah",
+        "pdf": "PDF",
+        "chooseadocumenttype": "Wähl e Dokumenttyp zum Filtere",
+        "uploadingdoctype:": "Lade Dokumenttyp hoch:",
+        "uploading...pleasewait": "Lade... bitte warte",
+        "filename:": "Dateiname:",
+        "documentname:": "Dokumentname:",
+        "category:": "Kategori:",
+        "uploadstatus": "Ladestatus",
+        "s": "s",
+        "filename": "Dateiname",
+        "status": "Status",
+        "remove": "Entferne",
+        "preview": "Vorschau",
+        "docname": "Dokumentname",
+        "category": "Kategori"
+      }
+    },
+    "viewers": {
+      "AssayViewer": {
+        "verificationcomplete": "Verifizierig abgschlosse"
+      },
+      "ContractViewer": {
+        "allverified": "Alli verifiziert",
+        "verifyall": "Alli verifizierä",
+        "openall": "Alli öffne",
+        "verificationcomplete": "Verifizierig abgschlosse"
+      },
+      "PnLVerifyViewer": {
+        "verificationcomplete": "Verifizierig abgschlosse"
+      }
+    }
+  },
+  "routes": {
+    "500": {
+      "500internalerror": "500 Interner Fehler",
+      "whoops!thatpagedoesn’t": "Upps! Die Syte git's nit.",
+      "herearesomehelpful": "Da sind eini hilfriichi Links:",
+      "support": "Support",
+      "home": "Startseite"
+    },
+    "+error": {
+      "404notfound": "404 Nit gfunde",
+      "whoops!thatpagedoesn’t": "Upps! Die Syte git's nit.",
+      "herearesomehelpful": "Do sind eini hilfriichi Links stattdesse:",
+      "home": "Startseite",
+      "search": "Sueche",
+      "help": "Hilf",
+      "contact": "Kontakt"
+    },
+    "+page": {
+      "v0.1": "v0.1"
+    },
+    "contact": {
+      "+page": {
+        "contactusfortheenterprise": "Kontaktier üs für d Enterprise-Plän",
+        "forcustomsolutions": "Für benutzerdefinierti Lösige und Prise, kontaktier üs direkt über e beliebigi Methode unne und mir meldet üs schnäll möglich.",
+        "contactus": "Kontaktier üs",
+        "login": "Aemelde"
+      }
+    },
+    "counter-party": {
+      "+page": {
+        "email": "E-Mail",
+        "id:": "ID:"
+      }
+    },
+    "pricing": {
+      "+page": {
+        "pricingplan": "Preisplän",
+        "plan": "Plan",
+        "/month": "/Monet",
+        "choose": "Wählä"
+      }
+    },
+    "settings": {
+      "+page": {
+        "accountsettings": "Konto-Istellige",
+        "username:": "Benutzername:",
+        "email:": "E-Mail:",
+        "currentplan:": "Aktueller Plan:",
+        "managesubscription": "Abonnemänt verwalte"
+      }
+    },
+    "(auth)": {
+      "register": {
+        "+page": {
+          "createanaccount": "Erstell e Konto",
+          "email": "E-Mail",
+          "password": "Passwort",
+          "confirmpassword": "Passwort bestätige",
+          "registrationfailed!": "Registrierig gscheitert! Bitte probier no einisch.",
+          "passwordsdonotmatch!": "Passwörter stimme nit übere! Bitte probier no einisch.",
+          "createaccount": "Konto erstelle"
+        }
+      },
+      "forgot-password": {
+        "+page": {
+          "emailsent": "E-Mail verschickt",
+          "wehavesentanemail": "Mir hend Dir e E-Mail an d aagäbni Adresse gschickt mit eme Link zum Passwort zrücksetze.",
+          "forgotyourpassword": "Passwort vergässe",
+          "pleaseentertheemail": "Bitte gib di E-Mail Adresse ih und mir schicke Dir e Link zum zrücksetze vom Passwort",
+          "email": "E-Mail",
+          "resetpassword": "Passwort zrücksetze",
+          "backtologin": "Zurück zum Login"
+        }
+      },
+      "login": {
+        "+page": {
+          "signintoyouraccount": "Meld di a ",
+          "youremail": "Dini E-Mail",
+          "yourpassword": "Dini Passwort",
+          "rememberme": "Merke mi",
+          "forgottenpassword?": "Passwort vergässe?",
+          "invalidcredentials!": "Ungültigi Zuegangsdäte! Bitte probier no einisch.",
+          "logintoyouraccount": "Aemelde bim Konto",
+          "createaaccount": "Konto erstelle",
+          "poweredby": "Gspysst vo"
+        }
+      },
+      "reset-password": {
+        "+page": {
+          "passwordupdated!": "Passwort aktualisiert!",
+          "youcannowuseyour": "Du chasch jetzt dini aktualisiereti Passwort benutze.",
+          "login": "Aemelde",
+          "resetpassword": "Passwort zrücksetze",
+          "pleaseenteryournew": "Bitte gib dini neus Passwort ih und bestätig es.",
+          "newpassword": "Neus Passwort",
+          "confirmnewpassword": "Neus Passwort bestätige",
+          "backtologin": "Zurück zum Login"
+        }
+      },
+      "verify-email": {
+        "+page": {
+          "emailverifiedsuccessfully!": "E-Mail erfolgrich verifiziert!",
+          "youremailhasbeenverified.": "Dini E-Mail isch verifiziert worde. Du chasch jetzt mit Dim Konto aemelde.",
+          "gotologin": "Zum Aemelde gah",
+          "emailverificationfailed": "E-Mail Verifizierig gscheitert",
+          "somethingwentwrong": "Öpis isch schiefglouffe bim Verifizierigsprozess. Bitte probier spöter no einisch oder verschick dr Verifizierigsmail nomol.",
+          "verifyyouremailaddress": "Verifizier Dini E-Mail Adresse",
+          "wehavesentaverification": "Mir hend e Verifizierigsmail an dini E-Mail Adresse gschickt. Bitte kontrollier dini Inbox und klick uf d Link, um dini Konto z verifizierä.",
+          "verificationemailresent": "Verifizierigsmail erfolgrich nomol verschickt!",
+          "errorresendingverification": "Fehler bi dr nomolige Verifizierigsmail. Bitte probier spöter nomol.",
+          "resendverificationemail": "Verifizierigsmail nomol verschicke"
+        }
+      }
+    },
+    "main": {
+      "concord": {
+        "+page": {
+          "concordpoc-upload": "Concord PoC - Lad dini CTRM Date ufe und extrahierä"
+        }
+      },
+      "expenses": {
+        "+page": {
+          "expensetracking-upload": "Kostenverfolgig - Lad dini Usgabene da ufe und protokollierä"
+        }
+      },
+      "contracts": {
+        "contract": {
+          "+page": {
+            "redirectingbacktocontracts": "Umleitig zrugg zu Verträg"
+          },
+          "[contractId]": {
+            "+page": {
+              "redirectingtocontracts": "Umleitig zu Verträg"
+            },
+            "verify": {
+              "+page": {
+                "loading...": "Ladet..."
+              }
+            },
+            "shipments": {
+              "[shipmentId]": {
+                "assay": {
+                  "+page": {
+                    "donotusethispage": "DIESE SYTE NIT VERWENDEN\n        Umleitig zrugg zu Versand/:id, wo alli Analysene sind"
+                  }
+                },
+                "final": {
+                  "+page": {
+                    "shipmentid:": "Versand ID:",
+                    "todo:showalistof": "TODO: Lischt vo alli finali Rechnige für den Versand azeige"
+                  },
+                  "[provisionalId]": {
+                    "+page": {
+                      "finalinvoicegenerated": "Finali Rechnig vo Analyse generiert",
+                      "unsupporteddoctype:": "Nit unterstützti Dokumentart:",
+                      "sorrynofinalinvoice": "Entschuldigung, kei finali Rechnig gfunde. Bitte generier äine uf dr Versand/Analyse Syte."
+                    }
+                  }
+                },
+                "provisional": {
+                  "+page": {
+                    "shipmentid:": "Versand ID:",
+                    "todo:showalistof": "TODO: Lischt vo alli provisorische Rechnige für den Versand azeige"
+                  },
+                  "[provisionalId]": {
+                    "+page": {
+                      "provisionalinvoicegenerated": "Provisorischi Rechnig vo Analyse generiert",
+                      "unsupporteddoctype:": "Nit unterstützti Dokumentart:",
+                      "sorrynoprovisional": "Entschuldigung, kei provisorischi Rechnig gfunde. Bitte generier äine uf dr Versand/Analyse Syte."
+                    }
+                  }
+                },
+                "pdf": {
+                  "+page": {
+                    "shipmentid:": "Versand ID:",
+                    "pdfviewer-todo:show": "Pdf Viewer - TODO: Lischt vo alli Pdf-Dateie für den Versand azeige"
+                  },
+                  "[pdfId]": {
+                    "+page": {
+                      "pdfviewer": "Pdf Viewer"
+                    }
+                  }
+                },
+                "hedge": {
+                  "+page": {
+                    "hedgereport": "Absicherigsbericht",
+                    "loadinghedgedetails...": "Ladet Absicherigsdetails..."
+                  }
+                },
+                "invoice": {
+                  "[invoiceId]": {
+                    "+page": {
+                      "generatedinvoice": "Generierti Rechnig"
+                    },
+                    "InvoiceHTML": {
+                      "finalinvoice": "Finali Rechnig",
+                      "ourreferenceno.": "Uns Ref. Nr.",
+                      "contractno.": "Vertrags-Nr.",
+                      "l/cno.": "LC Nr.",
+                      "allocationno": "Zuteiligsnummer",
+                      "nameofvessel": "Schiffsname",
+                      "dateofshipment": "Versandsdatum",
+                      "billofladingno.": "Frachtbriefnummer",
+                      "packing": "Verpackig",
+                      "portofloading": "Verladehafe",
+                      "portofdischarge": "Entladehafe",
+                      "tradeterms": "Handelsbedingige",
+                      "origin": "Herkunft",
+                      "commodity": "Rohstoff",
+                      "quotationalperiod": "Quotationsperiod",
+                      "finalshippednetwet": "Final netto verschickts nass Gewicht",
+                      "finalmoisturecontent": "Finaler Feuchtigkeitsgehalt",
+                      "finalshippeddryweight": "Final netto verschickts trocken Gewicht",
+                      "thisinvoiceisbased": "Die Rechnig basiert uf finali Gewichte, Analysene und Prise.",
+                      "payableelement": "Zahlbari Element",
+                      "content": "Inhalt",
+                      "paymentrule": "Zahleregel",
+                      "netpayable": "Netto zahlbar",
+                      "unitprice": "Einheitspres",
+                      "totalinusd/dmt": "Total i USD/dmt",
+                      "totalpayables": "Total zahlbari",
+                      "deductions": "Abzüg",
+                      "totaldeductiblesper": "Total Abzüg pro dmt",
+                      "finalcargovalueper": "Finali Frachtwärt pro trocken Tonn",
+                      "finalcifcycargovalue": "Finali CIF CY Frachtwert Basis",
+                      "lesstheprovisional": "Abzüglich provisorische Zahlung",
+                      "balanceduetoopenmineral": "Restbetrag duechtig Open Mineral AG",
+                      "payment": "Zahlig",
+                      "byirrevocableletter": "dur irreversible Akkreditiv, zuezügig bi Sicht",
+                      "l/cnum": "l/c Nr",
+                      "00il0004731": "00IL0004731",
+                      "openedby:": "Eröffnet vo:",
+                      "eibccnbjzjpexport-import": "EIBCCNBJZJP Export-Import Bank vo China (Zhejiang Branch), Hangzhou,\n\t\t\tCN",
+                      "openmineralag": "Open Mineral AG",
+                      "(beneficiary)": "(Begünstigti)"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "themis": {
+        "view": {
+          "+page": {
+            "redirectingtodocuments": "Umleitig zu Dokumente"
+          }
+        }
+      },
+      "parcel": {
+        "[parcelId]": {
+          "hedges": {
+            "+page": {
+              "hedgesummarybreakdown": "Absicherigs-Zusammenfassig-Zusammestellig",
+              "hedgesummarybymonth": "Absicherigs-Zusammenfassig pro Monet",
+              "hedgesummarybyelement": "Absicherigs-Zusammenfassig nach Element"
+            }
+          }
+        }
+      }
+    },
+    "+layout": {
+      "loading...pleasewait": "Ladet... bitte warte"
+    }
+  },
+  "stories": {
+    "ExampleStoryButton": {
+      "examplestorybutton": "Beispiel Story Knopf",
+      "red": "Rot",
+      "default": "Standard"
+    }
+  },
+  "pages": {
+    "main": {
+      "DefaultDashboardPage": {
+        "viewall": "Alles aaluege",
+        "shipments": "Sendige",
+        "contracts": "Verträgg",
+        "parcels": "Päckli",
+        "uploadNewContract": "Neje Vertrag ufelade",
+        "uploadNewParcel": "Neus Päckli ufelade",
+        "view": "Aaluege"
+      },
+      "ExpenseDashboard": {
+        "receiptsuploaded": "Quittige hochglaade",
+        "viewall": "Alli ahluäge",
+        "totaluploaded:amount": "Total hochglaade : Betrag",
+        "expensessummary": "Usgabe-Zusammenfassig",
+        "expenseschart": "Usgabene-Diagramm",
+        "nochartdisplayedyet.": "Kei Diagramm bis jetz."
+      }
+    },
+    "pnl": {
+      "CashflowPage": {
+        "cashflow": "Cashflow",
+        "theoreticalpnl": "Theoretischi Gwinne und Verlüste",
+        "theorycategory": "Theoriekategori",
+        "secondarycost": "Sekundärkostä",
+        "serviceprovider": "Dienstleister",
+        "theoretical": "Theoretisch",
+        "actual": "Tatsächlich",
+        "difference": "Differenz",
+        "actions": "Aktione"
+      },
+      "TheoreticalPage": {
+        "cashflowpnl": "Cash Flow Gwinne und Verlüste",
+        "bishazincconcentrate": "Bisha Zinkkonzentrat nach Jiangtong",
+        "element": "Element",
+        "unit": "Einheit",
+        "assays": "Analysene",
+        "prices": "Prise",
+        "quantity": "Menge",
+        "dmt": "Trockemetrische Tonnä",
+        "payablemetals": "Zahlbari Metalle",
+        "bishapurchase": "Bisha Kauf",
+        "jiangtongsale": "Jiangtong Verkauf",
+        "payable": "Zahlbar",
+        "tc": "TC",
+        "total": "Total",
+        "grossp/l($/dmt):": "Brutto Gwinne und Verlüste ($/dmt):"
+      },
+      "PnlPage": {
+        "advancedprofit&loss": "Fortschrittlichi Gwinne und Verlüst-Modul",
+        "empoweryourtrading": "Verbessere dini Handelsentscheide mit uns modernste Gwinne und Verlüste (PnL)\n\t\tModul. Hol Echtzit-Insights, umfassendi Analysene und mächtig Tool, um dini Handelsstrategie zu optimierä.",
+        "advancedanalyticsfeatures": "Fortschrittlichi Analyse-Funktione",
+        "predictivepnlforecasting": "Vorhärsags- Gwinne und Verlüst-Prognose mit Machine Learning Algorithme",
+        "correlationanalysis": "Korrelationsanalyse zwüsche unterschidlichi Assets und Märkt",
+        "scenariomodelingfor": "Szenariomodellierig für Stresstest vo Dine Handelsstrategie",
+        "customreportgeneration": "Benutzerdefinieri Berichtsgenerierig für regulatorischi Eihaltig und interni Audits",
+        "integrationcapabilities": "Integrationsfähigkeiten",
+        "seamlessconnectionwith": "Nahtlos Verbindig mit wichtigi Handelsplattforme und BöGrse",
+        "apiaccessforcustom": "API-Zugriff für benutzerdefinierbari Integrationen mit Dine bestehendne Systeme",
+        "mobileappforon-the-go": "Mobile App für PnL-Überwachig und Alerts unterwegs",
+        "exportdatainvarious": "Exportiere Date in unterschidlich Format (CSV, JSON, XML) für wiiteri Analysene",
+        "securityandcompliance": "Sicherheite und Eihaltig",
+        "bank-gradeencryption": "Bankenstufä Verschlüsselig für all Dateübertragige und -speicher ",
+        "multi-factorauthentication": "Mehrstufige Authentifizierig und rollenbasiert Zugriffskontroll",
+        "automatedaudittrails": "Automatisierti Audit-Trails für alli Benutzer-Aktione und Systemänderinge",
+        "compliancewithmajor": "Eihaltig mit wichtigi Finanzregle (GDPR, MiFID II, usw.)",
+        "performancemetrics": "Leistungsmetrik",
+        "contactsales": "Kontaktierä Verkaufsabteilung"
+      }
+    },
+    "shipment": {
+      "ShipmentParcelPage": {
+        "shipmentsforparcel:": "Versänd für Packet:",
+        "shipment": "Versand",
+        "viewhedgereport": "Absicherigsbericht ahluäge",
+        "pnl": "Gwinne und Verlüste"
+      }
+    }
+  }
+}

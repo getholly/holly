@@ -1,0 +1,61 @@
+services:
+  frontend:
+    image: node:23-slim
+    working_dir: /app
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - '5173:5173'
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=http://webdev:8181
+    env_file:
+      - .env.develop
+    networks:
+      - backend
+    depends_on:
+      - webdev
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5173/"]
+      interval: 30s
+      timeout: 120s
+      retries: 10
+      start_period: 30s
+
+  webdev:
+    image: holly:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    volumes:
+      # Add this line to mount Docker socket from host to container
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - .env.develop
+    environment:
+      - DJANGO_DEBUG=True
+      - DJANGO_SETTINGS_MODULE=config.settings.develop
+      - REPO_BASE_PATH=/holly
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8181/"]
+      interval: 30s
+      timeout: 300s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  redis_data:
+  rabbitmq_data:
+
+networks:
+  backend:
+    name: holly_backend
+    driver: bridge
+    attachable: true
+

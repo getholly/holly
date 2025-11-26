@@ -1,0 +1,59 @@
+{
+  "parser-directories": [
+    "/Users/Mac/github",
+    "/Users/Mac/src",
+    "/Users/Mac/source",
+    "/Users/Mac/projects",
+    "/Users/Mac/dev",
+    "/Users/Mac/git"
+  ],
+  "theme": {
+    "module": 136,
+    "variable.parameter": {
+      "underline": true
+    },
+    "attribute": {
+      "italic": true,
+      "color": 124
+    },
+    "constant": 94,
+    "embedded": null,
+    "number": {
+      "color": 94,
+      "bold": true
+    },
+    "keyword": 56,
+    "property": 124,
+    "constructor": 136,
+    "function": 26,
+    "punctuation.delimiter": 239,
+    "tag": 18,
+    "type.builtin": {
+      "bold": true,
+      "color": 23
+    },
+    "variable.builtin": {
+      "bold": true
+    },
+    "function.builtin": {
+      "bold": true,
+      "color": 26
+    },
+    "constant.builtin": {
+      "bold": true,
+      "color": 94
+    },
+    "operator": {
+      "color": 239,
+      "bold": true
+    },
+    "type": 23,
+    "comment": {
+      "italic": true,
+      "color": 245
+    },
+    "punctuation.bracket": 239,
+    "string.special": 30,
+    "string": 28
+  }
+}

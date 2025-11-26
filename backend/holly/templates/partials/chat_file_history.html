@@ -1,0 +1,49 @@
+<div class="w-64 text-gray-600 dark:text-gray-200  flex flex-col" x-data="{ showNewChatModal: false }">
+  <section class="flex justify-between items-center border-b dark:border-gray-700 border-gray-100 mx-4">
+    <div class="text-sm font-semibold">Chat History</div>
+    <div class="pb-2">
+      <button class="w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-xs"
+       @click="showNewChatModal = true">
+        + New Chat
+      </button>
+    </div>
+  </section>
+  <!-- Chat History List (Scrollable) -->
+  <div class="flex-1 overflow-y-auto p-2 space-y-8 mt-4">
+    <!-- Day 1 -->
+    <div>
+      <div class="text-xs text-gray-400 px-2 mb-1">February 20, 2024</div>
+      <div class="space-y-1">
+        <button class="w-full text-left px-3 py-2 bg-[#e1e4fa] shadow-sm dark:bg-[#2b315c] dark:hover:bg-gray-700 rounded-md text-sm">
+          Github Repo
+        </button>
+               <button class="w-full text-left px-3 py-2 bg-[#e1e4fa] shadow-sm dark:bg-[#2b315c] dark:hover:bg-gray-700 rounded-md text-sm">
+          Aider Repo
+        </button>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div>
+      <div class="text-xs text-gray-400 px-2 mb-1">February 21, 2024</div>
+      <div class="space-y-1">
+               <button class="w-full text-left px-3 py-2 bg-[#e1e4fa] shadow-sm dark:bg-[#2b315c] dark:hover:bg-gray-700 rounded-md text-sm">
+          Techarge Repo
+        </button>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div>
+      <div class="text-xs text-gray-400 px-2 mb-1">February 22, 2024</div>
+      <div class="space-y-1">
+        <button class="w-full text-left px-3 py-2 bg-[#e1e4fa] shadow-sm dark:bg-[#2b315c] dark:hover:bg-gray-700 rounded-md text-sm">
+          Django Repo
+        </button>
+        <button class="w-full text-left px-3 py-2 bg-[#e1e4fa] shadow-sm dark:bg-[#2b315c] dark:hover:bg-gray-700 rounded-md text-sm">
+          Styling Theming Template Repo
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

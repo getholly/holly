@@ -1,0 +1,12 @@
+services:
+  rest_mcp_client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    env_file: .env
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      # Add any other required environment variables here
+    restart: unless-stopped

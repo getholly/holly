@@ -1,0 +1,31 @@
+{% extends "account/base_manage.html" %}
+{% load allauth i18n %}
+{% block head_title %}
+  {% trans "Sign Out" %}
+{% endblock head_title %}
+{% block content %}
+  <section class="dark:bg-gray-800 h-full dark:text-gray-200 flex justify-center items-start">
+    <div class="bg-gray-200 dark:bg-gray-900 rounded-2xl mt-24 min-w-64 min-h-64 flex flex-col justify-center items-center box-shadow ">
+    {% element h1 %}
+        {% trans "Sign Out" %}
+      {% endelement %}
+    <div class="flex flex-col gap-4 text-center p-4">
+      {% element p %}
+        {% trans 'Are you sure you want to sign out?' %}
+      {% endelement %}
+      {% url 'account_logout' as action_url %}
+      {% element form method="post" action=action_url no_visible_fields=True %}
+        {% slot body %}
+          {% csrf_token %}
+          {{ redirect_field }}
+        {% endslot %}
+        {% slot actions %}
+          <button type="submit" class="border border-purple-200 px-4 py-2 rounded-lg hover:bg-purple-200 hover:text-gray-600 transition delay-100 duration-300">
+          Logout
+          </button>
+        {% endslot %}
+      {% endelement %}
+
+    </div>
+  </section>
+{% endblock content %}

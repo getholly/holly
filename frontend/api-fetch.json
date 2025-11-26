@@ -1,0 +1,8 @@
+{
+  "npmName": "holly-api",
+  "description": "This configures the output for auto-gen code from open-api, for holly backend",
+  "snapshot": false,
+  "supportsES6": true,
+  "modelPropertyNaming": "original",
+  "withInterfaces": true
+}

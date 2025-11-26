@@ -1,0 +1,58 @@
+{% comment %}
+Usage:
+  {% include 'components/loading_button.html' with
+    url_name='your_url_name'
+    button_text='Your Button Text' %}
+
+Parameters:
+  - url_name: The name of the Django URL to navigate to (required)
+  - button_text: Text to display on the button (required)
+
+Optional parameters:
+  - url_params: A list or dictionary for URL parameters (default: None)
+  - id_prefix: Prefix for element IDs if multiple buttons on page (default: 'loadingBtn')
+  - button_classes: Complete set of CSS classes for the button (default: tailwind gradient button)
+  - spinner_text: Text to show during loading (default: 'Loading...')
+{% endcomment %}
+
+{% if url_params %}
+  {% url url_name url_params as target_url %}
+{% else %}
+  {% url url_name as target_url %}
+{% endif %}
+
+{% with default_classes="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" %}
+<button id="{{ id_prefix|default:'loadingBtn' }}" type="button"
+        class="{{ button_classes|default:default_classes }}"
+        data-url="{{ target_url }}">
+    <span id="{{ id_prefix|default:'loadingBtn' }}Text">{{ button_text }}</span>
+    <span id="{{ id_prefix|default:'loadingBtn' }}Spinner" class="hidden">
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        {{ spinner_text|default:"Loading..." }}
+    </span>
+</button>
+{% endwith %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    (function() {
+      const button = document.getElementById('{{ id_prefix|default:"loadingBtn" }}')
+      const buttonText = document.getElementById('{{ id_prefix|default:"loadingBtn" }}Text')
+      const loadingSpinner = document.getElementById('{{ id_prefix|default:"loadingBtn" }}Spinner')
+
+      if (button && buttonText && loadingSpinner) {
+        button.addEventListener('click', function() {
+          // Show spinner, hide text
+          buttonText.classList.add('hidden')
+          loadingSpinner.classList.remove('hidden')
+
+          // Navigate to the URL
+          window.location.href = this.dataset.url
+        })
+      }
+    })()
+  })
+</script>
