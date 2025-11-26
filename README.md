@@ -4,7 +4,7 @@ Holly is an AI-assisted software development workspace that lets engineers hand 
 
 You can spin this up as a webserver with the ultimate goal to be able to send coding tasks on your mobile. 
 
-The product combines a Svelte front end with a Django-based application layer that provisions isolated Docker workspaces, connects to GitHub(Gitlab and others in the pipeline), and streams mission progress back to the UI. LLMs operate inside hardened containers where they can edit, run, and test code. 
+The project combines a Svelte frontend with a Django-based application layer that provisions isolated Docker workspaces, connects to GitHub(Gitlab and others in the pipeline), and streams mission progress back to the UI. LLMs operate inside hardened containers where they can edit, run, and test code. 
 
 Swap out the backend docker container with your own setup and work safe in the knowledge that your LLM will be safely contained away from your main OS. 
 
