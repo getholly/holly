@@ -11,6 +11,11 @@ Swap out the backend docker container with your own setup and work safe in the k
 Use any open source or frontier model, on cloud or locally deployed. 
 
 ---
+WARNING: do not currently run this repo on remotely accessible systems, the current docker image
+runs with priviledged: true to allow for vnc access. This may allow for escape from container.
+Alternatively you can reconfigure Hilly with your own customised, hardened docker container, if 
+you do not need VNC like access to your container.
+---
 
 ## Quick Start
 
