@@ -3,7 +3,6 @@
   import { base } from "$app/paths";
   import { routes } from "$lib/routes";
   import { userEmail } from "$lib/store/auth/tokens.store";
-  import Missions from "$components/mission/Missions.svelte";
   import { get } from "svelte/store";
   import { currentMission } from "$lib/store/mission/mission.store";
 
@@ -58,11 +57,6 @@
 </svelte:head>
 
 <div class="flex flex-col h-full overflow-auto">
-  <!-- Mission bar -->
-  <div class="w-full">
-    <Missions />
-  </div>
-
   <!-- Content -->
   <div class="max-w-7xl mx-auto w-full px-4 py-6 space-y-6">
     <!-- Header -->
@@ -172,14 +166,33 @@
 
       <!-- Stats -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div
-          class="rounded-xl p-4 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+        <a
+          href={link("/missions")}
+          class="group rounded-xl p-4 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-cyan-500 dark:hover:border-cyan-500 hover:shadow-md transition-all cursor-pointer"
         >
-          <div class="text-sm text-gray-500 dark:text-gray-400">Missions</div>
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-gray-500 dark:text-gray-400">Missions</div>
+            <svg
+              class="w-4 h-4 text-gray-400 group-hover:text-cyan-500 transition-colors"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </div>
           <div class="text-2xl font-semibold text-gray-900 dark:text-white">
             {missionsCount}
           </div>
-        </div>
+          <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">
+            Click to manage
+          </div>
+        </a>
         <div
           class="rounded-xl p-4 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
         >

@@ -33,6 +33,11 @@ export const routes: Route = {
     name: "Home",
     path: `${base}/`,
   },
+  missions: {
+    key: "missions",
+    name: "Missions",
+    path: `${base}/missions`,
+  },
   login: {
     key: "login",
     name: "Login",

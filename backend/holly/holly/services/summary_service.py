@@ -33,16 +33,14 @@ def sanitize_git_branch_name(name: str) -> str:
     return name or "default-branch"
 
 
-LLM_SUMMARY_GENERATOR = "Mini Holly ollama"
 
-
-async def agenerate_title_summary(text: str, user: User, llm: LLM | None = None) -> (str, str):
-    """Return a 5 to 10 word summary of ``text`` using the provided or default LLM.
+async def agenerate_title_summary(text: str, user: User, llm: LLM) -> tuple[str, str]:
+    """Return a 5 to 10 word summary of ``text`` using the provided LLM.
 
     Args:
         text: The text to summarize
         user: The user requesting the summary (required for API key)
-        llm: Optional LLM to use. If not provided, falls back to LLM_SUMMARY_GENERATOR.
+        llm: LLM to use.
 
     Returns:
         A 5 to 10 word summary of ``text``
@@ -50,23 +48,25 @@ async def agenerate_title_summary(text: str, user: User, llm: LLM | None = None)
     """
     api_key = ""
     try:
-        if llm is None:
-            llm = await LLM.objects.aget(name=LLM_SUMMARY_GENERATOR)
         try:
             key = await UserLLMApiKey.objects.aget(user=user, llm=llm)
             api_key = key.api_key
         except UserLLMApiKey.DoesNotExist:
             pass
-    except LLM.DoesNotExist:
-        logger.error(f"{LLM_SUMMARY_GENERATOR} LLM configuration not found")
-        fallback_title = text[:50]
-        return fallback_title, f"holly/{sanitize_git_branch_name(fallback_title)}"
+    except Exception as ex:
+        logger.error(f"Error fetching API key: {ex}")
 
     prompt = f"Summarize the following text in 5 to 10 words, do not include any pre or post amble: {text}"
+    
+    # Fix double path issue if present in base_url
+    base_url = llm.base_url
+    if base_url and "/chat/completions" in base_url:
+        base_url = base_url.split("/chat/completions")[0]
+    
     try:
         response = await litellm.acompletion(
             model=llm.full_name,
-            api_base=llm.base_url,
+            api_base=base_url,
             api_key=api_key,
             messages=[{"role": "user", "content": prompt}],
             temperature=llm.temperature or 0.0,
@@ -89,13 +89,13 @@ async def agenerate_title_summary(text: str, user: User, llm: LLM | None = None)
         return fallback_title, f"holly/{sanitize_git_branch_name(fallback_title)}"
 
 
-def generate_title_summary(text: str, user: User, llm: LLM | None = None) -> (str, str):
-    """Return a 5 to 10 word summary of ``text`` using the provided or default LLM.
+def generate_title_summary(text: str, user: User, llm: LLM) -> tuple[str, str]:
+    """Return a 5 to 10 word summary of ``text`` using the provided LLM.
 
     Args:
         text: The text to summarize
         user: The user requesting the summary (required for API key)
-        llm: Optional LLM to use. If not provided, falls back to LLM_SUMMARY_GENERATOR.
+        llm: LLM to use.
 
     Returns:
         A 5 to 10 word summary of ``text``
@@ -103,23 +103,25 @@ def generate_title_summary(text: str, user: User, llm: LLM | None = None) -> (st
     """
     api_key = "sk-secret"
     try:
-        if llm is None:
-            llm = LLM.objects.get(name=LLM_SUMMARY_GENERATOR)
         try:
             key = UserLLMApiKey.objects.get(user=user, llm=llm)
             api_key = key.api_key
         except UserLLMApiKey.DoesNotExist:
             pass
-    except LLM.DoesNotExist:
-        logger.error(f"{LLM_SUMMARY_GENERATOR} LLM configuration not found")
-        fallback_title = text[:50]
-        return fallback_title, f"holly/{sanitize_git_branch_name(fallback_title)}"
+    except Exception as ex:
+        logger.error(f"Error fetching API key: {ex}")
 
     prompt = f"/no_think Summarize the following text in 5 to 10 words, do not include any pre or post amble: {text}"
+    
+    # Fix double path issue if present in base_url
+    base_url = llm.base_url
+    if base_url and "/chat/completions" in base_url:
+        base_url = base_url.split("/chat/completions")[0]
+
     try:
         response = litellm.completion(
             model=llm.full_name,
-            api_base=llm.base_url,
+            api_base=base_url,
             api_key=api_key,
             messages=[{"role": "user", "content": prompt}],
             temperature=llm.temperature or 0.0,
