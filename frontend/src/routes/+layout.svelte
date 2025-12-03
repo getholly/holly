@@ -80,7 +80,14 @@
   class={`flex flex-col bg-theme-light-bg dark:bg-theme-dark-bg ${$page.url.pathname === "/" ? "test" : "h-screen max-h-screen overflow-hidden"}`}
 >
   <Navbar />
-  <main class={`flex-grow ${$page.url.pathname.startsWith('/github') ? 'overflow-y-auto' : 'overflow-hidden'}`}>
+  <main class={`flex-grow ${
+    $page.url.pathname.startsWith('/github') || 
+    $page.url.pathname.startsWith('/missions') || 
+    $page.url.pathname.startsWith('/dashboard') || 
+    $page.url.pathname.startsWith('/wizard')
+      ? 'overflow-y-auto' 
+      : 'overflow-hidden'
+  }`}>
     <slot></slot>
   </main>
 </div>

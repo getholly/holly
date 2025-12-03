@@ -30,15 +30,15 @@
 </script>
 
 <div
-  class="relative group transition-all duration-200 hover:shadow-lg cursor-pointer h-full"
+  class="relative group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer h-full rounded-xl overflow-hidden"
   on:click={handleSelect}
   on:keydown={(e) => e.key === "Enter" && handleSelect()}
   role="button"
   tabindex="0"
 >
   <Card
-    class={`h-full flex flex-col justify-between border-2 ${isSelected ? "border-blue-500 dark:border-blue-500" : "border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700"}`}
-    padding="md"
+    class={`h-full flex flex-col justify-between border ${isSelected ? "border-blue-500 dark:border-blue-500 shadow-md" : "border-gray-200 dark:border-gray-700 hover:border-cyan-400 dark:hover:border-cyan-600"} transition-colors duration-300 bg-white dark:bg-slate-800/50 backdrop-blur-sm`}
+    padding="lg"
   >
     <!-- Header -->
     <div class="flex justify-between items-start mb-2">

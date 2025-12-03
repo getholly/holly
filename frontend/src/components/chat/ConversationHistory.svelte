@@ -125,7 +125,7 @@
   }
 </script>
 
-<h2 class="text-xl font-bold mb-4 dark:text-gray-200">
+<h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-gray-200">
   Previous Conversations
 </h2>
 <div class="h-full">

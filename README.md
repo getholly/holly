@@ -172,3 +172,7 @@ That's it! The Django backend will spin up Hilly containers automatically when y
 ---
 ## Who's Holly? 
 If you've made it this far, you maybe wondering who's Holly? Well if you were around in the UK during the 80's/90's there was a cult sci-fi TV series called Red Dwarf. The ship's onboard AI computer was called Holly and used to have an IQ of over 6000, but sadly became computer senile after drifting lost in space for over 3 million years. Hilly was the female version of Holly from a parallel universe. This project is a tribute to that TV series that kept me amused whilst growing up in those days!
+
+Contributors hall of fame:
+Ling Li
+Johnathan Dawber
