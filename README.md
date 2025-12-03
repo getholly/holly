@@ -11,6 +11,27 @@ Swap out the backend docker container with your own setup and work safe in the k
 Use any open source or frontier model, on cloud or locally deployed. 
 
 ---
+## Prerequisites
+
+### Required (for Containerized Run)
+*   **Docker** and **Docker Compose**
+    *   [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows/Mac) or Docker Engine (Linux).
+    *   This is the recommended way to run the full stack.
+
+### For Local Development
+If you plan to run services locally outside of Docker:
+*   **Python 3.11**
+*   **uv** (Python package manager)
+    *   Install via: `curl -LsSf https://astral.sh/uv/install.sh | sh` (Unix) or `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"` (Windows).
+    *   See [uv documentation](https://github.com/astral-sh/uv).
+*   **Node.js 20+**
+    *   The dev container uses Node.js 23, but v20/v22 (LTS) should work for local dev.
+*   **npm** (included with Node.js)
+
+### LLM Provider
+You'll need access to an LLM provider to power the AI agents:
+*   **API-based providers**: OpenAI, Anthropic (Claude), Google Gemini, etc. Configure API keys in your environment variables.
+*   **Local models**: Use [Ollama](https://ollama.ai/) or similar to run models locally. Ensure the local endpoint is accessible to the backend.
 
 ## Quick Start
 
@@ -141,12 +162,6 @@ That's it! The Django backend will spin up Hilly containers automatically when y
 
 ---
 
-## Prerequisites
-- Python 3.11 with [uv](https://docs.astral.sh/uv/) for dependency management (installed inside the Docker image as well).
-- Node.js 22.x via NVM for the Svelte workspace.
-- Docker/Docker Compose for mission containers and supporting infrastructure.
-
----
 
 ## Running the Full Stack with Docker Compose
 - Copy the appropriate `.env.develop` or `.env.production` file and update secrets or run either `setup_gh_vars.sh` or `setup_gh_vars.py`
