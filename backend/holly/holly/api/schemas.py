@@ -249,3 +249,42 @@ class PRStatusResponse(Schema):
     pr_number: int | None = None
     pr_url: str | None = None
     error: str | None = None
+
+
+# Slash Command Schemas
+class SlashCommandCreate(Schema):
+    """Schema for creating a slash command."""
+
+    name: str
+    command_type: str  # 'replacement' or 'function'
+    description: str | None = ""
+    replacement_text: str | None = ""
+    function_path: str | None = ""
+    is_active: bool = True
+
+
+class SlashCommandUpdate(Schema):
+    """Schema for updating a slash command."""
+
+    name: str | None = None
+    command_type: str | None = None
+    description: str | None = None
+    replacement_text: str | None = None
+    function_path: str | None = None
+    is_active: bool | None = None
+
+
+class SlashCommandSchema(Schema):
+    """Schema for slash command responses."""
+
+    id: str
+    name: str
+    command_type: str
+    description: str | None = ""
+    replacement_text: str | None = ""
+    function_path: str | None = ""
+    is_system: bool
+    is_active: bool
+    usage_count: int
+    created_at: datetime
+    updated_at: datetime

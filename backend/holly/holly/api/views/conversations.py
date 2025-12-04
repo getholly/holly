@@ -265,6 +265,42 @@ async def send_message(request: HttpRequest, conversation_id: str, message_creat
         logger.error(f"Conversation {conversation_id} not found for user {request.user}")
         raise ValueError(CONVERSATION_NOT_FOUND_MSG) from e
 
+    # ========================================================================
+    # SLASH COMMAND PROCESSING
+    # ========================================================================
+    from holly.holly.services.slash_command_service import SlashCommandService
+
+    command_result = await SlashCommandService.process_message(
+        message=message_create.content,
+        user=request.user,
+        context={'conversation_id': str(conversation_id)}
+    )
+
+    if command_result.error_message:
+        # Save failed command attempt
+        user_message = await Message.objects.acreate(
+            conversation=mission_conversation,
+            role="user",
+            content=message_create.content
+        )
+        error_message = await Message.objects.acreate(
+            conversation=mission_conversation,
+            role="assistant",
+            content=f"Error: {command_result.error_message}"
+        )
+        return {
+            "status": "error",
+            "user_message": {"id": str(user_message.id), "content": user_message.content},
+            "assistant_message": {"id": str(error_message.id), "content": error_message.content}
+        }
+
+    # Replace message content with processed version
+    message_create.content = command_result.processed_message
+
+    # ========================================================================
+    # END SLASH COMMAND PROCESSING
+    # ========================================================================
+
     @sync_to_async
     def get_mission_id():
         if mission_conversation.mission:

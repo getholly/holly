@@ -8,6 +8,7 @@ from holly.holly.api.views.knowledge import router as knowledge_router
 from holly.holly.api.views.llm import router as llm_router
 from holly.holly.api.views.mission import router as mission_router
 from holly.holly.api.views.notifications import router as notifications_router
+from holly.holly.api.views.slash_commands import router as slash_commands_router
 from holly.holly.api.views.tools import router as tool_router
 from holly.holly.api.views.user_llm_api_key_views import router as llm_keys_router
 from holly.holly.api.views.webhooks import router as webhooks_router
@@ -24,4 +25,5 @@ router.add_router("/caddy", caddy_router, tags=["Caddy"])
 router.add_router("/missions", mission_router, tags=["Missions"])
 router.add_router("/llmkeys", llm_keys_router, tags=["LLM Keys"])
 router.add_router("/notifications", notifications_router, tags=["Notifications"])
+router.add_router("/slash-commands", slash_commands_router, tags=["Slash Commands"])
 router.add_router("/webhooks", webhooks_router, tags=["Webhooks"])

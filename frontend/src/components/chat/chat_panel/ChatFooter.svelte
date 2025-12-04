@@ -4,14 +4,53 @@
   import { TrashBinOutline } from "flowbite-svelte-icons";
   import { createEventDispatcher } from "svelte";
   import { prompt } from "$lib/store/chat/chat.store";
+  import SlashCommandAutocomplete from "./SlashCommandAutocomplete.svelte";
+  import type { SlashCommand } from "$lib/types/slash-commands";
 
   const dispatch = createEventDispatcher();
   export let isChatLoading = false;
 
-  let textareaElement;
+  let textareaElement: HTMLTextAreaElement | null = null;
+  let autocompleteComponent: any = null;
+
+  // Slash command autocomplete state
+  let showAutocomplete = false;
+  let autocompleteQuery = '';
+  let slashStartPosition = -1;
 
   // Reactive variable to check if there's text
   $: hasText = $prompt.trim().length > 0;
+
+  /**
+   * Detect if the cursor is in a slash command
+   */
+  function detectSlashCommand(text: string, cursorPos: number): { query: string; startPos: number } | null {
+    let slashPos = -1;
+
+    // Search backwards from cursor position
+    for (let i = cursorPos - 1; i >= 0; i--) {
+      if (text[i] === '/') {
+        // Check if this is a valid slash command start (at start of line or after whitespace)
+        if (i === 0 || /\s/.test(text[i - 1])) {
+          slashPos = i;
+          break;
+        }
+      } else if (/\s/.test(text[i])) {
+        // Hit whitespace before finding a slash
+        break;
+      }
+    }
+
+    if (slashPos === -1) return null;
+
+    // Extract the query between slash and cursor
+    const query = text.substring(slashPos + 1, cursorPos);
+
+    // If query contains whitespace, it's not a valid command name
+    if (/\s/.test(query)) return null;
+
+    return { query, startPos: slashPos };
+  }
 
   function autoResize(event) {
     const textarea = event.target;
@@ -43,6 +82,12 @@
   }
 
   function handleKeyPress(event) {
+    // Let autocomplete handle navigation if visible
+    if (showAutocomplete && autocompleteComponent) {
+      const handled = autocompleteComponent.handleKeyNavigation(event);
+      if (handled) return;
+    }
+
     // Check if Enter is pressed without Shift
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault(); // Prevent new line
@@ -57,7 +102,52 @@
   }
 
   function handleInput(event) {
+    const target = event.target as HTMLTextAreaElement;
+    const cursorPos = target.selectionStart;
+
+    // Check if we're in a slash command
+    const slashCommand = detectSlashCommand($prompt, cursorPos);
+
+    if (slashCommand) {
+      showAutocomplete = true;
+      autocompleteQuery = slashCommand.query;
+      slashStartPosition = slashCommand.startPos;
+    } else {
+      showAutocomplete = false;
+    }
+
     autoResize(event);
+  }
+
+  /**
+   * Handle command selection from autocomplete
+   */
+  function handleCommandSelect(event: CustomEvent<{ command: SlashCommand }>) {
+    const { command } = event.detail;
+
+    // Replace the slash command with the selected command name
+    const beforeSlash = $prompt.substring(0, slashStartPosition);
+    const afterCursor = $prompt.substring(textareaElement?.selectionStart || $prompt.length);
+
+    prompt.set(`${beforeSlash}/${command.name} ${afterCursor}`);
+    showAutocomplete = false;
+
+    // Focus textarea and set cursor position after the command
+    if (textareaElement) {
+      textareaElement.focus();
+      const newCursorPos = beforeSlash.length + command.name.length + 2; // +2 for '/' and space
+      textareaElement.setSelectionRange(newCursorPos, newCursorPos);
+
+      // Trigger resize
+      autoResize({ target: textareaElement });
+    }
+  }
+
+  /**
+   * Handle autocomplete close
+   */
+  function handleAutocompleteClose() {
+    showAutocomplete = false;
   }
 
   // Watch for prompt changes (when it gets cleared after sending)
