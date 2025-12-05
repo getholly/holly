@@ -72,7 +72,7 @@ export async function getLLM(id: number): Promise<LLMSchema> {
 export async function createLLM(data: LLMCreateData): Promise<LLMSchema> {
   try {
     return await getApiClient().hollyHollyApiViewsLlmCreateLlm({
-      requestBody: data as any,
+      lLMCreate: data as any,
     });
   } catch (error) {
     console.error("Error creating LLM:", error);
@@ -93,7 +93,7 @@ export async function updateLLM(
   try {
     return await getApiClient().hollyHollyApiViewsLlmUpdateLlm({
       llmId: id,
-      requestBody: data as any,
+      lLMUpdate: data as any,
     });
   } catch (error) {
     console.error(`Error updating LLM with ID ${id}:`, error);

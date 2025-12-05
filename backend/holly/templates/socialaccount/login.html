@@ -5,9 +5,9 @@
   {% trans "Sign In" %}
 {% endblock head_title %}
 {% block content %}
-  <section class="dark:bg-gray-800 h-full dark:text-gray-200 flex justify-center justify-center ">
+  <section class="w-full dark:bg-gray-800 min-h-screen dark:text-gray-200 flex justify-center items-center px-4 sm:px-6 lg:px-8">
     <div
-      class="dark:bg-transparent rounded-2xl  mt-24 px-4 min-w-64 min-h-64 flex flex-col justify-center items-center box-shadow ">
+      class="dark:bg-transparent rounded-2xl w-full max-w-md px-6 py-8 flex flex-col justify-center items-center box-shadow">
       {% if process == "connect" %}
         {% element h1 %}
           {% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}

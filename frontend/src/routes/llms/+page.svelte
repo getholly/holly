@@ -307,7 +307,7 @@
   }
 </script>
 
-<div class="container mx-auto p-6 max-h-screen overflow-y-auto">
+<div class="container mx-auto p-6 min-h-screen">
   <div
     class="mb-6 flex justify-between items-center sticky top-0 bg-white dark:bg-gray-900 z-10 pb-4"
   >

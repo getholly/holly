@@ -1,15 +1,14 @@
 {% extends "account/base_entrance.html" %}
-{% load i18n %}
-{% load allauth account %}
+{% load allauth i18n %}
 {% block head_title %}
-  {% trans "Sign In" %}
-{% endblock head_title %}f
+  {% trans "Signup" %}
+{% endblock head_title %}
 {% block content %}
   <section class="w-full dark:bg-gray-800 min-h-screen dark:text-gray-200 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
     <div
       class="bg-white dark:bg-transparent rounded-2xl w-full max-w-md px-6 py-8 flex flex-col justify-center items-center box-shadow">
       {% element h1 %}
-        {% trans "Sign In" %}
+        {% trans "Sign Up" %}
       {% endelement %}
       <div class="p-4 text-center text-sm md:text-base">
         Your Github login will only be used to access public Github repositories. If you wish to run against private
@@ -22,17 +21,16 @@
       </div>
       {% if not SOCIALACCOUNT_ONLY %}
         {% setvar link %}
-          <a href="{{ signup_url }}">
+          <a href="{{ login_url }}">
         {% endsetvar %}
-      {% setvar end_link %}
-        </a>
-      {% endsetvar %}
+        {% setvar end_link %}
+          </a>
+        {% endsetvar %}
         {% element p %}
-          {% blocktranslate %}If you have not created an account yet, then please {{ link }}sign up{{ end_link }} first.
-          {% endblocktranslate %}
+          {% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}
         {% endelement %}
-        {% url 'account_login' as login_url %}
-        {% element form form=form method="post" action=login_url tags="entrance,login" %}
+        {% url 'account_signup' as action_url %}
+        {% element form form=form method="post" action=action_url tags="entrance,signup" %}
           {% slot body %}
             {% csrf_token %}
             {% element fields form=form unlabeled=True %}
@@ -40,26 +38,17 @@
             {{ redirect_field }}
           {% endslot %}
           {% slot actions %}
-            {% element button type="submit" tags="prominent,login" %}
-              {% trans "Sign In" %}
+            {% element button tags="prominent,signup" type="submit" %}
+              {% trans "Sign Up" %}
             {% endelement %}
           {% endslot %}
         {% endelement %}
       {% endif %}
-      {% if LOGIN_BY_CODE_ENABLED or PASSKEY_LOGIN_ENABLED %}
+      {% if PASSKEY_SIGNUP_ENABLED %}
         {% element hr %}
         {% endelement %}
-        {% element button_group vertical=True %}
-          {% if PASSKEY_LOGIN_ENABLED %}
-            {% element button type="submit" form="mfa_login" id="passkey_login" tags="prominent,login,outline,primary" %}
-              {% trans "Sign in with a passkey" %}
-            {% endelement %}
-          {% endif %}
-          {% if LOGIN_BY_CODE_ENABLED %}
-            {% element button href=request_login_code_url tags="prominent,login,outline,primary" %}
-              {% trans "Mail me a sign-in code" %}
-            {% endelement %}
-          {% endif %}
+        {% element button href=signup_by_passkey_url tags="prominent,signup,outline,primary" %}
+          {% trans "Sign up using a passkey" %}
         {% endelement %}
       {% endif %}
       {% if SOCIALACCOUNT_ENABLED %}
@@ -71,9 +60,3 @@
     </div>
   </section>
 {% endblock content %}
-{% block extra_body %}
-  {{ block.super }}
-  {% if PASSKEY_LOGIN_ENABLED %}
-    {% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
-  {% endif %}
-{% endblock %}

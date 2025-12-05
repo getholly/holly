@@ -178,7 +178,10 @@ def update_mission(request: HttpRequest, mission_id: UUID, mission_data: Mission
 @router.delete("/{mission_id}", response=GenericResponse)
 def delete_mission(request: HttpRequest, mission_id: UUID) -> GenericResponse:
     """
-    Delete a mission.
+    Delete a mission and clean up associated container resources.
+
+    This endpoint stops and removes the Docker container (if running),
+    cleans up temporary directories, and deletes the mission from the database.
 
     Args:
         request: The HTTP request
@@ -192,6 +195,17 @@ def delete_mission(request: HttpRequest, mission_id: UUID) -> GenericResponse:
     # Only the owner can delete the mission
     if request.user != mission.owner:
         return GenericResponse(success=False, message="Only the mission owner can delete this mission")
+
+    # Stop and remove container if it exists
+    if mission.container_id:
+        stop_success, stop_message = mission_service.stop_mission_container(
+            mission_id=mission_id,
+            user=request.user
+        )
+
+        if not stop_success:
+            logger.warning(f"Could not stop container for mission {mission_id}: {stop_message}")
+            # Continue with deletion even if container stop fails
 
     try:
         # Delete the mission
