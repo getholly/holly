@@ -244,9 +244,12 @@ def handle_installation_callback(request: HttpRequest, payload: InstallationCall
         # Save to the new user-centric model
         from holly.users.github_models import GitHubAccountInstallation
 
-        GitHubAccountInstallation.objects.update_or_create(
+        # Ensure installation_id is a string
+        installation_id_str = str(payload.installation_id)
+
+        installation, created = GitHubAccountInstallation.objects.update_or_create(
             user_github_account=primary_account,
-            installation_id=payload.installation_id,
+            installation_id=installation_id_str,
             defaults={
                 "account_name": account_name,
                 "account_type": account_type,
@@ -255,12 +258,17 @@ def handle_installation_callback(request: HttpRequest, payload: InstallationCall
             },
         )
 
+        logger.info(
+            f"[handle_installation_callback] Installation {installation_id_str} {'created' if created else 'updated'} "
+            f"for user {request.user.id}, account {primary_account.github_login}"
+        )
+
         # Clear the state from session
         if hasattr(request, "session") and "github_app_install_state" in request.session:
             del request.session["github_app_install_state"]
 
         logger.info(
-            f"Successfully installed GitHub App for user {request.user.id}, installation {payload.installation_id}"
+            f"Successfully installed GitHub App for user {request.user.id}, installation {installation_id_str}"
         )
 
         return {
