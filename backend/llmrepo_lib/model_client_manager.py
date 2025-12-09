@@ -267,7 +267,7 @@ class OllamaClientManager(ModelClientManager):
         self.model_name = model.value
         # For Ollama, the "api_key" is used as base URL
         self.api_key = api_key
-        self.base_url = "http://10.13.1.11:11434/v1"
+        self.base_url = "http://localhost:11434/v1"  # assuming you are running ollama on your local machine
         self._client = None
 
     def get_client(self) -> Any:

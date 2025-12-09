@@ -8,9 +8,17 @@ The project combines a Svelte frontend with a Django-based application layer tha
 
 Swap out the backend docker container with your own setup and work safe in the knowledge that your LLM will be safely contained away from your main OS. 
 
-Use any open source or frontier model, on cloud or locally deployed. 
+Use any open source or frontier model, on cloud or locally deployed.
 
 ---
+
+WARNING: do not currently run this repo on remotely accessible systems, the current docker image
+runs with priviledged: true to allow for vnc access. This may allow for escape from container.
+Alternatively you can reconfigure Hilly with your own customised, hardened docker container, if
+you do not need VNC like access to your container.
+
+---
+
 ## Prerequisites
 
 ### Required (for Containerized Run)
@@ -46,7 +54,6 @@ uv run manage.py populate_tools # optional
 uv run manage.py populate knowledge # optional
 uv run manage.py runserver
 ```
-
 ### 2. Frontend
 
 ```bash

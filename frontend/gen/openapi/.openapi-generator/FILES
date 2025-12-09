@@ -14,7 +14,6 @@ src/apis/LLMKeysApi.ts
 src/apis/LLMsApi.ts
 src/apis/MissionsApi.ts
 src/apis/NotificationsApi.ts
-src/apis/ThemesApi.ts
 src/apis/ToolsApi.ts
 src/apis/UsersApi.ts
 src/apis/WebhooksApi.ts
@@ -96,12 +95,6 @@ src/models/RepositoryFilters.ts
 src/models/RepositorySchema.ts
 src/models/SocialAccountInfoSchema.ts
 src/models/State.ts
-src/models/ThemeAssetSchema.ts
-src/models/ThemeCreateSchema.ts
-src/models/ThemeListSchema.ts
-src/models/ThemeMetaSchema.ts
-src/models/ThemeSchema.ts
-src/models/ThemeUpdateSchema.ts
 src/models/TokenObtainPairInputSchema.ts
 src/models/TokenObtainPairOutputSchema.ts
 src/models/TokenRefreshInputSchema.ts
@@ -114,9 +107,6 @@ src/models/UserLLMApiKeySchema.ts
 src/models/UserLLMApiKeyUpdateSchema.ts
 src/models/UserResponseSchema.ts
 src/models/UserSignupSchema.ts
-src/models/UserThemeCustomSchema.ts
-src/models/UserThemeResponseSchema.ts
-src/models/UserThemeSelectSchema.ts
 src/models/WebhookPayload.ts
 src/models/WorktreeRequest.ts
 src/models/index.ts

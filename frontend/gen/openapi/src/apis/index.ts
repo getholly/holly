@@ -11,7 +11,6 @@ export * from "./LLMKeysApi";
 export * from "./LLMsApi";
 export * from "./MissionsApi";
 export * from "./NotificationsApi";
-export * from "./ThemesApi";
 export * from "./ToolsApi";
 export * from "./UsersApi";
 export * from "./WebhooksApi";
