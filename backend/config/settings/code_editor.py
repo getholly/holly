@@ -25,7 +25,7 @@ CODE_EDITOR_PUBLIC_HOST = os.environ.get("CODE_EDITOR_PUBLIC_HOST", "localhost")
 
 # Claude VNC Container settings
 USE_CLAUDE_CONTAINER = os.environ.get("USE_CLAUDE_CONTAINER", "True").lower() in ("true", "1", "yes")
-CLAUDE_EDITOR_CONTAINER_IMAGE = os.environ.get("CLAUDE_EDITOR_CONTAINER_IMAGE", "claude-vnc-container:latest")
+CLAUDE_EDITOR_CONTAINER_IMAGE = os.environ.get("CLAUDE_EDITOR_CONTAINER_IMAGE", "lingster/hilly:latest")
 CLAUDE_EDITOR_API_PORT = int(os.environ.get("CLAUDE_EDITOR_API_PORT", "8002"))
 CLAUDE_EDITOR_VNC_PORT = int(os.environ.get("CLAUDE_EDITOR_VNC_PORT", "5901"))
 CLAUDE_EDITOR_NOVNC_PORT = int(os.environ.get("CLAUDE_EDITOR_NOVNC_PORT", "6080"))
