@@ -59,7 +59,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
-          context: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}/claude-vnc-container
+          context: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}/hilly
           push: true
-          tags: ghcr.io/techarge/claude-vnc-container-holly:latest
+          tags: ghcr.io/lingster/hilly:latest
           provenance: false

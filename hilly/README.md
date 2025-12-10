@@ -86,3 +86,39 @@ If you encounter issues with the VNC server:
    docker-compose restart
    ```
 
+## Building for dockerhub
+This image is available on dockerhub:
+
+To update a new image use:
+
+  1. Log in to Docker Hub:
+```
+  docker login
+```
+  2. Build the image with a tag:
+```
+  docker buildx build -t lingster/hilly:0.0.1 .
+```
+  3. Push to Docker Hub:
+```
+  docker push lingster/hilly:0.0.1
+```
+  4. Also tag as latest
+```
+  docker tag lingster/hilly:1.0.0 lingster/hilly:latest
+```
+  # Push both tags
+```
+  docker push lingster/hilly:0.0.1
+  docker push lingster/hilly:latest
+```
+  Important Notes
+
+  1. Git submodules - The Dockerfile comments mention you need to initialize submodules first:
+```
+  git submodule init && git submodule update
+```
+  2. Multi-platform build (optional) - If you need to support both AMD64 and ARM64:
+```
+  docker buildx build --platform linux/amd64,linux/arm64 -t lingster/hilly:0.0.1 --push .
+```
