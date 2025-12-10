@@ -5,7 +5,7 @@ Holly container configuration settings
 import os
 
 # Docker image for holly container
-HOLLY_CONTAINER_IMAGE = os.environ.get("HOLLY_CONTAINER_IMAGE", "claude-vnc-container-holly:latest")
+HOLLY_CONTAINER_IMAGE = os.environ.get("HOLLY_CONTAINER_IMAGE", "lingster/hilly:latest")
 
 # Network name for holly containers
 HOLLY_NETWORK = os.environ.get("HOLLY_NETWORK", "custom_holly_network")

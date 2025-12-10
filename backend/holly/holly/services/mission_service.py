@@ -674,6 +674,7 @@ class MissionService:
                     "GIT_USER": "Holly Bot",
                     "REDIS_HOST": getattr(settings, 'REDIS_HOST', 'localhost'),
                     "REDIS_PORT": str(getattr(settings, 'REDIS_PORT', 6379)),
+                    "SHELLTOOLS_DIR": "/app/aiagents",
                 }
 
                 from django.utils import timezone
@@ -899,27 +900,33 @@ class MissionService:
         try:
             mission = await sync_to_async(Mission.objects.get)(id=mission_id)
 
-            # If READY (or IN_PROGRESS/COMPLETED with running container), return URL
-            if mission.state in [Mission.State.READY, Mission.State.IN_PROGRESS, Mission.State.COMPLETED]:
-                if mission.container_id and await sync_to_async(
-                    self.container_service.is_container_running
-                )(mission):
-                    # Try to use Docker host-mapped port for the REST API
-                    try:
-                        ports = await sync_to_async(self.container_service.get_container_ports)(mission.container_id)
-                        rest_host_port = ports.get("rest_api")
-                    except Exception as _e:  # noqa: BLE001
-                        rest_host_port = None
+            # If there's already a running container, always try to use it first
+            if mission.container_id and await sync_to_async(
+                self.container_service.is_container_running
+            )(mission):
+                try:
+                    ports = await sync_to_async(self.container_service.get_container_ports)(mission.container_id)
+                    rest_host_port = ports.get("rest_api")
+                except Exception as _e:  # noqa: BLE001
+                    rest_host_port = None
 
-                    if rest_host_port:
-                        # Always use localhost with host-mapped port for reliable connectivity
-                        return True, None, f"http://127.0.0.1:{rest_host_port}"
+                if rest_host_port:
+                    # If state is still provisioning but API is clearly up, self-heal mission state
+                    if mission.state == Mission.State.PROVISIONING:
+                        mission.state = Mission.State.READY
+                        mission.container_status = "ready"
+                        await sync_to_async(mission.save)(
+                            update_fields=["state", "container_status", "updated_at"]
+                        )
 
-                    # No host port mapping found - container may not be properly configured
-                    logger.error(f"Container {mission.container_id} has no REST API port mapping")
-                    return False, "Container REST API port not accessible. Please restart the container.", None
+                    # Always use localhost with host-mapped port for reliable connectivity
+                    return True, None, f"http://127.0.0.1:{rest_host_port}"
 
-            # If PROVISIONING, container is still initializing
+                # No host port mapping found - container may not be properly configured
+                logger.error(f"Container {mission.container_id} has no REST API port mapping")
+                return False, "Container REST API port not accessible. Please restart the container.", None
+
+            # If PROVISIONING, container is still initializing (or not yet running)
             if mission.state == Mission.State.PROVISIONING:
                 return False, "Container is initializing, please wait", None
 
