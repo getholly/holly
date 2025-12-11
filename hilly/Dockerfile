@@ -227,6 +227,10 @@ COPY custom_startup.sh $STARTUPDIR
 COPY kasm_configs/vnc_startup.sh /dockerstartup/
 COPY kasm_configs/kasmvnc_defaults.yaml /usr/share/kasmvnc/kasmvnc_defaults.yaml
 
+# Fix line endings (CRLF to LF) and set execute permissions for shell scripts
+RUN sed -i 's/\r$//' /dockerstartup/vnc_startup.sh /dockerstartup/custom_startup.sh && \
+    chmod +x /dockerstartup/vnc_startup.sh /dockerstartup/custom_startup.sh
+
 RUN usermod -aG video $USERNAME && usermod -aG video root
 
 ENV KASM_SVC_WEBCAM=0
