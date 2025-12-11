@@ -11,19 +11,105 @@ API_KEY = os.environ.get("OPENAI_API_KEY") or os.environ.get("API_KEY")
 SHELLTOOLS_DIR = os.environ.get("SHELLTOOLS_DIR") or ""
 
 from pathlib import Path
-from typing import Dict, Union
+from typing import Dict, Literal, Union
 
 
 class MCPServerConfig(BaseModel):
-    """Configuration for a single MCP server."""
+    """
+    Configuration for a single MCP server.
 
-    command: str = Field(..., description="The command to run the server")
+    Supports both stdio (local subprocess) and remote (HTTP/SSE) servers.
+    Remote servers are auto-detected by presence of 'url' field.
+    """
+
+    # Stdio server fields
+    command: str | None = Field(
+        default=None, description="The command to run the server (stdio only)"
+    )
     args: list[str] = Field(
         default_factory=list, description="Arguments to pass to the command"
     )
     env: dict[str, str] | None = Field(
         default=None, description="Environment variables for the server"
     )
+
+    # Remote server fields
+    url: str | None = Field(
+        default=None,
+        description="URL of the remote MCP server (for remote servers)"
+    )
+    transport: Literal["sse-first", "http-first", "sse-only", "http-only"] | None = Field(
+        default=None,
+        description="Transport protocol strategy for remote servers"
+    )
+    auth: dict[str, Any] | None = Field(
+        default=None,
+        description="Authentication configuration for remote servers"
+    )
+    headers: dict[str, str] | None = Field(
+        default=None,
+        description="Custom HTTP headers for remote servers"
+    )
+    debug: bool = Field(
+        default=False,
+        description="Enable debug logging for remote connections"
+    )
+
+    def model_post_init(self, __context: Any) -> None:
+        """
+        Post-initialization validation and setup.
+
+        For remote servers (with URL), automatically configure mcp-remote bridge.
+        """
+        # Validate: must have either url (remote) or command (stdio)
+        if not self.url and not self.command:
+            raise ValueError("MCPServerConfig must have either 'url' (remote) or 'command' (stdio)")
+
+        # If remote server, set up mcp-remote bridge
+        if self.url:
+            self._setup_remote_bridge()
+
+    def is_remote(self) -> bool:
+        """Check if this is a remote MCP server."""
+        return self.url is not None
+
+    def _setup_remote_bridge(self) -> None:
+        """
+        Configure mcp-remote as a bridge for remote MCP servers.
+
+        Sets up npx mcp-remote with appropriate arguments for transport,
+        authentication, headers, etc.
+        """
+        # Set default transport if not specified
+        if self.transport is None:
+            self.transport = "sse-first"
+
+        # Build mcp-remote command
+        self.command = "npx"
+        self.args = ["-y", "mcp-remote", self.url]
+
+        # Add transport strategy
+        self.args.extend(["--transport", self.transport])
+
+        # Add authentication headers
+        if self.auth:
+            auth_type = self.auth.get("type")
+            if auth_type == "api_key":
+                token = self.auth.get("token")
+                self.args.extend(["--header", f"X-API-Key:{token}"])
+            elif auth_type == "bearer":
+                token = self.auth.get("token")
+                self.args.extend(["--header", f"Authorization:Bearer {token}"])
+            # OAuth is handled by mcp-remote automatically
+
+        # Add custom headers
+        if self.headers:
+            for key, value in self.headers.items():
+                self.args.extend(["--header", f"{key}:{value}"])
+
+        # Add debug flag
+        if self.debug:
+            self.args.append("--debug")
 
 
 class MCPConfig(BaseModel):

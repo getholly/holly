@@ -60,12 +60,26 @@ class Command(BaseCommand):
         for name, config_data in tool_configs.items():
             try:
                 self._create_or_update_tool(
-                    name=name, description=config_data["description"], config=config_data["config"], force=force
+                    name=name,
+                    description=config_data["description"],
+                    config=config_data["config"],
+                    is_remote=config_data.get("is_remote", False),
+                    requires_auth=config_data.get("requires_auth", False),
+                    force=force,
                 )
             except Exception as ex:
                 logger.exception(f"Failed to populate: {name}/{ex}")
 
-    def _create_or_update_tool(self, name: str, description: str, config: dict[str, Any], *, force: bool) -> None:
+    def _create_or_update_tool(
+        self,
+        name: str,
+        description: str,
+        config: dict[str, Any],
+        *,
+        is_remote: bool = False,
+        requires_auth: bool = False,
+        force: bool,
+    ) -> None:
         """
         Create or update a Tool with the specified configuration.
 
@@ -73,6 +87,8 @@ class Command(BaseCommand):
             name: The name of the Tool
             description: The description of the Tool
             config: The JSON configuration for the Tool
+            is_remote: Whether this is a remote MCP server
+            requires_auth: Whether this tool requires authentication
             force: If True, recreate the Tool even if it already exists
         """
         # Check if the Tool already exists
@@ -86,11 +102,19 @@ class Command(BaseCommand):
             self.stdout.write(f"Updating existing Tool '{name}'.")
             existing_tool.description = description
             existing_tool.config = config
+            existing_tool.is_remote = is_remote
+            existing_tool.requires_auth = requires_auth
             existing_tool.save()
             return
 
         # Create new Tool
-        Tools.objects.create(name=name, description=description, config=config)
+        Tools.objects.create(
+            name=name,
+            description=description,
+            config=config,
+            is_remote=is_remote,
+            requires_auth=requires_auth,
+        )
         self.stdout.write(f"Created new Tool '{name}'.")
 
     def _get_tool_configs(self) -> dict[str, dict[str, Any]]:
@@ -105,6 +129,7 @@ class Command(BaseCommand):
             "browser": self._browser_tool_config(),
             "graphiti": self._graphiti_tool_config(),
             "context7": self._context7_config(),
+            "linear": self._linear_config(),
         }
 
     def _context7_config(self) -> dict[str, Any]:
@@ -154,4 +179,22 @@ class Command(BaseCommand):
                     "MODEL_NAME": "gpt-4o",
                 },
             },
+        }
+
+    def _linear_config(self) -> dict[str, Any]:
+        """
+        Generate the configuration for the Linear remote MCP server.
+
+        Linear is a remote MCP server that requires OAuth authentication.
+        Users will need to authenticate via OAuth to use this tool.
+        """
+        return {
+            "description": "Linear.app remote MCP server for issue tracking and project management",
+            "config": {
+                "url": "https://mcp.linear.app/sse",
+                "transport": "sse-first",
+                "auth": {"type": "oauth"},
+            },
+            "is_remote": True,
+            "requires_auth": True,
         }
