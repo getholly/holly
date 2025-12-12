@@ -18,7 +18,7 @@ from holly.holly.models.knowledge import Knowledge
 from holly.holly.models.llms import LLM
 from holly.holly.models.mission import Mission, MissionRepos
 from holly.holly.models.mission_conversation import MissionConversation
-from holly.holly.models.tools import Tools
+from holly.holly.models.tools import Tools, ToolAuth
 
 User = get_user_model()
 fake = Faker()
@@ -204,12 +204,45 @@ class ToolsFactory(DjangoModelFactory):
         django_get_or_create = ("name",)
 
     name = factory.Sequence(lambda n: f"tool-{n}")
+    description = factory.Faker("sentence")
     config = factory.LazyFunction(
         lambda: {
-            "file_editor": {
-                "description": "Edit files in the repository",
-                "enabled": True,
-            }
+            "command": "uv",
+            "args": ["run", "server.py"],
+        }
+    )
+    is_remote = False
+    requires_auth = False
+
+
+class RemoteToolsFactory(ToolsFactory):
+    """Factory for creating remote MCP tool configurations."""
+
+    name = factory.Sequence(lambda n: f"remote-tool-{n}")
+    config = factory.LazyFunction(
+        lambda: {
+            "url": "https://api.example.com/mcp",
+            "transport": "sse-first",
+        }
+    )
+    is_remote = True
+    requires_auth = False
+
+
+class ToolAuthFactory(DjangoModelFactory):
+    """Factory for creating tool authentication configurations."""
+
+    class Meta:
+        model = ToolAuth
+
+    user = factory.SubFactory(UserFactory)
+    tool = factory.SubFactory(RemoteToolsFactory, requires_auth=True)
+    auth_type = ToolAuth.AuthType.OAUTH
+    auth_data = factory.LazyFunction(
+        lambda: {
+            "access_token": fake.uuid4(),
+            "refresh_token": fake.uuid4(),
+            "expires_at": "2025-12-31T23:59:59Z",
         }
     )
 
