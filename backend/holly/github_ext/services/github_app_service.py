@@ -53,9 +53,9 @@ class GitHubAppService:
                 if r.status_code == HTTPStatus.OK:
                     repos += r.json().get("repositories", [])
                 else:
-                    logger.error(f"[installation] list repos failed: {r.status_code} - {r.text}")
+                    logger.error(f"[installation] list repos failed: {r.status_code} - {r.text[:500]}")
             except Exception as e:
-                    logger.error(f"[installation] request exception: {e} ")
+                    logger.error(f"[installation] request exception: {e} ", exc_info=True)
 
         # Second pass: if no installation tokens were present, but we have a user token,
         # discover installations and mint installation tokens using the App's JWT.

@@ -8,14 +8,38 @@ The project combines a Svelte frontend with a Django-based application layer tha
 
 Swap out the backend docker container with your own setup and work safe in the knowledge that your LLM will be safely contained away from your main OS. 
 
-Use any open source or frontier model, on cloud or locally deployed. 
+Use any open source or frontier model, on cloud or locally deployed.
 
 ---
+
 WARNING: do not currently run this repo on remotely accessible systems, the current docker image
 runs with priviledged: true to allow for vnc access. This may allow for escape from container.
-Alternatively you can reconfigure Hilly with your own customised, hardened docker container, if 
+Alternatively you can reconfigure Hilly with your own customised, hardened docker container, if
 you do not need VNC like access to your container.
+
 ---
+
+## Prerequisites
+
+### Required (for Containerized Run)
+*   **Docker** and **Docker Compose**
+    *   [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows/Mac) or Docker Engine (Linux).
+    *   This is the recommended way to run the full stack.
+
+### For Local Development
+If you plan to run services locally outside of Docker:
+*   **Python 3.11**
+*   **uv** (Python package manager)
+    *   Install via: `curl -LsSf https://astral.sh/uv/install.sh | sh` (Unix) or `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"` (Windows).
+    *   See [uv documentation](https://github.com/astral-sh/uv).
+*   **Node.js 20+**
+    *   The dev container uses Node.js 23, but v20/v22 (LTS) should work for local dev.
+*   **npm** (included with Node.js)
+
+### LLM Provider
+You'll need access to an LLM provider to power the AI agents:
+*   **API-based providers**: OpenAI, Anthropic (Claude), Google Gemini, etc. Configure API keys in your environment variables.
+*   **Local models**: Use [Ollama](https://ollama.ai/) or similar to run models locally. Ensure the local endpoint is accessible to the backend.
 
 ## Quick Start
 
@@ -30,7 +54,6 @@ uv run manage.py populate_tools # optional
 uv run manage.py populate knowledge # optional
 uv run manage.py runserver
 ```
-
 ### 2. Frontend
 
 ```bash
@@ -146,12 +169,6 @@ That's it! The Django backend will spin up Hilly containers automatically when y
 
 ---
 
-## Prerequisites
-- Python 3.11 with [uv](https://docs.astral.sh/uv/) for dependency management (installed inside the Docker image as well).
-- Node.js 22.x via NVM for the Svelte workspace.
-- Docker/Docker Compose for mission containers and supporting infrastructure.
-
----
 
 ## Running the Full Stack with Docker Compose
 - Copy the appropriate `.env.develop` or `.env.production` file and update secrets or run either `setup_gh_vars.sh` or `setup_gh_vars.py`
@@ -177,3 +194,7 @@ That's it! The Django backend will spin up Hilly containers automatically when y
 ---
 ## Who's Holly? 
 If you've made it this far, you maybe wondering who's Holly? Well if you were around in the UK during the 80's/90's there was a cult sci-fi TV series called Red Dwarf. The ship's onboard AI computer was called Holly and used to have an IQ of over 6000, but sadly became computer senile after drifting lost in space for over 3 million years. Hilly was the female version of Holly from a parallel universe. This project is a tribute to that TV series that kept me amused whilst growing up in those days!
+
+Contributors hall of fame:
+Ling Li
+Johnathan Dawber

@@ -47,9 +47,7 @@
     hasApiKey: boolean;
     apiKeyId?: number;
     maskedApiKey?: string;
-    isEditingLLM?: boolean;
     isEditingApiKey?: boolean;
-    editData?: Partial<LLMSchema>;
     showApiKey?: boolean;
   }
 
@@ -60,11 +58,25 @@
 
   // Modal states
   let showAddLLMModal = false;
+  let showEditLLMModal = false;
   let showDeleteConfirmModal = false;
   let llmToDelete: LLMWithApiKey | null = null;
+  let llmToEdit: LLMWithApiKey | null = null;
 
   // Form data
   let newLLM: LLMCreateData = {
+    name: "",
+    full_name: "",
+    base_url: "",
+    system_prompt: "",
+    temperature: 0.7,
+    max_tokens: 4096,
+    top_p: null,
+    top_k: null,
+    min_p: null,
+  };
+
+  let editLLM: LLMUpdateData = {
     name: "",
     full_name: "",
     base_url: "",
@@ -112,7 +124,6 @@
           hasApiKey: !!apiKey,
           apiKeyId: apiKey?.id,
           maskedApiKey: apiKey?.api_key,
-          isEditingLLM: false,
           isEditingApiKey: false,
           showApiKey: false,
         };
@@ -132,40 +143,50 @@
   function startEditLLM(llm: LLMWithApiKey) {
     if (llm.is_system) return; // Can't edit system LLMs
 
-    llms = llms.map((l) =>
-      l.id === llm.id ? { ...l, isEditingLLM: true, editData: { ...l } } : l,
-    );
+    llmToEdit = llm;
+    // Populate edit form with current LLM data
+    editLLM = {
+      name: llm.name || "",
+      full_name: llm.full_name || "",
+      base_url: llm.base_url || "",
+      system_prompt: llm.system_prompt || "",
+      temperature: llm.temperature ?? 0.7,
+      max_tokens: llm.max_tokens ?? 4096,
+      top_p: llm.top_p ?? null,
+      top_k: llm.top_k ?? null,
+      min_p: llm.min_p ?? null,
+    };
+    showEditLLMModal = true;
   }
 
-  function cancelEditLLM(llmId: number) {
-    llms = llms.map((l) =>
-      l.id === llmId ? { ...l, isEditingLLM: false, editData: undefined } : l,
-    );
+  function cancelEditLLM() {
+    showEditLLMModal = false;
+    llmToEdit = null;
+    editLLM = {
+      name: "",
+      full_name: "",
+      base_url: "",
+      system_prompt: "",
+      temperature: 0.7,
+      max_tokens: 4096,
+      top_p: null,
+      top_k: null,
+      min_p: null,
+    };
   }
 
-  async function saveEditLLM(llm: LLMWithApiKey) {
-    if (!llm.editData) return;
+  async function saveEditLLM() {
+    if (!llmToEdit) return;
 
     try {
-      const updateData: LLMUpdateData = {
-        name: llm.editData.name,
-        full_name: llm.editData.full_name,
-        base_url: llm.editData.base_url,
-        system_prompt: llm.editData.system_prompt,
-        temperature: llm.editData.temperature,
-        max_tokens: llm.editData.max_tokens,
-        top_p: llm.editData.top_p,
-        top_k: llm.editData.top_k,
-        min_p: llm.editData.min_p,
-      };
-
-      const updated = await updateLLM(llm.id, updateData);
+      const updated = await updateLLM(llmToEdit.id, editLLM);
 
       llms = llms.map((l) =>
-        l.id === llm.id
-          ? { ...l, ...updated, isEditingLLM: false, editData: undefined }
-          : l,
+        l.id === llmToEdit.id ? { ...l, ...updated } : l,
       );
+
+      showEditLLMModal = false;
+      llmToEdit = null;
     } catch (err) {
       error = err instanceof Error ? err.message : "Failed to update LLM";
       console.error("Error updating LLM:", err);
@@ -199,7 +220,6 @@
         {
           ...created,
           hasApiKey: false,
-          isEditingLLM: false,
           isEditingApiKey: false,
         },
       ];
@@ -307,7 +327,7 @@
   }
 </script>
 
-<div class="container mx-auto p-6 max-h-screen overflow-y-auto">
+<div class="container mx-auto p-6 min-h-screen">
   <div
     class="mb-6 flex justify-between items-center sticky top-0 bg-white dark:bg-gray-900 z-10 pb-4"
   >
@@ -378,47 +398,22 @@
             <TableBodyRow>
               <!-- Name -->
               <TableBodyCell>
-                {#if llm.isEditingLLM && llm.editData}
-                  <Input
-                    bind:value={llm.editData.name}
-                    size="sm"
-                    class="w-full"
-                  />
-                {:else}
-                  <div class="font-medium">{llm.name}</div>
-                {/if}
+                <div class="font-medium">{llm.name}</div>
               </TableBodyCell>
 
               <!-- Model ID -->
               <TableBodyCell>
-                {#if llm.isEditingLLM && llm.editData}
-                  <Input
-                    bind:value={llm.editData.full_name}
-                    size="sm"
-                    class="w-full"
-                  />
-                {:else}
-                  <code
-                    class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                    >{llm.full_name}</code
-                  >
-                {/if}
+                <code
+                  class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
+                  >{llm.full_name}</code
+                >
               </TableBodyCell>
 
               <!-- Base URL -->
               <TableBodyCell>
-                {#if llm.isEditingLLM && llm.editData}
-                  <Input
-                    bind:value={llm.editData.base_url}
-                    size="sm"
-                    class="w-full"
-                    placeholder="Optional"
-                  />
-                {:else}
-                  <span class="text-sm text-gray-600 dark:text-gray-400"
-                    >{llm.base_url || "Default"}</span
-                  >
-                {/if}
+                <span class="text-sm text-gray-600 dark:text-gray-400"
+                  >{llm.base_url || "Default"}</span
+                >
               </TableBodyCell>
 
               <!-- Type Badge -->
@@ -487,24 +482,7 @@
 
               <!-- Actions -->
               <TableBodyCell>
-                {#if llm.isEditingLLM}
-                  <div class="flex gap-2">
-                    <Button
-                      size="xs"
-                      color="green"
-                      on:click={() => saveEditLLM(llm)}
-                    >
-                      <CheckOutline class="w-3 h-3" />
-                    </Button>
-                    <Button
-                      size="xs"
-                      color="red"
-                      on:click={() => cancelEditLLM(llm.id)}
-                    >
-                      <CloseOutline class="w-3 h-3" />
-                    </Button>
-                  </div>
-                {:else if !llm.is_system}
+                {#if !llm.is_system}
                   <div class="flex gap-2">
                     <Button
                       size="xs"
@@ -600,6 +578,45 @@
       </div>
     </div>
 
+    <div class="grid grid-cols-3 gap-4">
+      <div>
+        <Label for="top_p">Top P</Label>
+        <Input
+          id="top_p"
+          type="number"
+          step="0.01"
+          min="0"
+          max="1"
+          bind:value={newLLM.top_p}
+          placeholder="Optional"
+        />
+      </div>
+
+      <div>
+        <Label for="top_k">Top K</Label>
+        <Input
+          id="top_k"
+          type="number"
+          min="0"
+          bind:value={newLLM.top_k}
+          placeholder="Optional"
+        />
+      </div>
+
+      <div>
+        <Label for="min_p">Min P</Label>
+        <Input
+          id="min_p"
+          type="number"
+          step="0.01"
+          min="0"
+          max="1"
+          bind:value={newLLM.min_p}
+          placeholder="Optional"
+        />
+      </div>
+    </div>
+
     <div class="flex justify-end gap-2 pt-4">
       <Button color="alternative" on:click={() => (showAddLLMModal = false)}
         >Cancel</Button
@@ -607,6 +624,125 @@
       <Button type="submit" color="blue">Create LLM</Button>
     </div>
   </form>
+</Modal>
+
+<!-- Edit LLM Modal -->
+<Modal bind:open={showEditLLMModal} size="lg" title="Edit LLM">
+  {#if llmToEdit}
+    <form on:submit|preventDefault={saveEditLLM} class="space-y-4">
+      <div>
+        <Label for="edit_name">Name *</Label>
+        <Input
+          id="edit_name"
+          bind:value={editLLM.name}
+          placeholder="My Custom LLM"
+          required
+        />
+      </div>
+
+      <div>
+        <Label for="edit_full_name">Model ID *</Label>
+        <Input
+          id="edit_full_name"
+          bind:value={editLLM.full_name}
+          placeholder="openai/gpt-4"
+          required
+        />
+        <p class="text-sm text-gray-500 mt-1">
+          Format: provider/model (e.g., openai/gpt-4, anthropic/claude-3-opus)
+        </p>
+      </div>
+
+      <div>
+        <Label for="edit_base_url">Base URL</Label>
+        <Input
+          id="edit_base_url"
+          bind:value={editLLM.base_url}
+          placeholder="https://api.openai.com/v1"
+        />
+        <p class="text-sm text-gray-500 mt-1">
+          Leave empty for default provider URL
+        </p>
+      </div>
+
+      <div>
+        <Label for="edit_system_prompt">System Prompt</Label>
+        <Textarea
+          id="edit_system_prompt"
+          bind:value={editLLM.system_prompt}
+          rows="5"
+          placeholder="You are a helpful assistant..."
+        />
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <Label for="edit_temperature">Temperature</Label>
+          <Input
+            id="edit_temperature"
+            type="number"
+            step="0.1"
+            min="0"
+            max="2"
+            bind:value={editLLM.temperature}
+          />
+        </div>
+
+        <div>
+          <Label for="edit_max_tokens">Max Tokens</Label>
+          <Input
+            id="edit_max_tokens"
+            type="number"
+            bind:value={editLLM.max_tokens}
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <div>
+          <Label for="edit_top_p">Top P</Label>
+          <Input
+            id="edit_top_p"
+            type="number"
+            step="0.01"
+            min="0"
+            max="1"
+            bind:value={editLLM.top_p}
+            placeholder="Optional"
+          />
+        </div>
+
+        <div>
+          <Label for="edit_top_k">Top K</Label>
+          <Input
+            id="edit_top_k"
+            type="number"
+            min="0"
+            bind:value={editLLM.top_k}
+            placeholder="Optional"
+          />
+        </div>
+
+        <div>
+          <Label for="edit_min_p">Min P</Label>
+          <Input
+            id="edit_min_p"
+            type="number"
+            step="0.01"
+            min="0"
+            max="1"
+            bind:value={editLLM.min_p}
+            placeholder="Optional"
+          />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-4">
+        <Button color="alternative" on:click={cancelEditLLM}>Cancel</Button>
+        <Button type="submit" color="blue">Save Changes</Button>
+      </div>
+    </form>
+  {/if}
 </Modal>
 
 <!-- Delete Confirmation Modal -->

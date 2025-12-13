@@ -23,6 +23,7 @@
     wizardDescription,
   } from "$lib/store/wizard.store";
   import { base } from "$app/paths";
+  import { fade, slide } from "svelte/transition";
   import { llmsApi, toolsApi, knowledgeApi } from "$lib/apis/api.config";
   import type {
     LLMSchema,
@@ -296,7 +297,7 @@
   class="container mx-auto px-4 py-8 max-w-4xl border-2 border-green-600"
   on:keydown={handleKeydown}
 >
-  <h1 class="text-2xl font-bold mb-6 text-center dark:text-gray-200">
+  <h1 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-gray-200">
     Project Setup Wizard
   </h1>
 
@@ -309,9 +310,9 @@
   >
     {#if $wizardActiveStep === 1}
       <div class="space-y-4">
-        <h2 class="text-xl font-semibold">Enter Branch Name</h2>
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Enter Branch Name</h2>
         <div>
-          <Label for="branch-name">Branch Name</Label>
+          <Label for="branch-name" class="text-gray-900 dark:text-gray-200">Branch Name</Label>
           <Input
             id="branch-name"
             placeholder="Enter branch name"

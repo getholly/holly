@@ -342,6 +342,7 @@ async def send_message(request: HttpRequest, conversation_id: str, message_creat
         )
 
         # Enhanced content for container (with repository context)
+
         enhanced_content = repo_context_text + message_create.content
 
         # Get the correct model configuration using the LLM ID from the mission

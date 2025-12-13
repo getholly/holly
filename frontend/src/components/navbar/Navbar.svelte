@@ -62,6 +62,7 @@
   // Menu items
   const menuItems = [
     { name: "chat", href: routes.main.path }, // Use routes for consistency
+    { name: "Missions", href: routes.missions.path },
     { name: "dashboard", href: "/dashboard" },
     { name: "LLMs", href: "/llms" },
     // Uncomment the line below if you want to include the Upgrade link
