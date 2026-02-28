@@ -20,16 +20,16 @@ pub fn render_settings(f: &mut Frame, app: &App) {
         .block(Block::default().borders(Borders::BOTTOM));
     f.render_widget(header, chunks[0]);
 
-    let tab_idx = match app.settings_tab {
+    let tab_idx = match app.settings.tab {
         SettingsTab::General => 0,
         SettingsTab::Llm => 1,
         SettingsTab::Github => 2,
         SettingsTab::About => 3,
     };
-    let tabs = render_tabs(vec!["General", "LLM", "GitHub", "About"], tab_idx);
+    let tabs = render_tabs(&["General", "LLM", "GitHub", "About"], tab_idx);
     f.render_widget(tabs, chunks[1]);
 
-    match app.settings_tab {
+    match app.settings.tab {
         SettingsTab::General => render_general_tab(f, app, chunks[2]),
         SettingsTab::Llm => render_llm_tab(f, app, chunks[2]),
         SettingsTab::Github => render_github_tab(f, app, chunks[2]),
@@ -47,7 +47,7 @@ fn render_general_tab(f: &mut Frame, app: &App, area: Rect) {
     ])
     .split(area);
 
-    let url_input = Paragraph::new(app.settings_server_url.as_str())
+    let url_input = Paragraph::new(app.settings.server_url.as_str())
         .block(focused_block(" Server URL (Enter: save) "));
     f.render_widget(url_input, chunks[0]);
 
@@ -60,7 +60,7 @@ fn render_llm_tab(f: &mut Frame, app: &App, area: Rect) {
     let info = Paragraph::new(
         format!(
             "Configured LLMs: {}\nAPI Keys: {}\n\nGo to [l] LLMs screen to manage.",
-            app.llms.len(), app.api_keys.len()
+            app.llm.llms.len(), app.llm.api_keys.len()
         )
     )
     .block(titled_block(" LLM Settings "));
@@ -71,7 +71,7 @@ fn render_github_tab(f: &mut Frame, app: &App, area: Rect) {
     let info = Paragraph::new(
         format!(
             "Connected repositories: {}\n\nGo to [g] GitHub screen to manage.",
-            app.repositories.len()
+            app.github.repositories.len()
         )
     )
     .block(titled_block(" GitHub Settings "));

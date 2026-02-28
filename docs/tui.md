@@ -74,10 +74,10 @@ holly/
 ```bash
 # From repo root
 cd holly-client && cargo build       # build library
-cd holly-client && cargo test        # run 44 unit tests
+cd holly-client && cargo test        # run 45 unit tests
 
 cd tui && cargo build                # build TUI binary
-cd tui && cargo test                 # run 19 unit tests
+cd tui && cargo test                 # run 23 unit tests
 cd tui && cargo run                  # launch TUI
 
 # Full rebuild (equivalent of npm run api:full)
@@ -235,23 +235,58 @@ pub enum Screen {
 
 All mutable state lives in `App` (`src/app/state.rs`). There is no separate store or channel — state is owned by the main task and mutated synchronously in `handle_event`. The `HollyClient` is `Clone` (Arc-backed), so service handles can be cheaply created per-call without cloning data.
 
-Key fields:
+`App` is composed of domain sub-structs rather than a flat list of fields:
 
-| Field | Type | Purpose |
-|---|---|---|
-| `client` | `HollyClient` | All API access |
-| `current_screen` | `Screen` | Active view |
-| `missions` | `Vec<MissionSummary>` | Loaded mission list |
-| `selected_mission_idx` | `usize` | Keyboard selection |
-| `chat_messages` | `Vec<(String, String)>` | (role, content) pairs |
-| `chat_input` | `String` | Current message being typed |
-| `chat_state` | `ChatState` | `Idle` or `Streaming` |
-| `notification_state` | `NotificationState` | Notifications + unread count |
+```rust
+pub struct App {
+    pub config: Config,
+    pub client: HollyClient,
+    pub quit: bool,
+    pub current_screen: Screen,
+    pub status_msg: Option<String>,
+    pub error_msg: Option<String>,
+
+    pub auth: AuthState,          // login form fields, focused field
+    pub dashboard: DashboardState,// counts, recent conversations
+    pub missions: MissionsState,  // list, selected_idx, action, current
+    pub chat: ChatState,          // phase, messages, input, streaming_buffer, conversations, token_rx
+    pub github: GithubState,      // repositories, selected_idx
+    pub llm: LlmState,            // llms, api_keys, selected_idx
+    pub settings: SettingsState,  // tab, server_url
+    pub notifications: NotificationState, // notifications, unread_count
+}
+```
+
+**Chat streaming** uses a non-blocking channel pattern. `ChatPhase` (`Idle` | `Streaming`) tracks state:
+
+```rust
+// Sending a message — spawns task, never awaits in the render loop
+let (tx, rx) = mpsc::unbounded_channel::<String>();
+self.chat.token_rx = Some(rx);
+self.chat.phase = ChatPhase::Streaming;
+tokio::spawn(async move {
+    client.conversations().send_message_sse(&conv_id, &msg, |t| { let _ = tx.send(t); }).await.ok();
+    let _ = tx.send("\x00DONE\x00".into());
+});
+
+// on_tick() — drains channel without blocking, called every 200ms
+fn drain_streaming_tokens(&mut self) {
+    loop {
+        match rx.try_recv() {
+            Ok(token) if token == "\x00DONE\x00" => { /* commit buffer, set Idle */ break; }
+            Ok(token) => self.chat.streaming_buffer.push_str(&token),
+            Err(_) => break,
+        }
+    }
+}
+```
+
+`chat.streaming_buffer` is rendered live in a yellow-bordered "Streaming…" panel directly above the input box.
 
 ### Adding a new screen
 
 1. Add a variant to `Screen` in `src/app/state.rs`.
-2. Add any new state fields to `App`.
+2. Add a new domain sub-struct (e.g. `MyDomainState`) to `state.rs` and a field on `App`. Update `App::new`.
 3. Add a `handle_<screen>_key` method in `src/app/handlers.rs` and match it in `handle_event`.
 4. Add `handle_escape` logic for the new screen.
 5. Create `src/ui/<screen>.rs` with a `render_<screen>(f: &mut Frame, app: &App)` function.
@@ -268,7 +303,7 @@ Helper functions in `src/ui/helpers.rs`:
 | `page_layout(area)` | Returns `(content_rect, status_bar_rect)` — 2-line status bar at bottom |
 | `centered_rect(pct_x, pct_y, area)` | Modal-style centered rectangle |
 | `status_bar(status, error)` | Green status or red error paragraph |
-| `render_tabs(titles, selected)` | Ratatui Tabs widget |
+| `render_tabs(titles: &[&str], selected)` | Ratatui Tabs widget — slice, no Vec allocation |
 | `titled_block(title)` | Blue-border Block |
 | `focused_block(title)` | Cyan-border Block for active input |
 | `selected_style()` | Black-on-cyan highlight |
@@ -327,10 +362,13 @@ cargo check 2>&1 | grep "^error" | head -20
 ```
 
 Common issues:
-- **`temporary value dropped while borrowed` in `tokio::join!`**: the service object (`.missions()`, `.llms()`) returns a temporary. Bind it to a `let` before the `join!`:
+- **`temporary value dropped while borrowed` in `tokio::join!`**: the service object (`.missions()`, `.llms()`) returns a temporary. Either bind it to a `let` before the `join!`, or use a combined method on the service (e.g. `llms().list_with_keys()` fetches LLMs + API keys concurrently via `tokio::join!` internally, avoiding the lifetime issue):
   ```rust
+  // Option A: bind the temporary
   let svc = self.client.missions();
   let (a, b) = tokio::join!(svc.list(), svc.get("id"));
+  // Option B: combined service method (preferred for common pairs)
+  let (llms, keys) = self.client.llms().list_with_keys().await?;
   ```
 - **`module state is private`**: submodules used in `ui/` must be `pub mod state` in `app/mod.rs`.
 - **`cannot infer type`**: Rust needs a type hint for `execute_authed::<_B, T>` — always call via the typed wrappers (`get<T>`, `post<B, T>`).
@@ -386,16 +424,26 @@ let client = HollyClient::with_tokens(server_url, store);
 
 ### Real-time streaming in TUI (non-blocking)
 
-The current chat implementation awaits the full SSE stream before re-rendering. For token-by-token display, spawn the SSE call and feed tokens through a channel:
+Chat SSE uses a non-blocking channel. `send_message_sse` is called in a spawned task; the render loop never awaits it. The `on_tick()` handler drains the channel via `try_recv()` and appends tokens to `chat.streaming_buffer`, which renders as a live panel:
 
 ```rust
-let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel::<String>();
+// In handle_chat_key (Enter pressed):
+let (tx, rx) = mpsc::unbounded_channel::<String>();
+self.chat.token_rx = Some(rx);
+self.chat.phase = ChatPhase::Streaming;
 let client = self.client.clone();
 tokio::spawn(async move {
     client.conversations().send_message_sse(conv_id, content, |t| { let _ = tx.send(t); }).await.ok();
     let _ = tx.send("\x00DONE\x00".into());
 });
-// In handle_event(Tick): drain rx, append to streaming_buffer, trigger redraw
+
+// In on_tick() → drain_streaming_tokens():
+match rx.try_recv() {
+    Ok(t) if t == "\x00DONE\x00" => { /* commit buffer to messages, reset to Idle */ }
+    Ok(t) => self.chat.streaming_buffer.push_str(&t),
+    Err(TryRecvError::Empty) => {}  // nothing yet, try next tick
+    Err(TryRecvError::Disconnected) => { /* task dropped, commit buffer */ }
+}
 ```
 
 ### Adding a webhook / background poller
@@ -407,7 +455,7 @@ self.tick_count += 1;
 if self.tick_count % 30 == 0 {  // every 6s at 200ms tick
     if self.client.is_authenticated() {
         let count = self.client.notifications().unread_count().await.unwrap_or_default();
-        self.notification_state.unread_count = count.count;
+        self.notifications.unread_count = count.count;
     }
 }
 ```

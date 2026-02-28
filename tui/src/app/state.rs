@@ -1,10 +1,14 @@
-//! Core application state.
+//! Core application state — split into domain sub-structs for clarity.
 
+use tokio::sync::mpsc::UnboundedReceiver;
 use holly_client::{HollyClient, TokenStore};
 use holly_client::models::*;
 use crate::config::Config;
 
-/// Which screen is currently displayed — mirrors the Svelte route hierarchy.
+// ---------------------------------------------------------------------------
+// Screen / navigation
+// ---------------------------------------------------------------------------
+
 #[derive(Debug, Clone, PartialEq)]
 pub enum Screen {
     Login,
@@ -12,58 +16,126 @@ pub enum Screen {
     ForgotPassword,
     Dashboard,
     Missions,
-    MissionDetail(String), // mission id
-    Chat(String),          // conversation id
+    MissionDetail(String),
+    Chat(String),
     Github,
     Llms,
     Settings,
     Notifications,
     Wizard,
-    Loading(String, Box<Screen>), // loading message + screen to go to after
+    Loading(String, Box<Screen>),
 }
 
-/// Which input field is focused on the login screen.
+// ---------------------------------------------------------------------------
+// Domain sub-structs
+// ---------------------------------------------------------------------------
+
 #[derive(Debug, Clone, PartialEq)]
-pub enum LoginField {
-    Email,
-    Password,
+pub enum LoginField { Email, Password }
+
+#[derive(Debug, Default)]
+pub struct AuthState {
+    pub email: String,
+    pub password: String,
+    pub register_email: String,
+    pub register_password: String,
+    pub forgot_email: String,
+    pub focused: LoginField,
 }
 
-/// Which action is being performed on a mission.
+impl Default for LoginField {
+    fn default() -> Self { LoginField::Email }
+}
+
+#[derive(Debug, Default)]
+pub struct DashboardState {
+    pub missions_count: usize,
+    pub repos_count: usize,
+    pub conversations_count: usize,
+    pub recent_conversations: Vec<ConversationSummary>,
+}
+
 #[derive(Debug, Clone, PartialEq)]
-pub enum MissionAction {
-    None,
-    Creating,
-    Starting(String),
-    Deleting(String),
+pub enum MissionAction { None, Creating, Starting(String), Deleting(String) }
+impl Default for MissionAction { fn default() -> Self { Self::None } }
+
+#[derive(Debug, Default)]
+pub struct MissionsState {
+    pub list: Vec<MissionSummary>,
+    pub selected_idx: usize,
+    pub action: MissionAction,
+    pub new_name: String,
+    pub current: Option<MissionDetail>,
 }
 
-/// Chat panel state.
+/// Whether the chat pane is idle or actively streaming tokens from the backend.
 #[derive(Debug, Clone, PartialEq)]
-pub enum ChatState {
-    Idle,
-    Streaming,
+pub enum ChatPhase { Idle, Streaming }
+impl Default for ChatPhase { fn default() -> Self { Self::Idle } }
+
+pub struct ChatState {
+    pub phase: ChatPhase,
+    /// Completed (role, content) messages shown above the input bar.
+    pub messages: Vec<(String, String)>,
+    /// Text the user is currently typing.
+    pub input: String,
+    /// Tokens received so far for the in-flight assistant response.
+    /// Rendered live while `phase == Streaming`.
+    pub streaming_buffer: String,
+    pub conversations: Vec<ConversationSummary>,
+    pub selected_idx: usize,
+    /// Receiving end of the SSE token channel. Drained on every `Tick`.
+    pub token_rx: Option<UnboundedReceiver<String>>,
 }
 
-/// Settings tab.
+impl Default for ChatState {
+    fn default() -> Self {
+        Self {
+            phase: ChatPhase::Idle,
+            messages: vec![],
+            input: String::new(),
+            streaming_buffer: String::new(),
+            conversations: vec![],
+            selected_idx: 0,
+            token_rx: None,
+        }
+    }
+}
+
+#[derive(Debug, Default)]
+pub struct GithubState {
+    pub repositories: Vec<GitRepositoryResponse>,
+    pub selected_idx: usize,
+}
+
+#[derive(Debug, Default)]
+pub struct LlmState {
+    pub llms: Vec<LlmSchema>,
+    pub api_keys: Vec<UserLlmApiKey>,
+    pub selected_idx: usize,
+}
+
 #[derive(Debug, Clone, PartialEq)]
-pub enum SettingsTab {
-    General,
-    Llm,
-    Github,
-    About,
+pub enum SettingsTab { General, Llm, Github, About }
+impl Default for SettingsTab { fn default() -> Self { Self::General } }
+
+#[derive(Debug)]
+pub struct SettingsState {
+    pub tab: SettingsTab,
+    pub server_url: String,
 }
 
-/// Notification panel state.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Default)]
 pub struct NotificationState {
     pub notifications: Vec<NotificationSchema>,
     pub unread_count: u32,
 }
 
-/// Top-level application state.
+// ---------------------------------------------------------------------------
+// Top-level App
+// ---------------------------------------------------------------------------
+
 pub struct App {
-    // --- Core ---
     pub config: Config,
     pub client: HollyClient,
     pub quit: bool,
@@ -71,50 +143,14 @@ pub struct App {
     pub status_msg: Option<String>,
     pub error_msg: Option<String>,
 
-    // --- Login / Auth ---
-    pub login_email: String,
-    pub login_password: String,
-    pub login_focused: LoginField,
-    pub register_email: String,
-    pub register_password: String,
-    pub forgot_email: String,
-
-    // --- Dashboard ---
-    pub missions_count: usize,
-    pub repos_count: usize,
-    pub conversations_count: usize,
-    pub recent_conversations: Vec<ConversationSummary>,
-
-    // --- Missions ---
-    pub missions: Vec<MissionSummary>,
-    pub selected_mission_idx: usize,
-    pub mission_action: MissionAction,
-    pub new_mission_name: String,
-    pub current_mission: Option<MissionDetail>,
-
-    // --- Chat ---
-    pub chat_state: ChatState,
-    pub chat_messages: Vec<(String, String)>, // (role, content)
-    pub chat_input: String,
-    pub streaming_buffer: String,
-    pub conversations: Vec<ConversationSummary>,
-    pub selected_conversation_idx: usize,
-
-    // --- GitHub ---
-    pub repositories: Vec<GitRepositoryResponse>,
-    pub selected_repo_idx: usize,
-
-    // --- LLMs ---
-    pub llms: Vec<LlmSchema>,
-    pub selected_llm_idx: usize,
-    pub api_keys: Vec<UserLlmApiKey>,
-
-    // --- Settings ---
-    pub settings_tab: SettingsTab,
-    pub settings_server_url: String,
-
-    // --- Notifications ---
-    pub notification_state: NotificationState,
+    pub auth: AuthState,
+    pub dashboard: DashboardState,
+    pub missions: MissionsState,
+    pub chat: ChatState,
+    pub github: GithubState,
+    pub llm: LlmState,
+    pub settings: SettingsState,
+    pub notifications: NotificationState,
 }
 
 impl App {
@@ -128,49 +164,18 @@ impl App {
             current_screen: Screen::Login,
             status_msg: None,
             error_msg: None,
-
-            login_email: saved_email,
-            login_password: String::new(),
-            login_focused: LoginField::Email,
-            register_email: String::new(),
-            register_password: String::new(),
-            forgot_email: String::new(),
-
-            missions_count: 0,
-            repos_count: 0,
-            conversations_count: 0,
-            recent_conversations: vec![],
-
-            missions: vec![],
-            selected_mission_idx: 0,
-            mission_action: MissionAction::None,
-            new_mission_name: String::new(),
-            current_mission: None,
-
-            chat_state: ChatState::Idle,
-            chat_messages: vec![],
-            chat_input: String::new(),
-            streaming_buffer: String::new(),
-            conversations: vec![],
-            selected_conversation_idx: 0,
-
-            repositories: vec![],
-            selected_repo_idx: 0,
-
-            llms: vec![],
-            selected_llm_idx: 0,
-            api_keys: vec![],
-
-            settings_tab: SettingsTab::General,
-            settings_server_url: server_url,
-
-            notification_state: NotificationState::default(),
+            auth: AuthState { email: saved_email, ..Default::default() },
+            dashboard: DashboardState::default(),
+            missions: MissionsState::default(),
+            chat: ChatState::default(),
+            github: GithubState::default(),
+            llm: LlmState::default(),
+            settings: SettingsState { tab: SettingsTab::General, server_url },
+            notifications: NotificationState::default(),
         }
     }
 
-    pub fn should_quit(&self) -> bool {
-        self.quit
-    }
+    pub fn should_quit(&self) -> bool { self.quit }
 
     pub fn set_error(&mut self, msg: impl Into<String>) {
         self.error_msg = Some(msg.into());
@@ -192,39 +197,56 @@ impl App {
         self.clear_messages();
     }
 
-    /// Move selection up in a list.
     pub fn list_up(&mut self, len: usize, idx: &mut usize) {
-        if len > 0 && *idx > 0 {
-            *idx -= 1;
-        }
+        if len > 0 && *idx > 0 { *idx -= 1; }
     }
 
-    /// Move selection down in a list.
     pub fn list_down(&mut self, len: usize, idx: &mut usize) {
-        if len > 0 && *idx < len - 1 {
-            *idx += 1;
-        }
+        if len > 0 && *idx < len - 1 { *idx += 1; }
     }
 }
+
+// ---------------------------------------------------------------------------
+// Tests
+// ---------------------------------------------------------------------------
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    fn make_app() -> App {
-        App::new(Config::default())
-    }
+    fn make_app() -> App { App::new(Config::default()) }
 
     #[test]
     fn new_app_starts_on_login() {
-        let app = make_app();
-        assert_eq!(app.current_screen, Screen::Login);
+        assert_eq!(make_app().current_screen, Screen::Login);
     }
 
     #[test]
     fn new_app_not_authenticated() {
+        assert!(!make_app().client.is_authenticated());
+    }
+
+    #[test]
+    fn auth_state_defaults() {
         let app = make_app();
-        assert!(!app.client.is_authenticated());
+        assert!(app.auth.password.is_empty());
+        assert_eq!(app.auth.focused, LoginField::Email);
+    }
+
+    #[test]
+    fn missions_state_defaults() {
+        let app = make_app();
+        assert!(app.missions.list.is_empty());
+        assert_eq!(app.missions.selected_idx, 0);
+        assert_eq!(app.missions.action, MissionAction::None);
+    }
+
+    #[test]
+    fn chat_state_defaults() {
+        let app = make_app();
+        assert_eq!(app.chat.phase, ChatPhase::Idle);
+        assert!(app.chat.messages.is_empty());
+        assert!(app.chat.token_rx.is_none());
     }
 
     #[test]
@@ -255,7 +277,7 @@ mod tests {
     }
 
     #[test]
-    fn list_up_wraps_at_zero() {
+    fn list_up_clamps_at_zero() {
         let mut app = make_app();
         let mut idx = 0usize;
         app.list_up(5, &mut idx);
@@ -280,7 +302,6 @@ mod tests {
 
     #[test]
     fn should_quit_initially_false() {
-        let app = make_app();
-        assert!(!app.should_quit());
+        assert!(!make_app().should_quit());
     }
 }

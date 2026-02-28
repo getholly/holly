@@ -41,6 +41,13 @@ impl LlmService {
         self.api.get("/_api/holly/llmkeys").await
     }
 
+    /// GET /_api/holly/llms/ + GET /_api/holly/llmkeys — fetches both concurrently.
+    /// Eliminates the need for two separate service handles in callers.
+    pub async fn list_with_keys(&self) -> Result<(Vec<LlmSchema>, Vec<UserLlmApiKey>)> {
+        let (llms_res, keys_res) = tokio::join!(self.list(), self.list_api_keys());
+        Ok((llms_res?, keys_res?))
+    }
+
     /// POST /_api/holly/llmkeys
     pub async fn create_api_key(&self, data: UserLlmApiKeyCreate) -> Result<UserLlmApiKey> {
         self.api.post("/_api/holly/llmkeys", &data).await

@@ -19,23 +19,23 @@ pub fn render_github(f: &mut Frame, app: &App) {
         .block(ratatui::widgets::Block::default().borders(ratatui::widgets::Borders::BOTTOM));
     f.render_widget(header, chunks[0]);
 
-    if app.repositories.is_empty() {
+    if app.github.repositories.is_empty() {
         let placeholder = Paragraph::new("No repositories connected. Connect GitHub in Settings.")
             .style(muted_style())
             .block(titled_block(" Repositories "));
         f.render_widget(placeholder, chunks[1]);
     } else {
-        let items: Vec<ListItem> = app.repositories.iter().enumerate().map(|(i, r)| {
+        let items: Vec<ListItem> = app.github.repositories.iter().enumerate().map(|(i, r)| {
             let name = r.full_name.as_deref().or(r.name.as_deref()).unwrap_or("unknown");
             let private = r.private.map(|p| if p { "🔒" } else { "🔓" }).unwrap_or("");
             let branch = r.default_branch.as_deref().unwrap_or("main");
             let text = format!("{private} {name}  [{branch}]");
-            let style = if i == app.selected_repo_idx { selected_style() } else { normal_style() };
+            let style = if i == app.github.selected_idx { selected_style() } else { normal_style() };
             ListItem::new(text).style(style)
         }).collect();
 
         let mut state = ListState::default();
-        state.select(Some(app.selected_repo_idx));
+        state.select(Some(app.github.selected_idx));
         let _ = ratatui::widgets::StatefulWidget::render(
             List::new(items)
                 .block(titled_block(" Repositories (↑↓/jk: navigate  r: refresh  Esc: back) ")),

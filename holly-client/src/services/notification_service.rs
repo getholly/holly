@@ -19,6 +19,12 @@ impl NotificationService {
         self.api.get("/_api/holly/notifications/unread_count").await
     }
 
+    /// GET /_api/holly/notifications/ + unread_count — fetches both concurrently.
+    pub async fn list_with_unread(&self) -> Result<(NotificationListResponse, UnreadCountResponse)> {
+        let (list_res, count_res) = tokio::join!(self.list(), self.unread_count());
+        Ok((list_res?, count_res?))
+    }
+
     /// POST /_api/holly/notifications/{id}/read
     pub async fn mark_read(&self, id: &str) -> Result<GenericResponse> {
         self.api.post(&format!("/_api/holly/notifications/{id}/read"), &serde_json::Value::Null).await

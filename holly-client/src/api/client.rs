@@ -1,3 +1,4 @@
+use bytes::Bytes;
 use reqwest::{Client, Method, RequestBuilder, Response, StatusCode};
 use serde::{de::DeserializeOwned, Serialize};
 use std::sync::Arc;
@@ -43,40 +44,47 @@ impl ApiClient {
         }
     }
 
+    // --- Public HTTP methods (serialize once to Bytes, then pass through retry logic) ---
+
     pub async fn get<T: DeserializeOwned>(&self, path: &str) -> Result<T> {
-        self.execute_authed::<serde_json::Value, T>(Method::GET, path, None).await
+        self.execute_authed(Method::GET, path, None).await
     }
 
     pub async fn post<B: Serialize, T: DeserializeOwned>(&self, path: &str, body: &B) -> Result<T> {
-        let json_body = serde_json::to_value(body).map_err(HollyError::Serde)?;
-        self.execute_authed::<serde_json::Value, T>(Method::POST, path, Some(json_body)).await
+        let bytes = serde_json::to_vec(body).map_err(HollyError::Serde)?;
+        self.execute_authed(Method::POST, path, Some(Bytes::from(bytes))).await
     }
 
+    /// POST without auth — used for login / register / token endpoints.
     pub async fn post_no_auth<B: Serialize, T: DeserializeOwned>(&self, path: &str, body: &B) -> Result<T> {
-        let req = self.http.request(Method::POST, self.url(path)).json(body);
-        let resp = req.send().await?;
+        let resp = self.http.request(Method::POST, self.url(path))
+            .json(body)
+            .send()
+            .await?;
         Self::parse_response(resp).await
     }
 
     pub async fn patch<B: Serialize, T: DeserializeOwned>(&self, path: &str, body: &B) -> Result<T> {
-        let json_body = serde_json::to_value(body).map_err(HollyError::Serde)?;
-        self.execute_authed::<serde_json::Value, T>(Method::PATCH, path, Some(json_body)).await
+        let bytes = serde_json::to_vec(body).map_err(HollyError::Serde)?;
+        self.execute_authed(Method::PATCH, path, Some(Bytes::from(bytes))).await
     }
 
     pub async fn put<B: Serialize, T: DeserializeOwned>(&self, path: &str, body: &B) -> Result<T> {
-        let json_body = serde_json::to_value(body).map_err(HollyError::Serde)?;
-        self.execute_authed::<serde_json::Value, T>(Method::PUT, path, Some(json_body)).await
+        let bytes = serde_json::to_vec(body).map_err(HollyError::Serde)?;
+        self.execute_authed(Method::PUT, path, Some(Bytes::from(bytes))).await
     }
 
     pub async fn delete<T: DeserializeOwned>(&self, path: &str) -> Result<T> {
-        self.execute_authed::<serde_json::Value, T>(Method::DELETE, path, None).await
+        self.execute_authed(Method::DELETE, path, None).await
     }
 
-    async fn execute_authed<_B, T: DeserializeOwned>(
+    // --- Core: 401 → refresh → retry, body serialized exactly once ---
+
+    async fn execute_authed<T: DeserializeOwned>(
         &self,
         method: Method,
         path: &str,
-        body: Option<serde_json::Value>,
+        body: Option<Bytes>, // pre-serialized JSON; Bytes is Arc-backed so clone is O(1)
     ) -> Result<T> {
         if !self.tokens.is_authenticated() {
             return Err(HollyError::NotAuthenticated);
@@ -87,29 +95,34 @@ impl ApiClient {
             self.do_refresh().await?;
         }
 
-        let resp = self.build_request(method.clone(), path, body.as_ref()).send().await?;
+        let resp = self.build_request(method.clone(), path, body.clone()).send().await?;
 
         if resp.status() == StatusCode::UNAUTHORIZED {
             warn!("Got 401 — attempting token refresh and retry");
             self.do_refresh().await?;
-            let resp2 = self.build_request(method, path, body.as_ref()).send().await?;
+            let resp2 = self.build_request(method, path, body).send().await?;
             return Self::parse_response(resp2).await;
         }
 
         Self::parse_response(resp).await
     }
 
-    fn build_request(&self, method: Method, path: &str, body: Option<&serde_json::Value>) -> RequestBuilder {
+    fn build_request(&self, method: Method, path: &str, body: Option<Bytes>) -> RequestBuilder {
         let builder = self.with_auth(self.http.request(method, self.url(path)));
         match body {
-            Some(b) => builder.json(b),
+            Some(b) => builder
+                .header("content-type", "application/json")
+                .body(b),
             None => builder,
         }
     }
 
+    // --- Token refresh ---
+
     pub(crate) async fn do_refresh(&self) -> Result<()> {
         let _guard = self.refresh_lock.lock().await;
 
+        // Double-check after acquiring lock — another task may have already refreshed
         if !self.tokens.access_token_expired() {
             return Ok(());
         }
@@ -120,11 +133,10 @@ impl ApiClient {
             return Err(HollyError::TokenRefresh("No refresh token available".into()));
         }
 
-        let body = TokenRefreshInput { refresh };
         let resp = self
             .http
             .post(self.url("/_api/token/refresh"))
-            .json(&body)
+            .json(&TokenRefreshInput { refresh })
             .send()
             .await?;
 
@@ -147,6 +159,8 @@ impl ApiClient {
         Ok(())
     }
 
+    // --- Response parsing ---
+
     pub(crate) async fn parse_response<T: DeserializeOwned>(resp: Response) -> Result<T> {
         let status = resp.status();
         if status.is_success() {
@@ -158,7 +172,8 @@ impl ApiClient {
         }
     }
 
-    /// Build a raw authenticated request (for streaming/SSE).
+    // --- Raw builder for SSE / non-standard requests ---
+
     pub fn raw_request_builder(&self, method: Method, path: &str) -> RequestBuilder {
         self.with_auth(self.http.request(method, self.url(path)))
     }
@@ -216,5 +231,20 @@ mod tests {
         let c = make_client("http://localhost:8000");
         let url = c.sse_url_with_token("/_api/holly/missions/sse/start/123");
         assert!(!url.contains("?token="));
+    }
+
+    #[test]
+    fn post_body_serializes_to_bytes_once() {
+        // Verify serde_json::to_vec produces valid JSON that round-trips correctly
+        #[derive(serde::Serialize, serde::Deserialize, PartialEq, Debug)]
+        struct Payload { name: String, count: u32 }
+        let p = Payload { name: "test".into(), count: 42 };
+        let bytes = serde_json::to_vec(&p).unwrap();
+        let recovered: Payload = serde_json::from_slice(&bytes).unwrap();
+        assert_eq!(recovered, p);
+        // Bytes clone is O(1) — verify it holds the same content
+        let b = Bytes::from(bytes.clone());
+        let b2 = b.clone();
+        assert_eq!(b.as_ref(), b2.as_ref());
     }
 }

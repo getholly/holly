@@ -14,13 +14,13 @@ pub fn render_notifications(f: &mut Frame, app: &App) {
     ])
     .split(content);
 
-    let unread = app.notification_state.unread_count;
+    let unread = app.notifications.unread_count;
     let header = Paragraph::new(format!(" 🔔 Notifications  (unread: {unread})"))
         .style(Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD))
         .block(ratatui::widgets::Block::default().borders(ratatui::widgets::Borders::BOTTOM));
     f.render_widget(header, chunks[0]);
 
-    let notifs = &app.notification_state.notifications;
+    let notifs = &app.notifications.notifications;
     if notifs.is_empty() {
         f.render_widget(
             Paragraph::new("No notifications.").style(muted_style()).block(titled_block(" Notifications ")),
