@@ -1,0 +1,36 @@
+[package]
+name = "holly-tui"
+version = "0.1.0"
+edition = "2021"
+description = "Holly TUI — a Ratatui terminal interface for the Holly AI assistant"
+
+[[bin]]
+name = "holly-tui"
+path = "src/main.rs"
+
+[dependencies]
+# TUI framework
+ratatui = "0.29"
+crossterm = "0.28"
+# Async
+tokio = { version = "1", features = ["full"] }
+# Holly API client (local path)
+holly-client = { path = "../holly-client" }
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+# Error handling
+anyhow = "1.0"
+# Channels for async TUI events
+tokio-util = "0.7"
+# Config / env
+dirs = "5"
+# Time formatting
+chrono = "0.4"
+# Logging (to file, not stdout — avoids breaking TUI)
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-appender = "0.2"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["full"] }
