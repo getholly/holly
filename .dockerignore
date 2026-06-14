@@ -1,0 +1,43 @@
+# Keep build context small and avoid baking secrets / cruft into image layers.
+.git
+.gitignore
+.github
+
+# Secrets and local env
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Python caches and virtualenvs
+**/__pycache__/
+**/*.py[cod]
+.venv/
+**/.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Node
+**/node_modules/
+frontend/build/
+frontend/.svelte-kit/
+
+# Databases and logs
+*.sqlite3
+**/*.sqlite3
+logdir/
+**/logdir/
+tmp/
+**/tmp/
+
+# Collected static (regenerated in the image)
+staticfiles/
+**/staticfiles/
+
+# Local tooling / docs not needed at runtime
+docs/
+*.md
+!README.md

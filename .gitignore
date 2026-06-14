@@ -1,5 +1,11 @@
 .aider*
 .env
+# Ignore all env files (which hold real secrets) except the documented template
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
 .idea
 sys
 warnings
