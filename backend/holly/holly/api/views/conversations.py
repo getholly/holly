@@ -4,7 +4,6 @@ Conversations API endpoints for the Holly app.
 
 import json
 from collections.abc import AsyncGenerator
-from datetime import datetime
 from functools import wraps
 from typing import Any
 from uuid import uuid4
@@ -12,6 +11,7 @@ from uuid import uuid4
 import httpx
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
+from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.http import HttpRequest, HttpResponse, StreamingHttpResponse
 from loguru import logger
@@ -623,7 +623,7 @@ async def send_message_sse(
                                                 role="assistant",
                                                 content=full_content,
                                             )
-                                            mission_conversation.updated_at = datetime.now()
+                                            mission_conversation.updated_at = timezone.now()
                                             await sync_to_async(mission_conversation.save)()
                                         except Exception as e:
                                             logger.error(f"{MESSAGE_SAVE_ERROR_MSG}: {e!s}")
@@ -650,7 +650,7 @@ async def send_message_sse(
                                         role="assistant",
                                         content=full_content,
                                     )
-                                    mission_conversation.updated_at = datetime.now()
+                                    mission_conversation.updated_at = timezone.now()
                                     await sync_to_async(mission_conversation.save)()
                                 except Exception as e:
                                     logger.error(f"{MESSAGE_SAVE_ERROR_MSG}: {e!s}")

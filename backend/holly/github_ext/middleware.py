@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth import logout
 from django.core.exceptions import ImproperlyConfigured
 from django.utils import timezone
+from oauthlib.oauth2.rfc6749.errors import OAuth2Error
 from requests_oauthlib import OAuth2Session
 
 
@@ -28,50 +29,61 @@ def oauth_session_enforcement(get_response):
             raise ImproperlyConfigured(error_string)
 
         user = request.user
-        try:
-            social_token = SocialToken.objects.get(account__user_id=user.id)
-        except SocialToken.DoesNotExist:
+        if not getattr(user, "is_authenticated", False):
+            return get_response(request)
+
+        # A user may have more than one GitHub account/token (multi-account support),
+        # so fetch all of them rather than .get() (which would raise
+        # MultipleObjectsReturned and 500 every request for such users).
+        social_tokens = list(SocialToken.objects.filter(account__user_id=user.id))
+        if not social_tokens:
             # User is not authenticated via GitHub OAuth, allow request
-            social_token = None
-
-        if social_token is None:
             return get_response(request)
 
-        # Check if the token is still valid
-        if social_token.expires_at and social_token.expires_at > timezone.now():
-            return get_response(request)
-
+        now = timezone.now()
         adapter = GitHubOAuth2Adapter(request)
 
-        try:
-            logger.debug("Refreshing access token for %s", user)
+        for social_token in social_tokens:
+            # Skip tokens that are still valid.
+            if social_token.expires_at and social_token.expires_at > now:
+                continue
 
-            oauth_session = OAuth2Session(
-                client_id=github_provider["APP"]["client_id"],
-                token={
-                    "access_token": social_token.token,
-                    "refresh_token": social_token.token_secret,
-                    "token_type": "Bearer",
-                },
-            )
+            try:
+                logger.debug("Refreshing access token for %s", user)
 
-            new_token_data = oauth_session.refresh_token(
-                token_url=adapter.access_token_url,
-                client_id=github_provider["APP"]["client_id"],
-                client_secret=github_provider["APP"]["secret"],
-            )
+                oauth_session = OAuth2Session(
+                    client_id=github_provider["APP"]["client_id"],
+                    token={
+                        "access_token": social_token.token,
+                        "refresh_token": social_token.token_secret,
+                        "token_type": "Bearer",
+                    },
+                )
 
-            new_social_token = adapter.parse_token(new_token_data)
+                new_token_data = oauth_session.refresh_token(
+                    token_url=adapter.access_token_url,
+                    client_id=github_provider["APP"]["client_id"],
+                    client_secret=github_provider["APP"]["secret"],
+                )
 
-            # Replace the existing token instead of creating a new one
-            new_social_token.id = social_token.id
-            new_social_token.app_id = social_token.app_id
-            new_social_token.account_id = social_token.account_id
-            new_social_token.save()
+                new_social_token = adapter.parse_token(new_token_data)
 
-        except Exception:
-            logger.exception("Failed to refresh expired access token")
-            logout(request)
+                # Replace the existing token instead of creating a new one
+                new_social_token.id = social_token.id
+                new_social_token.app_id = social_token.app_id
+                new_social_token.account_id = social_token.account_id
+                new_social_token.save()
+
+            except OAuth2Error:
+                # The refresh token itself is invalid/revoked: the session can no
+                # longer act on the user's behalf, so log them out.
+                logger.warning("GitHub refresh token invalid for %s; logging out", user)
+                logout(request)
+                break
+            except Exception:
+                # Transient failures (network/GitHub outage) must NOT log every user
+                # out; leave the session intact and let downstream calls handle it.
+                logger.exception("Transient error refreshing GitHub access token; leaving session intact")
 
         return get_response(request)
 

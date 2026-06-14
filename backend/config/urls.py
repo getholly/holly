@@ -39,7 +39,8 @@ api = NinjaAPI(
     title="Holly API",
     version="1.0.0",
     description="API for Holly",
-    docs_url="/docs",
+    # Only expose interactive API docs outside production.
+    docs_url="/docs" if settings.DEBUG else None,
     csrf=not settings.DEBUG,
     auth=JWTAuth(),
 )
