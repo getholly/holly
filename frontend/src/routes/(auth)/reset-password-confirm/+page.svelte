@@ -13,7 +13,6 @@
   } from "$lib/apis/auth/api.auth";
   import { setAccessToken } from "$lib/apis/api.config";
   import { login as storeLogin } from "$lib/store/auth/tokens.store";
-  import Cookies from "js-cookie";
 
   let formSubmitted = false;
   let newPassword = "";
@@ -77,18 +76,6 @@
         if (userEmail) {
           // Attempt auto-login with new password
           const tokenData = await loginUser(userEmail, newPassword);
-
-          // Set tokens in cookies
-          Cookies.set("accessToken", tokenData.access, {
-            expires: 1,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-          });
-          Cookies.set("refreshToken", tokenData.refresh, {
-            expires: 7,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-          });
 
           // Set access token in API config
           setAccessToken(tokenData.access);

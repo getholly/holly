@@ -1,7 +1,9 @@
 import { usersApi } from "$lib/apis/api.config";
 import { get } from "svelte/store";
 import { browser } from "$app/environment";
-import { withTokenRefresh } from "$lib/apis/auth/token-manager";
+// Token refresh is handled centrally by tokenRefreshMiddleware (wired into every
+// API client in api.config.ts). Do not also wrap calls in withTokenRefresh — that
+// caused two independent refresh mechanisms to race on a 401.
 import type {
   UsersApi,
   GitHubOAuthInitiateRequest,
@@ -22,15 +24,13 @@ export async function initiateGitHubOAuth(
   redirectUrl?: string,
   scopes?: string[],
 ): Promise<GitHubOAuthInitiateResponse> {
-  return withTokenRefresh(async () => {
-    const gitHubOAuthInitiateRequest: GitHubOAuthInitiateRequest = {
-      redirect_url: redirectUrl,
-      scopes: scopes,
-    };
+  const gitHubOAuthInitiateRequest: GitHubOAuthInitiateRequest = {
+    redirect_url: redirectUrl,
+    scopes: scopes,
+  };
 
-    return await getUsersApiClient().hollyUsersApiRouterInitiateGithubOauth({
-      gitHubOAuthInitiateRequest,
-    });
+  return await getUsersApiClient().hollyUsersApiRouterInitiateGithubOauth({
+    gitHubOAuthInitiateRequest,
   });
 }
 
@@ -38,61 +38,45 @@ export async function handleGitHubOAuthCallback(
   code: string,
   state: string,
 ): Promise<GitHubOAuthCallbackResponse> {
-  return withTokenRefresh(async () => {
-    const gitHubOAuthCallbackRequest: GitHubOAuthCallbackRequest = {
-      code,
-      state,
-    };
+  const gitHubOAuthCallbackRequest: GitHubOAuthCallbackRequest = {
+    code,
+    state,
+  };
 
-    return await getUsersApiClient().hollyUsersApiRouterHandleGithubOauthCallback(
-      {
-        gitHubOAuthCallbackRequest,
-      },
-    );
+  return await getUsersApiClient().hollyUsersApiRouterHandleGithubOauthCallback({
+    gitHubOAuthCallbackRequest,
   });
 }
 
 export async function getGitHubConnectionStatus(): Promise<ConnectionStatusResponse> {
-  return withTokenRefresh(async () => {
-    return await getUsersApiClient().hollyUsersApiRouterGetGithubConnectionStatus();
-  });
+  return await getUsersApiClient().hollyUsersApiRouterGetGithubConnectionStatus();
 }
 
 export async function listGitHubAccounts(): Promise<GitHubAccountListResponse> {
-  return withTokenRefresh(async () => {
-    return await getUsersApiClient().hollyUsersApiRouterListGithubAccounts();
-  });
+  return await getUsersApiClient().hollyUsersApiRouterListGithubAccounts();
 }
 
 export async function disconnectGitHubAccount(
   githubLogin: string,
 ): Promise<GitHubAccountActionResponse> {
-  return withTokenRefresh(async () => {
-    const gitHubAccountActionRequest: GitHubAccountActionRequest = {
-      github_login: githubLogin,
-    };
+  const gitHubAccountActionRequest: GitHubAccountActionRequest = {
+    github_login: githubLogin,
+  };
 
-    return await getUsersApiClient().hollyUsersApiRouterDisconnectGithubAccount(
-      {
-        gitHubAccountActionRequest,
-      },
-    );
+  return await getUsersApiClient().hollyUsersApiRouterDisconnectGithubAccount({
+    gitHubAccountActionRequest,
   });
 }
 
 export async function setPrimaryGitHubAccount(
   githubLogin: string,
 ): Promise<GitHubAccountActionResponse> {
-  return withTokenRefresh(async () => {
-    const gitHubAccountActionRequest: GitHubAccountActionRequest = {
-      github_login: githubLogin,
-    };
+  const gitHubAccountActionRequest: GitHubAccountActionRequest = {
+    github_login: githubLogin,
+  };
 
-    return await getUsersApiClient().hollyUsersApiRouterSetPrimaryGithubAccount(
-      {
-        gitHubAccountActionRequest,
-      },
-    );
+  return await getUsersApiClient().hollyUsersApiRouterSetPrimaryGithubAccount({
+    gitHubAccountActionRequest,
   });
 }
 

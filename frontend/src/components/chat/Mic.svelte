@@ -1,8 +1,10 @@
 <script lang="ts">
   import { tick, getContext, createEventDispatcher } from "svelte";
+  import { get } from "svelte/store";
   import { settings, prompt } from "$lib/store/chat/chat.store";
   import { transcribeAudio } from "$lib/store/audio";
   import { blobToFile } from "$lib/utils/macUtils";
+  import { accessToken } from "$lib/store/auth/tokens.store";
   import Tooltip from "$components/chat/Tooltip.svelte";
   //export let submitPrompt: Function;
 
@@ -119,7 +121,7 @@
 
       const file = blobToFile(audioBlob, "recording.wav");
 
-      const res = await transcribeAudio(localStorage.token, file).catch(
+      const res = await transcribeAudio(get(accessToken), file).catch(
         (error) => {
           console.error(`transcribe audio: ${error}`);
           return null;
