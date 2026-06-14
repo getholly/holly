@@ -1,9 +1,10 @@
 # ruff: noqa: E501
 from loguru import logger
 
+from django.core.exceptions import ImproperlyConfigured
+
 from .base import *  # noqa: F403
-from .base import INSTALLED_APPS, env
-from .email import *  # noqa: F403 Import email settings
+from .base import INSTALLED_APPS, NINJA_JWT, SALT_KEY, env
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -15,6 +16,20 @@ SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
     default="!!!SET DJANGO_SECRET_KEY!!!",
 )
+
+# Fail fast if security-critical secrets were left at their insecure defaults.
+# These feed JWT signing and field-level encryption; a known/default value means
+# forgeable tokens and decryptable secrets.
+_INSECURE_SECRET_DEFAULTS = {"!!!SET DJANGO_SECRET_KEY!!!", "dummy_secret_auth_key"}
+if SECRET_KEY in _INSECURE_SECRET_DEFAULTS:
+    raise ImproperlyConfigured("DJANGO_SECRET_KEY must be set to a strong, unique value in production.")
+if SALT_KEY == ["f2fa786c-021c-4103-acdf-82cea504eaae"]:
+    raise ImproperlyConfigured("SALT_KEY must be set to a unique value in production (field encryption salt).")
+
+# NINJA_JWT is defined in base.py and binds SIGNING_KEY to base.py's SECRET_KEY at
+# import time. Re-point it at the production SECRET_KEY resolved above so tokens are
+# signed with the real secret rather than base's default fallback.
+NINJA_JWT["SIGNING_KEY"] = SECRET_KEY
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["getholly.ai", "www.getholly.ai"]
 
@@ -88,7 +103,7 @@ AWS_S3_SIGNATURE_VERSION = "s3v4"
 AWS_DEFAULT_ACL = "public-read"
 
 # Static files configuration
-STATIC_URL = f"{AWS_S3_CUSTOM_DOMAIN}/static/"  # Or appropriate path
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"  # Or appropriate path
 STATICFILES_STORAGE = "storages.backends.s3boto3.S3StaticStorage"
 
 # endregion
@@ -101,10 +116,14 @@ ADMIN_INDEX_TITLE = "Welcome to Holly AI Dashboard"
 # endregion
 
 # region security
+# These are deliberately unconditional (not gated on DEBUG) so a stray
+# DJANGO_DEBUG=True in production cannot silently disable HTTPS enforcement.
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = True  # Force HTTPS
 SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = "DENY"
 
@@ -116,7 +135,9 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5 MB (adjust as needed)
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5 MB (adjust as needed)
 
 CORS_ALLOWED_ORIGINS = ["https://getholly.ai", "https://www.getholly.ai", "https://static.getholly.ai"]
-CORS_ALLOWED_ORIGIN_REGEXES = [r"https://.*\.getholly\.ai$"]
+# Single-label subdomains only (avoid matching dots so attacker-controlled
+# multi-level hosts like evil.attacker.getholly.ai are not trusted with credentials).
+CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://[a-z0-9-]+\.getholly\.ai$"]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_SHARED_WORKER = True
 # endregion
@@ -126,11 +147,3 @@ FRONTEND_URL = env.str("FRONTEND_URL", default="https://getholly.ai")
 
 # GitHub App webhook configuration for production
 GITHUB_WEBHOOK_SECRET = env.str("GITHUB_WEBHOOK_SECRET", default="")
-
-SESSION_COOKIE_SECURE = not DEBUG  # HTTPS only
-SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access
-SESSION_COOKIE_SAMESITE = 'Lax'  # CSRF protection
-SECURE_SSL_REDIRECT = not DEBUG  # Force HTTPS
-SECURE_HSTS_SECONDS = 31536000  # HTTP Strict Transport Security
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True

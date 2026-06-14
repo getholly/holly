@@ -18,7 +18,7 @@ REST_MCP_HEALTH_CHECK_TIMEOUT = int(os.environ.get("REST_MCP_HEALTH_CHECK_TIMEOU
 REST_MCP_VERIFY_SSL = os.environ.get("REST_MCP_VERIFY_SSL", "True").lower() == "true"
 
 # if true don't use container for requests
-REST_MCP_SERVER_LOCAL = os.environ.get("REST_MCP_SERVER_LOCAL", False)
+REST_MCP_SERVER_LOCAL = os.environ.get("REST_MCP_SERVER_LOCAL", "false").lower() == "true"
 
 # Complete URL for REST MCP server (constructed from the above settings)
 REST_MCP_BASE_URL = f"{REST_MCP_SERVER_URL}:{REST_MCP_SERVER_PORT}" if REST_MCP_SERVER_PORT else REST_MCP_SERVER_URL
