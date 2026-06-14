@@ -41,13 +41,15 @@ TASK_CACHE_PREFIX = "bg_task_"
 TASK_CACHE_TIMEOUT = 60 * 60 * 24  # 24 hours
 
 
-def run_background_task(func: Callable, *args, **kwargs) -> str:
+def run_background_task(func: Callable, *args, owner_id: int | None = None, **kwargs) -> str:
     """
     Run a function in a background thread and return a task ID.
 
     Args:
         func: The function to execute
         *args: Positional arguments to pass to the function
+        owner_id: ID of the user who owns this task. Status/results are only
+            returned to this user (see background_tasks.views.task_status).
         **kwargs: Keyword arguments to pass to the function
 
     Returns:
@@ -62,6 +64,7 @@ def run_background_task(func: Callable, *args, **kwargs) -> str:
         f"{TASK_CACHE_PREFIX}{task_id}",
         {
             "task_id": task_id,
+            "owner_id": owner_id,
             "status": TASK_STATUS_PENDING,
             "result": None,
             "error": None,
