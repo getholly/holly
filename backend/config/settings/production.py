@@ -36,15 +36,35 @@ ALLOWED_HOSTS = ["getholly.ai", "www.getholly.ai"]
 CSRF_TRUSTED_ORIGINS = ["https://getholly.ai", "https://www.getholly.ai", "https://static.getholly.ai"]
 
 
+# DATABASE
+# ------------------------------------------------------------------------------
+# Prefer a real database (e.g. Postgres) via DATABASE_URL so web and Celery
+# workers share one database. SQLite (the base default) is single-writer and,
+# when only the web service mounts the file, leaves workers on a separate DB.
+DATABASE_URL = env.str("DATABASE_URL", default="")
+if DATABASE_URL:
+    DATABASES = {"default": env.db("DATABASE_URL")}
+else:
+    logger.warning(
+        "DATABASE_URL not set in production; falling back to SQLite. Set DATABASE_URL "
+        "(e.g. postgres://...) so web and Celery workers share one database."
+    )
+
+
 # CACHES
 # ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#caches
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "",
-    },
-}
+# Use Redis (shared across worker processes) when REDIS_URL is configured;
+# LocMemCache is per-process and useless for cross-worker state / throttling.
+REDIS_CACHE_URL = env.str("REDIS_CACHE_URL", default="")
+if REDIS_CACHE_URL:
+    CACHES = {"default": {"BACKEND": "django.core.cache.backends.redis.RedisCache", "LOCATION": REDIS_CACHE_URL}}
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "LOCATION": "",
+        },
+    }
 
 
 # Email

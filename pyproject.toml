@@ -23,6 +23,7 @@ dependencies = [
   "typer>=0.15.1",
   "uvicorn[standard]>=0.30.6",
   "django-environ>=0.12.0",
+  "psycopg[binary]>=3.2",
   "argon2-cffi>=23.1.0",
   "python-decouple>=3.8",
   "pygithub>=2.6.0",

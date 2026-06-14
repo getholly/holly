@@ -25,6 +25,13 @@ CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS",
                                          "https://app-getholly.ai", "https://static.getholly.ai",
                                  "https://*.getholly.ai"])
 
+# DATABASE
+# ------------------------------------------------------------------------------
+# Share one database across web and Celery workers when DATABASE_URL is set.
+DATABASE_URL = env.str("DATABASE_URL", default="")
+if DATABASE_URL:
+    DATABASES = {"default": env.db("DATABASE_URL")}
+
 # CACHES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches
