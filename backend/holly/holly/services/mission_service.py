@@ -16,6 +16,7 @@ from holly.holly.models.mission import Mission, MissionRepos
 from holly.holly.models.mission_conversation import MissionConversation
 from holly.holly.models.tools import Tools
 from holly.holly.services.common.errors import ContainerIPError, ContainerStartError
+from holly.holly.utils.webhook_signing import mission_webhook_token
 from holly.holly.services.containers.holly_container_service import (
     HollyContainerService,
 )
@@ -668,6 +669,7 @@ class MissionService:
                     "MISSION_REPOS": repos_str,
                     "MISSION_BRANCH": mission.branch_name,
                     "DJANGO_WEBHOOK_URL": webhook_url,
+                    "WEBHOOK_SECRET": mission_webhook_token(str(mission_id)),
                     "AUTH_TOKEN": auth_token,
                     "AUTH_TYPE": auth_infos[0]["type"],  # 'github_app' or 'oauth'
                     "GIT_EMAIL": "holly-bot@yourdomain.com",
@@ -1003,6 +1005,7 @@ class MissionService:
                 "MISSION_REPOS": repos_str,
                 "MISSION_BRANCH": mission.branch_name,
                 "DJANGO_WEBHOOK_URL": webhook_url,
+                "WEBHOOK_SECRET": mission_webhook_token(str(mission_id)),
                 "AUTH_TOKEN": auth_token,
                 "AUTH_TYPE": auth_infos[0]["type"],  # 'github_app' or 'oauth'
                 "GIT_EMAIL": "holly-bot@yourdomain.com",

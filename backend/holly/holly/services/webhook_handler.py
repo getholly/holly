@@ -1,11 +1,17 @@
 """Webhook handler service for processing container events."""
 
+import hashlib
 from typing import Dict, Any, Optional
 from loguru import logger
+from django.core.cache import cache
+from django.db import transaction
 from django.utils import timezone
 
 from holly.holly.models import Mission, MissionConversation, Notification
 from holly.holly.utils.redis_client import redis_client
+
+# Idempotency window for de-duplicating at-least-once webhook deliveries.
+_WEBHOOK_DEDUP_TTL = 60 * 60  # 1 hour
 
 
 class WebhookEventType:
@@ -86,38 +92,54 @@ class WebhookHandler:
         Returns:
             Processing result dictionary
         """
-        try:
-            # Get mission
-            mission = Mission.objects.get(id=mission_id)
-        except Mission.DoesNotExist:
-            error_msg = f"Mission {mission_id} not found"
-            logger.error(error_msg)
-            return {"success": False, "error": error_msg}
+        # Idempotency: webhooks are delivered at-least-once. Short-circuit replays of
+        # an identical event so we don't create duplicate notifications / PR entries
+        # or re-trigger side effects like stop_container.
+        dedup_key = "webhook:seen:" + hashlib.sha256(
+            f"{mission_id}|{job_id}|{status}|{timestamp}".encode()
+        ).hexdigest()
+        if not cache.add(dedup_key, "1", _WEBHOOK_DEDUP_TTL):
+            logger.info(f"Ignoring duplicate webhook delivery for mission={mission_id}, job={job_id}")
+            return {"success": True, "duplicate": True, "mission_id": str(mission_id)}
 
-        # Determine event type from job_id and status
         event_type = self._determine_event_type(job_id, status, data)
-
         logger.info(
             f"Processing webhook: mission={mission_id}, job={job_id}, "
             f"status={status}, event_type={event_type}"
         )
 
-        # Update mission's active jobs
-        self._update_active_jobs(mission, job_id, status, data, timestamp)
+        try:
+            # Lock the mission row for the duration so concurrent webhooks for the
+            # same mission don't clobber each other's active_jobs / state writes.
+            with transaction.atomic():
+                try:
+                    mission = Mission.objects.select_for_update().get(id=mission_id)
+                except Mission.DoesNotExist:
+                    error_msg = f"Mission {mission_id} not found"
+                    logger.error(error_msg)
+                    return {"success": False, "error": error_msg}
 
-        # Call specific event handler
-        handler = self.event_handlers.get(event_type)
-        if handler:
-            try:
-                handler(mission, job_id, data)
-            except Exception as e:
-                logger.exception(f"Error in event handler for {event_type}: {e}")
+                self._update_active_jobs(mission, job_id, status, data, timestamp)
 
-        # Publish to Redis for real-time updates
-        self._publish_update(mission_id, job_id, status, data)
+                handler = self.event_handlers.get(event_type)
+                if handler:
+                    # Let handler errors roll the transaction back rather than
+                    # reporting success on a partially-applied event.
+                    handler(mission, job_id, data)
 
-        # Save mission changes
-        mission.save(update_fields=["state", "container_status", "active_jobs", "updated_at"])
+                # Full save (not a narrow update_fields list) so a handler mutating a
+                # field outside the previous hard-coded list is persisted.
+                mission.save()
+
+                # Only publish the real-time update after the DB commit succeeds.
+                transaction.on_commit(
+                    lambda: self._publish_update(mission_id, job_id, status, data)
+                )
+        except Exception:
+            # The dedup key was claimed for a delivery that failed; release it so the
+            # container's retry can be processed.
+            cache.delete(dedup_key)
+            raise
 
         return {
             "success": True,

@@ -1,13 +1,16 @@
 """Webhook receiver for container job updates."""
 
+from django.conf import settings
 from django.http import HttpRequest
 from ninja import Router
+from ninja.errors import HttpError
 from pydantic import BaseModel
 from typing import Dict, Any
 from loguru import logger
 
 from holly.holly.models.mission import Mission
 from holly.holly.utils.redis_client import redis_client
+from holly.holly.utils.webhook_signing import SIGNATURE_HEADER, verify_signature
 
 router = Router()
 
@@ -58,6 +61,19 @@ def receive_container_webhook(request: HttpRequest, payload: WebhookPayload) -> 
         Success response
     """
     from holly.holly.services.webhook_handler import webhook_handler
+
+    # Verify the HMAC signature over the raw body using the per-mission token.
+    signature = request.headers.get(SIGNATURE_HEADER)
+    if verify_signature(payload.mission_id, request.body, signature):
+        pass
+    elif settings.WEBHOOK_SIGNATURE_REQUIRED:
+        logger.warning(f"Rejected unsigned/invalid webhook for mission {payload.mission_id}")
+        raise HttpError(401, "Invalid webhook signature")
+    else:
+        logger.warning(
+            f"Accepting webhook with missing/invalid signature for mission "
+            f"{payload.mission_id} (WEBHOOK_SIGNATURE_REQUIRED is off)"
+        )
 
     logger.info(
         f"Received webhook for mission {payload.mission_id}, "

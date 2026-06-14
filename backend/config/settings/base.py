@@ -321,6 +321,15 @@ GITHUB_APP_PRIVATE_KEY_PATH = env.str("GITHUB_APP_PRIVATE_KEY_PATH", default="")
 # GitHub App webhook configuration
 GITHUB_WEBHOOK_SECRET = env.str("GITHUB_WEBHOOK_SECRET", default="")
 
+# Secret used to HMAC-sign container -> Django webhook callbacks. Each container is
+# given a per-mission token derived from this secret, so an attacker cannot forge
+# mission/job status updates without it. Defaults to SECRET_KEY so a value always
+# exists; override with a dedicated secret in production.
+CONTAINER_WEBHOOK_SECRET = env.str("CONTAINER_WEBHOOK_SECRET", default=SECRET_KEY)
+# Whether a valid signature is mandatory. Off by default in DEBUG so local
+# containers built before this change still work; required in production.
+WEBHOOK_SIGNATURE_REQUIRED = env.bool("WEBHOOK_SIGNATURE_REQUIRED", default=not DEBUG)
+
 # Validate GitHub App configuration in production
 if not DEBUG and GITHUB_APP_NAME and GITHUB_CLIENT_ID != "dummy_client_id":
     from pathlib import Path
