@@ -108,7 +108,7 @@ def mark_notification_read(request: HttpRequest, notification_id: str) -> MarkRe
         logger.error(f"Error marking notification as read: {e}")
         return MarkReadResponse(
             success=False,
-            message=f"Error: {str(e)}"
+            message="An internal error occurred"
         )
 
 
@@ -143,7 +143,7 @@ def mark_all_read(request: HttpRequest) -> MarkReadResponse:
         logger.error(f"Error marking all notifications as read: {e}")
         return MarkReadResponse(
             success=False,
-            message=f"Error: {str(e)}"
+            message="An internal error occurred"
         )
 
 
@@ -177,5 +177,5 @@ def delete_notification(request: HttpRequest, notification_id: str) -> MarkReadR
         logger.error(f"Error deleting notification: {e}")
         return MarkReadResponse(
             success=False,
-            message=f"Error: {str(e)}"
+            message="An internal error occurred"
         )

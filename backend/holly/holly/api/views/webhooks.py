@@ -92,5 +92,6 @@ def receive_container_webhook(request: HttpRequest, payload: WebhookPayload) -> 
 
     except Exception as e:
         logger.exception(f"Error processing webhook: {e}")
-        return {"success": False, "error": str(e)}
+        # Don't echo internal exception details back to the caller.
+        return {"success": False, "error": "internal error"}
 
