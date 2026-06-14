@@ -570,27 +570,20 @@ class WebhookHandler:
 
         logger.info(f"PR created for mission {mission.id}: #{pr_number} at {pr_url}")
 
-        # Update mission with PR information
-        if not hasattr(mission, 'metadata') or mission.metadata is None:
+        # Append PR information to the mission's metadata (now a real model field).
+        if mission.metadata is None:
             mission.metadata = {}
-
-        # Store PR information in mission metadata
-        if "pull_requests" not in mission.metadata:
-            mission.metadata["pull_requests"] = []
-
-        mission.metadata["pull_requests"].append({
+        mission.metadata.setdefault("pull_requests", []).append({
             "pr_number": pr_number,
             "pr_url": pr_url,
             "state": pr_state,
             "created_at": timezone.now().isoformat(),
-            "job_id": job_id
+            "job_id": job_id,
         })
 
-        # Store the most recent PR in dedicated fields if they exist
-        if hasattr(mission, 'pull_request_url'):
-            mission.pull_request_url = pr_url
-        if hasattr(mission, 'pull_request_number'):
-            mission.pull_request_number = pr_number
+        # Store the most recent PR in dedicated fields.
+        mission.pull_request_url = pr_url or ""
+        mission.pull_request_number = pr_number
 
         # Auto-stop container after successful PR creation (pause/reset, not complete)
         if mission.container_id:
