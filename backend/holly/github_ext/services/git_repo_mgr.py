@@ -8,7 +8,12 @@ from git import GitCommandError
 from loguru import logger
 
 from holly.github_ext.exceptions import GitHubService403Error
-from holly.github_ext.helpers import authenticated_github_url, error_if_bare_repo, remove_readonly
+from holly.github_ext.helpers import (
+    error_if_bare_repo,
+    github_auth_env,
+    remove_readonly,
+    tokenless_github_url,
+)
 
 
 class GitRepositoryManager:
@@ -27,6 +32,9 @@ class GitRepositoryManager:
         if clone_path.exists():
             try:
                 repo_obj = git.Repo(clone_path)
+                # Authenticate fetches via GIT_ASKPASS rather than a token in the
+                # remote URL / .git/config.
+                repo_obj.git.update_environment(**github_auth_env(self.token))
                 error_if_bare_repo(repo_obj)
                 self._fetch_latest_changes(repo_obj)
             except (git.exc.GitCommandError, git.exc.InvalidGitRepositoryError) as e:
@@ -57,10 +65,18 @@ class GitRepositoryManager:
 
     def _clone_repo(self) -> git.Repo:
         clone_path = self.repo_path.resolve()
-        repo_url = authenticated_github_url(self.username, self.repo, self.token)
+        # Clone from a tokenless URL and supply the token via GIT_ASKPASS so the
+        # secret is never written into the remote URL or the repo's .git/config.
+        repo_url = tokenless_github_url(self.username, self.repo)
+        auth_env = github_auth_env(self.token)
         shutil.rmtree(str(clone_path), ignore_errors=True, onerror=remove_readonly)
         logger.info(f"Cloning repository from {self.username}/{self.repo} to {clone_path}")
-        return git.Repo.clone_from(repo_url, str(clone_path), multi_options=["--depth=1"])
+        repo_obj = git.Repo.clone_from(
+            repo_url, str(clone_path), env=auth_env, multi_options=["--depth=1"]
+        )
+        # Persist the auth env on the repo object for subsequent fetch/pull calls.
+        repo_obj.git.update_environment(**auth_env)
+        return repo_obj
 
     def delete_repo(self):
         """Delete the local repository."""

@@ -69,3 +69,27 @@ def remove_readonly(func, path: str, excinfo):
 
 def authenticated_github_url(username: str, repo: str, token: str):
     return f"https://{token}@github.com/{username}/{repo}.git"
+
+
+# Path to the askpass helper used to supply the token via GIT_ASKPASS rather than
+# embedding it in the clone URL / .git/config.
+GIT_ASKPASS_SCRIPT = str(Path(__file__).resolve().parent / "git_askpass.sh")
+
+
+def github_auth_env(token: str) -> dict[str, str]:
+    """Build a git environment that authenticates via GIT_ASKPASS.
+
+    Using GIT_ASKPASS keeps the token out of the remote URL and the persisted
+    .git/config (and out of process args/logs), while still working for the
+    initial clone and subsequent fetch/pull operations.
+    """
+    return {
+        "GIT_ASKPASS": GIT_ASKPASS_SCRIPT,
+        "GIT_PASSWORD": token,
+        "GIT_TERMINAL_PROMPT": "0",
+    }
+
+
+def tokenless_github_url(username: str, repo: str) -> str:
+    """HTTPS URL with only the username component (no secret) for the origin."""
+    return f"https://x-access-token@github.com/{username}/{repo}.git"
