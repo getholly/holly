@@ -129,17 +129,26 @@ def list_installations(request: HttpRequest) -> dict[str, Any]:
 )
 def create_pull_request(request: HttpRequest, mission_conversation_id: str) -> dict[str, Any]:
     """Create a pull request for a mission conversation."""
-    conversation = get_object_or_404(MissionConversation, id=mission_conversation_id)
+    # Scope to the requesting user's missions to prevent acting on another user's
+    # mission/repository (IDOR).
+    conversation = get_object_or_404(
+        MissionConversation.objects.select_related("mission"),
+        id=mission_conversation_id,
+        mission__owner=request.user,
+    )
     mission = conversation.mission
-    repo_detail = mission.repositories.first()
+    # repositories is an M2M to MissionRepos; the owner/repo live on the related
+    # RepositoryDetail, not on MissionRepos itself.
+    repo_detail = mission.repositories.select_related("repository").first()
     if repo_detail is None:
         logger.error("No repository associated with mission")
         return {"url": "", "number": 0}
 
+    repository = repo_detail.repository
     app_service = GitHubAppService(request.user)
     pr = app_service.create_pull_request(
-        owner=repo_detail.username,
-        repo=repo_detail.repo,
+        owner=repository.username,
+        repo=repository.repo,
         head_branch=conversation.title,
         base_branch=repo_detail.branch_name,
         title=f"Auto PR for {conversation.title}",

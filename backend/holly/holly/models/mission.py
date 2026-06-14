@@ -224,7 +224,7 @@ class Mission(models.Model):
             "state": self.state,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
-            "owner": self.owner.username,
+            "owner": self.owner.name or self.owner.email,
             "repositories": list(self.repositories.values_list("repository__repo_name", flat=True)),
             "branch_name": self.branch_name,
         }

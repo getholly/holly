@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from ninja import Router
+from ninja.pagination import paginate
 from ninja_jwt.authentication import JWTAuth
 
 from holly.holly.api.schemas import KnowledgeSchema
@@ -9,8 +10,14 @@ router = Router(auth=JWTAuth())
 
 
 @router.get("/", response=list[KnowledgeSchema])
+@paginate
 def list_knowledge(request):
-    """List all Knowledge items."""
+    """List Knowledge items.
+
+    Knowledge is a global, system-managed catalog (populated via the
+    ``populate knowledge`` command) and is not user-scoped, so it is returned to
+    every authenticated user. Paginated to bound the response size.
+    """
     return Knowledge.objects.all()
 
 

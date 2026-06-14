@@ -5,6 +5,7 @@ Views for the Holly App
 import json
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpRequest, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
@@ -31,8 +32,11 @@ def get_holly_credentials(request: HttpRequest) -> JsonResponse:
     """
     user = request.user
 
-    # Get available LLMs
-    available_llms = list(LLM.objects.values("id", "name"))
+    # Get available LLMs: system LLMs plus this user's own custom LLMs only
+    # (do not expose other users' private LLM configurations).
+    available_llms = list(
+        LLM.objects.filter(Q(is_system=True) | Q(user=user)).values("id", "name")
+    )
 
     # Get avatar URL if available
     avatar_url = ""
@@ -44,7 +48,9 @@ def get_holly_credentials(request: HttpRequest) -> JsonResponse:
     # Return user info and authentication details needed by the frontend
     return JsonResponse(
         {
-            "username": user.username,
+            # The custom User model has no username field (email is the identifier);
+            # expose the display name, falling back to email.
+            "username": user.name or user.email,
             "email": user.email,
             "is_authenticated": user.is_authenticated,
             "csrf_token": request.META.get("CSRF_COOKIE", ""),
