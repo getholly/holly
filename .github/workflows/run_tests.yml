@@ -1,6 +1,9 @@
 name: Run Django Tests
 
 # Triggers for workflow
+permissions:
+  contents: read
+
 'on':
   push:
     branches: ['*']
