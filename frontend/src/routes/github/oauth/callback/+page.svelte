@@ -5,6 +5,7 @@
   import { goto } from "$app/navigation";
   import { handleGitHubOAuthCallback } from "$lib/apis/users/github-oauth";
   import { navigateToAdvanced } from "$components";
+  import { safeRedirectPath } from "$lib/utils/safeRedirect";
 
   let isProcessing = true;
   let success = false;
@@ -44,7 +45,8 @@
       accountInfo = response.account_info;
 
       if (response.redirect_url) {
-        redirectUrl = response.redirect_url;
+        // Only honor safe, same-origin internal paths (prevents open redirect).
+        redirectUrl = safeRedirectPath(response.redirect_url, "/github/connect");
       }
 
       if (!success) {
