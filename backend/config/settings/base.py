@@ -90,8 +90,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "config.urls"
 
-# Configuration for django-eventstream
-EVENTSTREAM_ALLOW_ORIGIN = "*"
+# Configuration for django-eventstream. Defaults to "*" for local dev; deployed
+# settings (production/develop) should scope this to the known frontend origin.
+EVENTSTREAM_ALLOW_ORIGIN = env.str("EVENTSTREAM_ALLOW_ORIGIN", default="*")
 
 # MEDIA
 # ------------------------------------------------------------------------------
@@ -351,7 +352,10 @@ from .holly import *  # noqa: F403, E402
 # Celery settings with RabbitMQ as broker and Redis as result backend
 CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", default="amqp://guest:guest@localhost:5672//")
 CELERY_REDIS_PASSWORD = env.str("CELERY_REDIS_PASSWORD", default="")
-CELERY_RESULT_BACKEND = env.str("CELERY_RESULT_BACKEND", default=f"redis://{CELERY_REDIS_PASSWORD}@localhost:6379/2")
+# Build the default result backend without a stray "@" when no password is set
+# (redis://@host is malformed); a password becomes redis://:<pw>@host.
+_redis_auth = f":{CELERY_REDIS_PASSWORD}@" if CELERY_REDIS_PASSWORD else ""
+CELERY_RESULT_BACKEND = env.str("CELERY_RESULT_BACKEND", default=f"redis://{_redis_auth}localhost:6379/2")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
@@ -361,6 +365,14 @@ CELERY_ENABLE_UTC = True
 # Task execution settings
 CELERY_TASK_SOFT_TIME_LIMIT = 600  # 10 minutes soft limit
 CELERY_TASK_TIME_LIMIT = 900  # 15 minutes hard limit
+
+# Reliability: don't lose tasks on worker crash, retry broker on startup, and
+# expire results so the backend doesn't grow unbounded.
+CELERY_TASK_ACKS_LATE = True
+CELERY_TASK_REJECT_ON_WORKER_LOST = True
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_RESULT_EXPIRES = 60 * 60 * 24  # 1 day
+CELERY_WORKER_PREFETCH_MULTIPLIER = 1
 
 # Result backend settings for django-celery-results
 CELERY_RESULT_EXTENDED = True

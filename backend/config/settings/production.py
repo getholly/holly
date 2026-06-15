@@ -154,6 +154,9 @@ SECURE_HSTS_PRELOAD = True  # Allow your site to be included in HSTS preload lis
 DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5 MB (adjust as needed)
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5 MB (adjust as needed)
 
+# Scope the SSE event stream to the known frontend origin instead of "*".
+EVENTSTREAM_ALLOW_ORIGIN = env.str("EVENTSTREAM_ALLOW_ORIGIN", default="https://getholly.ai")
+
 CORS_ALLOWED_ORIGINS = ["https://getholly.ai", "https://www.getholly.ai", "https://static.getholly.ai"]
 # Single-label subdomains only (avoid matching dots so attacker-controlled
 # multi-level hosts like evil.attacker.getholly.ai are not trusted with credentials).
