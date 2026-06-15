@@ -279,9 +279,7 @@ class GitHubOAuthService:
             # installation cleanup, primary-account bookkeeping) atomically so a
             # mid-flow failure cannot leave a half-linked account.
             with transaction.atomic():
-                return self._persist_github_account(
-                    user, access_token, github_user_data, token_data, github_login, github_id
-                )
+                return self._persist_github_account(user, access_token, github_user_data, token_data)
 
         except ValueError:
             raise
@@ -295,9 +293,9 @@ class GitHubOAuthService:
         access_token: str,
         github_user_data: dict[str, Any],
         token_data: dict[str, Any],
-        github_login: str,
-        github_id: str,
     ) -> UserGitHubAccount | None:
+        github_login = github_user_data.get("login")
+        github_id = str(github_user_data.get("id"))
         # Get or create SocialApp for GitHub
         social_app, _ = SocialApp.objects.get_or_create(
             provider="github",
@@ -343,7 +341,6 @@ class GitHubOAuthService:
         )
 
         # Create or update UserGitHubAccount
-        is_first_account = not UserGitHubAccount.objects.filter(user=user, is_active=True).exists()
 
         existing_account = UserGitHubAccount.objects.filter(social_account=social_account).first()
 
