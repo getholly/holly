@@ -1,3 +1,10 @@
+# Bound per-container log files so they can't fill the host disk.
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   frontend:
     image: holly-frontend:latest
@@ -7,6 +14,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     restart: always
+    logging: *default-logging
     ports:
       - '3000:80'
     depends_on:
@@ -23,6 +31,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     restart: always
+    logging: *default-logging
     volumes:
       # NOTE: the SQLite bind mount is only used when DATABASE_URL is unset.
       # Set DATABASE_URL=postgres://...@db:5432/holly in .env.production to use the
@@ -57,6 +66,7 @@ services:
   db:
     image: postgres:16-alpine
     restart: always
+    logging: *default-logging
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-holly}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-holly}
@@ -75,6 +85,7 @@ services:
     volumes:
       - redis_data:/data
     restart: always
+    logging: *default-logging
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -91,6 +102,7 @@ services:
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER:-holly}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS:-holly}
     restart: always
+    logging: *default-logging
     healthcheck:
       test: ["CMD", "rabbitmqctl", "status"]
       interval: 10s
@@ -104,6 +116,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     restart: always
+    logging: *default-logging
     command: /app/.venv/bin/celery -A config worker --loglevel=info
     environment:
       - DJANGO_DEBUG=False
@@ -123,6 +136,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     restart: always
+    logging: *default-logging
     command: /app/.venv/bin/celery -A config beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info
     environment:
       - DJANGO_DEBUG=False
