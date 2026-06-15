@@ -892,7 +892,8 @@ def stream_clone_status(request: HttpRequest, mission_id: str):
 
         except Exception as e:
             logger.error(f"Error in SSE stream for mission {mission_id}: {e!s}")
-            yield f"data: {json.dumps({'error': str(e)})}\n\n"
+            # Do not leak internal exception text to the client.
+            yield f"data: {json.dumps({'error': 'stream error'})}\n\n"
         finally:
             # Clean up
             pubsub.unsubscribe(channel)
@@ -969,7 +970,9 @@ def stream_job_status(request: HttpRequest, mission_id: UUID, job_id: str):
 
         except Exception as e:
             logger.error(f"Error in SSE stream for job {job_id}: {e!s}")
-            yield f'data: {{"error": "{str(e)}"}}\n\n'
+            # Generic, JSON-encoded message: never interpolate raw exception text
+            # (avoids event-stream/JSON injection and internal-detail disclosure).
+            yield f"data: {json.dumps({'error': 'stream error'})}\n\n"
         finally:
             # Clean up
             pubsub.unsubscribe(channel)

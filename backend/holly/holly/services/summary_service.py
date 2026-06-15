@@ -101,7 +101,9 @@ def generate_title_summary(text: str, user: User, llm: LLM | None = None) -> (st
         A 5 to 10 word summary of ``text``
         A Valid branch name
     """
-    api_key = "sk-secret"
+    # Default to an empty key (consistent with the async path); a key-shaped
+    # placeholder risks leaking into logs/provider errors.
+    api_key = ""
     try:
         if llm is None:
             llm = LLM.objects.get(name=LLM_SUMMARY_GENERATOR)

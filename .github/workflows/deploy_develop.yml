@@ -1,4 +1,7 @@
 name: Docker Compose Deployment(develop branch only)
+permissions:
+  contents: read
+
 on:
   push:
     branches: [develop]

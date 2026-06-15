@@ -6,7 +6,6 @@
     login as storeLogin,
     loginEmail,
   } from "$lib/store/auth/tokens.store";
-  import Cookies from "js-cookie";
   import { loginUser, getUserDetails } from "$lib/apis/auth/api.auth";
   import { setAccessToken } from "$lib/apis/api.config";
 

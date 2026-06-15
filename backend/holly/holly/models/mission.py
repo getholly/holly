@@ -49,6 +49,12 @@ class MissionRepos(models.Model):
     class Meta:
         verbose_name = _("MissionRepos")
         verbose_name_plural = _("MissionRepos")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["repository", "branch_name"],
+                name="unique_repository_branch",
+            ),
+        ]
 
 
 class Mission(models.Model):
@@ -170,6 +176,26 @@ class Mission(models.Model):
         help_text=_("List of active async jobs"),
     )
 
+    # Pull request tracking (populated from container webhooks)
+    pull_request_url = models.URLField(
+        _("Pull Request URL"),
+        blank=True,
+        default="",
+        help_text=_("URL of the most recently created pull request"),
+    )
+    pull_request_number = models.IntegerField(
+        _("Pull Request Number"),
+        blank=True,
+        null=True,
+        help_text=_("Number of the most recently created pull request"),
+    )
+    metadata = models.JSONField(
+        _("Metadata"),
+        default=dict,
+        blank=True,
+        help_text=_("Additional mission metadata, e.g. the list of created pull requests"),
+    )
+
     # Knowledge and tools
     knowledge_items = models.ManyToManyField(
         Knowledge,
@@ -224,7 +250,7 @@ class Mission(models.Model):
             "state": self.state,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
-            "owner": self.owner.username,
+            "owner": self.owner.name or self.owner.email,
             "repositories": list(self.repositories.values_list("repository__repo_name", flat=True)),
             "branch_name": self.branch_name,
         }

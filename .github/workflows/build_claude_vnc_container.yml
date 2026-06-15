@@ -1,5 +1,9 @@
 name: Build Claude VNC Container
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   push:
     branches: [main, develop]

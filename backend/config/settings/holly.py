@@ -33,5 +33,8 @@ HOLLY_NOVNC_DEFAULT_PASSWORD = os.environ.get("HOLLY_NOVNC_DEFAULT_PASSWORD", "v
 # Caddy reverse proxy settings
 CADDY_API_URL = os.environ.get("CADDY_API_URL", "http://caddy:2019")
 CADDY_DOMAIN_SUFFIX = os.environ.get("CADDY_DOMAIN_SUFFIX", "example.com")
+# Only allow Caddy upstreams within the container network. This prevents the
+# /caddy/map endpoint from being abused to proxy to internal/metadata addresses (SSRF).
+CADDY_ALLOWED_UPSTREAM_NETWORK = os.environ.get("CADDY_ALLOWED_UPSTREAM_NETWORK", HOLLY_SUBNET)
 # Working directory for aiagents webserver inside the container
 HOLLY_WORKING_DIRECTORY = os.environ.get("HOLLY_WORKING_DIRECTORY", "/data")

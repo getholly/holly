@@ -13,14 +13,16 @@ DEFAULT_LOG_FORMAT = (
 def setup_logging(error_log_path: str) -> None:
     logger.remove()
 
+    # diagnose/backtrace dump local variable values (incl. secrets) into tracebacks;
+    # only enable them in DEBUG so production logs do not leak sensitive data.
     logger.add(
         sink=error_log_path,
         level="DEBUG",
         rotation="10 MB",
         retention="7 days",
         compression="zip",
-        backtrace=True,
-        diagnose=True,
+        backtrace=settings.DEBUG,
+        diagnose=settings.DEBUG,
         enqueue=True,
         serialize=True,
     )
@@ -29,8 +31,9 @@ def setup_logging(error_log_path: str) -> None:
         sys.stdout,
         level="DEBUG" if settings.DEBUG else "INFO",
         format=DEFAULT_LOG_FORMAT,
-        backtrace=True,
-        diagnose=True,
+        backtrace=settings.DEBUG,
+        diagnose=settings.DEBUG,
+        enqueue=True,
     )
 
 

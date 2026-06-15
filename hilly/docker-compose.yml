@@ -34,7 +34,15 @@ services:
       #- ./data:/data  # Mount ./data from host to /data in container
       #- /var/log/supervisor:/var/log/supervisor  # Mount supervisor logs for easier debugging
     restart: unless-stopped
-    privileged: true  # Add privileged mode to ensure VNC server has necessary permissions
+    # WARNING: privileged grants this container effective root on the Docker host
+    # (container-escape risk). It is required by the Kasm DinD/VNC workspace image,
+    # so it is only acceptable for LOCAL, single-tenant development. Do NOT run this
+    # on a remotely-accessible host or expose it to untrusted users. For hardened
+    # deployments, swap in a non-DinD image and remove this flag (granting only the
+    # specific capabilities VNC needs via cap_add). NOTE: per-mission production
+    # containers (provisioned by HollyContainerService) are NOT started privileged;
+    # this flag only affects this standalone dev compose.
+    privileged: true
     # Uncomment when Redis is needed for ARQ worker:
     # depends_on:
     #   - redis

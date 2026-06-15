@@ -4,7 +4,6 @@ Conversations API endpoints for the Holly app.
 
 import json
 from collections.abc import AsyncGenerator
-from datetime import datetime
 from functools import wraps
 from typing import Any
 from uuid import uuid4
@@ -12,6 +11,7 @@ from uuid import uuid4
 import httpx
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
+from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.http import HttpRequest, HttpResponse, StreamingHttpResponse
 from loguru import logger
@@ -75,10 +75,24 @@ def _mc_for_container_dict(mc: ModelConfig) -> dict:
 async def get_model_config(user: User, llm_id: int, mcp_tools: dict | None = None) -> ModelConfig:
     """Return model configuration for the specified LLM and user."""
 
+    from django.db.models import Q
+
+    # Only allow system models or the user's own custom models — never another
+    # user's private LLM config.
+    allowed = Q(is_system=True)
+    if getattr(user, "is_authenticated", False):
+        allowed |= Q(user=user)
+
     try:
-        llm_model = await LLM.objects.aget(id=llm_id)
+        llm_model = await LLM.objects.filter(allowed).aget(id=llm_id)
     except LLM.DoesNotExist:
-        llm_model = await LLM.objects.aget(name="Holly")  # default
+        # Fall back to the default system model; guard against it being missing
+        # or duplicated rather than surfacing a bare 500.
+        try:
+            llm_model = await LLM.objects.filter(is_system=True).aget(name="Holly")
+        except (LLM.DoesNotExist, LLM.MultipleObjectsReturned) as exc:
+            logger.error(f"Default 'Holly' system LLM is unavailable: {exc}")
+            raise
 
     api_key = ""
     if user.is_authenticated:
@@ -582,6 +596,27 @@ async def send_message_sse(
             while also processing them for database storage and event stream notifications.
             """
             full_content = ""
+            saved = False
+
+            async def _persist_assistant_message() -> None:
+                """Persist the streamed assistant message exactly once (also used on
+                client disconnect so partial output isn't lost)."""
+                nonlocal saved
+                if saved or not full_content.strip():
+                    return
+                try:
+                    await MessageModel.objects.acreate(
+                        id=str(uuid4()),
+                        conversation=mission_conversation,
+                        role="assistant",
+                        content=full_content,
+                    )
+                    mission_conversation.updated_at = timezone.now()
+                    await sync_to_async(mission_conversation.save)()
+                    saved = True
+                except Exception as e:
+                    logger.error(f"{MESSAGE_SAVE_ERROR_MSG}: {e!s}")
+
             try:
                 # Direct streaming to external API without intermediate proxy layer
                 async with httpx.AsyncClient(verify=mcp_client.verify_ssl, timeout=mcp_client.timeout) as client:
@@ -616,17 +651,7 @@ async def send_message_sse(
                                         continue
                                     send_conversation_event(conversation_id, "message", {"text": line})
                                     if line.startswith("data: [DONE]") and full_content:
-                                        try:
-                                            await MessageModel.objects.acreate(
-                                                id=str(uuid4()),
-                                                conversation=mission_conversation,
-                                                role="assistant",
-                                                content=full_content,
-                                            )
-                                            mission_conversation.updated_at = datetime.now()
-                                            await sync_to_async(mission_conversation.save)()
-                                        except Exception as e:
-                                            logger.error(f"{MESSAGE_SAVE_ERROR_MSG}: {e!s}")
+                                        await _persist_assistant_message()
                                     else:
                                         full_content += line[6:]
                                     yield f"{line}\n"
@@ -643,17 +668,7 @@ async def send_message_sse(
 
                             # Save completed message to database
                             if line.startswith("data: [DONE]") and full_content:
-                                try:
-                                    await MessageModel.objects.acreate(
-                                        id=str(uuid4()),
-                                        conversation=mission_conversation,
-                                        role="assistant",
-                                        content=full_content,
-                                    )
-                                    mission_conversation.updated_at = datetime.now()
-                                    await sync_to_async(mission_conversation.save)()
-                                except Exception as e:
-                                    logger.error(f"{MESSAGE_SAVE_ERROR_MSG}: {e!s}")
+                                await _persist_assistant_message()
                             else:
                                 full_content += line[6:]
 
@@ -661,20 +676,21 @@ async def send_message_sse(
                             yield f"{line}\n"
 
             except (httpx.HTTPError, httpx.RequestError) as e:
-                error_msg = f"HTTP error in SSE stream: {e!s}"
-                logger.error(error_msg)
-                yield f'data: {{"error": "Stream interrupted: {error_msg}"}}\n\n'
+                logger.error(f"HTTP error in SSE stream: {e!s}")
+                yield f"data: {json.dumps({'error': 'Stream interrupted'})}\n\n"
                 yield "data: [DONE]\n\n"
             except (json.JSONDecodeError, ValueError) as e:
-                error_msg = f"Data processing error in SSE stream: {e!s}"
-                logger.error(error_msg)
-                yield f'data: {{"error": "Data processing error: {error_msg}"}}\n\n'
+                logger.error(f"Data processing error in SSE stream: {e!s}")
+                yield f"data: {json.dumps({'error': 'Data processing error'})}\n\n"
                 yield "data: [DONE]\n\n"
             except Exception as e:
-                error_msg = f"{SSE_STREAM_ERROR_MSG}: {e!s}"
-                logger.exception(error_msg)
-                yield f'data: {{"error": "Stream interrupted: {error_msg}"}}\n\n'
+                logger.exception(f"{SSE_STREAM_ERROR_MSG}: {e!s}")
+                yield f"data: {json.dumps({'error': 'Stream interrupted'})}\n\n"
                 yield "data: [DONE]\n\n"
+            finally:
+                # On normal completion or client disconnect (GeneratorExit), make
+                # sure any streamed-but-unsaved assistant content is persisted.
+                await _persist_assistant_message()
 
         # Return the SSE response with proper content type and headers
         return StreamingHttpResponse(sse_event_generator(), content_type="text/event-stream", status=200)

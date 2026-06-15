@@ -1,5 +1,6 @@
 import { persistableStore } from "$lib/store/persistable.store";
 import { writable } from "svelte/store";
+import Cookies from "js-cookie";
 
 export const accessToken = persistableStore("accessToken", "");
 export const refreshToken = persistableStore("refreshToken", "");
@@ -17,6 +18,10 @@ export const logout = () => {
   isAuthenticated.set(false);
   userEmail.set("");
   avatarUrl.set("");
+  // Clear any legacy token cookies so credentials don't survive logout.
+  Cookies.remove("accessToken");
+  Cookies.remove("refreshToken");
+  Cookies.remove("session");
 };
 
 export const login = (

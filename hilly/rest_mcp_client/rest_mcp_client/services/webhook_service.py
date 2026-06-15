@@ -1,18 +1,26 @@
 """Webhook service for reporting job status to Django."""
 
+import hashlib
+import hmac
+import json
 import os
 from datetime import datetime
 from typing import Dict, Any, Optional
 import httpx
 from loguru import logger
 
+SIGNATURE_HEADER = "X-Holly-Signature"
+
 
 class WebhookService:
     """Service for sending webhooks to Django."""
-    
+
     def __init__(self):
         self.django_webhook_url = os.getenv("DJANGO_WEBHOOK_URL")
-        
+        # Per-mission token used to HMAC-sign the webhook body so Django can verify
+        # the callback genuinely originated from this container.
+        self.webhook_secret = os.getenv("WEBHOOK_SECRET")
+
     async def send_webhook(
         self, 
         mission_id: str, 
@@ -47,12 +55,22 @@ class WebhookService:
             "data": data,
             "timestamp": datetime.utcnow().isoformat()
         }
-        
+
+        # Serialize once so we sign exactly the bytes we send.
+        body = json.dumps(payload).encode()
+        headers = {"Content-Type": "application/json"}
+        if self.webhook_secret:
+            digest = hmac.new(self.webhook_secret.encode(), body, hashlib.sha256).hexdigest()
+            headers[SIGNATURE_HEADER] = f"sha256={digest}"
+        else:
+            logger.warning("WEBHOOK_SECRET not set; sending unsigned webhook")
+
         try:
             async with httpx.AsyncClient() as client:
                 response = await client.post(
-                    url, 
-                    json=payload, 
+                    url,
+                    content=body,
+                    headers=headers,
                     timeout=10.0
                 )
                 response.raise_for_status()

@@ -37,6 +37,19 @@ class UserGitHubAccount(models.Model):
             ("user", "github_login"),
             ("user", "social_account"),
         ]
+        constraints = [
+            # Enforce at most one primary GitHub account per user at the DB level
+            # (the save() override alone is racy).
+            models.UniqueConstraint(
+                fields=["user"],
+                condition=models.Q(is_primary=True),
+                name="unique_primary_github_account_per_user",
+            ),
+        ]
+        indexes = [
+            models.Index(fields=["user", "is_active"], name="ugha_user_active_idx"),
+            models.Index(fields=["user", "is_primary"], name="ugha_user_primary_idx"),
+        ]
         verbose_name = _("User GitHub Account")
         verbose_name_plural = _("User GitHub Accounts")
 

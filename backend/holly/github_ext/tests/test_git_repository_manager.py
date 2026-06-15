@@ -6,7 +6,7 @@ import pytest
 from git import GitCommandError, InvalidGitRepositoryError
 
 from holly.github_ext.exceptions import GitHubService403Error
-from holly.github_ext.helpers import authenticated_github_url, remove_readonly
+from holly.github_ext.helpers import github_auth_env, remove_readonly, tokenless_github_url
 from holly.github_ext.services.git_repo_mgr import GitRepositoryManager
 
 pytestmark = pytest.mark.django_db
@@ -29,9 +29,17 @@ def test_clone_new_repo(tmp_repo_base):
         manager = GitRepositoryManager(username, repo_name, token, repo_base_path=str(tmp_repo_base))
         clone_path = manager.repo_path
         repo_obj = manager.get_repo()
-        expected_url = authenticated_github_url(username, repo_name, token)
+        # The token must NOT be embedded in the clone URL; it is supplied via the
+        # GIT_ASKPASS environment instead.
+        expected_url = tokenless_github_url(username, repo_name)
 
-        mock_clone_from.assert_called_once_with(expected_url, str(clone_path), multi_options=["--depth=1"])
+        mock_clone_from.assert_called_once_with(
+            expected_url,
+            str(clone_path),
+            env=github_auth_env(token),
+            multi_options=["--depth=1"],
+        )
+        assert token not in expected_url
         assert repo_obj is fake_repo
 
 

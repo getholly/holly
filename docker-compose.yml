@@ -1,3 +1,10 @@
+# Bound per-container log files so they can't fill the host disk.
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   frontend:
     image: holly-frontend:latest
@@ -7,12 +14,14 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     restart: always
+    logging: *default-logging
     ports:
       - '3000:80'
     depends_on:
       - web
     environment:
       - NODE_ENV=production
+    mem_limit: 512m
 
   web:
     image: holly:latest
@@ -22,7 +31,12 @@ services:
       context: .
       dockerfile: ./Dockerfile
     restart: always
+    logging: *default-logging
     volumes:
+      # NOTE: the SQLite bind mount is only used when DATABASE_URL is unset.
+      # Set DATABASE_URL=postgres://...@db:5432/holly in .env.production to use the
+      # shared Postgres service below (recommended; SQLite is single-writer and is
+      # not shared with the Celery workers).
       - type: bind
         source: /home/holly/workarea/holly/db.sqlite3
         target: /app/holly/db.sqlite3
@@ -37,31 +51,64 @@ services:
       - DJANGO_DEBUG=False
       - DJANGO_SETTINGS_MODULE=config.settings.production
       - REPO_BASE_PATH=/holly
+    depends_on:
+      - redis
+      - rabbitmq
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8181/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    mem_limit: 1g
+
+  db:
+    image: postgres:16-alpine
+    restart: always
+    logging: *default-logging
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-holly}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-holly}
+      - POSTGRES_DB=${POSTGRES_DB:-holly}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-holly}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    mem_limit: 1g
 
   redis:
     image: redis:7-alpine
-    #volumes:
-      #- redis_data:/data
+    volumes:
+      - redis_data:/data
     restart: always
+    logging: *default-logging
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 5s
       retries: 5
+    mem_limit: 512m
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    #volumes:
-    #  - rabbitmq_data:/var/lib/rabbitmq
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
     environment:
-      - RABBITMQ_DEFAULT_USER=holly
-      - RABBITMQ_DEFAULT_PASS=holly
+      # Override these via the compose env / .env; defaults are for local use only.
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER:-holly}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS:-holly}
     restart: always
+    logging: *default-logging
     healthcheck:
       test: ["CMD", "rabbitmqctl", "status"]
       interval: 10s
       timeout: 5s
       retries: 5
+    mem_limit: 512m
 
   celery:
     image: holly:latest
@@ -69,22 +116,19 @@ services:
       context: .
       dockerfile: ./Dockerfile
     restart: always
-    #volumes:
-      #- type: bind
-        #source: /home/wandery/workarea/wandery/db.sqlite3
-        #target: /app/db.sqlite3
-      #- /home/wandery/workarea/wandery/logdir:/app/logdir
-      #- /home/wandery/workarea/wandery/import_data:/app/import
-      #- /home/wandery/workarea/wandery/media:/app/media
+    logging: *default-logging
     command: /app/.venv/bin/celery -A config worker --loglevel=info
     environment:
       - DJANGO_DEBUG=False
       - DJANGO_SETTINGS_MODULE=config.settings.production
+      - REPO_BASE_PATH=/holly
     depends_on:
       - redis
       - rabbitmq
+      - db
     env_file:
       - .env.production
+    mem_limit: 1g
 
   celery-beat:
     image: holly:latest
@@ -92,7 +136,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     restart: always
-    #volumes:
+    logging: *default-logging
     command: /app/.venv/bin/celery -A config beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info
     environment:
       - DJANGO_DEBUG=False
@@ -101,6 +145,12 @@ services:
       - redis
       - rabbitmq
       - celery
+      - db
     env_file:
       - .env.production
+    mem_limit: 512m
 
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:

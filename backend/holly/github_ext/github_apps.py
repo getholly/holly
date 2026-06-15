@@ -85,12 +85,16 @@ class GitHubAppIntegration:
         headers = {"Authorization": f"Bearer {jwt_token}", "Accept": "application/vnd.github.v3+json"}
 
         response = requests.post(
-            f"https://api.github.com/app/installations/{installation_id}/access_tokens", headers=headers
+            f"https://api.github.com/app/installations/{installation_id}/access_tokens",
+            headers=headers,
+            timeout=30,
         )
 
         if response.status_code == 201:
             return response.json().get("token")
-        logger.error(f"Failed to get installation token from github: {response.content}/{response.status_code}")
+        # Do not log the raw response body of a token endpoint (may contain
+        # sensitive material); log only the status code.
+        logger.error(f"Failed to get installation token from github (status {response.status_code})")
         return None
 
     def get_installation_url(self, state: str) -> str:

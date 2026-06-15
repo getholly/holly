@@ -19,6 +19,7 @@ import django_eventstream
 from django.conf import settings
 from django.contrib import admin, sitemaps
 from django.contrib.sitemaps.views import sitemap
+from django.http import JsonResponse
 from django.urls import include, path, re_path, reverse
 from django.views import defaults as default_views
 from ninja import NinjaAPI
@@ -39,7 +40,8 @@ api = NinjaAPI(
     title="Holly API",
     version="1.0.0",
     description="API for Holly",
-    docs_url="/docs",
+    # Only expose interactive API docs outside production.
+    docs_url="/docs" if settings.DEBUG else None,
     csrf=not settings.DEBUG,
     auth=JWTAuth(),
 )
@@ -59,7 +61,14 @@ except ImportError:
     pass  # EE not available
 
 
+def healthz(request):
+    """Lightweight liveness endpoint for container/orchestrator healthchecks."""
+    return JsonResponse({"status": "ok"})
+
+
 urlpatterns = [
+    # Liveness probe (used by the docker-compose healthcheck)
+    path("healthz", healthz, name="healthz"),
     # Default JWT views
     path("_api/auth/login/", obtain_token, name="jwt-obtain-token"),
     path("_api/auth/refresh/", refresh_token_sliding, name="jwt-refresh-token"),

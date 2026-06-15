@@ -1,5 +1,8 @@
 name: PR Preview Deployment
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -185,10 +188,11 @@ jobs:
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           #'whsec_3DUIUcRdjFoy8KcsDubl438z5lWU8Idb'
 
-      - name: Check .env.develop
+      - name: Verify .env.develop exists
         working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}
         run: |
-          cat .env.develop
+          # Do NOT cat the env file — it would print all secrets into the build log.
+          test -s .env.develop && echo ".env.develop present ($(wc -l < .env.develop) lines)"
 
       - name: Start preview container
         working-directory: ${{ steps.repo-branch.outputs.CHECKOUT_DIR }}

@@ -202,11 +202,28 @@ class MCPProxyClient:
         # TODO: add model_config to the request
         return await self._make_request("GET", endpoint, params=params)
 
+    def _merge_model_config(self, data: dict[str, Any]) -> dict[str, Any]:
+        """Return a new dict combining the caller's data with the model config.
+
+        Builds a copy rather than mutating the caller's dict (which previously
+        leaked the api_key back into caller-owned data).
+        """
+        return {**data, **self.model_config.model_dump()}
+
+    @staticmethod
+    def _redacted(data: dict[str, Any]) -> dict[str, Any]:
+        """Copy of ``data`` with secret-ish fields masked for logging."""
+        redacted = dict(data)
+        for key in ("api_key", "apikey", "token", "auth_token", "password"):
+            if key in redacted:
+                redacted[key] = "***"
+        return redacted
+
     async def post(self, endpoint: str, data: dict[str, Any], params: dict[str, Any] | None = None) -> Any:
         """Make a POST request to the REST MCP server."""
-        data.update(self.model_config.model_dump())
-        logger.info(f"POSTING {endpoint} with: {data}")
-        return await self._make_request("POST", endpoint, data=data, params=params)
+        payload = self._merge_model_config(data)
+        logger.info(f"POSTING {endpoint} with: {self._redacted(payload)}")
+        return await self._make_request("POST", endpoint, data=payload, params=params)
 
     async def get_sse(self, endpoint: str, params: dict[str, Any] | None = None) -> httpx.Response:
         """
@@ -235,5 +252,5 @@ class MCPProxyClient:
         Returns:
             httpx.Response: The streaming response that can be used with aiter_lines().
         """
-        data.update(self.model_config.model_dump())
-        return await self._make_request("POST", endpoint, data=data, params=params, stream=True)
+        payload = self._merge_model_config(data)
+        return await self._make_request("POST", endpoint, data=payload, params=params, stream=True)

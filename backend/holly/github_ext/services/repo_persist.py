@@ -28,7 +28,7 @@ class RepositoryPersistenceService:
                 subscribers_count=obj.subscribers_count,
                 size=obj.size,
                 topics=obj.topics,
-                file_tree=[FileNode.from_dict(file_node_dict) for file_node_dict in obj.file_tree],
+                file_tree=[FileNode.from_dict(file_node_dict) for file_node_dict in (obj.file_tree or [])],
                 file_count=obj.file_count,
                 languages=obj.languages,
                 readme=obj.readme,

@@ -2,7 +2,7 @@
 from loguru import logger
 
 from .base import *  # noqa: F403
-from .base import INSTALLED_APPS, env
+from .base import INSTALLED_APPS, NINJA_JWT, env
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -14,6 +14,9 @@ SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
     default="!!!SET DJANGO_SECRET_KEY!!!",
 )
+# Re-point the JWT signing key at this environment's SECRET_KEY (NINJA_JWT is
+# built in base.py against base's SECRET_KEY at import time).
+NINJA_JWT["SIGNING_KEY"] = SECRET_KEY
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["app-develop.getholly.ai", ".getholly.ai", "host.docker.internal"])
 
@@ -21,6 +24,13 @@ CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS",
                                 default=["https://develop.getholly.ai", "https://app-develop.getholly.ai",
                                          "https://app-getholly.ai", "https://static.getholly.ai",
                                  "https://*.getholly.ai"])
+
+# DATABASE
+# ------------------------------------------------------------------------------
+# Share one database across web and Celery workers when DATABASE_URL is set.
+DATABASE_URL = env.str("DATABASE_URL", default="")
+if DATABASE_URL:
+    DATABASES = {"default": env.db("DATABASE_URL")}
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -120,7 +130,7 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5 MB (adjust as needed)
 
 CORS_ALLOWED_ORIGINS = env.list("DJANGO_CORS_ALLOWED_ORIGINS",
                                 default=["https://develop.getholly.ai", "https://static-develop.getholly.ai", ])
-CORS_ALLOWED_ORIGIN_REGEXES = [r"https://\+\.getholly\.ai$"]
+CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://[a-z0-9-]+\.getholly\.ai$"]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_SHARED_WORKER = True
 # endregion

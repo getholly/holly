@@ -210,17 +210,27 @@ function initFileExtensionFilter() {
       const listItem = document.createElement('li');
       listItem.className =
         'p-2 text-gray-700 dark:text-gray-100 bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700';
-      listItem.innerHTML = `
-        <label class="flex items-center space-x-2 cursor-pointer">
-          <input type="checkbox"
-                 class="extension-checkbox fb-checkbox"
-                 data-extension="${extInfo.extension}"
-                 data-index="${index}">
-          <span class="flex-grow text-sm">
-            ${readableExtension} - ${extInfo.fileCount}(f), ${extInfo.tokenCount.toLocaleString()}(tok)
-          </span>
-        </label>
-      `;
+
+      // Build via DOM APIs (not innerHTML): extInfo.extension is derived from
+      // repo filenames and is attacker-controllable, so it must never be parsed
+      // as HTML.
+      const label = document.createElement('label');
+      label.className = 'flex items-center space-x-2 cursor-pointer';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.className = 'extension-checkbox fb-checkbox';
+      checkbox.setAttribute('data-extension', extInfo.extension);
+      checkbox.setAttribute('data-index', String(index));
+
+      const span = document.createElement('span');
+      span.className = 'flex-grow text-sm';
+      span.textContent =
+        `${readableExtension} - ${extInfo.fileCount}(f), ${extInfo.tokenCount.toLocaleString()}(tok)`;
+
+      label.appendChild(checkbox);
+      label.appendChild(span);
+      listItem.appendChild(label);
 
       extensionListElement.appendChild(listItem);
     });
