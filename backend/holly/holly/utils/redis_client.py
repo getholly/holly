@@ -12,6 +12,7 @@ class RedisClient:
 
     _instance: Optional['RedisClient'] = None
     _redis_client: Optional[redis.StrictRedis] = None
+    _initialized: bool = False
 
     def __new__(cls):
         if cls._instance is None:
@@ -19,36 +20,35 @@ class RedisClient:
         return cls._instance
 
     def __init__(self):
-        """Initialize Redis client if not already initialized."""
-        if self._redis_client is None:
-            try:
-                self._redis_client = redis.StrictRedis.from_url(
-                    settings.CELERY_RESULT_BACKEND,
-                    decode_responses=True,
-                    socket_connect_timeout=5,
-                    socket_timeout=5,
-                    retry_on_timeout=True,
-                    health_check_interval=30
-                )
-                # Test connection
-                self._redis_client.ping()
-                logger.info("Redis connection established successfully")
-            except (redis.ConnectionError, redis.TimeoutError) as e:
-                logger.warning(f"Redis connection failed: {e}. Real-time features will be disabled.")
-                self._redis_client = None
-            except Exception as e:
-                logger.error(f"Unexpected error connecting to Redis: {e}")
-                self._redis_client = None
+        """Initialize Redis client once. Subsequent constructions are no-ops."""
+        if self._initialized:
+            return
+        type(self)._initialized = True
+        self._connect()
+
+    def _connect(self) -> None:
+        try:
+            self._redis_client = redis.StrictRedis.from_url(
+                settings.CELERY_RESULT_BACKEND,
+                decode_responses=True,
+                socket_connect_timeout=5,
+                socket_timeout=5,
+                retry_on_timeout=True,
+                health_check_interval=30,
+            )
+            # Test connection once at startup (not on every publish).
+            self._redis_client.ping()
+            logger.info("Redis connection established successfully")
+        except (redis.ConnectionError, redis.TimeoutError) as e:
+            logger.warning(f"Redis connection failed: {e}. Real-time features will be disabled.")
+            self._redis_client = None
+        except Exception as e:
+            logger.error(f"Unexpected error connecting to Redis: {e}")
+            self._redis_client = None
 
     def is_available(self) -> bool:
-        """Check if Redis is available."""
-        if self._redis_client is None:
-            return False
-        try:
-            self._redis_client.ping()
-            return True
-        except (redis.ConnectionError, redis.TimeoutError):
-            return False
+        """Whether a client exists. Does NOT round-trip to Redis (no blocking ping)."""
+        return self._redis_client is not None
 
     def publish(self, channel: str, message: Dict[str, Any]) -> bool:
         """
@@ -61,14 +61,20 @@ class RedisClient:
         Returns:
             True if published successfully, False otherwise
         """
-        if not self.is_available():
+        client = self._redis_client
+        if client is None:
             logger.warning(f"Cannot publish to {channel}: Redis not available")
             return False
 
+        # Publish directly and let redis-py's pool reconnect on transient errors;
+        # avoid a pre-publish ping that doubled round-trips and blocked the caller.
         try:
-            self._redis_client.publish(channel, json.dumps(message))
+            client.publish(channel, json.dumps(message))
             logger.debug(f"Published to {channel}: {message}")
             return True
+        except (redis.ConnectionError, redis.TimeoutError) as e:
+            logger.warning(f"Failed to publish to {channel} (connection): {e}")
+            return False
         except Exception as e:
             logger.error(f"Failed to publish to {channel}: {e}")
             return False

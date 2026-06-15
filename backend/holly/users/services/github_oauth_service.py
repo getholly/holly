@@ -10,6 +10,7 @@ from allauth.socialaccount.models import SocialAccount, SocialApp, SocialToken
 from allauth.socialaccount.providers.github.provider import GitHubProvider
 from django.conf import settings
 from django.core.cache import cache
+from django.db import transaction
 from loguru import logger
 from pydantic import BaseModel
 
@@ -31,6 +32,7 @@ class GitHubOAuthService:
 
     def __init__(self, request):
         try:
+            self.request = request
             # Get the GitHub social application
             self.client_id = settings.GITHUB_CLIENT_ID
             self.client_secret = settings.GITHUB_CLIENT_SECRET
@@ -113,6 +115,18 @@ class GitHubOAuthService:
 
             # Clear state from cache
             cache.delete(cache_key)
+
+            # Bind the OAuth state to the authenticated caller: the user who
+            # initiated the flow must be the one completing it. Without this an
+            # attacker could complete a flow against another user's session and
+            # link their GitHub account to the victim (account takeover surface).
+            request_user = getattr(self.request, "user", None)
+            if request_user is not None and getattr(request_user, "is_authenticated", False):
+                if str(request_user.id) != str(state_data.user_id):
+                    logger.warning(
+                        f"OAuth state user mismatch: state={state_data.user_id} request={request_user.id}"
+                    )
+                    return False, "OAuth state does not match the authenticated user", None, None
 
             # Get user
             try:
@@ -261,99 +275,116 @@ class GitHubOAuthService:
                 logger.error("Missing GitHub login or ID in user data")
                 return None
 
-            # Get or create SocialApp for GitHub
-            social_app, _ = SocialApp.objects.get_or_create(
-                provider="github",
-                defaults={
-                    "name": "GitHub",
-                    "client_id": self.client_id,
-                    "secret": self.client_secret,
-                },
-            )
-
-            # Get or create SocialAccount
-            social_account, created = SocialAccount.objects.get_or_create(
-                provider="github",
-                uid=github_id,
-                defaults={
-                    "user": user,
-                    "extra_data": github_user_data,
-                },
-            )
-
-            previous_owner = None
-            if social_account.user and social_account.user != user:
-                previous_owner = social_account.user
-                logger.info(
-                    "Reassigning GitHub social account %s from user %s to user %s",
-                    github_id,
-                    social_account.user_id,
-                    user.id,
+            # Perform all related writes (social account/token reassignment,
+            # installation cleanup, primary-account bookkeeping) atomically so a
+            # mid-flow failure cannot leave a half-linked account.
+            with transaction.atomic():
+                return self._persist_github_account(
+                    user, access_token, github_user_data, token_data, github_login, github_id
                 )
-
-            social_account.user = user
-            social_account.extra_data = github_user_data
-            social_account.save(update_fields=["user", "extra_data"])
-
-            # Create or update SocialToken
-            social_token, _ = SocialToken.objects.update_or_create(
-                account=social_account,
-                app=social_app,
-                defaults={
-                    "token": access_token,
-                    "token_secret": token_data.get("refresh_token", ""),
-                },
-            )
-
-            # Create or update UserGitHubAccount
-            is_first_account = not UserGitHubAccount.objects.filter(user=user, is_active=True).exists()
-
-            existing_account = UserGitHubAccount.objects.filter(social_account=social_account).first()
-
-            if previous_owner and existing_account:
-                GitHubAccountInstallation.objects.filter(user_github_account=existing_account).delete()
-                GitHubAppInstallation.objects.filter(social_account=social_account).delete()
-            active_accounts = UserGitHubAccount.objects.filter(user=user, is_active=True)
-            if existing_account and existing_account.user == user:
-                active_accounts_excluding_current = active_accounts.exclude(pk=existing_account.pk)
-            else:
-                active_accounts_excluding_current = active_accounts
-
-            should_be_primary = not active_accounts_excluding_current.exists()
-
-            if existing_account:
-                old_owner = existing_account.user if existing_account.user != user else None
-                existing_account.user = user
-                existing_account.github_login = github_login
-                existing_account.github_id = github_id
-                existing_account.avatar_url = github_user_data.get("avatar_url", "")
-                existing_account.is_active = True
-                existing_account.is_primary = should_be_primary
-                existing_account.save()
-
-                if old_owner:
-                    self._ensure_primary_account(old_owner)
-
-                github_account = existing_account
-            else:
-                defaults = {
-                    "github_login": github_login,
-                    "github_id": github_id,
-                    "avatar_url": github_user_data.get("avatar_url", ""),
-                    "is_active": True,
-                    "is_primary": should_be_primary,
-                }
-
-                github_account = UserGitHubAccount.objects.create(
-                    user=user,
-                    social_account=social_account,
-                    **defaults,
-                )
-
-            return github_account
 
         except ValueError:
             raise
         except Exception as e:
             logger.error(f"Error creating/updating GitHub account: {e}", exc_info=True)
             return None
+
+    def _persist_github_account(
+        self,
+        user: User,
+        access_token: str,
+        github_user_data: dict[str, Any],
+        token_data: dict[str, Any],
+        github_login: str,
+        github_id: str,
+    ) -> UserGitHubAccount | None:
+        # Get or create SocialApp for GitHub
+        social_app, _ = SocialApp.objects.get_or_create(
+            provider="github",
+            defaults={
+                "name": "GitHub",
+                "client_id": self.client_id,
+                "secret": self.client_secret,
+            },
+        )
+
+        # Get or create SocialAccount
+        social_account, created = SocialAccount.objects.get_or_create(
+            provider="github",
+            uid=github_id,
+            defaults={
+                "user": user,
+                "extra_data": github_user_data,
+            },
+        )
+
+        previous_owner = None
+        if social_account.user and social_account.user != user:
+            previous_owner = social_account.user
+            logger.info(
+                "Reassigning GitHub social account %s from user %s to user %s",
+                github_id,
+                social_account.user_id,
+                user.id,
+            )
+
+        social_account.user = user
+        social_account.extra_data = github_user_data
+        social_account.save(update_fields=["user", "extra_data"])
+
+        # Create or update SocialToken
+        social_token, _ = SocialToken.objects.update_or_create(
+            account=social_account,
+            app=social_app,
+            defaults={
+                "token": access_token,
+                "token_secret": token_data.get("refresh_token", ""),
+            },
+        )
+
+        # Create or update UserGitHubAccount
+        is_first_account = not UserGitHubAccount.objects.filter(user=user, is_active=True).exists()
+
+        existing_account = UserGitHubAccount.objects.filter(social_account=social_account).first()
+
+        if previous_owner and existing_account:
+            GitHubAccountInstallation.objects.filter(user_github_account=existing_account).delete()
+            GitHubAppInstallation.objects.filter(social_account=social_account).delete()
+        active_accounts = UserGitHubAccount.objects.filter(user=user, is_active=True)
+        if existing_account and existing_account.user == user:
+            active_accounts_excluding_current = active_accounts.exclude(pk=existing_account.pk)
+        else:
+            active_accounts_excluding_current = active_accounts
+
+        should_be_primary = not active_accounts_excluding_current.exists()
+
+        if existing_account:
+            old_owner = existing_account.user if existing_account.user != user else None
+            existing_account.user = user
+            existing_account.github_login = github_login
+            existing_account.github_id = github_id
+            existing_account.avatar_url = github_user_data.get("avatar_url", "")
+            existing_account.is_active = True
+            existing_account.is_primary = should_be_primary
+            existing_account.save()
+
+            if old_owner:
+                self._ensure_primary_account(old_owner)
+
+            github_account = existing_account
+        else:
+            defaults = {
+                "github_login": github_login,
+                "github_id": github_id,
+                "avatar_url": github_user_data.get("avatar_url", ""),
+                "is_active": True,
+                "is_primary": should_be_primary,
+            }
+
+            github_account = UserGitHubAccount.objects.create(
+                user=user,
+                social_account=social_account,
+                **defaults,
+            )
+
+        return github_account

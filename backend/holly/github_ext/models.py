@@ -5,7 +5,7 @@ from django.urls import reverse
 
 # Persistence Layer: Django Model
 class RepositoryDetail(models.Model):
-    github_id = models.CharField(max_length=255, null=False, default=0, help_text="github repo id", unique=True)
+    github_id = models.CharField(max_length=255, null=False, help_text="github repo id", unique=True)
     username = models.CharField(max_length=255, help_text="GitHub username/organization")
     repo = models.CharField(max_length=255, help_text="Repository name")
     commit_hash = models.CharField(max_length=40, blank=True)
@@ -22,7 +22,7 @@ class RepositoryDetail(models.Model):
 
     private = models.BooleanField(default=True)
 
-    file_tree = models.JSONField(blank=True)
+    file_tree = models.JSONField(blank=True, default=list)
     file_count = models.IntegerField(default=0)
     # New field to store token counts for files
     file_token_counts = models.JSONField(blank=True, default=dict)

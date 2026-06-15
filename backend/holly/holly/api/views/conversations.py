@@ -75,10 +75,24 @@ def _mc_for_container_dict(mc: ModelConfig) -> dict:
 async def get_model_config(user: User, llm_id: int, mcp_tools: dict | None = None) -> ModelConfig:
     """Return model configuration for the specified LLM and user."""
 
+    from django.db.models import Q
+
+    # Only allow system models or the user's own custom models — never another
+    # user's private LLM config.
+    allowed = Q(is_system=True)
+    if getattr(user, "is_authenticated", False):
+        allowed |= Q(user=user)
+
     try:
-        llm_model = await LLM.objects.aget(id=llm_id)
+        llm_model = await LLM.objects.filter(allowed).aget(id=llm_id)
     except LLM.DoesNotExist:
-        llm_model = await LLM.objects.aget(name="Holly")  # default
+        # Fall back to the default system model; guard against it being missing
+        # or duplicated rather than surfacing a bare 500.
+        try:
+            llm_model = await LLM.objects.filter(is_system=True).aget(name="Holly")
+        except (LLM.DoesNotExist, LLM.MultipleObjectsReturned) as exc:
+            logger.error(f"Default 'Holly' system LLM is unavailable: {exc}")
+            raise
 
     api_key = ""
     if user.is_authenticated:
